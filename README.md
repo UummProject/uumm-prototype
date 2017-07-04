@@ -1,11 +1,11 @@
 _This is a living document updated daily_
 
-# What's thi project about?
+# What's this project about?
 It's a decentralized governance tool for collaborative projects based on the assumption that the percentage of ownership of the project is equal to the percentage of user contribution to the project.
 
 The percentage of ownership translates into the percentage of voting rights as well as the percentage of received income in case the project receives funds.
 
-Value contributed % ==  Voting rights % == Recieved funds %
+** Value contributed % ==  Voting rights % == Recieved funds % **
 
 # Status
 The current goal is to have an MVP running with no fancy features within a couple of weeks (by 18/07/17) Once the MVP is done and tested we will re-think the direction of the project.
