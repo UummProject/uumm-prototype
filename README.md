@@ -1,16 +1,13 @@
-#What's this?
+_This is a living document updated daily_
 
+# What's thi project about?
 It's a decentralized governance tool for collaborative projects based on the assumption that the percentage of ownership of the project is equal to the percentage of user contribution to the project.
 
 The percentage of ownership translates into the percentage of voting rights as well as the percentage of received income in case the project receives funds.
 
 Value contributed % ==  Voting rights % == Recieved funds %
 
-##Would you like to use it?
-It is in Beta but I'm looking for feedback on real world applications. Contact me on twitter @xavivives or email me at xavings@gmail.com
-
-
-#Status
+# Status
 The current goal is to have an MVP running with no fancy features within a couple of weeks (by 18/07/17) Once the MVP is done and tested we will re-think the direction of the project.
 
 - [x] Initial design and sketches
@@ -19,7 +16,6 @@ The current goal is to have an MVP running with no fancy features within a coupl
 - [ ] User interface
 - [ ] Ropsten deployment
 - [ ] Testing and polishing
-
 
 # Tech stack
 The project runs on top of the Ethereum network.
@@ -33,7 +29,6 @@ I'm using the stack I'm currently familiar with. Thinking on a full refactor if 
 I found myself collaborating in projects that started with an idea and grew organically to a more serious stuff.
 
 Common features of these projects are:
-
 - Lack of authority for ultimate decision making.
 - Increase and decrease of the number of participants.
 - No clear monetization strategy or total lack of it.
@@ -50,10 +45,15 @@ I also intend to use it for future projects of mine to incentivise collaboration
 
 I'm new to the Ethereum development, so, this project is an excuse to dig deep into it. As always any input is welcomed.
 
-Aloha
-
-
 # Brainstorming
-Make it ERC20 token compliant.
 
-Got ideas? Contact me on twitter @xavivives or email me at xavings@gmail.com
+- Make it ERC20 token compliant?
+
+Got ideas? 
+Would you like to try it?
+I'm looking for real world use-cases fot test.
+
+Ping me on twitter @xavivives or email me at xavings@gmail.com
+
+
+ALOHA
