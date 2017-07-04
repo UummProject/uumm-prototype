@@ -21,7 +21,7 @@ The current goal is to have an MVP running with no fancy features within a coupl
 - [ ] Testing and polishing
 
 
-#Tech stack
+# Tech stack
 The project runs on top of the Ethereum network.
 This contract (//toLink) is the core of the project.
 Embark as a framework for Ethereum.
@@ -29,20 +29,20 @@ Javascript with ReactJS and Material-UI for the user interface.
 
 I'm using the stack I'm currently familiar with. Thinking on a full refactor if MVP is successful (considering ClojureScript and Truffle)
 
-#Personal motivations
+# Personal motivations
 I found myself collaborating in projects that started with an idea and grew organically to a more serious stuff.
 
 Common features of these projects are:
 
--Lack of authority for ultimate decision making.
--Increase and decrease of the number of participants.
--No clear monetization strategy or total lack of it.
--Interdisciplinary  (Not only software development, harder to track collaborations).
+- Lack of authority for ultimate decision making.
+- Increase and decrease of the number of participants.
+- No clear monetization strategy or total lack of it.
+- Interdisciplinary  (Not only software development, harder to track collaborations).
 
 This translates to:
--No record of contributions, therefore no reputation systems, no incentives to keep participating.
--When governance is implemented in the project, earlier contributions are dismissed or not valued 
--Incapacity to distribute monetary gains fairly (open source project receives a donation).
+- No record of contributions, therefore no reputation systems, no incentives to keep participating.
+- When governance is implemented in the project, earlier contributions are dismissed or not valued 
+- Incapacity to distribute monetary gains fairly (open source project receives a donation).
 
 With this project, I'm trying to solve some of these issues, or at least understand them deeply.
 
@@ -53,7 +53,7 @@ I'm new to the Ethereum development, so, this project is an excuse to dig deep i
 Aloha
 
 
-#Brainstorming
+# Brainstorming
 Make it ERC20 token compliant.
 
 Got ideas? Contact me on twitter @xavivives or email me at xavings@gmail.com
