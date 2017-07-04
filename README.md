@@ -5,7 +5,7 @@ It's a decentralized governance tool for collaborative projects based on the ass
 
 The percentage of ownership translates into the percentage of voting rights as well as the percentage of received income in case the project receives funds.
 
-** Contributed percentage =  Voting rights percentage = Recieved funds percentage**
+**Contributed percentage =  Voting rights percentage = Recieved funds percentage**
 
 # Status
 The current goal is to have an MVP running with no fancy features within a couple of weeks (by 18/07/17) Once the MVP is done and tested we will re-think the direction of the project.
