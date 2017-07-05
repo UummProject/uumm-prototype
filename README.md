@@ -7,6 +7,9 @@ The percentage of ownership translates into the percentage of voting rights as w
 
 **Contributed percentage =  Voting rights percentage = Recieved funds percentage**
 
+This is what an over-simplified flow will look like:
+![Flow overview](https://lh3.googleusercontent.com/PJzWK2AHIIbkXviEMhh9qsvCNX1_6TnuxJekaeM6jEJAk49pHGNYIeMyfgLIwaNCoQLN8v7xWZ_YGlM=w1436-h758-rw)
+
 # Status
 The current goal is to have an MVP running with no fancy features within a couple of weeks (by 18/07/17) Once the MVP is done and tested we will re-think the direction of the project.
 
