@@ -17,7 +17,7 @@ Another approach could be, one token is the amount of effort to do X task. So, t
 The `Total supply` of tokens is zero when a project is created. Every time a contribution request is approved, the `Total supply` increases by the same amount of awarded tokens for the contribution, therefore diluting everyone else's stake.
 
 Accordingly, each user `Contributed Percentage` is based on the `Total supply`:
-`Contributed Percentage = Total supply / User owned tokens´
+`Contributed Percentage = Total supply / User owned tokens`
 
 ### Workflow
 When a contribution has been made, the participant will call the Ethereum contract requesting the desired amount of value tokens.
