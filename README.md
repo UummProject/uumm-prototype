@@ -10,11 +10,11 @@ The percentage of ownership translates into the percentage of voting rights as w
 ### Value tokens
 The system uses `value tokens`. The value of a single token is agreed among the participants, so the system is agnostic to what they represent. Most likely a value reference is necessary for the participants to agree upon.
 
-For example one 'value token' could represent approximately one hour of work.
+For example one `value token` could represent one hour of work.
 
 Another approach could be, one token is the amount of effort to do X task. So, two tokens would be something that would require double the effort.
 
-The `Total supply` of tokens is zero when a project is created. Every time a contribution request is approved, the`Total supply' increases by the same amount of tokens awarded for the contribution, therefore diluting everyone else's stake.
+The `Total supply` of tokens is zero when a project is created. Every time a contribution request is approved, the `Total supply` increases by the same amount of awarded tokens for the contribution, therefore diluting everyone else's stake.
 
 Accordingly, each user `Contributed Percentage` is based on the `Total supply`:
 `Contributed Percentage = Total supply / User owned tokens´
@@ -42,11 +42,10 @@ The current goal is to have an MVP running with no fancy features within a coupl
 
 # Tech stack
 The project runs on top of the Ethereum network.
-~~This contract is the core of the project.~~
 Embark as a framework for Ethereum.
 Javascript with ReactJS and Material-UI for the user interface.
 
-I'm using the stack I'm currently familiar with. Thinking on a full refactor if MVP is successful (considering ClojureScript and Truffle)
+This stack is what I'm currently familiar with, and I'm using a previous project as template to speed up development. Thinking on a full refactor if MVP is successful.
 
 # Personal motivations 
 
@@ -80,7 +79,7 @@ Another important motivation is my intention to use the system for future projec
 # Brainstorming
 - Make it ERC20 token compliant?
 
-Got ideas?
+Got ideas? References I should look up?
 Would you like to try it? (I'm looking for real-world use-cases for testing.)
 
 Ping me on Twitter [@xavivives](https://twitter.com/xavivives)  or email me at xavings@gmail.com
