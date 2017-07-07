@@ -10,6 +10,7 @@ contract DCBG1
         uint256 proposalExpiringTimeInSeconds; 
         uint  totalSupply;
         mapping (address=>int256) balances;
+        mapping (address=>int256) a;
         proposalData [] proposals;
         uint256 [] pendingProposals;
         uint256 pendingProposalsLength;
@@ -45,19 +46,21 @@ contract DCBG1
 
     function CreateProject(string name)  payable
     {
-        if(msg.value == 0)
-            revert();
-
         projectData memory project;
         project.creator = msg.sender;
         project.name = name;
         project.id = projects[msg.sender].length;
-        project.totalSupply = 1;
-        project.balances[msg.sender] = 1;
         project.creationDate = block.timestamp;
         project.concensusThresholdPermil = 618;
-        project.valueRequestPendingProposalsLength = 0;
-        projects.push(project);
+        project.pendingProposalsLength = 0;
+        projects[msg.sender].push(project);
+    }
+    
+    function addValue(address projectCreator, uint256 projectId, address participant, uint256 valueAmount)
+    {
+        projects[projectCreator][projectId].balances[participant]+= valueAmount;
+        projects[projectCreator][projectId].totalSupply += valueAmount;
+        
     }
     
     function CreateRequestValueProposal (address projectCreator, uint256 projectId, string title, string reference, uint256 valueAmount)
@@ -103,3 +106,5 @@ contract DCBG1
         return projects[projectCreator][projectId].pendingProposalsLength;
     }
 }
+    
+    
