@@ -4,19 +4,19 @@ contract DCBG1
 {
     struct projectData
     {
-        address  author;
+        address creator;
         string  name;
         uint256  id;
         uint256 proposalExpiringTimeInSeconds; 
         uint  totalSupply;
         mapping (address=>int256) balances;
-        valueRequestProposalData [] valueRequestProposals;
-        uint256 [] valueRequestPendingProposals;
-        uint256 valueRequestPendingProposalsLength;
+        proposalData [] proposals;
+        uint256 [] pendingProposals;
+        uint256 pendingProposalsLength;
+        uint256 proposalsIndex;
         uint creationDate;
         uint256 concensusThresholdPermil;
     }
-    
     
     enum proposalState
     {
@@ -25,8 +25,9 @@ contract DCBG1
         denied
     }
     
-    struct valueRequestProposalData
+    struct proposalData
     {
+        uint256 id;
         address author;
         string title;
         string reference;
@@ -59,30 +60,46 @@ contract DCBG1
         projects.push(project);
     }
     
-    function RequestValueProposal (address projectCreator, uint256 projectId, string title, string reference, uint256 valueAmount)
+    function CreateRequestValueProposal (address projectCreator, uint256 projectId, string title, string reference, uint256 valueAmount)
     {
-        valueRequestProposalData memory proposal;
+        proposalData memory proposal;
+        proposal.id = projects[projectCreator][projectId].proposalsIndex++;
         proposal.author = msg.sender;
         proposal.title = title;
         proposal.reference = reference;
         proposal.valueAmount = valueAmount;
         proposal.state = proposalState.pending;
-        projects[projectCreator][projectId].valueRequestProposal.push(proposal);
-        projects[projectCreator][projectId].valueRequestPendingProposals[projects[projectCreator][projectId].valueRequestPendingProposalsLength];
+        projects[projectCreator][projectId].proposals.push(proposal);
+        
+        projects[projectCreator][projectId].pendingProposals.push(projects[projectCreator][projectId].proposals.lenght);
+        projects[projectCreator][projectId].pendingProposalsLength ++;
+        
     }
     
-    function GetPendingProposals(address projectCreator, uint256 projectId,)
+    function GetPendingProposal(address projectCreator, uint256 projectId, uint256 pendingIndex, uint256 proposalId) constant
     {
-        for (uint i = 0; i <  projects[projectCreator][projectId].valueRequestProposalsLength; i++)
+        if(projects[projectCreator][projectId].pendingProposals[pendingIndex].id != proposalId)
         {
-            
+            //log error. Some proposal may have been aproved and the index has shifted.
+            throw;
         }
-            
+        return GetProposal(projectCreator, projectId, proposalId);
     }
     
-    function GetPendingProposalsLength(address projectCreator, uint256 projectId)
+    function  GetProposal(address projectCreator, uint256 projectId, uint256 proposalId) constant
+        returns (uint256, address, string, string, uint256, proposalState)
     {
-        return valueRequestProposalsLength;
-            
+        return(
+            projects[projectCreator][projectId].proposals[proposalId].id,
+            projects[projectCreator][projectId].proposals[proposalId].author,
+            projects[projectCreator][projectId].proposals[proposalId].title,
+            projects[projectCreator][projectId].proposals[proposalId].reference,
+            projects[projectCreator][projectId].proposals[proposalId].valueAmount,
+            projects[projectCreator][projectId].proposals[proposalId].state,
+            );
+    }
+    function GetPendingProposalsLength(address projectCreator, uint256 projectId) constant returns (uint256)
+    {
+        return projects[projectCreator][projectId].pendingProposalsLength;
     }
 }
