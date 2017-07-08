@@ -189,7 +189,6 @@ contract DCBG1
              return;
         }  
 
-    >> To review this
         //Deadline has expired
         if (projects[projectCreator][projectId].proposals[proposalId].creationTimestamp + projects[projectCreator][projectId].proposalExpiringTimeInSeconds < block.timestamp)
         {
@@ -203,8 +202,6 @@ contract DCBG1
                 return;
             }
         }
-        
-    
     }
 
     function ApproveProposal (address projectCreator, uint256 projectId, uint256 proposalId, bool approved) private
@@ -220,8 +217,9 @@ contract DCBG1
         }
     }
     
-    //Have proposal reached concensus? positiveVotes/totalSupply > totalNumberOfVotes
-    // or negativeVotes/totalSupply > totalNumberOf
+    //Have proposal reached concensus within current voters?
+    // positiveVotes/totalNumberOfVotes > concensusThresholdPercentage
+    // or negativeVotes/totalNumberOfVotes > concensusThresholdPercentage
     function IsProposalConcensusThresholdReached(address projectCreator, uint256 projectId, uint256 proposalId) constant
         returns (bool)
     {
