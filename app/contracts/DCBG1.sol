@@ -91,15 +91,14 @@ contract DCBG1
         
     }
     
-    function GetPendingProposal(address projectCreator, uint256 projectId, uint256 pendingIndex, uint256 proposalId) constant
-         returns (uint256, address, string, string, uint256, proposalState)
+    function GetProposalsLength(address projectCreator, uint256 projectId) constant returns (uint256)
     {
-        if(projects[projectCreator][projectId].pendingProposals[pendingIndex] != proposalId)
-        {
-            //log error. Some proposal may have been aproved and the index has shifted.
-            revert();
-        }
-        return GetProposal(projectCreator, projectId, proposalId);
+        return projects[projectCreator][projectId].proposals.length;
+    }
+   
+    function GetPendingProposalsLength(address projectCreator, uint256 projectId) constant returns (uint256)
+    {
+        return projects[projectCreator][projectId].pendingProposalsLength;
     }
     
     function  GetProposal(address projectCreator, uint256 projectId, uint256 proposalId) constant
@@ -114,8 +113,32 @@ contract DCBG1
             projects[projectCreator][projectId].proposals[proposalId].state
             );
     }
-    function GetPendingProposalsLength(address projectCreator, uint256 projectId) constant returns (uint256)
+    
+    function GetPendingProposal(address projectCreator, uint256 projectId, uint256 pendingIndex) constant
+         returns (uint256, address, string, string, uint256, proposalState)
     {
-        return projects[projectCreator][projectId].pendingProposalsLength;
+        uint256  proposalId = projects[projectCreator][projectId].pendingProposals[pendingIndex];
+        return GetProposal(projectCreator, projectId, proposalId);
     }
+    
+    function VotePendingProposal(address projectCreator, uint256 projectId, uint256 pendingIndex, uint256 proposalId, bool vote)
+    {
+        if(projects[projectCreator][projectId].balances[msg.sender]== 0)
+            revert();
+            
+        if(projects[projectCreator][projectId].pendingProposals[pendingIndex] != proposalId)
+        {
+            //log error. Another proposal may have been aproved and the index has shifted.
+            revert();
+        }
+        
+        if (projects[projectCreator][projectId].proposals[proposalId].state != proposalState.pending)
+            revert();
+        
+        if(vote)
+            projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] = int256(projects[projectCreator][projectId].balances[msg.sender]);
+        else
+            projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] = -1 * int256(projects[projectCreator][projectId].balances[msg.sender]);
+    }
+    
 }
