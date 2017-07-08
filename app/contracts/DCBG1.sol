@@ -33,7 +33,9 @@ contract DCBG1
         string reference;
         uint256 valueAmount;
         proposalState state;
-        mapping (address=>int256) votes;
+        mapping (address=>int256) votes; //votes can be negative or positive
+        uint256 positiveVotes;
+        uint256 negativeVotes;
         uint creationTimestamp;
     }
 
@@ -121,16 +123,11 @@ contract DCBG1
         return GetProposal(projectCreator, projectId, proposalId);
     }
     
-    function VotePendingProposal(address projectCreator, uint256 projectId, uint256 pendingIndex, uint256 proposalId, bool vote)
+    function VotePendingProposal(address projectCreator, uint256 projectId, uint256 proposalId, bool vote)
     {
+        //Checks
         if(projects[projectCreator][projectId].balances[msg.sender]== 0)
             revert();
-            
-        if(projects[projectCreator][projectId].pendingProposals[pendingIndex] != proposalId)
-        {
-            //log error. Another proposal may have been aproved and the index has shifted.
-            revert();
-        }
         
         if (projects[projectCreator][projectId].proposals[proposalId].state != proposalState.pending)
             revert();
@@ -138,14 +135,48 @@ contract DCBG1
         if (projects[projectCreator][projectId].proposals[proposalId].creationTimestamp + projects[projectCreator][projectId].proposalExpiringTimeInSeconds > block.timestamp)
             revert();
         
+        //Reset the vote if she has voted already. 
+        if(projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] > 0)
+        {
+            projects[projectCreator][projectId].proposals[proposalId].positiveVotes -=  uint256(projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender]);
+            projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] = 0;
+        }
+        else if(projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] < 0)
+        {
+            projects[projectCreator][projectId].proposals[proposalId].negativeVotes -=  uint256(projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender]);
+            projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] = 0;
+        }
+        
+        //Vote
         if(vote)
+        {
+            projects[projectCreator][projectId].proposals[proposalId].positiveVotes += projects[projectCreator][projectId].balances[msg.sender];
             projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] = int256(projects[projectCreator][projectId].balances[msg.sender]);
-        else
+        }
+        else   
+        {
+            projects[projectCreator][projectId].proposals[proposalId].negativeVotes += projects[projectCreator][projectId].balances[msg.sender];
             projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] = -1 * int256(projects[projectCreator][projectId].balances[msg.sender]);
+        }
     }
     
-    function ResolveProposal(address projectCreator, uint256 projectId, uint256 pendingIndex, uint256 proposalId, bool vote)
+    function ResolveProposal(address projectCreator, uint256 projectId, uint256 proposalId, bool vote)
     {
+        if (projects[projectCreator][projectId].proposals[proposalId].state != proposalState.pending)
+            revert();
         
+        //Deadline has expired
+        if (projects[projectCreator][projectId].proposals[proposalId].creationTimestamp + projects[projectCreator][projectId].proposalExpiringTimeInSeconds < block.timestamp)
+            revert();
+    }
+    
+    //Have proposal reached concensus? positiveVotes/totalSupply > concensusThreshold
+    function IsProposalApproved(address projectCreator, uint256 projectId, uint256 proposalId)
+        returns (bool)
+    {
+        if(projects[projectCreator][projectId].proposals[proposalId].positiveVotes / projects[projectCreator][projectId].totalSupply > projects[projectCreator][projectId].concensusThresholdPermil/1000)
+            return true;
+        else
+            return false;
     }
 }
