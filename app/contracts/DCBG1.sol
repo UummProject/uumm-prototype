@@ -164,29 +164,45 @@ contract DCBG1
     }
     
     //Proposal can be resolved in two scenarios:
-    //1- Expiration date has passed, and minimum participation percentage has been reached
-    //2- Concensus is over concensus threshold percentage, and the minimum participation percentage has been reached
+    //1- Concensus is over concensusThresholdPercentage among the all participants.
+    //2- Expiration date has passed, and minimum participation percentage has been reached
+    
     
     function ResolveProposal(address projectCreator, uint256 projectId, uint256 proposalId, bool vote)
     {
-        //anyone can call it
         if (projects[projectCreator][projectId].proposals[proposalId].state != proposalState.pending)
             revert();
             
         if(!IsProposalMinimumParticipationReached (projectCreator, projectId, proposalId))
             revert();
-        
-        if(IsProposalConcensusThresholdReached(projectCreator, projectId, proposalId))
-        {
-            if(projects[projectCreator][projectId].proposals[proposalId].positiveVotes > projects[projectCreator][projectId].proposals[proposalId].negativeVotes)
-                ApproveProposal(projectCreator, projectId, proposalId, true);
-            else
-                ApproveProposal(projectCreator, projectId, proposalId, false);
 
+
+        //Enough contributors had voted
+        if((projects[projectCreator][projectId].proposals[proposalId].positiveVotes / projects[projectCreator][projectId].totalSupply) > projects[projectCreator][projectId].concensusThresholdPercentage)
+        {
+             ApproveProposal(projectCreator, projectId, proposalId, true);
+             return;
         }
+        if((projects[projectCreator][projectId].proposals[proposalId].negativeVotes / projects[projectCreator][projectId].totalSupply) > projects[projectCreator][projectId].concensusThresholdPercentage)
+        {
+             ApproveProposal(projectCreator, projectId, proposalId, false);
+             return;
+        }  
+
+    >> To review this
         //Deadline has expired
         if (projects[projectCreator][projectId].proposals[proposalId].creationTimestamp + projects[projectCreator][projectId].proposalExpiringTimeInSeconds < block.timestamp)
-        {    revert();}
+        {
+            if(IsProposalConcensusThresholdReached(projectCreator, projectId, proposalId))
+            {
+                if(projects[projectCreator][projectId].proposals[proposalId].positiveVotes > projects[projectCreator][projectId].proposals[proposalId].negativeVotes)
+                    ApproveProposal(projectCreator, projectId, proposalId, true);
+                else
+                    ApproveProposal(projectCreator, projectId, proposalId, false);
+
+                return;
+            }
+        }
         
     
     }
@@ -204,8 +220,8 @@ contract DCBG1
         }
     }
     
-    //Have proposal reached concensus? positiveVotes/totalSupply > concensusThreshold
-    // or negativeVotes/totalSupply > concensusThreshold
+    //Have proposal reached concensus? positiveVotes/totalSupply > totalNumberOfVotes
+    // or negativeVotes/totalSupply > totalNumberOf
     function IsProposalConcensusThresholdReached(address projectCreator, uint256 projectId, uint256 proposalId) constant
         returns (bool)
     {
