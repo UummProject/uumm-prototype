@@ -9,8 +9,7 @@ contract DCBG1
         uint256  id;
         uint256 proposalExpiringTimeInSeconds; 
         uint  totalSupply;
-        mapping (address=>int256) balances;
-        mapping (address=>int256) a;
+        mapping (address=>uint256) balances;
         proposalData [] proposals;
         uint256 [] pendingProposals;
         uint256 pendingProposalsLength;
@@ -56,7 +55,7 @@ contract DCBG1
         projects[msg.sender].push(project);
     }
     
-    function addValue(address projectCreator, uint256 projectId, address participant, uint256 valueAmount)
+    function addValueTokens(address projectCreator, uint256 projectId, address participant, uint256 valueAmount) private
     {
         projects[projectCreator][projectId].balances[participant]+= valueAmount;
         projects[projectCreator][projectId].totalSupply += valueAmount;
@@ -65,8 +64,10 @@ contract DCBG1
     
     function CreateRequestValueProposal (address projectCreator, uint256 projectId, string title, string reference, uint256 valueAmount)
     {
+        uint256 proposalId =  projects[projectCreator][projectId].proposals.length;
+        
         proposalData memory proposal;
-        proposal.id = projects[projectCreator][projectId].proposalsIndex++;
+        proposal.id = proposalId;
         proposal.author = msg.sender;
         proposal.title = title;
         proposal.reference = reference;
@@ -74,14 +75,15 @@ contract DCBG1
         proposal.state = proposalState.pending;
         projects[projectCreator][projectId].proposals.push(proposal);
         
-        projects[projectCreator][projectId].pendingProposals.push(projects[projectCreator][projectId].proposals.lenght);
+        projects[projectCreator][projectId].pendingProposals.push(proposalId);
         projects[projectCreator][projectId].pendingProposalsLength ++;
         
     }
     
     function GetPendingProposal(address projectCreator, uint256 projectId, uint256 pendingIndex, uint256 proposalId) constant
+         returns (uint256, address, string, string, uint256, proposalState)
     {
-        if(projects[projectCreator][projectId].pendingProposals[pendingIndex].id != proposalId)
+        if(projects[projectCreator][projectId].pendingProposals[pendingIndex] != proposalId)
         {
             //log error. Some proposal may have been aproved and the index has shifted.
             throw;
@@ -98,7 +100,7 @@ contract DCBG1
             projects[projectCreator][projectId].proposals[proposalId].title,
             projects[projectCreator][projectId].proposals[proposalId].reference,
             projects[projectCreator][projectId].proposals[proposalId].valueAmount,
-            projects[projectCreator][projectId].proposals[proposalId].state,
+            projects[projectCreator][projectId].proposals[proposalId].state
             );
     }
     function GetPendingProposalsLength(address projectCreator, uint256 projectId) constant returns (uint256)
@@ -106,5 +108,3 @@ contract DCBG1
         return projects[projectCreator][projectId].pendingProposalsLength;
     }
 }
-    
-    
