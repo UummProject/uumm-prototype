@@ -14,7 +14,7 @@ contract DCBG1
         uint256 [] pendingProposals;
         uint256 pendingProposalsLength;
         uint256 proposalsIndex;
-        uint creationDate;
+        uint creationTimestamp;
         uint256 concensusThresholdPermil;
     }
     
@@ -34,7 +34,7 @@ contract DCBG1
         uint256 valueAmount;
         proposalState state;
         mapping (address=>int256) votes;
-        uint creationDate;
+        uint creationTimestamp;
     }
 
     mapping (address => projectData[] ) projects;
@@ -60,7 +60,7 @@ contract DCBG1
         projects[msg.sender][projectId].creator = msg.sender;
         projects[msg.sender][projectId].name = name;
         projects[msg.sender][projectId].id = projectId;
-        projects[msg.sender][projectId].creationDate =block.timestamp;
+        projects[msg.sender][projectId].creationTimestamp = block.timestamp;
         projects[msg.sender][projectId].concensusThresholdPermil = 618;
         projects[msg.sender][projectId].pendingProposalsLength = 0;
         
@@ -134,6 +134,9 @@ contract DCBG1
         
         if (projects[projectCreator][projectId].proposals[proposalId].state != proposalState.pending)
             revert();
+            
+        if (projects[projectCreator][projectId].proposals[proposalId].creationTimestamp + projects[projectCreator][projectId].proposalExpiringTimeInSeconds > block.timestamp)
+            revert();
         
         if(vote)
             projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] = int256(projects[projectCreator][projectId].balances[msg.sender]);
@@ -141,4 +144,8 @@ contract DCBG1
             projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] = -1 * int256(projects[projectCreator][projectId].balances[msg.sender]);
     }
     
+    function ResolveProposal(address projectCreator, uint256 projectId, uint256 pendingIndex, uint256 proposalId, bool vote)
+    {
+        
+    }
 }
