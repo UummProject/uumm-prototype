@@ -45,21 +45,32 @@ contract DCBG1
 
     function CreateProject(string name)  payable
     {
-        projectData memory project;
+        /*projectData memory project;
         project.creator = msg.sender;
         project.name = name;
         project.id = projects[msg.sender].length;
         project.creationDate = block.timestamp;
         project.concensusThresholdPermil = 618;
         project.pendingProposalsLength = 0;
+        
         projects[msg.sender].push(project);
+        */
+        
+        uint256 projectId = projects[msg.sender].length;
+        projects[msg.sender][projectId].creator = msg.sender;
+        projects[msg.sender][projectId].name = name;
+        projects[msg.sender][projectId].id = projectId;
+        projects[msg.sender][projectId].creationDate =block.timestamp;
+        projects[msg.sender][projectId].concensusThresholdPermil = 618;
+        projects[msg.sender][projectId].pendingProposalsLength = 0;
+        
+        addValueTokens(msg.sender, projectId, msg.sender, 1); //Creator recieves one single token
     }
     
-    function addValueTokens(address projectCreator, uint256 projectId, address participant, uint256 valueAmount) private
+    function addValueTokens(address projectCreator, uint256 projectId, address contributor, uint256 valueAmount) private
     {
-        projects[projectCreator][projectId].balances[participant]+= valueAmount;
+        projects[projectCreator][projectId].balances[contributor]+= valueAmount;
         projects[projectCreator][projectId].totalSupply += valueAmount;
-        
     }
     
     function CreateRequestValueProposal (address projectCreator, uint256 projectId, string title, string reference, uint256 valueAmount)
@@ -86,7 +97,7 @@ contract DCBG1
         if(projects[projectCreator][projectId].pendingProposals[pendingIndex] != proposalId)
         {
             //log error. Some proposal may have been aproved and the index has shifted.
-            throw;
+            revert();
         }
         return GetProposal(projectCreator, projectId, proposalId);
     }
