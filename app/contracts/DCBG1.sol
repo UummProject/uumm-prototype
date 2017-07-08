@@ -15,14 +15,16 @@ contract DCBG1
         uint256 pendingProposalsLength;
         uint256 proposalsIndex;
         uint creationTimestamp;
-        uint256 concensusThresholdPermil;
+        uint256 concensusThresholdPercentage; //what % of the voting participants (not percentage of contributors) is required for a proposal to be approved
+        uint256 minimumParticipationPercentage; // what % of participation is required to resolve a proposal
     }
     
     enum proposalState
     {
-        pending,
-        approved,
-        denied
+        pending, //ongoing proposal, users can still vote
+        approved, //succesfully resolved proposal, can't be change
+        denied,// denied proposal, can't be changed
+        expired // no minimum participation was reached
     }
     
     struct proposalData
@@ -63,7 +65,8 @@ contract DCBG1
         projects[msg.sender][projectId].name = name;
         projects[msg.sender][projectId].id = projectId;
         projects[msg.sender][projectId].creationTimestamp = block.timestamp;
-        projects[msg.sender][projectId].concensusThresholdPermil = 618;
+        projects[msg.sender][projectId].concensusThresholdPercentage = 62;
+        projects[msg.sender][projectId].minimumParticipationPercentage = 20;
         projects[msg.sender][projectId].pendingProposalsLength = 0;
         
         addValueTokens(msg.sender, projectId, msg.sender, 1); //Creator recieves one single token
@@ -160,21 +163,73 @@ contract DCBG1
         }
     }
     
+    //Proposal can be resolved in two scenarios:
+    //1- Expiration date has passed, and minimum participation percentage has been reached
+    //2- Concensus is over concensus threshold percentage, and the minimum participation percentage has been reached
+    
     function ResolveProposal(address projectCreator, uint256 projectId, uint256 proposalId, bool vote)
     {
+        //anyone can call it
         if (projects[projectCreator][projectId].proposals[proposalId].state != proposalState.pending)
             revert();
+            
+        if(!IsProposalMinimumParticipationReached (projectCreator, projectId, proposalId))
+            revert();
         
+        if(IsProposalConcensusThresholdReached(projectCreator, projectId, proposalId))
+        {
+            if(projects[projectCreator][projectId].proposals[proposalId].positiveVotes > projects[projectCreator][projectId].proposals[proposalId].negativeVotes)
+                ApproveProposal(projectCreator, projectId, proposalId, true);
+            else
+                ApproveProposal(projectCreator, projectId, proposalId, false);
+
+        }
         //Deadline has expired
         if (projects[projectCreator][projectId].proposals[proposalId].creationTimestamp + projects[projectCreator][projectId].proposalExpiringTimeInSeconds < block.timestamp)
-            revert();
+        {    revert();}
+        
+    
+    }
+
+    function ApproveProposal (address projectCreator, uint256 projectId, uint256 proposalId, bool approved) private
+    {
+        if(approved)
+        {
+            projects[projectCreator][projectId].proposals[proposalId].state = proposalState.approved;
+            addValueTokens(projectCreator, projectId, projects[projectCreator][projectId].proposals[proposalId].author, projects[projectCreator][projectId].proposals[proposalId].valueAmount);
+        }
+        else
+        {
+            projects[projectCreator][projectId].proposals[proposalId].state = proposalState.denied;
+        }
     }
     
     //Have proposal reached concensus? positiveVotes/totalSupply > concensusThreshold
-    function IsProposalApproved(address projectCreator, uint256 projectId, uint256 proposalId)
+    // or negativeVotes/totalSupply > concensusThreshold
+    function IsProposalConcensusThresholdReached(address projectCreator, uint256 projectId, uint256 proposalId) constant
         returns (bool)
     {
-        if(projects[projectCreator][projectId].proposals[proposalId].positiveVotes / projects[projectCreator][projectId].totalSupply > projects[projectCreator][projectId].concensusThresholdPermil/1000)
+        if(projects[projectCreator][projectId].proposals[proposalId].positiveVotes > projects[projectCreator][projectId].proposals[proposalId].negativeVotes)
+        {
+             if(projects[projectCreator][projectId].proposals[proposalId].positiveVotes / (projects[projectCreator][projectId].proposals[proposalId].positiveVotes + projects[projectCreator][projectId].proposals[proposalId].negativeVotes) > projects[projectCreator][projectId].concensusThresholdPercentage/100)
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            if(projects[projectCreator][projectId].proposals[proposalId].negativeVotes / (projects[projectCreator][projectId].proposals[proposalId].positiveVotes + projects[projectCreator][projectId].proposals[proposalId].negativeVotes) > projects[projectCreator][projectId].concensusThresholdPercentage/100)
+                return true;
+            else
+                return false;
+        }
+    }
+    
+    
+    function IsProposalMinimumParticipationReached(address projectCreator, uint256 projectId, uint256 proposalId) constant
+        returns (bool)
+    {
+        if((projects[projectCreator][projectId].proposals[proposalId].positiveVotes + projects[projectCreator][projectId].proposals[proposalId].negativeVotes) / projects[projectCreator][projectId].totalSupply > projects[projectCreator][projectId].minimumParticipationPercentage/100)
             return true;
         else
             return false;
