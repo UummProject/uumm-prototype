@@ -1,8 +1,7 @@
 {
   "contracts": ["app/contracts/**"],
   "app": {
-    "js/app.js": ["embark.js"],
-    "js/bot.js": ["app/js/bot.js"]
+    "js/app.js": ["embark.js"]
   },
   "buildDir": "dist/",
   "config": "config/",
