@@ -9,7 +9,11 @@ contract DCBG1
         uint256  id;
         uint256 proposalExpiringTimeInSeconds; 
         uint  totalSupply;
-        mapping (address=>uint256) balances;
+
+        mapping (address=>uint256) contributorsRef; // points address to ContributorData index
+        contributorData [] contributors;
+
+
         proposalData [] proposals;
         uint256 [] pendingProposals;
         uint256 pendingProposalsLength;
@@ -33,12 +37,21 @@ contract DCBG1
         address author;
         string title;
         string reference;
-        uint256 valueAmount;
+        uint256 valueAmount; 
         proposalState state;
         mapping (address=>int256) votes; //votes can be negative or positive
         uint256 positiveVotes;
         uint256 negativeVotes;
         uint creationTimestamp;
+    }
+    struct contributorData
+    {
+        address contributorAddress;
+        string name;
+        uint256 valueTokens;
+        uint256 ethereumBalance;
+        proposalState state;
+        uint256 [] proposalsRef ;
     }
 
     mapping (address => projectData[] ) projects;
@@ -69,12 +82,17 @@ contract DCBG1
         projects[msg.sender][projectId].minimumParticipationPercentage = 20;
         projects[msg.sender][projectId].pendingProposalsLength = 0;
         
+        contributorData memory emptyContributor;
+        projects[msg.sender][projectId].contributors[0] = emptyContributor ; //We set it to zero to ensure that a none registered address defaults to it
+        
         addValueTokens(msg.sender, projectId, msg.sender, 1); //Creator recieves one single token
     }
     
+    //CRITICAL
     function addValueTokens(address projectCreator, uint256 projectId, address contributor, uint256 valueAmount) private
     {
-        projects[projectCreator][projectId].balances[contributor]+= valueAmount;
+        uint256 contributorIndex  =   projects[projectCreator][projectId].contributorsRef[contributor];
+        projects[projectCreator][projectId].contributors[contributorIndex].valueTokens += valueAmount;
         projects[projectCreator][projectId].totalSupply += valueAmount;
     }
     
@@ -93,6 +111,9 @@ contract DCBG1
         
         projects[projectCreator][projectId].pendingProposals.push(proposalId);
         projects[projectCreator][projectId].pendingProposalsLength ++;
+
+        uint256 contributorIndex  =   projects[projectCreator][projectId].contributorsRef[msg.sender];
+        projects[projectCreator][projectId].contributors[contributorIndex].proposalsRef.push(proposalId);
         
     }
     
@@ -126,10 +147,12 @@ contract DCBG1
         return GetProposal(projectCreator, projectId, proposalId);
     }
     
+    //CRITICAL
     function VotePendingProposal(address projectCreator, uint256 projectId, uint256 proposalId, bool vote)
     {
+         uint256 contributorIndex  =   projects[projectCreator][projectId].contributorsRef[msg.sender];
         //Checks
-        if(projects[projectCreator][projectId].balances[msg.sender]== 0)
+        if(projects[projectCreator][projectId].contributors[contributorIndex].valueTokens == 0)
             revert();
         
         if (projects[projectCreator][projectId].proposals[proposalId].state != proposalState.pending)
@@ -153,16 +176,17 @@ contract DCBG1
         //Vote
         if(vote)
         {
-            projects[projectCreator][projectId].proposals[proposalId].positiveVotes += projects[projectCreator][projectId].balances[msg.sender];
-            projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] = int256(projects[projectCreator][projectId].balances[msg.sender]);
+            projects[projectCreator][projectId].proposals[proposalId].positiveVotes += projects[projectCreator][projectId].contributors[contributorIndex].valueTokens;
+            projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] = int256(projects[projectCreator][projectId].contributors[contributorIndex].valueTokens);
         }
         else   
         {
-            projects[projectCreator][projectId].proposals[proposalId].negativeVotes += projects[projectCreator][projectId].balances[msg.sender];
-            projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] = -1 * int256(projects[projectCreator][projectId].balances[msg.sender]);
+            projects[projectCreator][projectId].proposals[proposalId].negativeVotes += projects[projectCreator][projectId].contributors[contributorIndex].valueTokens;
+            projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] = -1 * int256(projects[projectCreator][projectId].contributors[contributorIndex].valueTokens);
         }
     }
     
+    //Anyone can resolve the proposal
     //Proposal can be resolved in two scenarios:
     //1- Concensus is over concensusThresholdPercentage among the all participants.
     //2- Expiration date has passed, and minimum participation percentage has been reached
@@ -247,5 +271,14 @@ contract DCBG1
             return true;
         else
             return false;
+    }
+    
+    function FundProject(address projectCreator, uint256 projectId) constant
+    {
+        /*if (msg.value == 0)
+            revert;
+
+        for (var i = 0; i < projects[projectCreator][projectId].proposals.contributionBalances)
+        */
     }
 }
