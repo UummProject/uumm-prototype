@@ -9,11 +9,8 @@ contract DCBG1
         uint256  id;
         uint256 proposalExpiringTimeInSeconds; 
         uint  totalSupply;
-
         mapping (address=>uint256) contributorsRef; // points address to ContributorData index
         contributorData [] contributors;
-
-
         proposalData [] proposals;
         uint256 [] pendingProposals;
         uint256 pendingProposalsLength;
@@ -267,18 +264,35 @@ contract DCBG1
     function IsProposalMinimumParticipationReached(address projectCreator, uint256 projectId, uint256 proposalId) constant
         returns (bool)
     {
-        if((projects[projectCreator][projectId].proposals[proposalId].positiveVotes + projects[projectCreator][projectId].proposals[proposalId].negativeVotes) / projects[projectCreator][projectId].totalSupply > projects[projectCreator][projectId].minimumParticipationPercentage/100)
+        if((projects[projectCreator][projectId].proposals[proposalId].positiveVotes +
+            projects[projectCreator][projectId].proposals[proposalId].negativeVotes) /
+            projects[projectCreator][projectId].totalSupply >
+            (projects[projectCreator][projectId].minimumParticipationPercentage /100))
             return true;
         else
             return false;
     }
-    
+
+    //CRITICAL
     function FundProject(address projectCreator, uint256 projectId) constant
     {
-        /*if (msg.value == 0)
-            revert;
+        //TODO Make sure that the function consumes less gas than the one available in a block
+        if (msg.value == 0)
+            revert();
 
-        for (var i = 0; i < projects[projectCreator][projectId].proposals.contributionBalances)
-        */
+        uint256 factor = msg.value / projects[projectCreator][projectId].totalSupply; //by default integer divisions use floor
+        for (var i = 0; i < projects[projectCreator][projectId].contributors.length; i++)
+        {
+            projects[projectCreator][projectId].contributors[i].ethereumBalance += (projects[projectCreator][projectId].contributors[i].valueTokens * factor);
+        }
+    }
+
+    function WithdrawFunds(address projectCreator, uint256 projectId) constant
+    {
+        uint256 contributorIndex  =   projects[projectCreator][projectId].contributorsRef[msg.sender];
+        if(projects[projectCreator][projectId].contributors[contributorIndex].ethereumBalance == 0)
+            revert();
+            
+        msg.sender.transfer(projects[projectCreator][projectId].contributors[contributorIndex].ethereumBalance);
     }
 }
