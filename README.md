@@ -81,13 +81,27 @@ Another important motivation for me is to use the system for future projects of 
 ### Proposal types
 - **Contribution done:** The only type of proposal for the current MVP. The contributor asks for token after contribution. _"I've done X, I believe I should receive Y tokens for it"_
 - **Contribution promise:** The preferable type since the participants agreed on the conditions before any effort is made. _"I will do X for Y tokens before deadline"._
-- **Change the rules**: _"Let's make the minimum participation to be of 5%"_
+- **Change the rules**: Change main properties of the project: Concensus threshold, minimum participation, project name, description, logo...
+- **Polling:** No tokens will be awarded. Multiple options could be available as opose to the binary options from other proposal types.  _"What feature should we implement first : X, Y or Z?"_ (This should not be a priority since it can be achived using alternative communication channels.);
 
 On top of awarding `value tokens`, ether could be awarded as well.
 
 ### Nesting
 Meaning that project `A` could be a contributor of project `B`. This will allow for more complex organizations.
 Proposals on project `B` will have to cascade down to project `A`.
+
+### Spin-off projects
+Project `B` (spin-off project) is a sub-project of `A`, 'it' does not add value to `A` but its own value is based on the project `A` contributions. It's pretty much like a fork, so at the time of the spin-off creation, it's identical to its base project.
+
+For example, project `A` has created a photo-buzz for parties, they've worked on that for 3 months. Now they want to make money by renting it for events. A spin-off project from `A` will be created (project `B`).
+Renting the buzz requires having a manager and a tech guy to take care of it. By spending all day taking care of the buzz they will add value to project 'B' (not `A`, since it won't make  `A` better). When they get paid for the renting at the end of the weekend, the funds will be distributed based on project `B` shares distribution, wich is based on project `A`. Therefore, the manager, the tech guy, and all the contributors from `A` will get paid.
+
+### Contributors without voting rights
+These contributors are still credited with their effort, and still get paid if the project gets funded, but wont be able to vote on proposals. These makes sense only under certain circumstances.
+- A contributor doesn't want to participate on the governance anymore.
+- A project wants to automatically reward certain endevours. "We want that an X amount of our earnings go to Wikileaks".
+- An spin-off project that wants to be independent, but wants to credit the creators of it's base project. (Not sure about that one)
+
 
 ### Whitelisting and transaction fees
 In public projects, in order to avoid spam attacks, new contributors may have to ask to be _whitelisted_ using alternative channels.
