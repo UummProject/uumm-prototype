@@ -78,23 +78,23 @@ Another important motivation for me is to use the system for future projects of 
 
 # Brainstorming
 
-#### Proposal types
+### Proposal types
 - **Contribution done:** The only type of proposal for the current MVP. The contributor asks for token after contribution. _"I've done X, I believe I should receive Y tokens for it"_
 - **Contribution promise:** The preferable type since the participants agreed on the conditions before any effort is made. _"I will do X for Y tokens before deadline"._
 - **Change the rules**: _"Let's make the minimum participation to be of 5%"_
 
 On top of awarding `value tokens`, ether could be awarded as well.
 
-#### Nesting
+### Nesting
 Meaning that project `A` could be a contributor of project `B`. This will allow for more complex organizations.
 Proposals on project `B` will have to cascade down to project `A`.
 
-#### Whitelisting and transaction fees
+### Whitelisting and transaction fees
 In public projects, in order to avoid spam attacks, new contributors may have to ask to be _whitelisted_ using alternative channels.
 Maybe _blacklisting_ makes sense as well in order to ban existing malicious contributors.
 Another way to prevent spam would be to charge a fee for certain proposals, the fee could be returned if the proposal is accepted.
 
-#### Proxy voting, and ERC20 tokens
+### Proxy voting, and ERC20 tokens
 Not sure if those make sense. This will allow a marketplace of shares. Looking for opinions.
 
 ## Spam me!
