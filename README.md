@@ -7,7 +7,7 @@ The percentage of ownership translates into the percentage of voting rights as w
 
 **`Contributed percentage` = `Voting rights percentage` = `Recieved funds percentage`**
 
-#### Value tokens
+### Value tokens
 The system uses `value tokens`. The value of a single token is agreed among the participants, so the system is agnostic to what they represent. Most likely a value reference is necessary for the participants to agree upon.
 
 For example one `value token` could represent one hour of work.
@@ -19,7 +19,7 @@ The `Total supply` of tokens is 1 when a project is created (belonging to the pr
 Accordingly, each user `Contributed Percentage` is based on the `Total supply`:
 `Contributed Percentage = Total supply / User owned tokens`
 
-#### Workflow
+### Workflow
 When a contribution has been made, the participant will call the Ethereum contract requesting the desired amount of value tokens.
 
 The current stakeholders of the project will vote, and if a positive consensus is reached, the tokens will be awarded.
@@ -49,14 +49,14 @@ This stack is what I'm currently familiar with, and I'm using a previous project
 
 # Personal motivations 
 
-#### Origins
+### Origins
 The idea was developed when we were working on [Taster](http://random-happiness.com/taster) and we were trying to find a fair and transparent way to distribute the potential earnings of the project.
 
 The system was never put in practice, but a good amount thinking went into it.
 
 Just recently I've been digging deep into Ethereum, and that seemed a perfect fit and a great excuse to explore and understand the platform better.
 
-#### Generalization
+### Generalization
 It is common for collaborative or open projects to start with an abstract idea and grow organically, shaping into more serious/structured stuff.
 
 Common features of these projects are:
@@ -73,28 +73,28 @@ This translates to:
 
 With this project, I'm trying to solve some of these issues, or at least understand them deeply.
 
-#### Future projects
+### Future projects
 Another important motivation for me is to use the system for future projects of mine and incentivise early participation.
 
 # Brainstorming
 
-##### Proposal types
+#### Proposal types
 - **Contribution done:** The only type of proposal for the current MVP. The contributor asks for token after contribution. _"I've done X, I believe I should receive Y tokens for it"_
 - **Contribution promise:** The preferable type since the participants agreed on the conditions before any effort is made. _"I will do X for Y tokens before deadline"._
 - **Change the rules**: _"Let's make the minimum participation to be of 5%"_
 
 On top of awarding `value tokens`, ether could be awarded as well.
 
-##### Nesting
+#### Nesting
 Meaning that project `A` could be a contributor of project `B`. This will allow for more complex organizations.
 Proposals on project `B` will have to cascade down to project `A`.
 
-##### Whitelisting and transaction fees
+#### Whitelisting and transaction fees
 In public projects, in order to avoid spam attacks, new contributors may have to ask to be _whitelisted_ using alternative channels.
 Maybe _blacklisting_ makes sense as well in order to ban existing malicious contributors.
 Another way to prevent spam would be to charge a fee for certain proposals, the fee could be returned if the proposal is accepted.
 
-##### Proxy voting, and ERC20 tokens
+#### Proxy voting, and ERC20 tokens
 Not sure if those make sense. This will allow a marketplace of shares. Looking for opinions.
 
 ## Spam me!
