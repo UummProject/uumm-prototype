@@ -5,7 +5,7 @@ It's a decentralized governance tool for collaborative projects based on the ass
 
 The percentage of ownership translates into the percentage of voting rights as well as the percentage of received income in case the project receives funds.
 
-`Contributed percentage = Voting rights percentage = Recieved funds percentage`
+**`Contributed percentage` = `Voting rights percentage` = `Recieved funds percentage`**
 
 #### Value tokens
 The system uses `value tokens`. The value of a single token is agreed among the participants, so the system is agnostic to what they represent. Most likely a value reference is necessary for the participants to agree upon.
