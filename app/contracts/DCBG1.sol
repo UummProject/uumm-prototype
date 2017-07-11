@@ -1,4 +1,4 @@
-pragma solidity ^0.4.8;
+pragma solidity ^0.4.11;
 
 contract DCBG1
 {
@@ -189,7 +189,7 @@ contract DCBG1
     //2- Expiration date has passed, and minimum participation percentage has been reached
     
     
-    function ResolveProposal(address projectCreator, uint256 projectId, uint256 proposalId, bool vote)
+    function ResolveProposal(address projectCreator, uint256 projectId, uint256 proposalId)
     {
         if (projects[projectCreator][projectId].proposals[proposalId].state != proposalState.pending)
             revert();
@@ -274,7 +274,7 @@ contract DCBG1
     }
 
     //CRITICAL
-    function FundProject(address projectCreator, uint256 projectId) constant
+    function FundProject(address projectCreator, uint256 projectId) payable
     {
         //TODO Make sure that the function consumes less gas than the one available in a block
         if (msg.value == 0)
