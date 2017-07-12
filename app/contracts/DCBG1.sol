@@ -53,11 +53,11 @@ contract DCBG1
 
     mapping (address => projectData[] ) projects;
 
-    function DCBG1()  payable
+    function DCBG1()
     {
     } 
 
-    function CreateProject(string name)  payable
+    function CreateProject(string name)
     {
         /*projectData memory project;
         project.creator = msg.sender;
@@ -93,7 +93,7 @@ contract DCBG1
         projects[projectCreator][projectId].totalSupply += valueAmount;
     }
     
-    function CreateRequestValueProposal (address projectCreator, uint256 projectId, string title, string reference, uint256 valueAmount)
+    function CreateProposal (address projectCreator, uint256 projectId, string title, string reference, uint256 valueAmount)
     {
         uint256 proposalId =  projects[projectCreator][projectId].proposals.length;
         
@@ -111,7 +111,6 @@ contract DCBG1
 
         uint256 contributorIndex  =   projects[projectCreator][projectId].contributorsRef[msg.sender];
         projects[projectCreator][projectId].contributors[contributorIndex].proposalsRef.push(proposalId);
-        
     }
     
     function GetProposalsLength(address projectCreator, uint256 projectId) constant returns (uint256)
@@ -287,7 +286,7 @@ contract DCBG1
         }
     }
 
-    function WithdrawFunds(address projectCreator, uint256 projectId) constant
+    function WithdrawFunds(address projectCreator, uint256 projectId) 
     {
         uint256 contributorIndex  =   projects[projectCreator][projectId].contributorsRef[msg.sender];
         if(projects[projectCreator][projectId].contributors[contributorIndex].ethereumBalance == 0)
