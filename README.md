@@ -80,6 +80,8 @@ With this project, I'm trying to solve some of these issues, or at least underst
 Another important motivation for me is to use the system for future projects of mine and incentivise early participation.
 
 # Brainstorming
+_When an idea seems a little cohesive I dump it here. Have more? Let me know!_
+
 
 ### Proposal types
 - **Contribution done:** The only type of proposal for the current MVP. The contributor asks for token after contribution. _"I've done X, I believe I should receive Y tokens for it"_
@@ -115,12 +117,31 @@ Another way to prevent spam would be to charge a fee for certain proposals, the 
 ### Proxy voting, and ERC20 tokens
 Not sure if those make sense. This will allow a marketplace of shares. Looking for opinions.
 
+### Project name 
+**D**ecentralized **C**ontribution **B**ased **G**overnance is kind a super shitty name.
+
+My best shot so far is  **UMM**, (**U**nicorn **M**aker **M**achine)
+It's a tool for making amazing entities.., and it sounds like the hinduism mantra _Ommmm_ which denotes reflection/meditation.
+
+Alternative versions of it:
+- UMM: Unicorn **Molding** Machine
+- AUMM: Awesome Unicorn Making Machine
+- UUMM: Ultimate Unicorn Making Machine
+
+### Token name
+`Value token` although it's representative it's too long and too generic.
+
+A symbol for representing is likely to be needed as well.
+[Greek alphabet](https://en.wikipedia.org/wiki/Greek_alphabet) is a good source of inspiration.
+Would be nice that on top of being a good looking character, had some background meaning
+
+
 ## Spam me!
 - Got ideas?
-- A better name for the system?. My best shot so far is  **UMM**, (**U**nicorn **M**aker **M**achine), it's a tool for making amazing entities.., and it sounds like the hinduism mantra _Ommmm_ which denotes reflection/meditatiom.
+- A better name for the system?
 - Use cases that could be handled?
-- References I should look up?
-- Would you like to try it? (We'll love some beta-testers)
+- References we should look up?
+- Would you like to try it? (We will need some beta-testers soon)
 - Want to contribute?
 
 Ping me on Twitter [@xavivives](https://twitter.com/xavivives)  or email me at xavings@gmail.com
