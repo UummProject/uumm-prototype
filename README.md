@@ -101,6 +101,8 @@ Project `B` (spin-off project) is a sub-project of `A`, it does not add value to
 For example, project `A` has created a photo-buzz for parties, they've worked on that for 3 months. Now they want to make money by renting it for events. A spin-off project from `A` will be created (project `B`).
 Renting the buzz requires having a manager and a tech guy to take care of it. By spending all day taking care of the buzz they will add value to project `B` (not `A`, since it won't make  `A` better). When they get paid for the renting at the end of the weekend, the funds will be distributed based on project `B` shares distribution, wich is based on project `A`. Therefore, the manager, the tech guy, and all the contributors from `A` will get paid.
 
+[Polyps](http://bcs.whfreeman.com/webpub/Ektron/Hillis%20Principles%20of%20Life2e/Animated%20Tutorials/pol2e_at_2301_Life_Cycle_of_a_Cnidarian/pol2e_at_2301_Life_Cycle_of_a_Cnidarian.html) are a nice biologic-like parallelism. Via [Greg Albittron](https://twitter.com/albrittongreg/status/885211686222925825) 
+
 ### Contributors without voting rights
 These contributors are still credited with their effort, and still get paid if the project gets funded, but wont be able to vote on proposals. These makes sense only under certain circumstances.
 - A contributor doesn't want to participate on the governance anymore.
@@ -121,7 +123,7 @@ Not sure if those make sense. This will allow a marketplace of shares. Looking f
 **D**ecentralized **C**ontribution **B**ased **G**overnance is kind a super shitty name.
 
 My best shot so far is  **UMM**, (**U**nicorn **M**aker **M**achine)
-It's a tool for making amazing entities.., and it sounds like the hinduism mantra _Ommmm_ which denotes reflection/meditation.
+It's a tool for making amazing entities, and it sounds like the hinduism mantra _Ommmm_ which denotes reflection/meditation.
 
 Alternative versions of it:
 - UMM: Unicorn **Molding** Machine
@@ -133,7 +135,7 @@ Alternative versions of it:
 
 A symbol for representing is likely to be needed as well.
 [Greek alphabet](https://en.wikipedia.org/wiki/Greek_alphabet) is a good source of inspiration.
-Would be nice that on top of being a good looking character, had some background meaning
+Would be nice that on top of being a good looking character and had some meaning.
 
 
 ## Spam me!

@@ -47,7 +47,6 @@ contract DCBG1
         string name;
         uint256 valueTokens;
         uint256 ethereumBalance;
-        proposalState state;
         uint256 [] proposalsRef ;
     }
 
@@ -59,28 +58,21 @@ contract DCBG1
 
     function CreateProject(string name)
     {
-        /*projectData memory project;
+
+        uint256 projectId = projects[msg.sender].length;
+
+        projectData memory project;
         project.creator = msg.sender;
         project.name = name;
-        project.id = projects[msg.sender].length;
-        project.creationDate = block.timestamp;
-        project.concensusThresholdPermil = 618;
+        project.id = projectId;
+        project.creationTimestamp = block.timestamp;
+        project.concensusThresholdPercentage = 618;
         project.pendingProposalsLength = 0;
         
         projects[msg.sender].push(project);
-        */
-        
-        uint256 projectId = projects[msg.sender].length;
-        projects[msg.sender][projectId].creator = msg.sender;
-        projects[msg.sender][projectId].name = name;
-        projects[msg.sender][projectId].id = projectId;
-        projects[msg.sender][projectId].creationTimestamp = block.timestamp;
-        projects[msg.sender][projectId].concensusThresholdPercentage = 62;
-        projects[msg.sender][projectId].minimumParticipationPercentage = 20;
-        projects[msg.sender][projectId].pendingProposalsLength = 0;
-        
-        contributorData memory emptyContributor;
-        projects[msg.sender][projectId].contributors[0] = emptyContributor ; //We set it to zero to ensure that a none registered address defaults to it
+
+        contributorData storage emptyContributor;
+        projects[msg.sender][projectId].contributors.push(emptyContributor); //We set it to zero to ensure that a none registered address defaults to it
         
         addValueTokens(msg.sender, projectId, msg.sender, 1); //Creator recieves one single token
     }
@@ -96,7 +88,7 @@ contract DCBG1
     function CreateProposal (address projectCreator, uint256 projectId, string title, string reference, uint256 valueAmount)
     {
         uint256 proposalId =  projects[projectCreator][projectId].proposals.length;
-        
+
         proposalData memory proposal;
         proposal.id = proposalId;
         proposal.author = msg.sender;
@@ -104,13 +96,24 @@ contract DCBG1
         proposal.reference = reference;
         proposal.valueAmount = valueAmount;
         proposal.state = proposalState.pending;
+
         projects[projectCreator][projectId].proposals.push(proposal);
         
         projects[projectCreator][projectId].pendingProposals.push(proposalId);
         projects[projectCreator][projectId].pendingProposalsLength ++;
 
-        uint256 contributorIndex  =   projects[projectCreator][projectId].contributorsRef[msg.sender];
-        projects[projectCreator][projectId].contributors[contributorIndex].proposalsRef.push(proposalId);
+        uint256 contributorIndex = projects[projectCreator][projectId].contributorsRef[msg.sender];
+
+        if(contributorIndex == 0)
+        {
+            contributorData storage newContributor;
+            newContributor.proposalsRef.push(proposalId);
+            projects[projectCreator][projectId].contributors.push(newContributor);
+        }
+        else
+        {
+            projects[projectCreator][projectId].contributors[contributorIndex].proposalsRef.push(proposalId);
+        }
     }
     
     function GetProposalsLength(address projectCreator, uint256 projectId) constant returns (uint256)
@@ -258,7 +261,6 @@ contract DCBG1
                 return false;
         }
     }
-    
     
     function IsProposalMinimumParticipationReached(address projectCreator, uint256 projectId, uint256 proposalId) constant
         returns (bool)
