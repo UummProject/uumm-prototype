@@ -98,8 +98,8 @@ Proposals on project `B` will have to cascade down to project `A`.
 ### Spin-off projects
 Project `B` (spin-off project) is a sub-project of `A`, it does not add value to `A` but its own value is based on the project `A` contributions. It's pretty much like a fork, so at the time of the spin-off creation, it's identical to its base project.
 
-For example, project `A` has created a photo-buzz for parties, they've worked on that for 3 months. Now they want to make money by renting it for events. A spin-off project from `A` will be created (project `B`).
-Renting the buzz requires having a manager and a tech guy to take care of it. By spending all day taking care of the buzz they will add value to project `B` (not `A`, since it won't make  `A` better). When they get paid for the renting at the end of the weekend, the funds will be distributed based on project `B` shares distribution, wich is based on project `A`. Therefore, the manager, the tech guy, and all the contributors from `A` will get paid.
+For example, project `A` has created a photo-booth for parties, they've worked on that for 3 months. Now they want to make money by renting it for events. A spin-off project from `A` will be created (project `B`).
+Renting the booth requires having a manager and a tech guy to take care of it. By spending all day taking care of the booth they will add value to project `B` (not `A`, since it won't make  `A` better). When they get paid for the renting at the end of the weekend, the funds will be distributed based on project `B` shares distribution, wich is based on project `A`. Therefore, the manager, the tech guy, and all the contributors from `A` will get paid.
 
 [Polyps](http://bcs.whfreeman.com/webpub/Ektron/Hillis%20Principles%20of%20Life2e/Animated%20Tutorials/pol2e_at_2301_Life_Cycle_of_a_Cnidarian/pol2e_at_2301_Life_Cycle_of_a_Cnidarian.html) are a nice biologic-like parallelism. Via [Greg Albittron](https://twitter.com/albrittongreg/status/885211686222925825) 
 
