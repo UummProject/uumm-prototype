@@ -35,10 +35,13 @@ The current goal is to have an MVP running with no fancy features within a coupl
 
 - [x] Initial design and sketches
 - [x] Repo and readme setup 
-- [ ] Contracts design
-- [ ] User interface
+- [ ] Contract design (WIP)
+- [ ] Contract testing
+- [ ] User interface design (WIP)
+- [ ] User interface implementation
 - [ ] Public Ropsten deployment
 - [ ] Testing and polishing
+- [ ] Code optimizations
 
 # Tech stack
 The project runs on top of the Ethereum network.
@@ -114,7 +117,7 @@ Not sure if those make sense. This will allow a marketplace of shares. Looking f
 
 ## Spam me!
 - Got ideas?
-- A better name for the system?
+- A better name for the system?. My best shot so far is  **UMM**, (**U**nicorn **M**aker **M**achine), it's a tool for making amazing entities.., and it sounds like the hinduism mantra _Ommmm_ which denotes reflection/meditatiom.
 - Use cases that could be handled?
 - References I should look up?
 - Would you like to try it? (We'll love some beta-testers)
