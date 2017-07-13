@@ -14,10 +14,11 @@ For example one `value token` could represent one hour of work.
 
 Another approach could be, one token is the amount of effort to do X task. So, two tokens would be something that would require double the effort.
 
-The `Total supply` of tokens is 1 when a project is created (belonging to the project creator). Every time a contribution request is approved, the `Total supply` increases by the same amount of awarded tokens for the contribution, therefore diluting everyone else's stake.
+The `total supply` of tokens is 1 when a project is created (belonging to the project creator). Every time a contribution request is approved, the `total supply` increases by the same amount of awarded tokens for the contribution, therefore diluting everyone else's stake.
 
-Accordingly, each user `Contributed Percentage` is based on the `Total supply`:
-`Contributed Percentage = Total supply / User owned tokens`
+Accordingly, each user `contributed percentage` is based on the `total supply`:
+
+`contributed percentage = total supply / user owned tokens`
 
 ### Workflow
 When a contribution has been made, the participant will call the Ethereum contract requesting the desired amount of value tokens.
@@ -30,8 +31,9 @@ This is what a simplified workflow will look like with its equivalent contract f
 
 ![Flow overview](http://i.imgur.com/UMVgxGY.png)
 
-#Approach
+# Approach
 This project aims to create a governance tool following a bottom-up, organic, lean approach.
+
 _As oppose to, here is a .pdf with a bunch of idealistic ideas, especualte with my promises even if you don't give a crap and the only thing you want is easy money, now I'm rich and I don't have any incentives to keep working on this anymore._
 
 I'm starting with an MVP for a usecase I've been expose to, and if it makes sense I'll keep expanding with more features.
