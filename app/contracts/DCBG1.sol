@@ -81,9 +81,9 @@ contract DCBG1
         AddValueTokens(msg.sender, projectId, msg.sender, 1); //Creator recieves one single token
     }
 
-    function GetProjectsLength() constant returns (uint256)
+    function GetProjectsLength(address projectCreator) constant returns (uint256)
     {
-        return projects[msg.sender].length;
+        return projects[projectCreator].length;
     }
     
     //CRITICAL
@@ -101,6 +101,9 @@ contract DCBG1
     
     function CreateProposal (address projectCreator, uint256 projectId, string title, string reference, uint256 valueAmount)
     {
+        if(valueAmount!=0)
+            throw;
+
         uint256 proposalId =  projects[projectCreator][projectId].proposals.length;
 
         proposalData memory proposal;
@@ -142,8 +145,8 @@ contract DCBG1
         return projects[projectCreator][projectId].pendingProposalsLength;
     }
     
-    function  GetProposal(address projectCreator, uint256 projectId, uint256 proposalId) constant
-        returns (uint256, address, string, string, uint256, proposalState)
+    function  GetProposalDetails(address projectCreator, uint256 projectId, uint256 proposalId) constant
+        returns (uint256, address, string, string, uint256, uint)
     {
         return(
             projects[projectCreator][projectId].proposals[proposalId].id,
@@ -151,15 +154,27 @@ contract DCBG1
             projects[projectCreator][projectId].proposals[proposalId].title,
             projects[projectCreator][projectId].proposals[proposalId].reference,
             projects[projectCreator][projectId].proposals[proposalId].valueAmount,
-            projects[projectCreator][projectId].proposals[proposalId].state
+            projects[projectCreator][projectId].proposals[proposalId].creationTimestamp
+            );
+    }
+
+    function  GetProposalState(address projectCreator, uint256 projectId, uint256 proposalId) constant
+        returns (uint256, proposalState, uint256, uint256, uint)
+    {
+        return(
+            projects[projectCreator][projectId].proposals[proposalId].id,
+            projects[projectCreator][projectId].proposals[proposalId].state,
+            projects[projectCreator][projectId].proposals[proposalId].positiveVotes,
+            projects[projectCreator][projectId].proposals[proposalId].negativeVotes,
+            projects[projectCreator][projectId].proposals[proposalId].creationTimestamp
             );
     }
     
-    function GetPendingProposal(address projectCreator, uint256 projectId, uint256 pendingIndex) constant
-         returns (uint256, address, string, string, uint256, proposalState)
+    function GetPendingProposalId(address projectCreator, uint256 projectId, uint256 pendingIndex) constant
+        returns (uint256)
     {
-        uint256  proposalId = projects[projectCreator][projectId].pendingProposals[pendingIndex];
-        return GetProposal(projectCreator, projectId, proposalId);
+        return projects[projectCreator][projectId].pendingProposals[pendingIndex];
+       
     }
     
     //CRITICAL
