@@ -51,6 +51,8 @@ contract DCBG1
     }
 
     mapping (address => projectData[] ) projects;
+    projectData emptyProject;
+
 
     function DCBG1()
     {
@@ -58,23 +60,24 @@ contract DCBG1
 
     function CreateProject(string name)
     {
-
         uint256 projectId = projects[msg.sender].length;
 
-        projectData memory project;
-        project.creator = msg.sender;
-        project.name = name;
-        project.id = projectId;
-        project.creationTimestamp = block.timestamp;
-        project.concensusThresholdPercentage = 618;
-        project.pendingProposalsLength = 0;
-        
-        projects[msg.sender].push(project);
+        //Only way I found to initialize an Struct containing array containing a struct.
+        //See https://gist.github.com/xavivives/2aff3dd310563fc3272479382a84a638
+        projects[msg.sender].push(emptyProject); 
 
-        contributorData storage emptyContributor;
+        projects[msg.sender][projectId].creator = msg.sender;
+        projects[msg.sender][projectId].name = name;
+        projects[msg.sender][projectId].id = projectId;
+        projects[msg.sender][projectId].creationTimestamp = block.timestamp;
+        projects[msg.sender][projectId].concensusThresholdPercentage = 618;
+        projects[msg.sender][projectId].pendingProposalsLength = 0;
+
+        contributorData memory emptyContributor;
         projects[msg.sender][projectId].contributors.push(emptyContributor); //We set it to zero to ensure that a none registered address defaults to it
         
         addValueTokens(msg.sender, projectId, msg.sender, 1); //Creator recieves one single token
+        
     }
     
     //CRITICAL
@@ -106,14 +109,16 @@ contract DCBG1
 
         if(contributorIndex == 0)
         {
-            contributorData storage newContributor;
-            newContributor.proposalsRef.push(proposalId);
+            contributorData  memory newContributor;
+            newContributor.contributorAddress = msg.sender;
+            newContributor.valueTokens = 0;
+            newContributor.ethereumBalance = 0;
             projects[projectCreator][projectId].contributors.push(newContributor);
+            contributorIndex = projects[projectCreator][projectId].contributors.length;
         }
-        else
-        {
-            projects[projectCreator][projectId].contributors[contributorIndex].proposalsRef.push(proposalId);
-        }
+
+        projects[projectCreator][projectId].contributors[contributorIndex].proposalsRef.push(proposalId);
+        
     }
     
     function GetProposalsLength(address projectCreator, uint256 projectId) constant returns (uint256)
