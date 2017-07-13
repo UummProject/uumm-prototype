@@ -43,6 +43,7 @@ contract DCBG1
     }
     struct contributorData
     {
+        uint256 id;
         address contributorAddress;
         string name;
         uint256 valueTokens;
@@ -52,6 +53,7 @@ contract DCBG1
 
     mapping (address => projectData[] ) projects;
     projectData emptyProject;
+    contributorData emptyContributor;
 
 
     function DCBG1()
@@ -76,16 +78,25 @@ contract DCBG1
         contributorData memory emptyContributor;
         projects[msg.sender][projectId].contributors.push(emptyContributor); //We set it to zero to ensure that a none registered address defaults to it
         
-        addValueTokens(msg.sender, projectId, msg.sender, 1); //Creator recieves one single token
-        
+        AddValueTokens(msg.sender, projectId, msg.sender, 1); //Creator recieves one single token
+    }
+
+    function GetProjectsLength() constant returns (uint256)
+    {
+        return projects[msg.sender].length;
     }
     
     //CRITICAL
-    function addValueTokens(address projectCreator, uint256 projectId, address contributor, uint256 valueAmount) private
+    function AddValueTokens(address projectCreator, uint256 projectId, address contributor, uint256 valueAmount) private
     {
-        uint256 contributorIndex  =   projects[projectCreator][projectId].contributorsRef[contributor];
-        projects[projectCreator][projectId].contributors[contributorIndex].valueTokens += valueAmount;
+        uint256 contributorId  =   projects[projectCreator][projectId].contributorsRef[contributor];
+        projects[projectCreator][projectId].contributors[contributorId].valueTokens += valueAmount;
         projects[projectCreator][projectId].totalSupply += valueAmount;
+    }
+
+    function GetTotalSupply(address projectCreator, uint256 projectId) constant returns (uint256)
+    {
+        return projects[projectCreator][projectId].totalSupply;
     }
     
     function CreateProposal (address projectCreator, uint256 projectId, string title, string reference, uint256 valueAmount)
@@ -105,19 +116,19 @@ contract DCBG1
         projects[projectCreator][projectId].pendingProposals.push(proposalId);
         projects[projectCreator][projectId].pendingProposalsLength ++;
 
-        uint256 contributorIndex = projects[projectCreator][projectId].contributorsRef[msg.sender];
+        uint256 contributorId = projects[projectCreator][projectId].contributorsRef[msg.sender];
 
-        if(contributorIndex == 0)
+        //new contributor
+        if(contributorId == 0)
         {
-            contributorData  memory newContributor;
-            newContributor.contributorAddress = msg.sender;
-            newContributor.valueTokens = 0;
-            newContributor.ethereumBalance = 0;
-            projects[projectCreator][projectId].contributors.push(newContributor);
-            contributorIndex = projects[projectCreator][projectId].contributors.length;
+            contributorId = projects[projectCreator][projectId].contributors.length;
+
+            projects[projectCreator][projectId].contributors.push(emptyContributor);
+            projects[projectCreator][projectId].contributors[contributorId].id = contributorId;
+            projects[projectCreator][projectId].contributors[contributorId].contributorAddress = msg.sender;         
         }
 
-        projects[projectCreator][projectId].contributors[contributorIndex].proposalsRef.push(proposalId);
+        projects[projectCreator][projectId].contributors[contributorId].proposalsRef.push(proposalId);
         
     }
     
@@ -154,9 +165,9 @@ contract DCBG1
     //CRITICAL
     function VotePendingProposal(address projectCreator, uint256 projectId, uint256 proposalId, bool vote)
     {
-         uint256 contributorIndex  =   projects[projectCreator][projectId].contributorsRef[msg.sender];
+         uint256 contributorId  =   projects[projectCreator][projectId].contributorsRef[msg.sender];
         //Checks
-        if(projects[projectCreator][projectId].contributors[contributorIndex].valueTokens == 0)
+        if(projects[projectCreator][projectId].contributors[contributorId].valueTokens == 0)
             revert();
         
         if (projects[projectCreator][projectId].proposals[proposalId].state != proposalState.pending)
@@ -180,13 +191,13 @@ contract DCBG1
         //Vote
         if(vote)
         {
-            projects[projectCreator][projectId].proposals[proposalId].positiveVotes += projects[projectCreator][projectId].contributors[contributorIndex].valueTokens;
-            projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] = int256(projects[projectCreator][projectId].contributors[contributorIndex].valueTokens);
+            projects[projectCreator][projectId].proposals[proposalId].positiveVotes += projects[projectCreator][projectId].contributors[contributorId].valueTokens;
+            projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] = int256(projects[projectCreator][projectId].contributors[contributorId].valueTokens);
         }
         else   
         {
-            projects[projectCreator][projectId].proposals[proposalId].negativeVotes += projects[projectCreator][projectId].contributors[contributorIndex].valueTokens;
-            projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] = -1 * int256(projects[projectCreator][projectId].contributors[contributorIndex].valueTokens);
+            projects[projectCreator][projectId].proposals[proposalId].negativeVotes += projects[projectCreator][projectId].contributors[contributorId].valueTokens;
+            projects[projectCreator][projectId].proposals[proposalId].votes[msg.sender] = -1 * int256(projects[projectCreator][projectId].contributors[contributorId].valueTokens);
         }
     }
     
@@ -237,7 +248,7 @@ contract DCBG1
         if(approved)
         {
             projects[projectCreator][projectId].proposals[proposalId].state = proposalState.approved;
-            addValueTokens(projectCreator, projectId, projects[projectCreator][projectId].proposals[proposalId].author, projects[projectCreator][projectId].proposals[proposalId].valueAmount);
+            AddValueTokens(projectCreator, projectId, projects[projectCreator][projectId].proposals[proposalId].author, projects[projectCreator][projectId].proposals[proposalId].valueAmount);
         }
         else
         {
@@ -295,10 +306,38 @@ contract DCBG1
 
     function WithdrawFunds(address projectCreator, uint256 projectId) 
     {
-        uint256 contributorIndex  =   projects[projectCreator][projectId].contributorsRef[msg.sender];
-        if(projects[projectCreator][projectId].contributors[contributorIndex].ethereumBalance == 0)
+        uint256 contributorId  =   projects[projectCreator][projectId].contributorsRef[msg.sender];
+        if(projects[projectCreator][projectId].contributors[contributorId].ethereumBalance == 0)
             revert();
             
-        msg.sender.transfer(projects[projectCreator][projectId].contributors[contributorIndex].ethereumBalance);
+        msg.sender.transfer(projects[projectCreator][projectId].contributors[contributorId].ethereumBalance);
+    }
+
+    function GetContributorId(address projectCreator, uint256 projectId, address contributorAddress) constant returns (uint256)
+    {
+        return projects[projectCreator][projectId].contributorsRef[contributorAddress];
+    }
+
+    function GetContributorDataByAddress(address projectCreator, uint256 projectId, address contributorAddress)  constant returns (uint256, address, string, uint256, uint256)
+    {   
+        uint256 contributorId  =   projects[projectCreator][projectId].contributorsRef[contributorAddress];
+        return GetContributorData(projectCreator,projectId, contributorId);
+    }
+     
+
+    function GetContributorData(address projectCreator, uint256 projectId, uint256 contributorId)  constant returns (uint256, address, string, uint256, uint256)
+    {
+        return(
+            projects[projectCreator][projectId].contributors[contributorId].id,
+            projects[projectCreator][projectId].contributors[contributorId].contributorAddress,
+            projects[projectCreator][projectId].contributors[contributorId].name,
+            projects[projectCreator][projectId].contributors[contributorId].valueTokens,
+            projects[projectCreator][projectId].contributors[contributorId].ethereumBalance
+            );
+    }
+
+    function GetContributorProposalsLength(address projectCreator, uint256 projectId, uint256 contributorId) returns (uint256)
+    {
+        return(   projects[projectCreator][projectId].contributors[contributorId].proposalsRef.length );
     }
 }
