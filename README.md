@@ -30,13 +30,20 @@ This is what a simplified workflow will look like with its equivalent contract f
 
 ![Flow overview](http://i.imgur.com/UMVgxGY.png)
 
+#Approach
+This project aims to create a governance tool following a bottom-up, organic, lean approach.
+_As oppose to, here is a .pdf with a bunch of idealistic ideas, especualte with my promises even if you don't give a crap and the only thing you want is easy money, now I'm rich and I don't have any incentives to keep working on this anymore._
+
+I'm starting with an MVP for a usecase I've been expose to, and if it makes sense I'll keep expanding with more features.
+Everyone is welcome to join!
+
 # Status
 The current goal is to have an MVP running with no fancy features within a couple of weeks (by 20/07/17) Once the MVP is done and tested we will re-think the direction of the project.
 
 - [x] Initial design and sketches
 - [x] Repo and readme setup 
-- [ ] Contract design (WIP)
-- [ ] Contract testing
+- [x] Basic contract functionallity 
+- [ ] Contract  (WIP)
 - [ ] User interface design (WIP)
 - [ ] User interface implementation
 - [ ] Public Ropsten deployment
@@ -46,7 +53,9 @@ The current goal is to have an MVP running with no fancy features within a coupl
 # Tech stack
 The project runs on top of the Ethereum network.
 Embark as a framework for Ethereum.
-Javascript with ReactJS and Material-UI for the user interface.
+Javascript with ReactJS and Material-UI for the user interface
+
+[This contract](https://github.com/xavivives/DCBG/blob/master/app/contracts/DCBG1.sol) (WIP) is the core of the project an any review is highly appreciated.
 
 This stack is what I'm currently familiar with, and I'm using a previous project as a template to speed up development. Thinking on a full refactor if MVP is successful.
 
@@ -136,7 +145,6 @@ Alternative versions of it:
 A symbol for representing is likely to be needed as well.
 [Greek alphabet](https://en.wikipedia.org/wiki/Greek_alphabet) is a good source of inspiration.
 Would be nice that on top of being a good looking character and had some meaning.
-
 
 ## Spam me!
 - Got ideas?
