@@ -2,15 +2,25 @@ import React, { Component } from 'react'
 import UummContract from '../build/contracts/Uumm.json'
 import Config from '../truffle-config.js'
 import Web3 from 'web3'
-
-import './css/oswald.css'
-import './css/open-sans.css'
-import './css/pure-min.css'
-import './App.css'
 import 'material-ui'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Dialog from 'material-ui/Dialog';
+import InjectTapEventPlugin from 'react-tap-event-plugin';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import AddIcon from 'material-ui/svg-icons/content/add';
+
+InjectTapEventPlugin();
+
+const FloatingButtonStyle = {
+    margin: 0,
+    top: 'auto',
+    right: 20,
+    bottom: 20,
+    left: 'auto',
+    position: 'fixed',
+    zIndex:100
+};
+
 
 class App extends Component {
   constructor(props) {
@@ -65,45 +75,21 @@ class App extends Component {
     })
   }
 
+    onNewCommit()
+    {
+        this.props.onNewProject();
+    }
+
   render() {
     return (
       <div className="App">
-        <nav className="navbar pure-menu pure-menu-horizontal">
-            <a href="#" className="pure-menu-heading pure-menu-link">Truffle Box</a>
-            {/*}<ul className="pure-menu-list">
-                <li className="pure-menu-item"><a href="#" className="pure-menu-link">News</a></li>
-                <li className="pure-menu-item"><a href="#" className="pure-menu-link">Sports</a></li>
-                <li className="pure-menu-item"><a href="#" className="pure-menu-link">Finance</a></li>
-            </ul>*/}
-        </nav>
-
-        <main className="container">
-          <div className="pure-g">
-            <div className="pure-u-1-1">
-              <h1>Good to Go!</h1>
-              <p>Your Truffle Box is installed and ready.</p>
-              <h2>Smart Contract Example</h2>
-              <p>The below will show a stored value of 5 by default if your contracts compiled and migrated successfully.</p>
-              <p>Try changing the value stored on <strong>line 50</strong> of App.js.</p>
-              <p>The stored value is: {this.state.storageValue}</p>
-            </div>
-          </div>
-
-          
-        </main><MuiThemeProvider>
+        <MuiThemeProvider>
             <div>
-
-                <Dialog
-                    title="Let's get it done!   "
-                    
-                    modal={false}
-                    open={true}/>
-
-
+                <FloatingActionButton onTouchTap={this.onNewProject} secondary={true} style={FloatingButtonStyle}>
+                    <AddIcon />
+                </FloatingActionButton>
             </div>
         </MuiThemeProvider>
-
-
       </div>
     );
   }
