@@ -1,5 +1,5 @@
-var DCBG  = artifacts.require("./DCBG1.sol");
+var uumm  = artifacts.require("./uumm.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(DCBG);
+  deployer.deploy(uumm);
 };

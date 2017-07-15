@@ -1,6 +1,6 @@
 pragma solidity ^0.4.11;
 
-contract DCBG1
+contract Uumm
 {
     struct projectData
     {
@@ -56,7 +56,7 @@ contract DCBG1
     contributorData emptyContributor;
 
 
-    function DCBG1()
+    function Uumm()
     {
     } 
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import SimpleStorageContract from '../build/contracts/SimpleStorage.json'
+import UummContract from '../build/contracts/Uumm.json'
 import Config from '../truffle-config.js'
 import Web3 from 'web3'
 
@@ -37,27 +37,27 @@ class App extends Component {
     
     const provider = new Web3.providers.HttpProvider('http://' + host + ':' + port)
     const contract = require('truffle-contract')
-    const simpleStorage = contract(SimpleStorageContract)
-    simpleStorage.setProvider(provider)
+    const uummContract = contract(UummContract)
+    uummContract.setProvider(provider)
 
     // Get Web3 so we can get our accounts.
     const web3RPC = new Web3(provider)
 
     // Declaring this for later so we can chain functions on SimpleStorage.
-    var simpleStorageInstance
+    var uummContractInstance
 
     // Get accounts.
     web3RPC.eth.getAccounts(function(error, accounts) {
       console.log(accounts)
 
-      simpleStorage.deployed().then(function(instance) {
-        simpleStorageInstance = instance
+      uummContract.deployed().then(function(instance) {
+        uummContractInstance = instance
 
         // Stores a value of 5.
-        return simpleStorageInstance.set(5, {from: accounts[0]})
+        return uummContractInstance.set(5, {from: accounts[0]})
       }).then(function(result) {
         // Get the value from the contract to prove it worked.
-        return simpleStorageInstance.get.call(accounts[0])
+        return uummContractInstance.get.call(accounts[0])
       }).then(function(result) {
         // Update state with the result.
         return self.setState({ storageValue: result.c[0] })
