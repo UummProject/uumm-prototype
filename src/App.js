@@ -41,7 +41,7 @@ class App extends Component {
 
     // So we can update state later.
     var self = this
-
+/*
     // Get the RPC provider and setup our SimpleStorage contract.
     var {host, port} = Config.networks[process.env.NODE_ENV]
     
@@ -73,11 +73,37 @@ class App extends Component {
         return self.setState({ storageValue: result.c[0] })
       })
     })
+    */
   }
 
-    onNewCommit()
+    onNewProject()
     {
-        this.props.onNewProject();
+        var {host, port} = Config.networks[process.env.NODE_ENV]
+        const web3RPC = new Web3(provider)
+        const provider = new Web3.providers.HttpProvider('http://' + host + ':' + port)
+        const contract = require('truffle-contract')
+        const uummContract = contract(UummContract)
+        var uummContractInstance
+
+        web3RPC.eth.getAccounts(function(error, accounts)
+        {
+            console.log(accounts)
+            
+            uummContract.deployed().then(
+                function(instance)
+                {
+                    uummContractInstance = instance
+
+                    return uummContractInstance.createProject("Ultimate unicorn maker machine", {from: accounts[0]})
+                }).then(
+                function(result) {
+                    return uummContractInstance.GetProjectsLength.call(accounts[0])
+                }).then(function(result) {
+                    console.log(result);
+                })
+
+        })
+        
     }
 
   render() {
