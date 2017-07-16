@@ -34,27 +34,19 @@ class App extends Component {
 
     componentWillMount()
     {
+
         var that = this
+
         UummContractInterface.isReady().then(function(){
             that.load();
         })
-        /*
-        .then(function(){
-            console.log("ready")
-            
-        })
-
-        /*
-        UummContractInterface.GetUserProjects()
-        .then(function (result){
-            console.log(result);
-        })
-        */
     }
 
     load()
     {
-        console.log("Loading")
+        UummContractInterface.getUserProjects().then(function(details){
+            console.log(details)
+        })
     }
 
     onNewProject()
