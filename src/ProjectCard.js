@@ -26,10 +26,10 @@ const titleStyle =
     flexGrow: 4
 }
 
+class ProjectCard extends React.Component {
 
-class CommitCard extends React.Component {
-
-    constructor(props) {
+    constructor(props)
+    {
         super();
     }
 
@@ -45,4 +45,4 @@ class CommitCard extends React.Component {
     }
 }
 
-export default CommitCard;
+export default ProjectCard;
