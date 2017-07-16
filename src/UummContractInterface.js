@@ -6,52 +6,45 @@ class UummContractInterface
 {
     constructor()
     {
-        var {host, port} = Config.networks[process.env.NODE_ENV]
-        
-        const provider = new Web3.providers.HttpProvider('http://' + host + ':' + port)
-
-        const contract = require('truffle-contract')
-        const uummContract = contract(UummContract)
-        uummContract.setProvider(provider)
-        this.uummContractInstance = {}
-        this.uummContractPromise = uummContract.deployed()
-        this.accounts = {}
-
         var that=this
-        const web3RPC = new Web3(provider)
-        web3RPC.eth.getAccounts(function(error, accounts)
-        {
-            that.accounts = accounts
+        this.setupFinished = new Promise(function(resolve, reject){
+        
 
-           /* that.uummContractPromise.then(function(instance){
-                that.uummContractInstance = instance;
-                console.log(that.uummContractInstance)
-                return that.uummContractInstance.CreateProject.estimateGas("Ultimate unicorn maker machine")
-            }).then(function(estimatedGas){
-                return that.uummContractInstance.CreateProject("Ultimate unicorn maker machine", {from: that.accounts[0], gas:estimatedGas})
-            }).then(function(result) {
-                return that.uummContractInstance.GetProjectsLength.call(that.accounts[0])
-            }).then(function(result) {
-                console.log(result.toNumber());
-            })*/
-        }) 
+            var {host, port} = Config.networks[process.env.NODE_ENV]
+            
+            const provider = new Web3.providers.HttpProvider('http://' + host + ':' + port)
+            const contract = require('truffle-contract')
+            const uummContract = contract(UummContract)
+
+            uummContract.setProvider(provider)
+            that.uummContractPromise = uummContract.deployed()
+            that.uummContractInstance = {}
+            that.accounts = {}
+
+            
+            const web3RPC = new Web3(provider)
+            web3RPC.eth.getAccounts(function(error, accounts)
+            {
+                that.accounts = accounts
+                that.uummContractPromise
+                .then(function(instance){
+                    that.uummContractInstance = instance
+                    resolve()
+                })
+            }) 
+
+        })
     }
 
     isReady()
     {
-        return this.uummContractPromise
+        return this.setupFinished
     }
 
     getUserProjects()
     {
-        var projects = []
-        var that = this
-        console.log(this)
-
-
-
-        return that.uummContractInstance.GetProjectsLength.call(that.accounts[0])
-        .then(function(numberOfProjects) {
+        //return that.uummContractInstance.GetProjectsLength.call(that.accounts[0])
+        //.then(function(numberOfProjects) {
 
             /*for(var id; id<=numberOfProjects; id++)
             {
@@ -61,13 +54,27 @@ class UummContractInterface
                 })
             }*/
             
-        })
+        //})
+
+        return this.getProjectDetails(this.accounts[0],0);
 
     }
 
-    
 
-   
+    getProjectDetails(creatorAddress, projectId)
+    {
+        var that = this
+
+        return new Promise(function (resolve, reject)
+        {
+          that.uummContractInstance.GetProposalDetails.call(creatorAddress,0,0)
+                    .then(function(details)
+                    {
+                        resolve(details.toNumber())
+                    })
+        })        
+    }
+
 }
 
 const instance = new UummContractInterface();
