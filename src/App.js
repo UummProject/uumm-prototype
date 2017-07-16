@@ -8,6 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import InjectTapEventPlugin from 'react-tap-event-plugin';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
+import UummContractInterface from './UummContractInterface.js'
 
 InjectTapEventPlugin();
 
@@ -31,17 +32,30 @@ class App extends Component {
     }
   }
 
-  componentWillMount() {
-    /*
-     * SMART CONTRACT EXAMPLE
-     *
-     * Normally these functions would be called in the context of a
-     * state management library, but for convenience I've placed them here.
-     */
+    componentWillMount()
+    {
+        var that = this
+        UummContractInterface.isReady().then(function(){
+            that.load();
+        })
+        /*
+        .then(function(){
+            console.log("ready")
+            
+        })
 
-    // So we can update state later.
-   
-  }
+        /*
+        UummContractInterface.GetUserProjects()
+        .then(function (result){
+            console.log(result);
+        })
+        */
+    }
+
+    load()
+    {
+        console.log("Loading")
+    }
 
     onNewProject()
     {
@@ -53,8 +67,6 @@ class App extends Component {
         const uummContract = contract(UummContract)
         uummContract.setProvider(provider)
         var uummContractInstance
-
-
 
         const web3RPC = new Web3(provider)
         web3RPC.eth.getAccounts(function(error, accounts)
