@@ -48,13 +48,13 @@ class App extends Component {
         var {host, port} = Config.networks[process.env.NODE_ENV]
         
         const provider = new Web3.providers.HttpProvider('http://' + host + ':' + port)
-        
 
         const contract = require('truffle-contract')
         const uummContract = contract(UummContract)
         uummContract.setProvider(provider)
         var uummContractInstance
-        var estimateGas
+
+
 
         const web3RPC = new Web3(provider)
         web3RPC.eth.getAccounts(function(error, accounts)
@@ -64,16 +64,13 @@ class App extends Component {
             uummContract.deployed()
             .then(function(instance){
                 uummContractInstance = instance;
-                return uummContractInstance.CreateProject.estimateGas()
-            }).then(function(gas){
-                
-                estimateGas = gas
-                console.log(estimateGas===280481);
-                return uummContractInstance.CreateProject("Ultimate unicorn maker machine", {from: accounts[0], gas:280481})
+                return uummContractInstance.CreateProject.estimateGas("Ultimate unicorn maker machine")
+            }).then(function(estimatedGas){
+                return uummContractInstance.CreateProject("Ultimate unicorn maker machine", {from: accounts[0], gas:estimatedGas})
             }).then(function(result) {
                 return uummContractInstance.GetProjectsLength.call(accounts[0])
             }).then(function(result) {
-                console.log(result);
+                console.log(result.toNumber());
             })
 
         }) 
