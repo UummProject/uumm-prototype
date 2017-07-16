@@ -4,20 +4,27 @@ contract Uumm
 {
     struct projectData
     {
+        //Project identity
         address creator;
         string  name;
         uint256  id;
-        uint256 proposalExpiringTimeInSeconds; 
-        uint  totalSupply;
-        mapping (address=>uint256) contributorsRef; // points address to ContributorData index
-        contributorData [] contributors;
-        proposalData [] proposals;
-        uint256 [] pendingProposals;
-        uint256 pendingProposalsLength;
-        uint256 proposalsIndex;
         uint creationTimestamp;
+
+        //Governance features
         uint256 concensusThresholdPercentage; //what % of the voting participants (not percentage of contributors) is required for a proposal to be approved
         uint256 minimumParticipationPercentage; // what % of participation is required to resolve a proposal
+        uint  totalSupply;
+
+        //Proposal stuff
+        uint256 proposalsIndex;
+        uint256 [] pendingProposals;
+        uint256 pendingProposalsLength;
+        proposalData [] proposals;
+        uint256 proposalExpiringTimeInSeconds; 
+        
+        //Contributors stuff 
+        mapping (address=>uint256) contributorsRef; // points address to ContributorData index
+        contributorData [] contributors;
     }
     
     enum proposalState
@@ -85,6 +92,19 @@ contract Uumm
     {
         return projects[projectCreator].length;
     }
+
+    function GetProjectDetails (address projectCreator, uint256 projectId) constant
+        returns (address, string, uint256, uint, uint256 )
+    {
+
+        return(
+            projects[projectCreator][projectId].creator,
+            projects[projectCreator][projectId].name,
+            projects[projectCreator][projectId].id,
+            projects[projectCreator][projectId].creationTimestamp,
+            projects[projectCreator][projectId].totalSupply
+            );
+    }
     
     //CRITICAL
     function AddValueTokens(address projectCreator, uint256 projectId, address contributor, uint256 valueAmount) private
@@ -94,7 +114,8 @@ contract Uumm
         projects[projectCreator][projectId].totalSupply += valueAmount;
     }
 
-    function GetTotalSupply(address projectCreator, uint256 projectId) constant returns (uint256)
+    function GetTotalSupply(address projectCreator, uint256 projectId) constant
+        returns (uint256)
     {
         return projects[projectCreator][projectId].totalSupply;
     }
