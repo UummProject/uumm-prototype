@@ -12,10 +12,15 @@ class CreateProjectPage extends React.Component {
         this.state = {"projectName" : ""}
     }
 
-    onCreate()
+    onCreate=()=>
     {
-        this.props.onCreate()
+        this.props.onCreate(this.state.projectName)
     }   
+
+    onCancel=()=>
+    {
+        this.props.onCancel()
+    }  
 
     onTextChange = (e, newText) => {
         if(newText.length<32)
@@ -28,7 +33,7 @@ class CreateProjectPage extends React.Component {
             <FlatButton
               label="Cancel"
               primary={true}
-              onTouchTap={this.props.onCancel}
+              onTouchTap={this.onCancel}
             />,
             <FlatButton
               label="Create"
@@ -44,9 +49,14 @@ class CreateProjectPage extends React.Component {
                 actions={actions}
                 modal={false}
                 open={this.props.open}
-                onRequestClose={this.handleClose}>
+                onRequestClose={this.onCancel}>
 
-                <TextField hintText="Project name" value={this.state.projectName} onChange={this.onTextChange}/>
+                <TextField
+                    autoFocus={true}
+                    id="inputText"
+                    hintText="Project name"
+                    value={this.state.projectName}
+                    onChange={this.onTextChange}/>
                    
             </Dialog>
         )

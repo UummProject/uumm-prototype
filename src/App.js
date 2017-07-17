@@ -29,10 +29,12 @@ class App extends Component
 {
     constructor(props) {
       super(props)
+       this.state = {"createDialogIsOpen" : false};
     }
 
-    onNewProject()
+    /*onCreateProject(projectName)
     {
+        console.log("hello")
         var {host, port} = Config.networks[process.env.NODE_ENV]
         
         const provider = new Web3.providers.HttpProvider('http://' + host + ':' + port)
@@ -44,31 +46,37 @@ class App extends Component
 
         const web3RPC = new Web3(provider)
         web3RPC.eth.getAccounts(function(error, accounts)
-        {
-            console.log(accounts)
-            
+        {   
             uummContract.deployed()
             .then(function(instance){
                 uummContractInstance = instance;
-                return uummContractInstance.CreateProject.estimateGas("Ultimate unicorn maker machine")
+                return uummContractInstance.CreateProject.estimateGas(projectName)
             }).then(function(estimatedGas){
-                return uummContractInstance.CreateProject("Ultimate unicorn maker machine", {from: accounts[0], gas:estimatedGas})
+                return uummContractInstance.CreateProject(projectName, {from: accounts[0], gas:estimatedGas})
             }).then(function(result) {
                 return uummContractInstance.GetProjectsLength.call(accounts[0])
             }).then(function(result) {
                 console.log(result.toNumber());
             })
         }) 
+    }*/
+
+    closeDialog=()=>
+    {
+        console.log("cancel")
+        this.setState({'createDialogIsOpen':false})
     }
 
-    onCreateProjectCancel()
-    {
 
+    onCreateProjectTap=(projectName)=>
+    {
+        this.setState({'createDialogIsOpen':true})
     }
 
-    onCreateProject(projectName)
+    createProject=(projectName)=>
     {
-        
+        this.setState({'createDialogIsOpen':false})
+        UummContractInterface.createProject(projectName).catch(function(error){console.warn(error)})
     }
 
     render() {
@@ -76,13 +84,16 @@ class App extends Component
             <div className="App">
                 <MuiThemeProvider>
                     <div>
-                        <FloatingActionButton onTouchTap={this.onNewProject} secondary={true} style={FloatingButtonStyle}>
+                        <FloatingActionButton onTouchTap={this.onCreateProjectTap} secondary={true} style={FloatingButtonStyle}>
                             <AddIcon />
                         </FloatingActionButton>
 
                         <ProjectFeed/>
 
-                        <CreateProjectPage open={true} onCancel={this.onCancelCreateProject} onCreate={this.onCreateProject}/>
+                        <CreateProjectPage
+                            open={this.state.createDialogIsOpen}
+                            onCancel={this.closeDialog}
+                            onCreate={this.createProject}/>
                     </div>
                 </MuiThemeProvider>
             </div>
