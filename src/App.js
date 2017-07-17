@@ -4,13 +4,13 @@ import Config from '../truffle-config.js'
 import Web3 from 'web3'
 import 'material-ui'
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import InjectTapEventPlugin from 'react-tap-event-plugin';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import AddIcon from 'material-ui/svg-icons/content/add';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import InjectTapEventPlugin from 'react-tap-event-plugin'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import AddIcon from 'material-ui/svg-icons/content/add'
 import UummContractInterface from './UummContractInterface.js'
-
 import ProjectFeed from './ProjectFeed.js'
+import CreateProjectPage from './CreateProjectPage.js'
 
 InjectTapEventPlugin();
 
@@ -29,24 +29,6 @@ class App extends Component
 {
     constructor(props) {
       super(props)
-
-      this.state = {
-        storageValue: 0
-      }
-    }
-
-    componentWillMount()
-    {
-        var that = this
-
-        UummContractInterface.isReady().then(function(){
-            that.load();
-        })
-    }
-
-    load()
-    {
-
     }
 
     onNewProject()
@@ -79,21 +61,33 @@ class App extends Component
         }) 
     }
 
-  render() {
-    return (
-      <div className="App">
-        <MuiThemeProvider>
-            <div>
-                <FloatingActionButton onTouchTap={this.onNewProject} secondary={true} style={FloatingButtonStyle}>
-                    <AddIcon />
-                </FloatingActionButton>
+    onCreateProjectCancel()
+    {
 
-                <ProjectFeed/>
+    }
+
+    onCreateProject(projectName)
+    {
+        
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <MuiThemeProvider>
+                    <div>
+                        <FloatingActionButton onTouchTap={this.onNewProject} secondary={true} style={FloatingButtonStyle}>
+                            <AddIcon />
+                        </FloatingActionButton>
+
+                        <ProjectFeed/>
+
+                        <CreateProjectPage open={true} onCancel={this.onCancelCreateProject} onCreate={this.onCreateProject}/>
+                    </div>
+                </MuiThemeProvider>
             </div>
-        </MuiThemeProvider>
-      </div>
-    );
-  }
+        );
+    }
 }
 
 export default App
