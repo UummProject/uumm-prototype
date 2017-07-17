@@ -1,4 +1,6 @@
-_Got a better name for this project?_
+# Uumm
+_The Ultimate Unicorn Maker Machine_
+
 
 # What's this project about?
 It's a decentralized governance tool for collaborative projects based on the assumption that the percentage of user ownership of a project is equal to the percentage of user contribution to the project.
@@ -54,12 +56,12 @@ The current goal is to have an MVP running with no fancy features within a coupl
 
 # Tech stack
 The project runs on top of the Ethereum network.
-Embark as a framework for Ethereum.
+~~Embark~~ [Truffle](http://truffleframework.com/) as a framework for Ethereum.
 Javascript with ReactJS and Material-UI for the user interface
 
 [This contract](https://github.com/xavivives/DCBG/blob/master/app/contracts/DCBG1.sol) (WIP) is the core of the project an any review is highly appreciated.
 
-This stack is what I'm currently familiar with, and I'm using a previous project as a template to speed up development. Thinking on a full refactor if MVP is successful.
+This stack is what I'm currently familiar with, and ~~I'm using a previous project~~ [Truffle's Status box](http://truffleframework.com/boxes/) as a template to speed up development. Thinking on a full refactor if MVP is successful.
 
 # Personal motivations 
 
@@ -150,7 +152,6 @@ Would be nice that on top of being a good looking character and had some meaning
 
 ## Spam me!
 - Got ideas?
-- A better name for the system?
 - Use cases that could be handled?
 - References we should look up?
 - Would you like to try it? (We will need some beta-testers soon)
