@@ -32,7 +32,6 @@ class UummContractInterface
                     resolve()
                 })
             }) 
-
         })
     }
 
@@ -43,7 +42,6 @@ class UummContractInterface
 
     createProject(projectName)
     {
-        console.log(projectName)
         var that = this
 
         return new Promise(function (resolve, reject)
@@ -75,9 +73,6 @@ class UummContractInterface
                     {
                         array.push(details)
                         loadedCount ++
-                        console.log(loadedCount)
-                        console.log(numberOfProjects.toNumber())
-
                         if(loadedCount===numberOfProjects.toNumber())
                             resolve(array)
                     }).catch(function(error){reject(error)})
@@ -108,7 +103,6 @@ class UummContractInterface
             }).catch(function(error){reject()})
         })         
     }
-
 }
 
 const instance = new UummContractInterface();

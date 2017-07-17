@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import Config from '../truffle-config.js'
-import Web3 from 'web3'
 import 'material-ui'
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import InjectTapEventPlugin from 'react-tap-event-plugin'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
@@ -11,7 +8,7 @@ import Uumm from './UummContractInterface.js'
 import ProjectFeed from './ProjectFeed.js'
 import CreateProjectPage from './CreateProjectPage.js'
 
-InjectTapEventPlugin();
+InjectTapEventPlugin()
 
 const FloatingButtonStyle = {
     margin: 0,
@@ -22,7 +19,6 @@ const FloatingButtonStyle = {
     position: 'fixed',
     zIndex:100
 };
-
 
 class App extends Component
 {
@@ -67,7 +63,7 @@ class App extends Component
                     </div>
                 </MuiThemeProvider>
             </div>
-        );
+        )
     }
 }
 

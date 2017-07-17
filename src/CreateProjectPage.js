@@ -3,9 +3,8 @@ import TextField from 'material-ui/TextField'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
-class CreateProjectPage extends React.Component {
-
-
+class CreateProjectPage extends React.Component
+{
     constructor(props)
     {
         super();
