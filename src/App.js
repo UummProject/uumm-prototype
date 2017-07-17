@@ -10,6 +10,8 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import UummContractInterface from './UummContractInterface.js'
 
+import ProjectFeed from './ProjectFeed.js'
+
 InjectTapEventPlugin();
 
 const FloatingButtonStyle = {
@@ -23,18 +25,18 @@ const FloatingButtonStyle = {
 };
 
 
-class App extends Component {
-  constructor(props) {
-    super(props)
+class App extends Component
+{
+    constructor(props) {
+      super(props)
 
-    this.state = {
-      storageValue: 0
+      this.state = {
+        storageValue: 0
+      }
     }
-  }
 
     componentWillMount()
     {
-
         var that = this
 
         UummContractInterface.isReady().then(function(){
@@ -44,9 +46,7 @@ class App extends Component {
 
     load()
     {
-        UummContractInterface.getUserProjects().then(function(details){
-            console.log(details)
-        })
+
     }
 
     onNewProject()
@@ -76,7 +76,6 @@ class App extends Component {
             }).then(function(result) {
                 console.log(result.toNumber());
             })
-
         }) 
     }
 
@@ -88,6 +87,8 @@ class App extends Component {
                 <FloatingActionButton onTouchTap={this.onNewProject} secondary={true} style={FloatingButtonStyle}>
                     <AddIcon />
                 </FloatingActionButton>
+
+                <ProjectFeed/>
             </div>
         </MuiThemeProvider>
       </div>

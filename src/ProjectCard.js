@@ -1,6 +1,5 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
 
 const containerStyle =
 {
@@ -37,9 +36,7 @@ class ProjectCard extends React.Component {
     {
         return (
             <Paper style={containerStyle} zDepth={1} >
-
-                <h3 style = {titleStyle}> {this.props.title} </h3>
-                
+                <h3 style={titleStyle}> {this.props.data.name} </h3>       
             </Paper>
         );
     }
