@@ -43,21 +43,32 @@ class UummContractInterface
 
     getUserProjects()
     {
-        //return that.uummContractInstance.GetProjectsLength.call(that.accounts[0])
-        //.then(function(numberOfProjects) {
+        var that = this
+        return new Promise(function (resolve, reject)
+        {
+            var array = []
+            var loadedCount = 0
 
-            /*for(var id; id<=numberOfProjects; id++)
+            that.uummContractInstance.GetProjectsLength.call(that.accounts[0])
+            .then(function(numberOfProjects)
             {
-                this.uummContractInstance.GetProjectDetails.call(this.accounts[0], id)
-                }).then(function(projectDetails) {
-                    projects.push(projectDetails)
-                })
-            }*/
+
+                for(var i=0; i<=numberOfProjects.toNumber(); i++)
+                {
+                    that.getProjectDetails(that.accounts[0], i)
+                    .then(function(details)
+                    {
+
+                        array.push(details)
+                        loadedCount ++
+
+                        if(loadedCount===numberOfProjects)
+                            resolve(array)
+                    })
+                }
             
-        //})
-
-        return this.getProjectDetails(this.accounts[0],0);
-
+            }).catch(function(error){reject(error)})
+        })
     }
 
 
@@ -67,12 +78,19 @@ class UummContractInterface
 
         return new Promise(function (resolve, reject)
         {
-          that.uummContractInstance.GetProposalDetails.call(creatorAddress,0,0)
-                    .then(function(details)
-                    {
-                        resolve(details.toNumber())
-                    })
-        })        
+           that.uummContractInstance.GetProjectDetails.call(creatorAddress, projectId)
+            .then(function(details)
+            {
+                var projectDetails = {
+                    'creator' : details[0],
+                    'name' : details[1],
+                    'projectId' : details[2].toNumber(),
+                    'creationDate' : new Date (details[3].toNumber()*1000),
+                    'totalSupply': details[4].toNumber()
+                }
+              resolve(projectDetails)
+            }).catch(function(error){reject()})
+        })         
     }
 
 }
