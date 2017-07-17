@@ -47,9 +47,9 @@ The current goal is to have an MVP running with no fancy features within a coupl
 - [x] Initial design and sketches
 - [x] Repo and readme setup 
 - [x] Basic contract functionallity 
-- [ ] Contract  (WIP)
-- [ ] User interface design (WIP)
-- [ ] User interface implementation
+- [x] Contract
+- [x] User interface design
+- [ ] User interface implementation **(WIP)**
 - [ ] Public Ropsten deployment
 - [ ] Testing and polishing
 - [ ] Code optimizations
@@ -132,23 +132,20 @@ Another way to prevent spam would be to charge a fee for certain proposals, the 
 ### Proxy voting, and ERC20 tokens
 Not sure if those make sense. This will allow a marketplace of shares. Looking for opinions.
 
-### Project name 
-**D**ecentralized **C**ontribution **B**ased **G**overnance is kind a super shitty name.
-
-My best shot so far is  **UMM**, (**U**nicorn **M**aker **M**achine)
-It's a tool for making amazing entities, and it sounds like the hinduism mantra _Ommmm_ which denotes reflection/meditation.
-
-Alternative versions of it:
-- UMM: Unicorn **Molding** Machine
-- AUMM: Awesome Unicorn Making Machine
-- UUMM: Ultimate Unicorn Making Machine
-
 ### Token name
 `Value token` although it's representative it's too long and too generic.
 
 A symbol for representing is likely to be needed as well.
 [Greek alphabet](https://en.wikipedia.org/wiki/Greek_alphabet) is a good source of inspiration.
 Would be nice that on top of being a good looking character and had some meaning.
+
+##Other stuff
+
+#### Project name 
+**D**ecentralized **C**ontribution **B**ased **G**overnance was its original name. It was kind of super shitty and after few days I was unable to keep coding and seeing _DCBG_ everywhere...
+
+So, I seat down with my brain threads and we reached concensus: **U**ltimate **U**nicorn **M**aker **M**achine.
+A tool for creating fantastic entities!
 
 ## Spam me!
 - Got ideas?
@@ -160,3 +157,4 @@ Would be nice that on top of being a good looking character and had some meaning
 Ping me on Twitter [@xavivives](https://twitter.com/xavivives)  or email me at xavings@gmail.com
 
 ##### ALOHA
+
