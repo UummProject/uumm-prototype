@@ -7,9 +7,9 @@ class UummContractInterface
     constructor()
     {
         var that=this
-        this.setupFinished = new Promise(function(resolve, reject){
+        this.setupFinished = new Promise(function(resolve, reject)
+        {
         
-
             var {host, port} = Config.networks[process.env.NODE_ENV]
             
             const provider = new Web3.providers.HttpProvider('http://' + host + ':' + port)
@@ -41,6 +41,22 @@ class UummContractInterface
         return this.setupFinished
     }
 
+    createProject(projectName)
+    {
+        console.log(projectName)
+        var that = this
+
+        return new Promise(function (resolve, reject)
+        {
+            that.uummContractInstance.CreateProject.estimateGas(projectName)
+            .then(function(estimatedGas){
+                return that.uummContractInstance.CreateProject(projectName, {from: that.accounts[0], gas:estimatedGas})
+            }).then(function(result) {
+                resolve()
+            }).catch(function(error){console.error(error)})
+        })
+    }
+
     getUserProjects()
     {     
         var that = this
@@ -57,7 +73,6 @@ class UummContractInterface
                     that.getProjectDetails(that.accounts[0], i)
                     .then(function(details)
                     {
-
                         array.push(details)
                         loadedCount ++
                         console.log(loadedCount)
