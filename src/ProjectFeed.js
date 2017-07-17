@@ -1,6 +1,6 @@
 import React from 'react';
 import ProjectCard from './ProjectCard';
-import UummContractInterface from './UummContractInterface.js'
+import Uumm from './UummContractInterface.js'
 
 class ProjectsFeed extends React.Component
 {
@@ -19,9 +19,9 @@ class ProjectsFeed extends React.Component
     componentWillMount()
     {
         var that = this
-        UummContractInterface.isReady()
+        Uumm.isReady()
         .then(function(){
-            UummContractInterface.getUserProjects()
+            Uumm.getUserProjects()
             .then(function(projects){
                 console.log(projects)
                 that.setState({'projects':projects})

@@ -17,8 +17,8 @@ class UummContractInterface
             const uummContract = contract(UummContract)
 
             uummContract.setProvider(provider)
-            that.uummContractPromise = uummContract.deployed()
-            that.uummContractInstance = {}
+            that.contractDeployedPromise = uummContract.deployed()
+            that.contractInstance = {}
             that.accounts = {}
 
             
@@ -26,9 +26,9 @@ class UummContractInterface
             web3RPC.eth.getAccounts(function(error, accounts)
             {
                 that.accounts = accounts
-                that.uummContractPromise
+                that.contractDeployedPromise
                 .then(function(instance){
-                    that.uummContractInstance = instance
+                    that.contractInstance = instance
                     resolve()
                 })
             }) 
@@ -48,9 +48,9 @@ class UummContractInterface
 
         return new Promise(function (resolve, reject)
         {
-            that.uummContractInstance.CreateProject.estimateGas(projectName)
+            that.contractInstance.CreateProject.estimateGas(projectName)
             .then(function(estimatedGas){
-                return that.uummContractInstance.CreateProject(projectName, {from: that.accounts[0], gas:estimatedGas})
+                return that.contractInstance.CreateProject(projectName, {from: that.accounts[0], gas:estimatedGas})
             }).then(function(result) {
                 resolve()
             }).catch(function(error){console.error(error)})
@@ -65,7 +65,7 @@ class UummContractInterface
             var array = []
             var loadedCount = 0
 
-            that.uummContractInstance.GetProjectsLength.call(that.accounts[0])
+            that.contractInstance.GetProjectsLength.call(that.accounts[0])
             .then(function(numberOfProjects)
             {
                 for(var i=0; i<=numberOfProjects.toNumber(); i++)
@@ -94,7 +94,7 @@ class UummContractInterface
 
         return new Promise(function (resolve, reject)
         {
-           that.uummContractInstance.GetProjectDetails.call(creatorAddress, projectId)
+           that.contractInstance.GetProjectDetails.call(creatorAddress, projectId)
             .then(function(details)
             {
                 var projectDetails = {
