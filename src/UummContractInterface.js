@@ -1,6 +1,7 @@
 import UummContract from '../build/contracts/Uumm.json'
 import Config from '../truffle-config.js'
 import Web3 from 'web3'
+import State from './State.js'
 
 class UummContractInterface
 {
@@ -19,7 +20,6 @@ class UummContractInterface
             that.contractDeployedPromise = uummContract.deployed()
             that.contractInstance = {}
             that.accounts = {}
-
             
             const web3RPC = new Web3(provider)
             web3RPC.eth.getAccounts(function(error, accounts)
@@ -73,6 +73,9 @@ class UummContractInterface
                         that.getProjectDetails(projectId)
                         .then(function(details)
                         {
+
+                            State.addProject(projectId, details)
+
                             array.push(details)
                             loadedCount ++
                             if(loadedCount===numberOfProjects.toNumber())
