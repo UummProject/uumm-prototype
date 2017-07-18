@@ -44,27 +44,31 @@ class ProjectsList extends React.Component
     {
     
         var projects = [];
+
         for (var projectId in State.data.projects)
         {
+            if (!State.data.projects.hasOwnProperty(projectId))
+                continue
+
             var projectData = State.data.projects[projectId]
 
             projects.push(
                 <ProjectCard
-                    key={projectData.id}
+                    key={projectId}
                     data={projectData}
-                    onTouchTap={this.onProjectSelected}/>);
+                    onTouchTap={this.onProjectSelected}
+                />);
         }
 
         return (
           <div>
+                <p style={{'textAlign':'center', 'color':'0#666666'}}>
+                    {this.state.statusText}
+                </p> 
 
-            <p style={{'textAlign':'center', 'color':'0#666666'}}>
-                {this.state.statusText}
-            </p> 
-
-            <div>
-                {projects}
-            </div>      
+                <div>
+                    {projects}
+                </div>      
           </div>
         );
     }
