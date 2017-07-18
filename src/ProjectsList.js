@@ -2,7 +2,7 @@ import React from 'react';
 import ProjectCard from './ProjectCard';
 import Uumm from './UummContractInterface.js'
 
-class ProjectsFeed extends React.Component
+class ProjectsList extends React.Component
 {
     constructor()
     {
@@ -56,4 +56,4 @@ class ProjectsFeed extends React.Component
     }
 }
 
-export default ProjectsFeed;
+export default ProjectsList;
