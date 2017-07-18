@@ -79,10 +79,6 @@ class UummContractInterface
                         that.getProjectDetails(projectId)
                         .then(function(details)
                         {
-
-
-                            
-
                             array.push(details)
                             loadedCount ++
                             if(loadedCount===numberOfProjects.toNumber())
@@ -95,13 +91,14 @@ class UummContractInterface
         })
     }
 
-
     getProjectDetails=(projectId)=>
     {
         var that = this
 
         return new Promise(function (resolve, reject)
         {
+            if(!projectId)
+                reject("projectId is not valid")
            that.contractInstance.GetProjectDetails.call(projectId)
             .then(function(details)
             {
@@ -114,7 +111,7 @@ class UummContractInterface
                 }
 
                 State.addProject(projectId, projectDetails)
-                
+
                 resolve(projectDetails)
 
             }).catch(function(error){reject()})
