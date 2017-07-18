@@ -36,7 +36,7 @@ class ProjectCard extends React.Component {
     {
         return (
             <Paper style={containerStyle} zDepth={1} >
-                <h3 style={titleStyle}> {this.props.data.name} </h3>       
+                <h4 style={titleStyle}> {this.props.data.name} </h4>       
             </Paper>
         );
     }
