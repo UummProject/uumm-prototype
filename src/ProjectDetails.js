@@ -64,8 +64,8 @@ class ProjectDetails extends React.Component {
 
     render()
     {
-        var projectDetails = State.projects[this.props.projectId]
-        var firstCarachter = State
+        var projectDetails = State.data.projects[this.props.projectId]
+        console.log(this.props.projectId)
 
         return (
             <div >

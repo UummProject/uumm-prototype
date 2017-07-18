@@ -21,7 +21,7 @@ class App extends Component
 
        this.state ={
         'currentPage':PROJECTS_LIST,
-        'currentProject':{}
+        'currentProjectId':0
         };
     }
 
@@ -49,7 +49,7 @@ class App extends Component
         if(params.projectId)
             this.state ={
                  'currentPage':PROJECTS_LIST,
-                 'currentProject':params.projectId
+                 'currentProjectId':params.projectId
                  };
     }
 
@@ -57,7 +57,7 @@ class App extends Component
     {
         this.setState({
             'currentPage':PROJECT_DETAILS,
-            'currentProject':projectData
+            'currentProjectId':projectData.id
         })
     }
 
@@ -70,7 +70,7 @@ class App extends Component
                     onProjectSelected={this.onProjectSelected}/>
             case PROJECT_DETAILS:
                 return  <ProjectDetails
-                    projectData={this.state.currentProject}/>
+                    projectId={this.state.currentProjectId}/>
             default :
                 return <ProjectsListPage
                     onProjectSelected={this.onProjectSelected}/>
