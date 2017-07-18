@@ -44,6 +44,9 @@ class ProjectDetails extends React.Component {
     constructor(props)
     {
         super();
+        console.log(props)
+        Uumm.isReady()
+        .then(Uumm.getProjectDetails(props.projectId))
     }
 
     componentWillMount=()=>
@@ -58,13 +61,15 @@ class ProjectDetails extends React.Component {
         }).catch(function(error){console.log(error)}) 
         */
 
-        Uumm.isReady()
-        .then(Uumm.getProjectDetails(this.props.projectId))
+        
     }
 
     render()
     {
         var projectDetails = State.data.projects[this.props.projectId]
+        if(!projectDetails)
+            projectDetails = State.getProjectPlaceholder()
+
         console.log(this.props.projectId)
 
         return (
