@@ -45,10 +45,11 @@ class App extends Component
 
     route=(params)=>
     {
+        console.log(params.projectId)
         //TODO: validate string
         if(params.projectId)
             this.state ={
-                 'currentPage':PROJECTS_LIST,
+                 'currentPage':PROJECT_DETAILS,
                  'currentProjectId':params.projectId
                  };
     }
