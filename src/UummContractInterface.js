@@ -66,16 +66,20 @@ class UummContractInterface
             that.contractInstance.GetProjectsLength.call(that.accounts[0])
             .then(function(numberOfProjects)
             {
-                for(var i=0; i<=numberOfProjects.toNumber(); i++)
+                for(var i=0; i<numberOfProjects.toNumber(); i++)
                 {
-                    that.getProjectDetails(that.accounts[0], i)
-                    .then(function(details)
+                    that.contractInstance.GetProjectIdByIndex.call(that.accounts[0], i)
+                    .then(function(projectId)
                     {
-                        array.push(details)
-                        loadedCount ++
-                        if(loadedCount===numberOfProjects.toNumber())
-                            resolve(array)
-                    }).catch(function(error){reject(error)})
+                        that.getProjectDetails(projectId)
+                        .then(function(details)
+                        {
+                            array.push(details)
+                            loadedCount ++
+                            if(loadedCount===numberOfProjects.toNumber())
+                                resolve(array)
+                        }).catch(function(error){reject(error)})
+                    })
                 }
             
             }).catch(function(error){reject(error)})
@@ -83,23 +87,26 @@ class UummContractInterface
     }
 
 
-    getProjectDetails(creatorAddress, projectId)
+    getProjectDetails(projectId)
     {
         var that = this
 
         return new Promise(function (resolve, reject)
         {
-           that.contractInstance.GetProjectDetails.call(creatorAddress, projectId)
+            console.log("C")
+           that.contractInstance.GetProjectDetails.call(projectId)
             .then(function(details)
             {
                 var projectDetails = {
                     'creator' : details[0],
                     'name' : details[1],
-                    'id' : details[2].toNumber(),
+                    'id' : details[2],
                     'creationDate' : new Date (details[3].toNumber()*1000),
                     'totalSupply': details[4].toNumber()
                 }
-              resolve(projectDetails)
+
+                resolve(projectDetails)
+
             }).catch(function(error){reject()})
         })         
     }
