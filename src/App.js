@@ -4,7 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import InjectTapEventPlugin from 'react-tap-event-plugin'
 import ProjectsListPage from './ProjectsListPage.js'
 import ProjectDetails from './ProjectDetails.js'
-
+import QueryString from 'query-string';
 
 InjectTapEventPlugin()
 
@@ -18,8 +18,32 @@ class App extends Component
       super(props)
        this.state ={
         'currentPage':PROJECTS_LIST,
-        'currentProjectData':{}
+        'currentProject':{}
         };
+    }
+
+    componentWillMount=()=>
+    {
+        window.addEventListener('hashchange', this.onHashChanged, false);
+        this.onHashChanged()
+    }
+
+    onHashChanged=()=>
+    {
+        const parsedHash = QueryString.parse(location.hash)
+        console.log(parsedHash)
+        this.route(parsedHash)
+    }
+
+    route=(params)=>
+    {
+        //TODO: validate string
+        if(params.projectId)
+            this.state ={
+                 'currentPage':PROJECTS_LIST,
+                 'currentProject':params.projectId
+                 };
+
     }
 
     onProjectSelected = (projectData)=>
@@ -27,7 +51,7 @@ class App extends Component
         console.log("app")
         this.setState({
             'currentPage':PROJECT_DETAILS,
-            'currentProjectData':projectData
+            'currentProject':projectData
         })
     }
 
@@ -40,7 +64,7 @@ class App extends Component
                     onProjectSelected={this.onProjectSelected}/>
             case PROJECT_DETAILS:
                 return  <ProjectDetails
-                    projectData={this.state.currentProjectData}/>
+                    projectData={this.state.currentProject}/>
             default :
                 return <ProjectsListPage
                     onProjectSelected={this.onProjectSelected}/>
