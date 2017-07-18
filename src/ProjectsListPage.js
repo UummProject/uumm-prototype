@@ -29,7 +29,6 @@ class ProjectsListPage extends Component
         this.setState({'createDialogIsOpen':false})
     }
 
-
     onCreateProjectTap=(projectName)=>
     {
         this.setState({'createDialogIsOpen':true})
@@ -41,15 +40,23 @@ class ProjectsListPage extends Component
         Uumm.createProject(projectName).catch(function(error){console.warn(error)})
     }
 
+    onProjectSelected=(projectData)=>
+    {
+        this.props.onProjectSelected(projectData)
+    }
+
     render() {
         return (
 
             <div>
-                <FloatingActionButton onTouchTap={this.onCreateProjectTap} secondary={true} style={FloatingButtonStyle}>
+                <FloatingActionButton
+                    onTouchTap={this.onCreateProjectTap}
+                    secondary={true}
+                    style={FloatingButtonStyle}>
                     <AddIcon />
                 </FloatingActionButton>
 
-                <ProjectsList/>
+                <ProjectsList onProjectSelected = {this.onProjectSelected}/>
 
                 <CreateProjectPage
                     open={this.state.createDialogIsOpen}

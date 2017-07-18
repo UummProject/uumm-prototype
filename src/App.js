@@ -14,9 +14,22 @@ const PROJECT_DETAILS = "ProjectDetails"
 
 class App extends Component
 {
-    constructor(props) {
+    constructor(props)
+    {
       super(props)
-       this.state = {'currentPage':PROJECT_DETAILS};
+       this.state ={
+        'currentPage':PROJECTS_LIST,
+        'currentProjectData':{}
+        };
+    }
+
+    onProjectSelected = (projectData)=>
+    {
+        console.log("app")
+        this.setState({
+            'currentPage':PROJECT_DETAILS,
+            'currentProjectData':projectData
+        })
     }
 
     getCurrentPage = () =>
@@ -24,17 +37,14 @@ class App extends Component
          switch (this.state.currentPage)
          {
             case PROJECTS_LIST:
-                return  <ProjectsListPage/>
+                return  <ProjectsListPage
+                    onProjectSelected={this.onProjectSelected}/>
             case PROJECT_DETAILS:
-                return  <ProjectDetails/>
+                return  <ProjectDetails
+                    projectData={this.state.currentProjectData}/>
             default :
                 null
         }
-    }
-
-    onProjectSelected=(projectId)=>
-    {
-
     }
 
     render() {

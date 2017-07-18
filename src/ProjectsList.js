@@ -23,10 +23,14 @@ class ProjectsList extends React.Component
         .then(function(){
             Uumm.getUserProjects()
             .then(function(projects){
-                console.log(projects)
                 that.setState({'projects':projects})
             }).catch(function(error){console.log(error)})
         }).catch(function(error){console.log(error)})   
+    }
+
+    onProjectSelected = (projectData)=>
+    {
+        this.props.onProjectSelected(projectData)
     }
   
     render()
@@ -38,7 +42,8 @@ class ProjectsList extends React.Component
             projects.push(
                 <ProjectCard
                     key={this.state.projects[i].id}
-                    data={this.state.projects[i]}/>);
+                    data={this.state.projects[i]}
+                    onTouchTap = {this.onProjectSelected}/>);
         }
 
         return (

@@ -32,10 +32,15 @@ class ProjectCard extends React.Component {
         super();
     }
 
+    onTouchTap =() =>
+    {
+        this.props.onTouchTap(this.props.data)
+    }
+
     render()
     {
         return (
-            <Paper style={containerStyle} zDepth={1} >
+            <Paper style={containerStyle} zDepth={1} onTouchTap={this.onTouchTap}>
                 <h4 style={titleStyle}> {this.props.data.name} </h4>       
             </Paper>
         );
