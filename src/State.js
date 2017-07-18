@@ -6,6 +6,7 @@ class State
     {
        this.data = {}
        this.data.projects={}
+       this.data.projectsRef=[]
        this.data.users={}
        this.stateUpdatedCallbacks=[]
     }
@@ -23,6 +24,16 @@ class State
         this.stateUpdated()
     }
 
+    addProjectRef=(projectId)=>
+    {
+        for(var i = 0; i<this.data.projectsRef.length; i++)
+        {
+            if(projectId===this.data.projectsRef[i])
+                return
+        }
+        this.data.projectsRef.push(projectId)
+    }
+
     addUser=(userAddress,data)=>
     {
         Object.assign(this.data.users[userAddress], data)
@@ -31,6 +42,8 @@ class State
 
     addVar=(name,data)=>
     {
+        if(!this.data[name])
+            this.data[name] = {} 
         Object.assign(this.data[name], data)
         this.stateUpdated()
     }

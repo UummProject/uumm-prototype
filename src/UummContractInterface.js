@@ -34,12 +34,12 @@ class UummContractInterface
         })
     }
 
-    isReady()
+    isReady=()=>
     {
         return this.setupFinished
     }
 
-    createProject(projectName)
+    createProject=(projectName)=>
     {
         var that = this
 
@@ -49,12 +49,14 @@ class UummContractInterface
             .then(function(estimatedGas){
                 return that.contractInstance.CreateProject(projectName, {from: that.accounts[0], gas:estimatedGas})
             }).then(function(result) {
-                resolve()
+
+                //resolve()
+                return(that.getUserProjects())
             }).catch(function(error){console.error(error)})
         })
     }
 
-    getUserProjects()
+    getUserProjects=()=>
     {     
         var that = this
         return new Promise(function (resolve, reject)
@@ -65,14 +67,19 @@ class UummContractInterface
             that.contractInstance.GetProjectsLength.call(that.accounts[0])
             .then(function(numberOfProjects)
             {
+                State.addVar("projectsLength", numberOfProjects)
+
                 for(var i=0; i<numberOfProjects.toNumber(); i++)
                 {
                     that.contractInstance.GetProjectIdByIndex.call(that.accounts[0], i)
                     .then(function(projectId)
                     {
+                        State.addProjectRef(projectId)
+
                         that.getProjectDetails(projectId)
                         .then(function(details)
                         {
+
 
                             State.addProject(projectId, details)
 
@@ -89,7 +96,7 @@ class UummContractInterface
     }
 
 
-    getProjectDetails(projectId)
+    getProjectDetails=(projectId)=>
     {
         var that = this
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import ProjectCard from './ProjectCard';
 import Uumm from './UummContractInterface.js'
+import State from './State.js'
 
 class ProjectsList extends React.Component
 {
@@ -18,14 +19,20 @@ class ProjectsList extends React.Component
 
     componentWillMount()
     {
-        var that = this
+        Uumm.isReady()
+        .then(function(){
+            Uumm.getUserProjects()
+        }).catch(function(error){console.log(error)})
+
+
+        /*var that = this
         Uumm.isReady()
         .then(function(){
             Uumm.getUserProjects()
             .then(function(projects){
                 that.setState({'projects':projects})
             }).catch(function(error){console.log(error)})
-        }).catch(function(error){console.log(error)})   
+        }).catch(function(error){console.log(error)})*/
     }
 
     onProjectSelected = (projectData)=>
@@ -37,12 +44,14 @@ class ProjectsList extends React.Component
     {
     
         var projects = [];
-        for (var i=0; i<this.state.projects.length; i++)
+        for (var projectId in State.data.projects)
         {
+            var projectData = State.data.projects[projectId]
+
             projects.push(
                 <ProjectCard
-                    key={this.state.projects[i].id}
-                    data={this.state.projects[i]}
+                    key={projectData.id}
+                    data={projectData}
                     onTouchTap={this.onProjectSelected}/>);
         }
 
