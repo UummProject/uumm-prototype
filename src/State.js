@@ -56,6 +56,18 @@ class State
         }
     }
 
+    getProjectPlaceholder=()=>
+    {
+        var projectDetails = {
+            'creator' : "",
+            'name' : "",
+            'id' : "",
+            'creationDate' : new Date (),
+            'totalSupply': 0
+        }
+        return projectDetails
+    }
+
     addListener=(callback)=>
     {
         this.stateUpdatedCallbacks.push(callback)
