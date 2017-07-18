@@ -81,7 +81,7 @@ class UummContractInterface
                         {
 
 
-                            State.addProject(projectId, details)
+                            
 
                             array.push(details)
                             loadedCount ++
@@ -113,6 +113,8 @@ class UummContractInterface
                     'totalSupply': details[4].toNumber()
                 }
 
+                State.addProject(projectId, projectDetails)
+                
                 resolve(projectDetails)
 
             }).catch(function(error){reject()})
