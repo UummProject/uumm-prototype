@@ -9,7 +9,6 @@ class UummContractInterface
         var that=this
         this.setupFinished = new Promise(function(resolve, reject)
         {
-        
             var {host, port} = Config.networks[process.env.NODE_ENV]
             
             const provider = new Web3.providers.HttpProvider('http://' + host + ':' + port)
@@ -93,7 +92,6 @@ class UummContractInterface
 
         return new Promise(function (resolve, reject)
         {
-            console.log("C")
            that.contractInstance.GetProjectDetails.call(projectId)
             .then(function(details)
             {

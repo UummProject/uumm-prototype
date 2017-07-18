@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import 'material-ui'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import InjectTapEventPlugin from 'react-tap-event-plugin'
-import Uumm from './UummContractInterface.js'
 import ProjectsListPage from './ProjectsListPage.js'
 import ProjectDetails from './ProjectDetails.js'
 
@@ -43,7 +42,8 @@ class App extends Component
                 return  <ProjectDetails
                     projectData={this.state.currentProjectData}/>
             default :
-                null
+                return <ProjectsListPage
+                    onProjectSelected={this.onProjectSelected}/>
         }
     }
 

@@ -37,13 +37,13 @@ class ProjectsList extends React.Component
     {
     
         var projects = [];
-        for (var i =0; i<this.state.projects.length; i++)
+        for (var i=0; i<this.state.projects.length; i++)
         {
             projects.push(
                 <ProjectCard
                     key={this.state.projects[i].id}
                     data={this.state.projects[i]}
-                    onTouchTap = {this.onProjectSelected}/>);
+                    onTouchTap={this.onProjectSelected}/>);
         }
 
         return (

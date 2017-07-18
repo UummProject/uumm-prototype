@@ -56,7 +56,7 @@ class ProjectsListPage extends Component
                     <AddIcon />
                 </FloatingActionButton>
 
-                <ProjectsList onProjectSelected = {this.onProjectSelected}/>
+                <ProjectsList onProjectSelected={this.onProjectSelected}/>
 
                 <CreateProjectPage
                     open={this.state.createDialogIsOpen}
