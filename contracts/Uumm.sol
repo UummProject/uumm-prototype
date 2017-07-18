@@ -62,7 +62,6 @@ contract Uumm
     {
         address userAddress;
         bytes32 [] projectsRef; //list of projects that she contributed to (including created)
-
     }
 
     mapping (bytes32 => projectData ) projects;
@@ -99,10 +98,18 @@ contract Uumm
         users[msg.sender].projectsRef.push(projectId); 
     }
 
-    /*function GetProjectsLength(address projectCreator) constant returns (uint256)
+    function GetProjectsLength( address userAddress) constant
+        returns (uint256)
     {
-        return projects[projectCreator].length;
-    }*/
+        //Maybe should only be called by the sender instead of any user 
+        return (users[userAddress].projectsRef.length);
+    }
+
+    function GetProjectIdByIndex(address userAddress, uint256 index)constant
+        returns (bytes32)
+    {
+        return (users[userAddress].projectsRef[index]);
+    }
 
     function GetProjectDetails (bytes32 projectId) constant
         returns (address, string, bytes32, uint, uint256 )
