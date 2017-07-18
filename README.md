@@ -38,7 +38,9 @@ This project aims to create a governance tool following a bottom-up, organic, le
 
 _As oppose to, here is a .pdf with a bunch of idealistic ideas, especualte with my promises even if you don't give a crap and the only thing you want is easy money, now I'm rich and I don't have any incentives to keep working on this anymore._
 
-I'm starting with an MVP for a usecase I've been expose to, and if it makes sense I'll keep expanding with more features.
+I'm starting with an MVP for a usecase I've been expose to, and if it makes sense I'll keep expanding with more features. 
+
+
 Everyone is welcome to join!
 
 # Status
@@ -139,6 +141,12 @@ A symbol for representing is likely to be needed as well.
 [Greek alphabet](https://en.wikipedia.org/wiki/Greek_alphabet) is a good source of inspiration.
 Would be nice that on top of being a good looking character and had some meaning.
 
+### User interface
+Not a focus on the current stage, but a vital element after the core/contract is solid.
+
+### Privacy
+I have no solid opinion on how private data should be. Opinions are welcomed. Current apporach assumes no privacy.
+
 ##Other stuff
 
 #### Project name 
@@ -157,4 +165,7 @@ A tool for creating fantastic entities!
 Ping me on Twitter [@xavivives](https://twitter.com/xavivives)  or email me at xavings@gmail.com
 
 ##### ALOHA
+
+Does not assume privacy
+User interface
 
