@@ -39,19 +39,25 @@ class App extends Component
     onHashChanged=()=>
     {
         const parsedHash = QueryString.parse(location.hash)
-        console.log(parsedHash)
         this.route(parsedHash)
     }
 
     route=(params)=>
     {
-        console.log(params.projectId)
         //TODO: validate string
         if(params.projectId)
-            this.state ={
+        {
+            this.setState({
                  'currentPage':PROJECT_DETAILS,
                  'currentProjectId':params.projectId
-                 };
+                 })
+        }
+        else
+        {
+            this.setState({
+                 'currentPage':this.PROJECT_LIST,
+            })
+        }
     }
 
     onProjectSelected = (projectData)=>

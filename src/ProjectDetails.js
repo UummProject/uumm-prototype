@@ -44,12 +44,13 @@ class ProjectDetails extends React.Component {
     constructor(props)
     {
         super();
-        console.log(Uumm.isReady())
-
+        
         Uumm.isReady().then(function(){
             Uumm.getProjectDetails(props.projectId)
             Uumm.getUserContributorData(props.projectId, Uumm.userAddress)
         })
+
+        window.location.hash = "projectId="+props.projectId
     }
 
     render()
