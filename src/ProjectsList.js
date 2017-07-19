@@ -22,17 +22,7 @@ class ProjectsList extends React.Component
         Uumm.isReady()
         .then(function(){
             Uumm.getUserProjects()
-        }).catch(function(error){console.log(error)})
-
-
-        /*var that = this
-        Uumm.isReady()
-        .then(function(){
-            Uumm.getUserProjects()
-            .then(function(projects){
-                that.setState({'projects':projects})
-            }).catch(function(error){console.log(error)})
-        }).catch(function(error){console.log(error)})*/
+        }).catch(function(error){console.error(error)})
     }
 
     onProjectSelected = (projectData)=>
@@ -42,7 +32,6 @@ class ProjectsList extends React.Component
   
     render()
     {
-    
         var projects = [];
 
         for (var projectId in State.data.projects)
