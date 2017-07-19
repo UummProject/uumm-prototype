@@ -44,9 +44,11 @@ class ProjectDetails extends React.Component {
     constructor(props)
     {
         super();
-        console.log(props)
-        Uumm.isReady()
-        .then(Uumm.getProjectDetails(props.projectId))
+        console.log(Uumm.isReady())
+
+        Uumm.isReady().then(function(){
+            Uumm.getProjectDetails(props.projectId)
+        })
     }
 
     componentWillMount=()=>
