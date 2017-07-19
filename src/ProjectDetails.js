@@ -66,8 +66,6 @@ class ProjectDetails extends React.Component {
                if(projectData.contributors[Uumm.userAddress])
                     contributorData = projectData.contributors[Uumm.userAddress]
 
-        console.log(projectData)
-
         return (
             <div >
                 <Avatar
@@ -78,8 +76,11 @@ class ProjectDetails extends React.Component {
                     {projectData.name[0]}
                 </Avatar>
                     <h4 style={titleStyle}> {projectData.name} </h4> 
-                    <p> {projectData.id} </p>       
-                    <p> {contributorData.id} </p>     
+                    <p> Project Id: {projectData.id} </p>       
+                    <p> ContributorId: {contributorData.id} </p>
+                    <p> Tokens amount: {contributorData.valueTokens} </p> 
+                    <p> Ether amount: {contributorData.ethereumBalance} </p>
+                    <p> Ownership: {projectData.totalSupply/contributorData.valueTokens*100} </p>     
             </div>
         );
     }
