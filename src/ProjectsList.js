@@ -13,11 +13,6 @@ class ProjectsList extends React.Component
         this.state = {"projects" : [],"statusText":"Checking network..."};
     }
 
-    onResolve = (commitmentId) =>
-    {
-        this.props.onResolve(commitmentId);
-    }
-
     componentWillMount=()=>
     {
         Uumm.isReady()
