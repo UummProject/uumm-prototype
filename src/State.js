@@ -56,7 +56,7 @@ class State
         }
     }
 
-    getProjectPlaceholder=()=>
+    getEmptyProject=()=>
     {
         var projectDetails = {
             'creator' : "",
@@ -66,6 +66,18 @@ class State
             'totalSupply': 0
         }
         return projectDetails
+    }
+
+    getEmptyContributor=()=>
+    {
+        var contributorData = {
+            'id' : "",
+            'contributorAddress' : "",
+            'name' : "",
+            'valueTokens' :0,
+            'ethereumBalance':0
+        }
+        return contributorData
     }
 
     addListener=(callback)=>
