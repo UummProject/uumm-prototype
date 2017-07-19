@@ -195,7 +195,7 @@ class UummContractInterface
                             'title' : proposalDetails[2],
                             'reference' : proposalDetails[3],
                             'valueAmount': proposalDetails[4].toNumber(),
-                            'creationTimestamp': new Date (proposalDetails[5].toNumber()*1000)
+                            'creationDate': new Date (proposalDetails[5].toNumber()*1000)
                         }
                     
                         var project = {}

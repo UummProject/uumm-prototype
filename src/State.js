@@ -80,11 +80,27 @@ class State
         return contributorData
     }
 
+    getEmptyProposal=()=>
+    {
+        var proposalData = {
+            'id' : "",
+            'author' : "",
+            'title' : "",
+            'reference' :"",
+            'valueAmount':0,
+            'proposalState':0,
+            'votes':{},
+            'positiveVotes': 0,
+            'negativeVotes': 0,
+            'creationDate': new Date()
+        }
+        return proposalData
+    }
+
     addListener=(callback)=>
     {
         this.stateUpdatedCallbacks.push(callback)
     }
-
 }
 
 const instance = new State()
