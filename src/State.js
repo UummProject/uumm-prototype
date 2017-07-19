@@ -1,3 +1,4 @@
+import DeepAssign from 'deep-assign'
 
 class State
 {
@@ -14,12 +15,12 @@ class State
     {
 
         if(!projectId || !data)
-            return
+            throw("projectId or data was not defined")
 
         if(!this.data.projects[projectId])
             this.data.projects[projectId] = {} 
 
-        Object.assign(this.data.projects[projectId], data)
+       DeepAssign(this.data.projects[projectId], data)
         this.stateUpdated()
     }
 
@@ -35,7 +36,7 @@ class State
 
     addUser=(userAddress,data)=>
     {
-        Object.assign(this.data.users[userAddress], data)
+       DeepAssign(this.data.users[userAddress], data)
         this.stateUpdated()
     }
 
@@ -43,7 +44,7 @@ class State
     {
         if(!this.data[name])
             this.data[name] = {} 
-        Object.assign(this.data[name], data)
+       DeepAssign(this.data[name], data)
         this.stateUpdated()
     }
 
