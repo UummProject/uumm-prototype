@@ -5,10 +5,16 @@ import State from './State.js'
 
 class UummContractInterface
 {
+
+    //"User" makes reference to the current app user
+
     constructor()
     {
+        this.userAddress
+
         var that=this
-        this.setupFinished = new Promise(function(resolve, reject)
+
+        this.setupFinished = new Promise((resolve, reject)=>
         {
             var {host, port} = Config.networks[process.env.NODE_ENV]
             
@@ -22,9 +28,10 @@ class UummContractInterface
             that.accounts = {}
             
             const web3RPC = new Web3(provider)
-            web3RPC.eth.getAccounts(function(error, accounts)
+            web3RPC.eth.getAccounts((error, accounts)=>
             {
                 that.accounts = accounts
+                this.userAddress = accounts[0]
                 that.contractDeployedPromise
                 .then(function(instance){
                     that.contractInstance = instance
@@ -47,7 +54,7 @@ class UummContractInterface
         {
             that.contractInstance.CreateProject.estimateGas(projectName)
             .then(function(estimatedGas){
-                return that.contractInstance.CreateProject(projectName, {from: that.accounts[0], gas:estimatedGas})
+                return that.contractInstance.CreateProject(projectName, {from: that.userAddress, gas:estimatedGas})
             }).then(function(result) {
 
                 //resolve()
@@ -64,14 +71,14 @@ class UummContractInterface
             var array = []
             var loadedCount = 0
 
-            that.contractInstance.GetProjectsLength.call(that.accounts[0])
+            that.contractInstance.GetProjectsLength.call(that.userAddress)
             .then(function(numberOfProjects)
             {
                 State.addVar("projectsLength", numberOfProjects)
 
                 for(var i=0; i<numberOfProjects.toNumber(); i++)
                 {
-                    that.contractInstance.GetProjectIdByIndex.call(that.accounts[0], i)
+                    that.contractInstance.GetProjectIdByIndex.call(that.userAddress, i)
                     .then(function(projectId)
                     {
                         State.addProjectRef(projectId)
@@ -93,14 +100,13 @@ class UummContractInterface
 
     getProjectDetails=(projectId)=>
     {
-        var that = this
 
-        return new Promise(function (resolve, reject)
+        return new Promise( (resolve, reject)=>
         {
             if(!projectId)
                 reject("projectId is not valid")
-           that.contractInstance.GetProjectDetails.call(projectId)
-            .then(function(details)
+           this.contractInstance.GetProjectDetails.call(projectId)
+            .then((details)=>
             {
                 var projectDetails = {
                     'creator' : details[0],
@@ -114,8 +120,49 @@ class UummContractInterface
 
                 resolve(projectDetails)
 
-            }).catch(function(error){reject()})
+            }).catch(function(error){reject(error)})
         })         
+    }
+
+    getContributorDataByAddress=(projectId, contributorAddress)=>
+    {
+
+        return new Promise((resolve, reject)=>
+        {
+            //TODO: better vadilation
+            if(!projectId)
+                reject("projectId is not valid")
+            if(!contributorAddress)
+                reject("Invalid contributorAddress")
+
+
+           this.contractInstance.GetContributorDataByAddress.call(projectId, contributorAddress)
+            .then((details)=>
+            {
+                console.log(details)
+                var contributorData = {
+                    'id' : details[0].toNumber(),
+                    'contributorAddress' : details[1],
+                    'name' : details[2],
+                    'valueTokens' : details[3].toNumber(),
+                    'ethereumBalance': details[4].toNumber()
+                }
+
+                var project = {}
+                project.contributors={}
+                project.contributors[contributorData.contributorAddress]=contributorData
+
+                State.addProject(projectId, project)
+
+                resolve(contributorData)
+
+            }).catch(function(error){reject(error)})
+        })       
+    }
+
+    getUserContributorData = (projectId)=>
+    {
+        return this.getContributorDataByAddress(projectId, this.userAddress)
     }
 }
 
