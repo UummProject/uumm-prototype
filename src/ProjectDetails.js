@@ -91,31 +91,6 @@ class ProjectDetails extends React.Component {
         if(projectData.contributors)
                if(projectData.contributors[Uumm.userAddress])
                     contributorData = projectData.contributors[Uumm.userAddress]
-
-        var proposals = []
-        if(projectData.proposals)
-        {
-
-            for (var i = 0; i<projectData.proposals.length; i++) 
-            {
-
-                var proposal = State.getEmptyProposal()
-
-                if(projectData.proposals[i])
-                    proposal = projectData.proposals[i]
-
-                var proposal = (<div key={i}>
-                        <h4 style={titleStyle}> {proposal.title} </h4> 
-                        <p> Proposal Id: {proposal.id} </p>       
-                        <p> Reference: {proposal.reference} </p>
-                        <p> Tokens amount: {proposal.valueAmount} </p> 
-                        <p> Author: {proposal.author} </p>
-                        <p> Creation date: {proposal.creationDate.toString()}</p> 
-                    </div>)
-
-                proposals.push(proposal)
-            }
-        }
           
         return (
             <div >
