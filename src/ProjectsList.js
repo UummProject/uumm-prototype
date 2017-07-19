@@ -9,6 +9,7 @@ class ProjectsList extends React.Component
     {
         super();
  
+        //TODO: Rendering network state doesn't belong here
         this.state = {"projects" : [],"statusText":"Checking network..."};
     }
 
@@ -17,10 +18,11 @@ class ProjectsList extends React.Component
         this.props.onResolve(commitmentId);
     }
 
-    componentWillMount()
+    componentWillMount=()=>
     {
         Uumm.isReady()
-        .then(function(){
+        .then(()=>{
+            this.setState({"statusText": "Connected"})
             Uumm.getUserProjects()
         }).catch(function(error){console.error(error)})
     }
