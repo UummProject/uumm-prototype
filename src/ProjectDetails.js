@@ -48,31 +48,25 @@ class ProjectDetails extends React.Component {
 
         Uumm.isReady().then(function(){
             Uumm.getProjectDetails(props.projectId)
+            Uumm.getUserContributorData(props.projectId, Uumm.userAddress)
         })
-    }
-
-    componentWillMount=()=>
-    {
-        /*var that = this
-        Uumm.isReady()
-        .then(function(){
-            Uumm.getUserProjects()
-            .then(function(projects){
-                that.setState({'projects':projects})
-            }).catch(function(error){console.log(error)})
-        }).catch(function(error){console.log(error)}) 
-        */
-
-        
     }
 
     render()
     {
-        var projectDetails = State.data.projects[this.props.projectId]
-        if(!projectDetails)
-            projectDetails = State.getProjectPlaceholder()
+        
+        var projectData = State.getEmptyProject()
+        var contributorData = State.getEmptyContributor()
 
-        console.log(this.props.projectId)
+        
+        if(State.data.projects[this.props.projectId])
+            projectData = State.data.projects[this.props.projectId]
+
+        if(projectData.contributors)
+               if(projectData.contributors[Uumm.userAddress])
+                    contributorData = projectData.contributors[Uumm.userAddress]
+
+        console.log(projectData)
 
         return (
             <div >
@@ -81,10 +75,11 @@ class ProjectDetails extends React.Component {
                     backgroundColor={purple500}
                     size={30}
                     style={style}>
-                    {projectDetails.name[0]}
+                    {projectData.name[0]}
                 </Avatar>
-                    <h4 style={titleStyle}> {projectDetails.name} </h4> 
-                    <p style={titleStyle}> {projectDetails.id} </p>       
+                    <h4 style={titleStyle}> {projectData.name} </h4> 
+                    <p> {projectData.id} </p>       
+                    <p> {contributorData.id} </p>     
             </div>
         );
     }
