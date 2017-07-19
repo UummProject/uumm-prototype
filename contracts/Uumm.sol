@@ -143,7 +143,7 @@ contract Uumm
     
     function CreateProposal (bytes32 projectId, string title, string reference, uint256 valueAmount)
     {
-        if(valueAmount!=0)
+        if(valueAmount==0)
             throw;
 
         uint256 proposalId =  projects[projectId].proposals.length;
