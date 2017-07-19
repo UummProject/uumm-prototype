@@ -177,7 +177,6 @@ class UummContractInterface
     {
         return new Promise((resolve, reject)=>
         {
-            console.log(projectId)
             this.contractInstance.GetProposalsLength.call(projectId)
             .then((numberOfProposals)=>
             {
@@ -186,11 +185,23 @@ class UummContractInterface
 
                 for(var proposalId=0; proposalId<numberOfProposals.toNumber(); proposalId++)
                 {
+
                     this.contractInstance.GetProposalDetails.call(projectId, proposalId)
                     .then((proposalDetails)=>
                     {
-                        console.log(proposalDetails)
-                       // State.addProjectRef(projectId)
+                        var proposalDetails = {
+                            'id' : proposalDetails[0].toNumber(),
+                            'author' : proposalDetails[1],
+                            'title' : proposalDetails[2],
+                            'reference' : proposalDetails[3],
+                            'valueAmount': proposalDetails[4].toNumber(),
+                            'creationTimestamp': new Date (proposalDetails[5].toNumber()*1000)
+                        }
+                    
+                        var project = {}
+                        project.proposals = []
+                        project.proposals[proposalDetails.id] = proposalDetails
+                        State.addProject(projectId, project)
 
                         /*this.getProjectDetails(projectId)
                         .then(function(details)
@@ -203,9 +214,6 @@ class UummContractInterface
                         */
                     })
                 }
-
-
-
             })
         })  
     }

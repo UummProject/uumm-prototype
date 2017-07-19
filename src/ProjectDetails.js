@@ -84,7 +84,17 @@ class ProjectDetails extends React.Component {
 
         if(projectData.contributors)
                if(projectData.contributors[Uumm.userAddress])
-                    contributorData = projectData.contributors[Uumm.userAddress]    
+                    contributorData = projectData.contributors[Uumm.userAddress]
+
+        console.log(projectData)
+        if(projectData.proposals)
+        {
+            for (var i = 0; i<projectData.proposals.length; i++) 
+            {
+                console.log(i, projectData.proposals[i])
+            }
+        }
+          
         return (
             <div >
                 <Avatar
