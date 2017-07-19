@@ -3,6 +3,8 @@ import Avatar from 'material-ui/Avatar';
 import FontIcon from 'material-ui/FontIcon';
 import State from './State.js'
 import Uumm from './UummContractInterface.js'
+import RaisedButton from 'material-ui/RaisedButton'
+import CreateProposalPage from './CreateProposalPage.js'
 
 import {
   blue300,
@@ -44,8 +46,10 @@ class ProjectDetails extends React.Component {
     constructor(props)
     {
         super();
-        
-        Uumm.isReady().then(function(){
+
+        this.state = {"newProposalDialogIsOpen" : false};
+
+        Uumm.isReady().then(()=>{
             Uumm.getProjectDetails(props.projectId)
             Uumm.getUserContributorData(props.projectId, Uumm.userAddress)
         })
@@ -53,20 +57,32 @@ class ProjectDetails extends React.Component {
         window.location.hash = "projectId="+props.projectId
     }
 
+    onMakeNewProposal=()=>
+    {
+         this.setState({'newProposalDialogIsOpen':true})
+    }
+
+    onProposalSubmited=(title, reference, tokenAmount)=>
+    {
+        this.setState({'newProposalDialogIsOpen':false})
+    }
+
+    closeDialog = ()=>
+    {
+         this.setState({'newProposalDialogIsOpen':false})
+    }
+
     render()
     {
-        
         var projectData = State.getEmptyProject()
         var contributorData = State.getEmptyContributor()
-
-        
+    
         if(State.data.projects[this.props.projectId])
             projectData = State.data.projects[this.props.projectId]
 
         if(projectData.contributors)
                if(projectData.contributors[Uumm.userAddress])
                     contributorData = projectData.contributors[Uumm.userAddress]
-
         return (
             <div >
                 <Avatar
@@ -76,12 +92,23 @@ class ProjectDetails extends React.Component {
                     style={style}>
                     {projectData.name[0]}
                 </Avatar>
-                    <h4 style={titleStyle}> {projectData.name} </h4> 
-                    <p> Project Id: {projectData.id} </p>       
-                    <p> ContributorId: {contributorData.id} </p>
-                    <p> Tokens amount: {contributorData.valueTokens} </p> 
-                    <p> Ether amount: {contributorData.ethereumBalance} </p>
-                    <p> Ownership: {projectData.totalSupply/contributorData.valueTokens*100} </p>     
+
+                <h4 style={titleStyle}> {projectData.name} </h4> 
+                <p> Project Id: {projectData.id} </p>       
+                <p> ContributorId: {contributorData.id} </p>
+                <p> Tokens amount: {contributorData.valueTokens} </p> 
+                <p> Ether amount: {contributorData.ethereumBalance} </p>
+                <p> Ownership: {projectData.totalSupply/contributorData.valueTokens*100}% </p> 
+
+                 <RaisedButton
+                    secondary={true}
+                    fullWidth={false}
+                    label="Make new proposal"
+                    onTouchTap={this.onMakeNewProposal} /> 
+                <CreateProposalPage
+                    open={this.state.newProposalDialogIsOpen}
+                    onCancel={this.closeDialog}
+                    onCreate={this.onProposalSubmited}/>
             </div>
         );
     }
