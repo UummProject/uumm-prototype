@@ -55,7 +55,7 @@ class UummContractInterface
                 return this.contractInstance.CreateProposal(projectId, title, reference, valueAmount, {from: this.userAddress, gas:estimatedGas})
             }).then((result)=> {
                 resolve()
-                //return(this.getUserProjects())
+                return(this.getProposals(projectId))
             }).catch((error)=>{console.error(error)})
         })
     }
