@@ -5,7 +5,6 @@ import State from './State.js'
 
 class UummContractInterface
 {
-
     //"User" makes reference to the current app user
 
     constructor()
