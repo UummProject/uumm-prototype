@@ -16,7 +16,6 @@ const containerStyle =
     marginRight:5
 }
 
-
 class ProposalCard extends React.Component {
 
     constructor(props)
@@ -31,7 +30,6 @@ class ProposalCard extends React.Component {
 
     render()
     {         
-        console.log(this.props.data)
         return (
             <Paper style={containerStyle} zDepth={1} onTouchTap={this.onTouchTap}>
                 <h4> {this.props.data.title} </h4> 
