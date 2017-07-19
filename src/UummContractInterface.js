@@ -139,7 +139,6 @@ class UummContractInterface
            this.contractInstance.GetContributorDataByAddress.call(projectId, contributorAddress)
             .then((details)=>
             {
-                console.log(details)
                 var contributorData = {
                     'id' : details[0].toNumber(),
                     'contributorAddress' : details[1],
