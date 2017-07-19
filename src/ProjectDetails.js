@@ -5,6 +5,7 @@ import State from './State.js'
 import Uumm from './UummContractInterface.js'
 import RaisedButton from 'material-ui/RaisedButton'
 import CreateProposalPage from './CreateProposalPage.js'
+import ProposalsList from './ProposalsList.js'
 
 import {
   blue300,
@@ -67,6 +68,11 @@ class ProjectDetails extends React.Component {
     {
         this.setState({'newProposalDialogIsOpen':false})
         Uumm.createProposal(this.props.projectId, title, reference, tokenAmount)
+    }
+
+    onProposalSelected=(proposalId)=>
+    {
+       console.log("ProposalClicked")
     }
 
     closeDialog = ()=>
@@ -138,7 +144,7 @@ class ProjectDetails extends React.Component {
                     onCancel={this.closeDialog}
                     onCreate={this.onProposalSubmited}/>
 
-                    {proposals}
+                <ProposalsList projectId={this.props.projectId} onProposalSelected={this.onProposalSelected}/>
             </div>
         );
     }
