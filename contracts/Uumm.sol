@@ -404,6 +404,6 @@ contract Uumm
 
     function GetContributorProposalsLength(bytes32 projectId, uint256 contributorId) returns (uint256)
     {
-        return(   projects[projectId].contributors[contributorId].proposalsRef.length );
+        return(projects[projectId].contributors[contributorId].proposalsRef.length);
     }
 }

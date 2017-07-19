@@ -1,7 +1,6 @@
 
 class State
 {
-
     constructor()
     {
        this.data = {}
