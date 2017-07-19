@@ -46,13 +46,13 @@ class UummContractInterface
         return this.setupFinished
     }
 
-    createProject=(projectId, title, reference, valueAmount)=>
+    createProposal=(projectId, title, reference, valueAmount)=>
     {
         return new Promise((resolve, reject)=>
         {
             this.contractInstance.CreateProposal.estimateGas(projectId, title, reference, valueAmount)
             .then((estimatedGas)=>{
-                return this.contractInstance.CreateProject(projectId, title, reference, valueAmount, {from: this.userAddress, gas:estimatedGas})
+                return this.contractInstance.CreateProposal(projectId, title, reference, valueAmount, {from: this.userAddress, gas:estimatedGas})
             }).then((result)=> {
                 resolve()
                 //return(this.getUserProjects())
@@ -60,7 +60,7 @@ class UummContractInterface
         })
     }
 
-    createProposal=(projectName)=>
+    createProject=(projectName)=>
     {
         return new Promise((resolve, reject)=>
         {
@@ -85,7 +85,7 @@ class UummContractInterface
             that.contractInstance.GetProjectsLength.call(that.userAddress)
             .then(function(numberOfProjects)
             {
-                State.addVar("projectsLength", numberOfProjects)
+                //State.addVar("projectsLength", numberOfProjects)
 
                 for(var i=0; i<numberOfProjects.toNumber(); i++)
                 {
@@ -111,12 +111,11 @@ class UummContractInterface
 
     getProjectDetails=(projectId)=>
     {
-
         return new Promise( (resolve, reject)=>
         {
             if(!projectId)
                 reject("projectId is not valid")
-           this.contractInstance.GetProjectDetails.call(projectId)
+            this.contractInstance.GetProjectDetails.call(projectId)
             .then((details)=>
             {
                 var projectDetails = {
@@ -172,6 +171,43 @@ class UummContractInterface
     getUserContributorData = (projectId)=>
     {
         return this.getContributorDataByAddress(projectId, this.userAddress)
+    }
+
+    getProposals = (projectId) =>
+    {
+        return new Promise((resolve, reject)=>
+        {
+            console.log(projectId)
+            this.contractInstance.GetProposalsLength.call(projectId)
+            .then((numberOfProposals)=>
+            {
+                //record number of proposals so we don't need to reload them
+                //State.addVar("proposalsLenght", numberOfProposals)
+
+                for(var proposalId=0; proposalId<numberOfProposals.toNumber(); proposalId++)
+                {
+                    this.contractInstance.GetProposalDetails.call(projectId, proposalId)
+                    .then((proposalDetails)=>
+                    {
+                        console.log(proposalDetails)
+                       // State.addProjectRef(projectId)
+
+                        /*this.getProjectDetails(projectId)
+                        .then(function(details)
+                        {
+                            array.push(details)
+                            loadedCount ++
+                            if(loadedCount===numberOfProjects.toNumber())
+                                resolve(array)
+                        }).catch(function(error){reject(error)})
+                        */
+                    })
+                }
+
+
+
+            })
+        })  
     }
 }
 

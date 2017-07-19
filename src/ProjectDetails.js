@@ -52,6 +52,7 @@ class ProjectDetails extends React.Component {
         Uumm.isReady().then(()=>{
             Uumm.getProjectDetails(props.projectId)
             Uumm.getUserContributorData(props.projectId, Uumm.userAddress)
+            Uumm.getProposals(props.projectId)
         })
 
         window.location.hash = "projectId="+props.projectId
@@ -70,7 +71,7 @@ class ProjectDetails extends React.Component {
 
     closeDialog = ()=>
     {
-         this.setState({'newProposalDialogIsOpen':false})
+        this.setState({'newProposalDialogIsOpen':false})
     }
 
     render()
