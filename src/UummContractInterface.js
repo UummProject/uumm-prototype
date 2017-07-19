@@ -184,7 +184,8 @@ class UummContractInterface
 
                 for(var proposalId=0; proposalId<numberOfProposals.toNumber(); proposalId++)
                 {
-
+                    //Proposal data is splitted in two functions, some data overlaps
+                    //Proposal details
                     this.contractInstance.GetProposalDetails.call(projectId, proposalId)
                     .then((proposalDetails)=>
                     {
@@ -200,17 +201,28 @@ class UummContractInterface
                         var project = {}
                         project.proposals = []
                         project.proposals[proposalDetails.id] = proposalDetails
-                        State.addProject(projectId, project)
 
-                        /*this.getProjectDetails(projectId)
-                        .then(function(details)
-                        {
-                            array.push(details)
-                            loadedCount ++
-                            if(loadedCount===numberOfProjects.toNumber())
-                                resolve(array)
-                        }).catch(function(error){reject(error)})
-                        */
+                        State.addProject(projectId, project)
+                    })
+
+                    //Proposal state
+                    this.contractInstance.GetProposalState.call(projectId, proposalId)
+                    .then((proposalState)=>
+                    {
+                        console.log(proposalState)
+                        var proposalState = {
+                            'id' : proposalState[0].toNumber(),
+                            'state' : proposalState[1].toNumber(),
+                            'positiveVotes' : proposalState[2].toNumber(),
+                            'negativeVotes' : proposalState[3].toNumber(),
+                            'creationDate': new Date (proposalState[4].toNumber()*1000)
+                        }
+                    
+                        var project = {}
+                        project.proposals = []
+                        project.proposals[proposalState.id] = proposalState
+
+                        State.addProject(projectId, project)
                     })
                 }
             })
