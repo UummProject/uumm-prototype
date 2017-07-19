@@ -102,7 +102,7 @@ class ProjectDetails extends React.Component {
                         <h4 style={titleStyle}> {proposal.title} </h4> 
                         <p> Proposal Id: {proposal.id} </p>       
                         <p> Reference: {proposal.reference} </p>
-                        <p> Tokens amount: {proposal.tokenAmount} </p> 
+                        <p> Tokens amount: {proposal.valueAmount} </p> 
                         <p> Author: {proposal.author} </p>
                         <p> Creation date: {proposal.creationDate.toString()}</p> 
                     </div>)
