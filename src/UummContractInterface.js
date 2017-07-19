@@ -46,20 +46,31 @@ class UummContractInterface
         return this.setupFinished
     }
 
-    createProject=(projectName)=>
+    createProject=(projectId, title, reference, valueAmount)=>
     {
-        var that = this
-
-        return new Promise(function (resolve, reject)
+        return new Promise((resolve, reject)=>
         {
-            that.contractInstance.CreateProject.estimateGas(projectName)
-            .then(function(estimatedGas){
-                return that.contractInstance.CreateProject(projectName, {from: that.userAddress, gas:estimatedGas})
-            }).then(function(result) {
+            this.contractInstance.CreateProposal.estimateGas(projectId, title, reference, valueAmount)
+            .then((estimatedGas)=>{
+                return this.contractInstance.CreateProject(projectId, title, reference, valueAmount, {from: this.userAddress, gas:estimatedGas})
+            }).then((result)=> {
+                resolve()
+                //return(this.getUserProjects())
+            }).catch((error)=>{console.error(error)})
+        })
+    }
 
-                //resolve()
-                return(that.getUserProjects())
-            }).catch(function(error){console.error(error)})
+    createProposal=(projectName)=>
+    {
+        return new Promise((resolve, reject)=>
+        {
+            this.contractInstance.CreateProject.estimateGas(projectName)
+            .then((estimatedGas)=>{
+                return this.contractInstance.CreateProject(projectName, {from: this.userAddress, gas:estimatedGas})
+            }).then((result)=> {
+                resolve()
+                return(this.getUserProjects())
+            }).catch((error)=>{console.error(error)})
         })
     }
 
@@ -126,7 +137,6 @@ class UummContractInterface
 
     getContributorDataByAddress=(projectId, contributorAddress)=>
     {
-
         return new Promise((resolve, reject)=>
         {
             //TODO: better vadilation

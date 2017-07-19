@@ -65,6 +65,7 @@ class ProjectDetails extends React.Component {
     onProposalSubmited=(title, reference, tokenAmount)=>
     {
         this.setState({'newProposalDialogIsOpen':false})
+        Uumm.createProposal(this.props.projectId, title, reference, tokenAmount)
     }
 
     closeDialog = ()=>
@@ -82,7 +83,7 @@ class ProjectDetails extends React.Component {
 
         if(projectData.contributors)
                if(projectData.contributors[Uumm.userAddress])
-                    contributorData = projectData.contributors[Uumm.userAddress]
+                    contributorData = projectData.contributors[Uumm.userAddress]    
         return (
             <div >
                 <Avatar
