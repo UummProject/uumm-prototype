@@ -91,11 +91,15 @@ contract Uumm
         projects[projectId].concensusThresholdPercentage = 618;
         projects[projectId].pendingProposalsLength = 0;
 
+        //The first position of 'contributors' is empty so we accidentally don't default to it
         contributorData memory emptyContributor;
-        projects[projectId].contributors.push(emptyContributor); //We set it to zero to ensure that a none registered address defaults to it
-        
-        AddValueTokens(projectId, msg.sender, 1); //Creator recieves one single token
-        users[msg.sender].projectsRef.push(projectId); 
+        projects[projectId].contributors.push(emptyContributor);
+
+        //Creator will be the first contributor
+        addContributor(projectId, msg.sender);
+
+        //Creator recieves one single token
+        AddValueTokens(projectId, msg.sender, 1); 
     }
 
     function GetProjectsLength( address userAddress) constant
@@ -161,19 +165,22 @@ contract Uumm
 
         //new contributor
         if(contributorId == 0)
-        {
-            contributorId = projects[projectId].contributors.length;
+           addContributor(projectId, msg.sender);   
 
-            projects[projectId].contributors.push(emptyContributor);
-            projects[projectId].contributors[contributorId].id = contributorId;
-            projects[projectId].contributors[contributorId].contributorAddress = msg.sender;
+        projects[projectId].contributors[contributorId].proposalsRef.push(proposalId);    
+    }
 
-            users[msg.sender].projectsRef.push(projectId);    
-        }
+    function addContributor(bytes32 projectId, address contributorAddress) private
+    {
+        uint256 contributorId = projects[projectId].contributors.length;
 
-        projects[projectId].contributors[contributorId].proposalsRef.push(proposalId);
+        projects[projectId].contributors.push(emptyContributor);
+        projects[projectId].contributors[contributorId].id = contributorId;
+        projects[projectId].contributors[contributorId].contributorAddress = contributorAddress;
 
-        
+        projects[projectId].contributorsRef[contributorAddress] = contributorId;
+
+        users[msg.sender].projectsRef.push(projectId);
     }
     
     function GetProposalsLength(bytes32 projectId) constant returns (uint256)
@@ -378,6 +385,9 @@ contract Uumm
     function GetContributorDataByAddress(bytes32 projectId, address contributorAddress)  constant returns (uint256, address, string, uint256, uint256)
     {   
         uint256 contributorId  = projects[projectId].contributorsRef[contributorAddress];
+        if(contributorId==0)
+            throw;
+
         return GetContributorData(projectId, contributorId);
     }
 
