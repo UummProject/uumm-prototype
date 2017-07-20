@@ -47,14 +47,6 @@ class State
         this.stateUpdated()
     }
 
-    addVar=(name,data)=>
-    {
-        if(!this.data[name])
-            this.data[name] = {} 
-       DeepAssign(this.data[name], data)
-        this.stateUpdated()
-    }
-
     stateUpdated=()=>
     {
         for(var i = 0; i<this.stateUpdatedCallbacks.length; i++)
