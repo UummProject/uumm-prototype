@@ -248,11 +248,13 @@ contract Uumm
         if(projects[projectId].proposals[proposalId].votes[msg.sender] > 0)
         {
             projects[projectId].proposals[proposalId].positiveVotes -=  uint256(projects[projectId].proposals[proposalId].votes[msg.sender]);
+            //This fails for an unknown reason on local testrpc
             projects[projectId].proposals[proposalId].votes[msg.sender] = 0;
         }
         else if(projects[projectId].proposals[proposalId].votes[msg.sender] < 0)
         {
             projects[projectId].proposals[proposalId].negativeVotes -=  uint256(projects[projectId].proposals[proposalId].votes[msg.sender]);
+            //This fails for an unknown reason on local testrpc
             projects[projectId].proposals[proposalId].votes[msg.sender] = 0;
         }
         
@@ -285,7 +287,7 @@ contract Uumm
         if(!IsProposalMinimumParticipationReached (projectId, proposalId))
             revert();
 
-        //Enough contributors had voted
+        //Enough contributors have voted
         if((projects[projectId].proposals[proposalId].positiveVotes*precision / projects[projectId].totalSupply*precision) > projects[projectId].requiredConcensus/100*precision)
         {
              ApproveProposal(projectId, proposalId, true);
