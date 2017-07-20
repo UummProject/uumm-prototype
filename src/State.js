@@ -9,6 +9,13 @@ class State
        this.data.projectsRef=[]
        this.data.users={}
        this.stateUpdatedCallbacks=[]
+
+       this.ProposalState ={
+            PENDING : 0,
+            APPROVED: 1,
+            DENIED: 2,
+            EXPIRED: 3
+       }
     }
 
     addProject=(projectId, data)=>
@@ -101,6 +108,8 @@ class State
     {
         this.stateUpdatedCallbacks.push(callback)
     }
+
+
 }
 
 const instance = new State()
