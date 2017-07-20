@@ -122,7 +122,9 @@ class UummContractInterface
                     'name' : details[1],
                     'id' : details[2],
                     'creationDate' : new Date (details[3].toNumber()*1000),
-                    'totalSupply': details[4].toNumber()
+                    'totalSupply': details[4].toNumber(),
+                    'requiredConcensus':details[5].toNumber()/100,
+                    'requiredParticipation':details[6].toNumber()/100
                 }
 
                 State.addProject(projectId, projectDetails)
