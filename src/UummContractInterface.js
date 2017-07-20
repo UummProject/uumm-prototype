@@ -242,9 +242,9 @@ class UummContractInterface
         console.log(projectId,proposalId,vote)
         return new Promise((resolve, reject)=>
         {
-            this.contractInstance.VotePendingProposal.estimateGas(projectId, proposalId, vote)
+            this.contractInstance.VoteProposal.estimateGas(projectId, proposalId, vote)
             .then((estimatedGas)=>{
-                return this.contractInstance.VotePendingProposal(projectId, proposalId, vote, {from: this.userAddress, gas:estimatedGas})
+                return this.contractInstance.VoteProposal(projectId, proposalId, vote, {from: this.userAddress, gas:estimatedGas})
             }).then((result)=> {
                 resolve()
                 return(this.getProposals(projectId))
