@@ -38,6 +38,11 @@ class ProposalCard extends React.Component {
         this.props.onNegativeVote(this.props.proposalData)
     }
 
+    onResolve =() =>
+    {
+        this.props.onResolve(this.props.proposalData)
+    }
+
     getAction =(state, hasConcensus)=>
     {
         switch (state)
@@ -45,7 +50,7 @@ class ProposalCard extends React.Component {
             case State.ProposalState.PENDING:
                 if(hasConcensus)
                 {
-                    return (<RaisedButton label={"Resolve"} onTouchTap={this.props.onResolve}/>)
+                    return (<RaisedButton label={"Resolve"} onTouchTap={this.onResolve}/>)
                 }
                 else
                 {
@@ -54,6 +59,11 @@ class ProposalCard extends React.Component {
                             <RaisedButton icon={<ThumbsDownIcon/>} onTouchTap={this.onNegativeVote}/>
                         </div>)
                 }
+            case State.ProposalState.APPROVED: return (<p> Approved</p>)
+            case State.ProposalState.DENIED: return (<p> Denied</p>)
+            case State.ProposalState.EXPIRED: return (<p> Expired</p>)
+                
+               
             default :
                 return (<div/>)
         } 
@@ -61,12 +71,17 @@ class ProposalCard extends React.Component {
 
     render()
     {  
-        var positiveVotes = this.props.proposalData.positiveVotes / this.props.projectData.totalSupply
-        var negativeVotes = this.props.proposalData.negativeVotes / this.props.projectData.totalSupply
+        var totalSupply = this.props.projectData.totalSupply
+        if(this.props.proposalData.state != State.ProposalState.PENDING)
+            totalSupply = this.props.proposalData.totalSupply
+        var positiveVotes = this.props.proposalData.positiveVotes / totalSupply
+        var negativeVotes = this.props.proposalData.negativeVotes / totalSupply
         var participation = positiveVotes + negativeVotes
         var hasConcensus = (positiveVotes > this.props.projectData.requiredConcensus) || (negativeVotes > this.props.projectData.requiredConcensus)
         var hasEnoughParticipation =  participation > this.props.projectData.requiredParticipation
 
+        console.log("positive",this.props.proposalData.positiveVotes)
+        console.log("total supplY", totalSupply)
         var actions = this.getAction(this.props.proposalData.state, hasConcensus) 
         //all are percentages
         

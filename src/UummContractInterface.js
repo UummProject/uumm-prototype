@@ -224,7 +224,8 @@ class UummContractInterface
                     'state' : proposalState[1].toNumber(),
                     'positiveVotes' : proposalState[2].toNumber(),
                     'negativeVotes' : proposalState[3].toNumber(),
-                    'creationDate': new Date (proposalState[4].toNumber()*1000)
+                    'creationDate': new Date (proposalState[4].toNumber()*1000),
+                    'totalSupply': proposalState[5].toNumber()
                 }
             
                 var project = {}
@@ -239,7 +240,6 @@ class UummContractInterface
 
     voteProposal=(projectId, proposalId, vote)=>
     {
-        console.log(projectId,proposalId,vote)
         return new Promise((resolve, reject)=>
         {
             this.contractInstance.VoteProposal.estimateGas(projectId, proposalId, vote)
@@ -247,7 +247,25 @@ class UummContractInterface
                 return this.contractInstance.VoteProposal(projectId, proposalId, vote, {from: this.userAddress, gas:estimatedGas})
             }).then((result)=> {
                 resolve()
-                return(this.getProposals(projectId))
+                this.getProposals(projectId)
+                this.getProjectDetails(projectId)
+                this.getUserContributorData(projectId)
+            }).catch((error)=>{console.error(error)})
+        })
+    }
+
+    resolveProposal=( projectId,  proposalId)=>
+    {
+        return new Promise((resolve, reject)=>
+        {
+            this.contractInstance.ResolveProposal.estimateGas(projectId, proposalId)
+            .then((estimatedGas)=>{
+                return this.contractInstance.ResolveProposal(projectId, proposalId, {from: this.userAddress, gas:estimatedGas})
+            }).then((result)=> {
+                resolve()
+                this.getProposals(projectId)
+                this.getProjectDetails(projectId)
+                this.getUserContributorData(projectId)
             }).catch((error)=>{console.error(error)})
         })
     }

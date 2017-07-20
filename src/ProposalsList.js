@@ -26,7 +26,7 @@ class ProposalsList extends React.Component
 
     onResolve = (proposalData)=>
     {
-        //this.props.onProposalSelected(proposalData)
+        Uumm.resolveProposal(this.props.projectId, proposalData.id)
     }
   
     render()
