@@ -1,8 +1,8 @@
 import React from 'react'
 import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
-import State from './State'
-import FontIcon from 'material-ui/FontIcon'
+import State from './State.js'
+import Uumm from './UummContractInterface.js'
 import ThumbsUpIcon from 'react-icons/lib/md/thumb-up'
 import ThumbsDownIcon from 'react-icons/lib/md/thumb-down'
 
@@ -28,9 +28,14 @@ class ProposalCard extends React.Component {
         super()
     }
 
-    onTouchTap =() =>
+    onPositiveVote =() =>
     {
-        this.props.onTouchTap(this.props.data)
+        this.props.onPositiveVote(this.props.data)
+    }
+
+    onNegativeVote =() =>
+    {
+        this.props.onNegativeVote(this.props.data)
     }
 
     getAction =(state)=>
@@ -39,8 +44,8 @@ class ProposalCard extends React.Component {
         {
             case State.ProposalState.PENDING:
                 return (<div>
-                        <RaisedButton icon={<ThumbsUpIcon />}/>
-                        <RaisedButton icon={<ThumbsDownIcon />}/>
+                        <RaisedButton icon={<ThumbsUpIcon/>} onTouchTap={this.onPositiveVote}/>
+                        <RaisedButton icon={<ThumbsDownIcon/>} onTouchTap={this.onNegativeVote}/>
                     </div>)
             default :
                 return (<div/>)
@@ -54,9 +59,8 @@ class ProposalCard extends React.Component {
 
     
         return (
-            <Paper style={containerStyle} zDepth={1} onTouchTap={this.onTouchTap}>
+            <Paper style={containerStyle} zDepth={1} >
                 <h4> {this.props.data.title} </h4> 
-                <p> Proposal Id: {this.props.data.id} </p>       
                 {actions}
                 <p> Tokens amount: {this.props.data.valueAmount} </p> 
                 <p> Author: {this.props.data.author} </p>

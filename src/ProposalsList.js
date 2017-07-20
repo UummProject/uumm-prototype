@@ -14,7 +14,17 @@ class ProposalsList extends React.Component
         })
     }
 
-    onProposalSelected = (proposalData)=>
+    onPositiveVote = (proposalData)=>
+    {
+         Uumm.voteProposal(this.props.projectId, proposalData.id, true)
+    }
+    
+    onNegativeVote = (proposalData)=>
+    {
+        Uumm.voteProposal(this.props.projectId, proposalData.id, false)
+    }
+
+    onResolve = (proposalData)=>
     {
         //this.props.onProposalSelected(proposalData)
     }
@@ -43,7 +53,9 @@ class ProposalsList extends React.Component
                     <ProposalCard
                         key={i}
                         data={proposal}
-                        onTouchTap={this.onProposalSelected}
+                        onPositiveVote={this.onPositiveVote}
+                        onNegativeVote={this.onNegativeVote}
+                        onResolve={this.onResolve}
                     />);
             }
         }
