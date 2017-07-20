@@ -230,16 +230,17 @@ contract Uumm
     }
     
     //CRITICAL
-    function VotePendingProposal(bytes32 projectId, uint256 proposalId, bool vote)
+    function VoteProposal(bytes32 projectId, uint256 proposalId, bool vote)
     {
          uint256 contributorId  =   projects[projectId].contributorsRef[msg.sender];
+
         //Checks
-        if(projects[projectId].contributors[contributorId].valueTokens == 0)
-            revert();
-        
         if (projects[projectId].proposals[proposalId].state != proposalState.pending)
             revert();
-            
+
+        if(projects[projectId].contributors[contributorId].valueTokens == 0)
+            revert();
+
         if (projects[projectId].proposals[proposalId].creationTimestamp + projects[projectId].proposalExpiringTimeInSeconds > block.timestamp)
             revert();
         
