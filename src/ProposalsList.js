@@ -31,28 +31,30 @@ class ProposalsList extends React.Component
   
     render()
     {
-        var project = State.getEmptyProject()
+        var projectData = State.getEmptyProject()
         
         if(State.data.projects[this.props.projectId])
         {
-            project = State.data.projects[this.props.projectId]
+            projectData = State.data.projects[this.props.projectId]
         }
 
 
         var proposals = [];
-        if(project.proposals)
+        if(projectData.proposals)
         {
-            for (var i = 0; i<project.proposals.length; i++) 
+            for (var i = 0; i<projectData.proposals.length; i++) 
             {
-                var proposal = State.getEmptyProposal()
+                var proposalData = State.getEmptyProposal()
 
-                if(project.proposals[i])
-                    proposal = project.proposals[i] 
+                if(projectData.proposals[i])
+                    proposalData = projectData.proposals[i] 
 
                 proposals.push(
                     <ProposalCard
                         key={i}
-                        data={proposal}
+                        projectId={this.props.projectId}
+                        proposalData={proposalData}
+                        projectData={projectData}
                         onPositiveVote={this.onPositiveVote}
                         onNegativeVote={this.onNegativeVote}
                         onResolve={this.onResolve}

@@ -30,12 +30,12 @@ class ProposalCard extends React.Component {
 
     onPositiveVote =() =>
     {
-        this.props.onPositiveVote(this.props.data)
+        this.props.onPositiveVote(this.props.proposalData)
     }
 
     onNegativeVote =() =>
     {
-        this.props.onNegativeVote(this.props.data)
+        this.props.onNegativeVote(this.props.proposalData)
     }
 
     getAction =(state)=>
@@ -55,15 +55,18 @@ class ProposalCard extends React.Component {
     render()
     {  
 
-    var actions = this.getAction(this.props.data.state) 
-
+        var actions = this.getAction(this.props.proposalData.state) 
+        var positiveVotes = this.props.proposalData.positiveVotes / this.props.projectData.totalSupply*100
+        var negativeVotes = this.props.proposalData.negativeVotes / this.props.projectData.totalSupply*100
     
         return (
             <Paper style={containerStyle} zDepth={1} >
-                <h4> {this.props.data.title} </h4> 
+                <h4> {this.props.proposalData.title} </h4> 
                 {actions}
-                <p> Tokens amount: {this.props.data.valueAmount} </p> 
-                <p> Author: {this.props.data.author} </p>
+                <p> Tokens amount: {this.props.proposalData.valueAmount} </p> 
+                <p> Positive: {positiveVotes} </p>
+                <p> Negative: {negativeVotes} </p>
+                <p> Author: {this.props.proposalData.author} </p>
             </Paper>
         )
     }
