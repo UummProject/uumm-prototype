@@ -227,6 +227,21 @@ class UummContractInterface
             })
         })  
     }
+
+    voteProposal=(projectId, proposalId, vote)=>
+    {
+        console.log(projectId,proposalId,vote)
+        return new Promise((resolve, reject)=>
+        {
+            this.contractInstance.VotePendingProposal.estimateGas(projectId, proposalId, vote)
+            .then((estimatedGas)=>{
+                return this.contractInstance.VotePendingProposal(projectId, proposalId, vote, {from: this.userAddress, gas:estimatedGas})
+            }).then((result)=> {
+                resolve()
+                //return(this.getProposals(projectId))
+            }).catch((error)=>{console.error(error)})
+        })
+    }
 }
 
 const instance = new UummContractInterface();
