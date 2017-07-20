@@ -38,15 +38,22 @@ class ProposalCard extends React.Component {
         this.props.onNegativeVote(this.props.proposalData)
     }
 
-    getAction =(state)=>
+    getAction =(state, hasConcensus)=>
     {
         switch (state)
         {
             case State.ProposalState.PENDING:
-                return (<div>
-                        <RaisedButton icon={<ThumbsUpIcon/>} onTouchTap={this.onPositiveVote}/>
-                        <RaisedButton icon={<ThumbsDownIcon/>} onTouchTap={this.onNegativeVote}/>
-                    </div>)
+                if(hasConcensus)
+                {
+                    return (<RaisedButton label={"Resolve"} onTouchTap={this.props.onResolve}/>)
+                }
+                else
+                {
+                    return (<div>
+                            <RaisedButton icon={<ThumbsUpIcon/>} onTouchTap={this.onPositiveVote}/>
+                            <RaisedButton icon={<ThumbsDownIcon/>} onTouchTap={this.onNegativeVote}/>
+                        </div>)
+                }
             default :
                 return (<div/>)
         } 
@@ -54,19 +61,24 @@ class ProposalCard extends React.Component {
 
     render()
     {  
+        var positiveVotes = this.props.proposalData.positiveVotes / this.props.projectData.totalSupply
+        var negativeVotes = this.props.proposalData.negativeVotes / this.props.projectData.totalSupply
+        var participation = positiveVotes + negativeVotes
+        var hasConcensus = (positiveVotes > this.props.projectData.requiredConcensus) || (negativeVotes > this.props.projectData.requiredConcensus)
+        var hasEnoughParticipation =  participation > this.props.projectData.requiredParticipation
 
-        var actions = this.getAction(this.props.proposalData.state) 
-        var positiveVotes = this.props.proposalData.positiveVotes / this.props.projectData.totalSupply*100
-        var negativeVotes = this.props.proposalData.negativeVotes / this.props.projectData.totalSupply*100
-    
+        var actions = this.getAction(this.props.proposalData.state, hasConcensus) 
+        //all are percentages
+        
         return (
             <Paper style={containerStyle} zDepth={1} >
                 <h4> {this.props.proposalData.title} </h4> 
                 {actions}
                 <p> Tokens amount: {this.props.proposalData.valueAmount} </p> 
-                <p> Positive: {positiveVotes} </p>
-                <p> Negative: {negativeVotes} </p>
-                <p> Author: {this.props.proposalData.author} </p>
+                <p> Positive: {positiveVotes*100}% </p>
+                <p> Negative: {negativeVotes*100}% </p>
+                
+               
             </Paper>
         )
     }
