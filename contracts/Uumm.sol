@@ -116,14 +116,16 @@ contract Uumm
     }
 
     function GetProjectDetails (bytes32 projectId) constant
-        returns (address, string, bytes32, uint, uint256 )
+        returns (address, string, bytes32, uint, uint256, uint256, uint256 )
     {
         return(
             projects[projectId].creator,
             projects[projectId].name,
             projects[projectId].id,
             projects[projectId].creationTimestamp,
-            projects[projectId].totalSupply
+            projects[projectId].totalSupply,
+            projects[projectId].concensusThresholdPercentage,
+            projects[projectId].minimumParticipationPercentage
             );
     }
     
