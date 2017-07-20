@@ -209,7 +209,6 @@ class UummContractInterface
                     this.contractInstance.GetProposalState.call(projectId, proposalId)
                     .then((proposalState)=>
                     {
-                        console.log(proposalState)
                         var proposalState = {
                             'id' : proposalState[0].toNumber(),
                             'state' : proposalState[1].toNumber(),
