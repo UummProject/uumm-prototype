@@ -11,8 +11,8 @@ contract Uumm
         uint creationTimestamp;
 
         //Governance features
-        uint256 concensusThresholdPercentage; //what % of the voting participants (not percentage of contributors) is required for a proposal to be approved
-        uint256 minimumParticipationPercentage; // what % of participation is required to resolve a proposal
+        uint256 requiredConcensus; //Represented in %*100. what % of the voting participants (not percentage of contributors) is required for a proposal to be approved
+        uint256 requiredParticipation; //Represented in %*100.  what % of participation is required to resolve a proposal
         uint  totalSupply;
 
         //Proposal stuff
@@ -68,6 +68,7 @@ contract Uumm
     mapping (address => userData ) users;
     projectData emptyProject;
     contributorData emptyContributor;
+    uint256 precision = 10000; //multiplier to deal with integer divisions
 
 
     function Uumm()
@@ -88,7 +89,8 @@ contract Uumm
         projects[projectId].name = name;
         projects[projectId].id = projectId;
         projects[projectId].creationTimestamp = block.timestamp;
-        projects[projectId].concensusThresholdPercentage = 618;
+        projects[projectId].requiredConcensus = 61;
+        projects[projectId].requiredParticipation = 30;
         projects[projectId].pendingProposalsLength = 0;
 
         //The first position of 'contributors' is empty so we accidentally don't default to it
@@ -124,8 +126,8 @@ contract Uumm
             projects[projectId].id,
             projects[projectId].creationTimestamp,
             projects[projectId].totalSupply,
-            projects[projectId].concensusThresholdPercentage,
-            projects[projectId].minimumParticipationPercentage
+            projects[projectId].requiredConcensus,
+            projects[projectId].requiredParticipation
             );
     }
     
@@ -270,10 +272,10 @@ contract Uumm
 
     //Anyone can resolve the proposal
     //Proposal can be resolved in two scenarios:
-    //1- Concensus is over concensusThresholdPercentage among the all participants.
-    //2- Expiration date has passed, and minimum participation percentage has been reached
+    //1- Concensus is over 'requiredConcensus' among the all participants.
+    //2- Expiration date has passed, and  'requiredParticipation' has been reached
     
-    //TODO This function need to be expressed clearly. It is to convoluted right now.
+    //TODO This function need to be expressed clearly. It is too convoluted right now.
     function ResolveProposal(bytes32 projectId, uint256 proposalId)
     {
         if (projects[projectId].proposals[proposalId].state != proposalState.pending)
@@ -282,14 +284,13 @@ contract Uumm
         if(!IsProposalMinimumParticipationReached (projectId, proposalId))
             revert();
 
-
         //Enough contributors had voted
-        if((projects[projectId].proposals[proposalId].positiveVotes / projects[projectId].totalSupply) > projects[projectId].concensusThresholdPercentage)
+        if((projects[projectId].proposals[proposalId].positiveVotes*precision / projects[projectId].totalSupply*precision) > projects[projectId].requiredConcensus/100*precision)
         {
              ApproveProposal(projectId, proposalId, true);
              return;
         }
-        if((projects[projectId].proposals[proposalId].negativeVotes / projects[projectId].totalSupply) > projects[projectId].concensusThresholdPercentage)
+        if((projects[projectId].proposals[proposalId].negativeVotes*precision / projects[projectId].totalSupply*precision) > projects[projectId].requiredConcensus/100*precision)
         {
              ApproveProposal(projectId, proposalId, false);
              return;
@@ -324,21 +325,21 @@ contract Uumm
     }
     
     //Have proposal reached concensus within current voters?
-    // positiveVotes/totalNumberOfVotes > concensusThresholdPercentage
-    // or negativeVotes/totalNumberOfVotes > concensusThresholdPercentage
+    // positiveVotes/totalNumberOfVotes > requiredConcensus
+    // or negativeVotes/totalNumberOfVotes > requiredConcensus
     function IsProposalConcensusThresholdReached(bytes32 projectId, uint256 proposalId) constant
         returns (bool)
     {
         if(projects[projectId].proposals[proposalId].positiveVotes > projects[projectId].proposals[proposalId].negativeVotes)
         {
-             if(projects[projectId].proposals[proposalId].positiveVotes / (projects[projectId].proposals[proposalId].positiveVotes + projects[projectId].proposals[proposalId].negativeVotes) > projects[projectId].concensusThresholdPercentage/100)
+             if(projects[projectId].proposals[proposalId].positiveVotes * precision / (projects[projectId].proposals[proposalId].positiveVotes * precision + projects[projectId].proposals[proposalId].negativeVotes * precision) > projects[projectId].requiredConcensus/100*precision)
                 return true;
             else
                 return false;
         }
         else
         {
-            if(projects[projectId].proposals[proposalId].negativeVotes / (projects[projectId].proposals[proposalId].positiveVotes + projects[projectId].proposals[proposalId].negativeVotes) > projects[projectId].concensusThresholdPercentage/100)
+            if(projects[projectId].proposals[proposalId].negativeVotes*precision / (projects[projectId].proposals[proposalId].positiveVotes*precision + projects[projectId].proposals[proposalId].negativeVotes*precision) > projects[projectId].requiredConcensus/100*precision)
                 return true;
             else
                 return false;
@@ -348,10 +349,10 @@ contract Uumm
     function IsProposalMinimumParticipationReached(bytes32 projectId, uint256 proposalId) constant
         returns (bool)
     {
-        if((projects[projectId].proposals[proposalId].positiveVotes +
-            projects[projectId].proposals[proposalId].negativeVotes) /
-            projects[projectId].totalSupply >
-            (projects[projectId].minimumParticipationPercentage /100))
+        if((projects[projectId].proposals[proposalId].positiveVotes * precision +
+            projects[projectId].proposals[proposalId].negativeVotes * precision) /
+            projects[projectId].totalSupply * precision >
+            (projects[projectId].requiredParticipation * precision /100 ))
             return true;
         else
             return false;
