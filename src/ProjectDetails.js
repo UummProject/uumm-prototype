@@ -105,7 +105,7 @@ class ProjectDetails extends React.Component {
                 <h4 style={titleStyle}> {projectData.name} </h4> 
                 <p> Project Id: {projectData.id} </p>       
                 <p> ContributorId: {contributorData.id} </p>
-                <p> Tokens amount: {contributorData.valueTokens} </p> 
+                <p> Tokens amount: {contributorData.valueTokens}/{projectData.totalSupply} </p> 
                 <p> Ether amount: {contributorData.ethereumBalance} </p>
                 <p> Ownership: {projectData.totalSupply/contributorData.valueTokens*100}% </p> 
 
