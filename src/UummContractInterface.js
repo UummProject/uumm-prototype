@@ -9,40 +9,71 @@ class UummContractInterface
 
     constructor()
     {
-        this.userAddress
+        this.userAddress=0
+        this.provider = {}
+        this.contractInstance = {}
+        this.accounts = {}
+        this.setupFinished = new Promise((resolve, reject)=>{})
 
-        var that=this
-
-        this.setupFinished = new Promise((resolve, reject)=>
-        {
-            var {host, port} = Config.networks[process.env.NODE_ENV]
-            
-            const provider = new Web3.providers.HttpProvider('http://' + host + ':' + port)
-            const contract = require('truffle-contract')
-            const uummContract = contract(UummContract)
-
-            uummContract.setProvider(provider)
-            that.contractDeployedPromise = uummContract.deployed()
-            that.contractInstance = {}
-            that.accounts = {}
-            
-            const web3RPC = new Web3(provider)
-            web3RPC.eth.getAccounts((error, accounts)=>
-            {
-                that.accounts = accounts
-                this.userAddress = accounts[0]
-                that.contractDeployedPromise
-                .then(function(instance){
-                    that.contractInstance = instance
-                    resolve()
-                })
-            }) 
+        window.addEventListener('load', ()=> {
+            this.onWindowLoaded();
         })
+    }
+
+    onWindowLoaded=()=>
+    {
+        this.setupWeb3Provider()
     }
 
     isReady=()=>
     {
         return this.setupFinished
+    }
+
+    setupWeb3Provider=()=>
+    {
+        this.setupFinished = new Promise((resolve, reject)=>
+        {
+            if (typeof web3 !== 'undefined')
+            {
+                 // Use Mist/MetaMask's provider
+                //window.web3 = new Web3(window.web3.currentProvider);
+                
+                console.log("Using injected provider")
+                window.web3 = new Web3(window.web3.currentProvider)
+                this.provider = window.web3.currentProvider
+
+             } else
+             {
+                //Use localhost provier geth/testrpc
+                var {host, port} = Config.networks[process.env.NODE_ENV]
+                this.provider = new Web3.providers.HttpProvider('http://' + host + ':' + port)
+                window.web3 = new Web3(this.provider)
+                console.log('Using http://' + host + ':' + port)
+            }
+
+            const contract = require('truffle-contract')
+            const uummContract = contract(UummContract)
+
+            uummContract.setProvider(this.provider)
+            this.contractDeployedPromise = uummContract.deployed()
+            
+            window.web3.eth.getAccounts((error, accounts)=>
+            {
+                //Fails if not in the right network
+                if(error)
+                    console.error(error)
+                console.log(accounts)
+
+                this.accounts = accounts
+                this.userAddress = accounts[0]
+                this.contractDeployedPromise
+                .then((instance)=>{
+                    this.contractInstance = instance
+                    resolve()
+                })
+            }) 
+        })
     }
 
     createProposal=(projectId, title, reference, valueAmount)=>
@@ -199,6 +230,7 @@ class UummContractInterface
             this.contractInstance.GetProposalDetails.call(projectId, proposalId)
             .then((proposalDetails)=>
             {
+                //TODO duplicated var. Move outside the callback
                 var proposalDetails = {
                     'id' : proposalDetails[0].toNumber(),
                     'author' : proposalDetails[1],
