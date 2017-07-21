@@ -38,10 +38,10 @@ This project aims to create a governance tool following a bottom-up, organic, le
 
 _As oppose to, here is a .pdf with a bunch of idealistic ideas, especualte with my promises even if you don't give a crap and the only thing you want is easy money, now I'm rich and I don't have any incentives to keep working on this anymore._
 
-I'm starting with an MVP for a usecase I've been expose to, and if it makes sense I'll keep expanding with more features. 
+I'm starting with an MVP for a usecase I've been exposed to, and if it makes sense I'll keep expanding with more features. 
 
 
-Everyone is welcome to join!
+Everyone is welcome to join.
 
 # Status
 The current goal is to have an MVP running with no fancy features within a couple of weeks (by 20/07/17) Once the MVP is done and tested we will re-think the direction of the project.
@@ -49,21 +49,23 @@ The current goal is to have an MVP running with no fancy features within a coupl
 - [x] Initial design and sketches
 - [x] Repo and readme setup 
 - [x] Basic contract functionallity 
-- [x] Contract
+- [x] [Contract](https://github.com/xavivives/Uumm/blob/master/contracts/Uumm.sol)
 - [x] User interface design
-- [ ] User interface implementation **(WIP)**
+- [ ] Minimal user interface implementation **(WIP)**
 - [ ] Public Ropsten deployment
 - [ ] Testing and polishing
 - [ ] Code optimizations
+- [ ] Beautification
+- [ ] Move on to next stage
 
 # Tech stack
 The project runs on top of the Ethereum network.
-~~Embark~~ [Truffle](http://truffleframework.com/) as a framework for Ethereum.
+~~Embark~~ [Truffle](http://truffleframework.com/) is used as a framework for Ethereum.
 Javascript with ReactJS and Material-UI for the user interface
 
-[This contract](https://github.com/xavivives/DCBG/blob/master/app/contracts/DCBG1.sol) (WIP) is the core of the project an any review is highly appreciated.
+[This contract](https://github.com/xavivives/DCBG/blob/master/app/contracts/DCBG1.sol) (WIP) is the core of the project. Any review is highly appreciated.
 
-This stack is what I'm currently familiar with, and ~~I'm using a previous project~~ [Truffle's Status box](http://truffleframework.com/boxes/) as a template to speed up development. Thinking on a full refactor if MVP is successful.
+This stack is what I'm currently familiar with, and I'm using ~~a previous project~~ [Truffle's Status box](http://truffleframework.com/boxes/) as a template to speed up development.
 
 # Personal motivations 
 
@@ -75,9 +77,9 @@ The system was never put in practice, but a good amount thinking went into it.
 Just recently I've been digging deep into Ethereum, and that seemed a perfect fit and a great excuse to explore and understand the platform better.
 
 ### Generalization
-It is common for collaborative or open projects to start with an abstract idea and grow organically, shaping into more serious/structured stuff.
+It is common for collaborative or open projects to start with an abstract idea, grow organically to finally shape into more serious/structured stuff.
 
-Common features of these projects are:
+Common features at the begining of these projects are:
 - No tools for tracking progress
 - Lack of authority for ultimate decision making.
 - Increase and decrease of the number of participants.
@@ -87,9 +89,9 @@ Common features of these projects are:
 This translates to:
 - No record of contributions, therefore no reputation systems, no incentives to keep participating.
 - When governance is implemented in the project, earlier contributions are dismissed or not valued 
-- Incapacity to distribute monetary gains fairly (open source project receives a donation).
+- Incapacity to distribute monetary gains fairly (Let's say an open source project receives a donation).
 
-With this project, I'm trying to solve some of these issues, or at least understand them deeply.
+By having a system to record that in a decentralized fashion, I'm trying to solve some of these issues, or at least understand them deeply.
 
 ### Future projects
 Another important motivation for me is to use the system for future projects of mine and incentivise early participation.
@@ -165,7 +167,3 @@ A tool for creating fantastic entities!
 Ping me on Twitter [@xavivives](https://twitter.com/xavivives)  or email me at xavings@gmail.com
 
 ##### ALOHA
-
-Does not assume privacy
-User interface
-
