@@ -74,14 +74,13 @@ class ProposalCard extends React.Component {
         var totalSupply = this.props.projectData.totalSupply
         if(this.props.proposalData.state != State.ProposalState.PENDING)
             totalSupply = this.props.proposalData.totalSupply
+        
         var positiveVotes = this.props.proposalData.positiveVotes / totalSupply
         var negativeVotes = this.props.proposalData.negativeVotes / totalSupply
         var participation = positiveVotes + negativeVotes
         var hasConcensus = (positiveVotes > this.props.projectData.requiredConcensus) || (negativeVotes > this.props.projectData.requiredConcensus)
         var hasEnoughParticipation =  participation > this.props.projectData.requiredParticipation
 
-        console.log("positive",this.props.proposalData.positiveVotes)
-        console.log("total supplY", totalSupply)
         var actions = this.getAction(this.props.proposalData.state, hasConcensus) 
         //all are percentages
         
