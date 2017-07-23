@@ -1,5 +1,6 @@
 import React from 'react';
 import ProposalCard from './ProposalCard';
+import UnconfirmedProposalCard from './UnconfirmedProposalCard';
 import Uumm from './UummContractInterface.js'
 import State from './State.js'
 
@@ -51,13 +52,33 @@ class ProposalsList extends React.Component
 
                 proposals.push(
                     <ProposalCard
-                        key={i}
+                        key={proposalData.id}
                         projectId={this.props.projectId}
                         proposalData={proposalData}
                         projectData={projectData}
                         onPositiveVote={this.onPositiveVote}
                         onNegativeVote={this.onNegativeVote}
                         onResolve={this.onResolve}
+                    />);
+            }
+        }
+
+        console.log(projectData.unconfirmedProposals)
+        if(projectData.unconfirmedProposals)
+        {
+            for (var unconfirmedProposalId in projectData.unconfirmedProposals)
+            {
+                var proposalData = State.getEmptyProposal()
+
+                if(projectData.unconfirmedProposals[unconfirmedProposalId])
+                    proposalData = projectData.unconfirmedProposals[unconfirmedProposalId] 
+
+                proposals.push(
+                    <UnconfirmedProposalCard
+                        key={"u"+unconfirmedProposalId}
+                        projectId={this.props.projectId}
+                        proposalData={proposalData}
+                        projectData={projectData}
                     />);
             }
         }
