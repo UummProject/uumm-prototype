@@ -1,11 +1,12 @@
-import React from 'react';
-import Avatar from 'material-ui/Avatar';
-import FontIcon from 'material-ui/FontIcon';
+import React from 'react'
+import Avatar from 'material-ui/Avatar'
+import FontIcon from 'material-ui/FontIcon'
 import State from './State.js'
 import Uumm from './UummContractInterface.js'
 import RaisedButton from 'material-ui/RaisedButton'
 import CreateProposalPage from './CreateProposalPage.js'
 import ProposalsList from './ProposalsList.js'
+import Numeral from 'numeral'
 
 import {
   blue300,
@@ -14,7 +15,7 @@ import {
   deepOrange300,
   pink400,
   purple500,
-} from 'material-ui/styles/colors';
+} from 'material-ui/styles/colors'
 
 const containerStyle =
 {
@@ -40,15 +41,15 @@ const titleStyle =
     flexGrow: 4
 }
 
-const style = {margin: 5};
+const style = {margin: 5}
 
 class ProjectDetails extends React.Component {
 
     constructor(props)
     {
-        super();
+        super()
 
-        this.state = {"newProposalDialogIsOpen" : false};
+        this.state = {"newProposalDialogIsOpen" : false}
 
         Uumm.isReady().then(()=>{
             Uumm.getProjectDetails(props.projectId)
@@ -91,6 +92,8 @@ class ProjectDetails extends React.Component {
         if(projectData.contributors)
                if(projectData.contributors[Uumm.userAddress])
                     contributorData = projectData.contributors[Uumm.userAddress]
+
+        var ownership = Numeral(contributorData.valueTokens/projectData.totalSupply).format('0.0%')
           
         return (
             <div >
@@ -107,7 +110,7 @@ class ProjectDetails extends React.Component {
                 <p> ContributorId: {contributorData.id} </p>
                 <p> Tokens amount: {contributorData.valueTokens}/{projectData.totalSupply} </p> 
                 <p> Ether amount: {contributorData.ethereumBalance} </p>
-                <p> Ownership: {projectData.totalSupply/contributorData.valueTokens*100}% </p> 
+                <p> Ownership: {ownership} </p> 
 
                  <RaisedButton
                     secondary={true}
@@ -121,8 +124,8 @@ class ProjectDetails extends React.Component {
 
                 <ProposalsList projectId={this.props.projectId} onProposalSelected={this.onProposalSelected}/>
             </div>
-        );
+        )
     }
 }
 
-export default ProjectDetails;
+export default ProjectDetails

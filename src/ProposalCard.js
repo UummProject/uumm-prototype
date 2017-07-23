@@ -5,6 +5,7 @@ import State from './State.js'
 import Uumm from './UummContractInterface.js'
 import ThumbsUpIcon from 'react-icons/lib/md/thumb-up'
 import ThumbsDownIcon from 'react-icons/lib/md/thumb-down'
+import Numeral from 'numeral'
 
 const containerStyle =
 {
@@ -74,7 +75,7 @@ class ProposalCard extends React.Component {
         var totalSupply = this.props.projectData.totalSupply
         if(this.props.proposalData.state != State.ProposalState.PENDING)
             totalSupply = this.props.proposalData.totalSupply
-        
+
         var positiveVotes = this.props.proposalData.positiveVotes / totalSupply
         var negativeVotes = this.props.proposalData.negativeVotes / totalSupply
         var participation = positiveVotes + negativeVotes
@@ -82,17 +83,15 @@ class ProposalCard extends React.Component {
         var hasEnoughParticipation =  participation > this.props.projectData.requiredParticipation
 
         var actions = this.getAction(this.props.proposalData.state, hasConcensus) 
-        //all are percentages
-        
+
         return (
             <Paper style={containerStyle} zDepth={1} >
                 <h4> {this.props.proposalData.title} </h4> 
                 {actions}
                 <p> Tokens amount: {this.props.proposalData.valueAmount} </p> 
-                <p> Positive: {positiveVotes*100}% </p>
-                <p> Negative: {negativeVotes*100}% </p>
+                <p> Positive: {Numeral(positiveVotes).format('0.0%')} </p>
+                <p> Negative:{Numeral(negativeVotes).format('0.0%')} </p>
                 
-               
             </Paper>
         )
     }
