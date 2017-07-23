@@ -1,5 +1,6 @@
 import React from 'react';
 import ProjectCard from './ProjectCard';
+import UnconfirmedProjectCard from './UnconfirmedProjectCard';
 import Uumm from './UummContractInterface.js'
 import State from './State.js'
 
@@ -31,6 +32,7 @@ class ProjectsList extends React.Component
     {
         var projects = [];
 
+        
         for (var projectId in State.data.projects)
         {
             if (!State.data.projects.hasOwnProperty(projectId))
@@ -41,6 +43,22 @@ class ProjectsList extends React.Component
             projects.push(
                 <ProjectCard
                     key={projectId}
+                    data={projectData}
+                    onTouchTap={this.onProjectSelected}
+                />);
+        }
+
+        //Unconfirmed projects
+        for (var unconfirmedProjectId in State.data.unconfirmedProjects)
+        {
+            if (!State.data.unconfirmedProjects.hasOwnProperty(unconfirmedProjectId))
+                continue
+
+            var projectData = State.data.unconfirmedProjects[unconfirmedProjectId]
+
+            projects.push(
+                <UnconfirmedProjectCard
+                    key={unconfirmedProjectId}
                     data={projectData}
                     onTouchTap={this.onProjectSelected}
                 />);
