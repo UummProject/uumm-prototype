@@ -37,7 +37,10 @@ class ProjectsListPage extends Component
     createProject=(projectName)=>
     {
         this.setState({'createDialogIsOpen':false})
-        Uumm.createProject(projectName).catch(function(error){console.warn(error)})
+       
+        Uumm.createProject(projectName)
+            .then(()=>{console.log("Project created")})
+            .catch((error)=>{console.error(error)})
     }
 
     onProjectSelected=(projectData)=>
