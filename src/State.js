@@ -7,10 +7,10 @@ class State
        this.data = {}
        this.data.projects={}
        this.data.unconfirmedProjects={}
-       this.data.projectsRef=[]
        this.data.users={}
        this.stateUpdatedCallbacks=[]
        this.unconfirmedProjectsNonce = 0
+       this.unconfirmedProposalsNonce = 0
 
        this.ProposalState ={
             PENDING : 0,
@@ -43,6 +43,18 @@ class State
         return project.id
     }
 
+
+    addUnconfirmedProposal=(projectId, title)=>
+    {
+        var proposal = this.getEmptyProposal()
+        proposal.title = title
+        proposal.id =this.unconfirmedProposalsNonce
+        this.unconfirmedProposalsNonce++
+        this.data.projects[projectId].unconfirmedProposals[this.unconfirmedProjectsNonce] = proposal
+        this.stateUpdated()
+        return proposal.id
+    }
+
     deleteUnconfirmedProject=(uncornfirmedProjectId)=>
     {
         delete this.data.unconfirmedProjects[uncornfirmedProjectId]
@@ -70,7 +82,8 @@ class State
             'name' : "",
             'id' : "",
             'creationDate' : new Date (),
-            'totalSupply': 0
+            'totalSupply': 0,
+            'unconfirmedProposals':{}
         }
         return projectDetails
     }
