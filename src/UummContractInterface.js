@@ -18,7 +18,6 @@ class UummContractInterface
             this.rejectSetup = reject
         })
 
-
         window.addEventListener('load', ()=> {
             this.onWindowLoaded();
         })
@@ -84,16 +83,27 @@ class UummContractInterface
 
     createProposal=(projectId, title, reference, valueAmount)=>
     {
+        var unconfirmedProposal = State.addUnconfirmedProposal(projectId, title)
+
         return new Promise((resolve, reject)=>
         {
             this.contractInstance.CreateProposal.estimateGas(projectId, title, reference, valueAmount)
             .then((estimatedGas)=>{
                 return this.contractInstance.CreateProposal(projectId, title, reference, valueAmount, {from: this.userAddress, gas:estimatedGas})
             }).then((result)=> {
-                this.checkTransactionReceipt(result)
-                resolve()
-                return(this.getProposals(projectId))
-            }).catch((error)=>{console.error(error)})
+
+                
+                this.getProposals(projectId).then(()=>
+                {   
+                    this.checkTransactionReceipt(result)
+                    State.deleteUnconfirmedProposal(projectId, unconfirmedProposal)
+                    resolve()
+                }).catch((error)=>{reject(error)})
+
+            }).catch((error)=>{
+                State.deleteUnconfirmedProposal(projectId, unconfirmedProposal)
+                reject(error)
+            })
         })
     }
 
@@ -164,15 +174,15 @@ class UummContractInterface
             this.contractInstance.GetProjectDetails.call(projectId)
             .then((details)=>
             {
-                var projectDetails = {
-                    'creator' : details[0],
-                    'name' : details[1],
-                    'id' : details[2],
-                    'creationDate' : new Date (details[3].toNumber()*1000),
-                    'totalSupply': details[4].toNumber(),
-                    'requiredConcensus':details[5].toNumber()/100,
-                    'requiredParticipation':details[6].toNumber()/100
-                }
+                var projectDetails = State.getEmptyProject()
+
+                projectDetails.creator = details[0],
+                projectDetails.name = details[1],
+                projectDetails.id = details[2],
+                projectDetails.creationDate = new Date (details[3].toNumber()*1000),
+                projectDetails.totalSupply=details[4].toNumber(),
+                projectDetails.requiredConcensus=details[5].toNumber()/100,
+                projectDetails.requiredParticipation=details[6].toNumber()/100
 
                 State.addProject(projectId, projectDetails)
 
@@ -288,12 +298,10 @@ class UummContractInterface
 
     voteProposal=(projectId, proposalId, vote)=>
     {
-        console.log("Vote proposal:")
         return new Promise((resolve, reject)=>
         {
             this.contractInstance.VoteProposal.estimateGas(projectId, proposalId, vote)
             .then((estimatedGas)=>{
-                console.log("Estimated gas for VoteProposal:", estimatedGas)
                 return this.contractInstance.VoteProposal(projectId, proposalId, vote, {from: this.userAddress, gas:estimatedGas})
             }).then((result)=> {
                 resolve()
@@ -306,12 +314,11 @@ class UummContractInterface
 
     resolveProposal=( projectId,  proposalId)=>
     {
-        console.log("Resolving proposal")
+
         return new Promise((resolve, reject)=>
         {
             this.contractInstance.ResolveProposal.estimateGas(projectId, proposalId)
             .then((estimatedGas)=>{
-                console.log("Estimated gas for ResolveProposal:", estimatedGas)
                 return this.contractInstance.ResolveProposal(projectId, proposalId, {from: this.userAddress, gas:estimatedGas})
             }).then((result)=> {
                 resolve()
