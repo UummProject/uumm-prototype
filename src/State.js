@@ -6,9 +6,11 @@ class State
     {
        this.data = {}
        this.data.projects={}
+       this.data.unconfirmedProjects={}
        this.data.projectsRef=[]
        this.data.users={}
        this.stateUpdatedCallbacks=[]
+       this.unconfirmedProjectsNonce = 0
 
        this.ProposalState ={
             PENDING : 0,
@@ -20,7 +22,6 @@ class State
 
     addProject=(projectId, data)=>
     {
-
         if(!projectId || !data)
             throw("projectId or data was not defined")
 
@@ -31,7 +32,25 @@ class State
         this.stateUpdated()
     }
 
-    addProjectRef=(projectId)=>
+    addUnconfirmedProject=(projectName)=>
+    {
+        var project = this.getEmptyProject()
+        project.name = projectName
+        project.id =this.unconfirmedProjectsNonce
+        this.unconfirmedProjects++
+        this.data.unconfirmedProjects[this.unconfirmedProjectsNonce] = project
+        this.stateUpdated()
+        return project.id
+    }
+
+    deleteUnconfirmedProject=(uncornfirmedProjectId)=>
+    {
+        delete this.data.unconfirmedProjects[uncornfirmedProjectId]
+        this.stateUpdated()
+    }
+
+
+    /*addProjectRef=(projectId)=>
     {
         for(var i = 0; i<this.data.projectsRef.length; i++)
         {
@@ -39,7 +58,8 @@ class State
                 return
         }
         this.data.projectsRef.push(projectId)
-    }
+    }*/
+
 
     addUser=(userAddress,data)=>
     {
