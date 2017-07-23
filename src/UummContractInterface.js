@@ -90,6 +90,7 @@ class UummContractInterface
             .then((estimatedGas)=>{
                 return this.contractInstance.CreateProposal(projectId, title, reference, valueAmount, {from: this.userAddress, gas:estimatedGas})
             }).then((result)=> {
+                this.checkTransactionReceipt(result)
                 resolve()
                 return(this.getProposals(projectId))
             }).catch((error)=>{console.error(error)})
@@ -100,13 +101,24 @@ class UummContractInterface
     {
         return new Promise((resolve, reject)=>
         {
+            var unconfirmedProjectId = State.addUnconfirmedProject(projectName)
+
             this.contractInstance.CreateProject.estimateGas(projectName)
             .then((estimatedGas)=>{
-                return this.contractInstance.CreateProject(projectName, {from: this.userAddress, gas:estimatedGas})
+
+                var gasLimit = Math.round(estimatedGas * 1.1)
+                return this.contractInstance.CreateProject(projectName, {from: this.userAddress, gas:gasLimit})
             }).then((result)=> {
-                resolve()
-                return(this.getUserProjects())
-            }).catch((error)=>{console.error(error)})
+                this.checkTransactionReceipt(result)
+                this.getUserProjects().then(()=>{
+                    State.deleteUnconfirmedProject(unconfirmedProjectId)
+                    resolve()
+                }).catch((error)=>{reject(error)})
+
+            }).catch((error)=>{
+                State.deleteUnconfirmedProject(unconfirmedProjectId)
+                reject(error)
+            })
         })
     }
 
@@ -128,8 +140,6 @@ class UummContractInterface
                     that.contractInstance.GetProjectIdByIndex.call(that.userAddress, i)
                     .then(function(projectId)
                     {
-                        State.addProjectRef(projectId)
-
                         that.getProjectDetails(projectId)
                         .then(function(details)
                         {
@@ -218,7 +228,7 @@ class UummContractInterface
             this.contractInstance.GetProposalsLength.call(projectId)
             .then((numberOfProposals)=>
             {
-                //TODO: record number of proposals so we don't need to reload them
+                //TODO: record number of proposals so we don't need to reload them all
 
                 for(var proposalId=0; proposalId<numberOfProposals.toNumber(); proposalId++)
                 {
@@ -278,10 +288,12 @@ class UummContractInterface
 
     voteProposal=(projectId, proposalId, vote)=>
     {
+        console.log("Vote proposal:")
         return new Promise((resolve, reject)=>
         {
             this.contractInstance.VoteProposal.estimateGas(projectId, proposalId, vote)
             .then((estimatedGas)=>{
+                console.log("Estimated gas for VoteProposal:", estimatedGas)
                 return this.contractInstance.VoteProposal(projectId, proposalId, vote, {from: this.userAddress, gas:estimatedGas})
             }).then((result)=> {
                 resolve()
@@ -294,10 +306,12 @@ class UummContractInterface
 
     resolveProposal=( projectId,  proposalId)=>
     {
+        console.log("Resolving proposal")
         return new Promise((resolve, reject)=>
         {
             this.contractInstance.ResolveProposal.estimateGas(projectId, proposalId)
             .then((estimatedGas)=>{
+                console.log("Estimated gas for ResolveProposal:", estimatedGas)
                 return this.contractInstance.ResolveProposal(projectId, proposalId, {from: this.userAddress, gas:estimatedGas})
             }).then((result)=> {
                 resolve()
@@ -306,6 +320,13 @@ class UummContractInterface
                 this.getUserContributorData(projectId)
             }).catch((error)=>{console.error(error)})
         })
+    }
+
+    checkTransactionReceipt=(result)=>
+    {
+        console.log(result)
+        if(result.receipt.gasUsed === result.receipt.cumulativeGasUsed)
+            console.error("Transaction may had run out of gas: gasUsed = cumulativeGasUsed = "+result.receipt.gasUsed)
     }
 }
 
