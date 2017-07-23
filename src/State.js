@@ -43,27 +43,33 @@ class State
         return project.id
     }
 
-
-    addUnconfirmedProposal=(projectId, title)=>
-    {
-        var proposal = this.getEmptyProposal()
-        proposal.title = title
-        proposal.id =this.unconfirmedProposalsNonce
-        this.unconfirmedProposalsNonce++
-        this.data.projects[projectId].unconfirmedProposals[this.unconfirmedProjectsNonce] = proposal
-        this.stateUpdated()
-        return proposal.id
-    }
-
     deleteUnconfirmedProject=(uncornfirmedProjectId)=>
     {
         delete this.data.unconfirmedProjects[uncornfirmedProjectId]
         this.stateUpdated()
     }
 
+    addUnconfirmedProposal=(projectId, title)=>
+    {
+        var proposal = this.getEmptyProposal()
+        proposal.title = title
+        proposal.id = this.unconfirmedProposalsNonce
+        this.unconfirmedProposalsNonce++
+        this.data.projects[projectId].unconfirmedProposals[proposal.id] = proposal
+        this.stateUpdated()
+        return proposal.id
+    }
+
+    deleteUnconfirmedProposal=(projectId, unconfirmedProposalId)=>
+    {
+        delete this.data.projects[projectId].unconfirmedProposals[unconfirmedProposalId]
+        this.stateUpdated(this.data.projects[projectId].unconfirmedProposals)
+    }
+
+
     addUser=(userAddress,data)=>
     {
-       DeepAssign(this.data.users[userAddress], data)
+        DeepAssign(this.data.users[userAddress], data)
         this.stateUpdated()
     }
 
