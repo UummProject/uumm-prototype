@@ -23,7 +23,7 @@ const titleStyle =
     justifyContent: 'center',
     alignItems: 'flexStart',
     flexGrow: 4,
-    color:"grey"
+    color:"#666666"
 }
 
 class UnconfirmedProjectCard extends React.Component {
@@ -42,7 +42,8 @@ class UnconfirmedProjectCard extends React.Component {
     {
         return (
             <Paper style={containerStyle} zDepth={1} onTouchTap={this.onTouchTap}>
-                <h4 style={titleStyle}> {this.props.data.name} </h4>       
+                <h4 style={titleStyle}> {this.props.data.name} </h4>  
+                <p style={{"color":"#9E9E9E"}}> unconfirmed </p>       
             </Paper>
         );
     }
