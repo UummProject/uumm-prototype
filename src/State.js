@@ -37,7 +37,7 @@ class State
         var project = this.getEmptyProject()
         project.name = projectName
         project.id =this.unconfirmedProjectsNonce
-        this.unconfirmedProjects++
+        this.unconfirmedProjectsNonce++
         this.data.unconfirmedProjects[this.unconfirmedProjectsNonce] = project
         this.stateUpdated()
         return project.id
@@ -48,18 +48,6 @@ class State
         delete this.data.unconfirmedProjects[uncornfirmedProjectId]
         this.stateUpdated()
     }
-
-
-    /*addProjectRef=(projectId)=>
-    {
-        for(var i = 0; i<this.data.projectsRef.length; i++)
-        {
-            if(projectId===this.data.projectsRef[i])
-                return
-        }
-        this.data.projectsRef.push(projectId)
-    }*/
-
 
     addUser=(userAddress,data)=>
     {
@@ -120,8 +108,6 @@ class State
     {
         this.stateUpdatedCallbacks.push(callback)
     }
-
-
 }
 
 const instance = new State()
