@@ -1,6 +1,7 @@
 # Uumm
 _The Ultimate Unicorn Maker Machine_
 
+[Latest live version](https://xavivives.github.io/Uumm/)
 
 # What's this project about?
 It's a decentralized governance tool for collaborative projects based on the assumption that the percentage of user ownership of a project is equal to the percentage of user contribution to the project.
@@ -51,9 +52,9 @@ The current goal is to have an MVP running with no fancy features within a coupl
 - [x] Basic contract functionallity 
 - [x] [Contract](https://github.com/xavivives/Uumm/blob/master/contracts/Uumm.sol)
 - [x] User interface design
-- [ ] Minimal user interface implementation **(WIP)**
-- [ ] Public Ropsten deployment
-- [ ] Testing and polishing
+- [x] Minimal user interface implementation 
+- [x] [Public Ropsten deployment](https://xavivives.github.io/Uumm/)
+- [ ] Testing and polishing **(WIP)**
 - [ ] Code optimizations
 - [ ] Beautification
 - [ ] Move on to next stage
