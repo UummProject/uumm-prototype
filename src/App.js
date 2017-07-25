@@ -49,9 +49,9 @@ class App extends Component
         if(params.projectId)
         {
             this.setState({
-                 'currentPage':PROJECT_DETAILS,
-                 'currentProjectId':params.projectId
-                 })
+                'currentPage':PROJECT_DETAILS,
+                'currentProjectId':params.projectId
+                })
         }
         else
         {
