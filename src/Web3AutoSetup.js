@@ -10,10 +10,7 @@ class Web3AutoSetup
         this.provider = {}
         this.accountListeners = []
         this.networkListeners = []
-        this.setupFinished = new Promise((resolve, reject)=>{
-            this.resolveSetup = resolve
-            this.rejectSetup = reject
-        })
+        this.checkInterval = undefined
 
         window.addEventListener('load', ()=> {
             this.onWindowLoaded();
@@ -22,7 +19,7 @@ class Web3AutoSetup
 
     onWindowLoaded=()=>
     {
-        this.setup()
+        //this.setup()
     }
 
     isReady=()=>
@@ -31,49 +28,66 @@ class Web3AutoSetup
     }
 
     //resolves or rejects this.setupFinished promise
-    setup=(customProvider, forceCustomProvider = true)=>
+    setup=(customProvider, forceCustomProvider = false)=>
     {
-        //Set the provider
-        if (typeof web3 !== 'undefined')
-        {
-            // Use injected provider,  Mist/MetaMask's
-            window.web3 = new Web3(window.web3.currentProvider)
-            this.provider = window.web3.currentProvider
+        return new Promise((resolve, reject)=>{
+
+            //Set the provider
+            if (typeof web3 !== 'undefined' && !forceCustomProvider)
+            {
+                // Use injected provider,  Mist/MetaMask's
+                window.web3 = new Web3(window.web3.currentProvider)
+                this.provider = window.web3.currentProvider   
+             }
+            else if(customProvider)
+            {
+                //Use fallback provider localhost provier geth/testrpc
+                this.provider = new Web3.providers.HttpProvider(customProvider)
+                window.web3 = new Web3(this.provider)
+            }
+            else
+            {
+                reject("No provider detected. Set your own like so: Web3AutoSetup.setup('http://localhost:8546')")
+                return
+            }
+
+            console.log("Using "+ this.getCurrentProvider().type + " provider: "+ this.getCurrentProvider().name +" in "+this.getNetworkDetails(this.currentNetworkId).name+" network." )
             
-         } else
-         {
-            //Use fallback provider localhost provier geth/testrpc
-            this.provider = new Web3.providers.HttpProvider(customProvider)
-            window.web3 = new Web3(this.provider)
-        }
+            window.web3.version.getNetwork((error, networkId) =>
+            {
+                if(error)
+                    reject(error)
 
-        console.log("Using "+ this.getCurrentProvider().type + " provider: "+ this.getCurrentProvider().name +" in "+this.getNetworkDetails(this.currentNetworkId).name+" network." )
-        
-        window.web3.version.getNetwork((error, networkId) =>
-        {
-            if(error)
-                this.rejectSetup(error)
+                this.checkNetworkChange(networkId)
+            })
+            //Check if accounts are available and set the [0] as a main one
+            window.web3.eth.getAccounts((error, accounts)=>
+            {
+                if(error)
+                    reject(error)
+            
+                this.checkAccountChange(accounts[0])
+            })
 
-            this.checkNetworkChange(networkId)
-            this.resolveSetup()
+            //we keep checking to see if the user changes the account/network (likely if she's using Metamask or an external provider)
+            //We use sync methods, supported by Metamask (https://github.com/MetaMask/faq/blob/master/DEVELOPERS.md)
+            
+            if(checkInterval)
+                clearInterval(checkInterval)
+
+            var checkInterval = setInterval(()=>
+            {
+                //this.checkNetworkChange(window.web3.version.network)
+                //this.checkAccountChange(window.web3.eth.accounts[0])
+            }, 500);
+
+            resolve()
         })
-        //Check if accounts are available and set the [0] as a main one
-        window.web3.eth.getAccounts((error, accounts)=>
-        {
-            if(error)
-                this.rejectSetup(error)
-        
-            this.checkAccountChange(accounts[0])
-            this.resolveSetup()
-        })
+    }
 
-        //we keep checking to see if the user changes the account/network (likely if she's using Metamask or an external provider)
-        //We use sync methods, supported by Metamask (https://github.com/MetaMask/faq/blob/master/DEVELOPERS.md)
-        var accountInterval = setInterval(()=>
-        {
-            this.checkNetworkChange(window.web3.version.network)
-            this.checkAccountChange(window.web3.eth.accounts[0])
-        }, 500);
+    getProvider=()=>
+    {
+        return this.provider
     }
 
     //check if address had changed and notify listeners if so
@@ -127,6 +141,10 @@ class Web3AutoSetup
         return network
     }
 
+    getCurrentNetwork=()=>
+    {
+        return this.getNetworkDetails(this.currentNetworkId)
+    }
 
     getCurrentProvider=()=>
     {
@@ -145,7 +163,6 @@ class Web3AutoSetup
              default:
                  provider.name= "Unknown"
         }
-        console.log(provider)
         return provider
     }
 }

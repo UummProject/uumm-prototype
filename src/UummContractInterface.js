@@ -1,6 +1,7 @@
 import UummContract from '../build/contracts/Uumm.json'
 import Config from '../truffle-config.js'
-import Web3 from 'web3'
+//import Web3 from 'web3'
+import Web3AutoSetup from './Web3AutoSetup.js'
 import State from './State.js'
 
 class UummContractInterface
@@ -9,76 +10,41 @@ class UummContractInterface
 
     constructor()
     {
-        this.userAddress=0
-        this.provider = {}
         this.contractInstance = {}
-        this.accounts = {}
-        this.setupFinished = new Promise((resolve, reject)=>{
-            this.resolveSetup = resolve
-            this.rejectSetup = reject
+        this.init()
+
+        this.isReadyPromise = new Promise((resolve, reject)=>
+        {
+            this.resolveIsReady = resolve
+            this.rejectIsReady = reject
         })
-
-        window.addEventListener('load', ()=> {
-            this.onWindowLoaded();
-        })
-    }
-
-    onWindowLoaded=()=>
-    {
-        this.setupWeb3Provider()
-    }
-
-    isReady=()=>
-    {
-        return this.setupFinished
     }
 
     //resolves or rejects this.setupFinished promise
-    setupWeb3Provider=()=>
+    init=()=>
     {
-        if (typeof web3 !== 'undefined')
-        {
-             // Use Mist/MetaMask's provider
-            //window.web3 = new Web3(window.web3.currentProvider);
-            
-            console.log("Using injected provider")
-            window.web3 = new Web3(window.web3.currentProvider)
-            this.provider = window.web3.currentProvider
+        var {host, port} = Config.networks[process.env.NODE_ENV]
 
-         } else
-         {
-            //Use localhost provier geth/testrpc
-            console.log(process.env)
-            var {host, port} = Config.networks[process.env.NODE_ENV]
-            this.provider = new Web3.providers.HttpProvider('http://' + host + ':' + port)
-            window.web3 = new Web3(this.provider)
-            console.log('Using http://' + host + ':' + port)
-        }
+        Web3AutoSetup.setup('http://' + host + ':' + port).then(()=>{
+            const contract = require('truffle-contract')
+            const uummContract = contract(UummContract)
 
-        const contract = require('truffle-contract')
-        const uummContract = contract(UummContract)
+            this.provider = Web3AutoSetup.getProvider()
 
-        uummContract.setProvider(this.provider)
-        this.contractDeployedPromise = uummContract.deployed()
-        
-        window.web3.eth.getAccounts((error, accounts)=>
-        {
-            //Fails if not in the right network
-            if(error)
-            {
-                console.error(error)
-                this.rejectSetup(error)
-            }
-            
+            uummContract.setProvider(this.provider)
 
-            this.accounts = accounts
-            this.userAddress = accounts[0]
-            this.contractDeployedPromise
+            uummContract.deployed()
             .then((instance)=>{
                 this.contractInstance = instance
-                this.resolveSetup()
-            })
-        }) 
+                this.resolveIsReady()
+            }).catch((error)=>{ this.rejectIsReady(error)})
+
+        }).catch((error)=>{ this.rejectIsReady(error)})   
+    }
+
+    isReady =()=>
+    {
+        return this.isReadyPromise
     }
 
     createProposal=(projectId, title, reference, valueAmount)=>
@@ -89,7 +55,7 @@ class UummContractInterface
         {
             this.contractInstance.CreateProposal.estimateGas(projectId, title, reference, valueAmount)
             .then((estimatedGas)=>{
-                return this.contractInstance.CreateProposal(projectId, title, reference, valueAmount, {from: this.userAddress, gas:estimatedGas})
+                return this.contractInstance.CreateProposal(projectId, title, reference, valueAmount, {from: Web3AutoSetup.currentAccount, gas:estimatedGas})
             }).then((result)=> {
 
                 
@@ -117,7 +83,7 @@ class UummContractInterface
             .then((estimatedGas)=>{
 
                 var gasLimit = Math.round(estimatedGas * 1.1)
-                return this.contractInstance.CreateProject(projectName, {from: this.userAddress, gas:gasLimit})
+                return this.contractInstance.CreateProject(projectName, {from: Web3AutoSetup.currentAccount, gas:gasLimit})
             }).then((result)=> {
                 this.checkTransactionReceipt(result)
                 this.getUserProjects().then(()=>{
@@ -140,14 +106,14 @@ class UummContractInterface
             var array = []
             var loadedCount = 0
 
-            that.contractInstance.GetProjectsLength.call(that.userAddress)
+            that.contractInstance.GetProjectsLength.call(Web3AutoSetup.currentAccount)
             .then(function(numberOfProjects)
             {
                 //State.addVar("projectsLength", numberOfProjects)
 
                 for(var i=0; i<numberOfProjects.toNumber(); i++)
                 {
-                    that.contractInstance.GetProjectIdByIndex.call(that.userAddress, i)
+                    that.contractInstance.GetProjectIdByIndex.call(Web3AutoSetup.currentAccount, i)
                     .then(function(projectId)
                     {
                         that.getProjectDetails(projectId)
@@ -158,7 +124,7 @@ class UummContractInterface
                             if(loadedCount===numberOfProjects.toNumber())
                                 resolve(array)
                         }).catch(function(error){reject(error)})
-                    })
+                    }).catch(function(error){reject(error)})
                 }
             
             }).catch(function(error){reject(error)})
@@ -228,7 +194,7 @@ class UummContractInterface
 
     getUserContributorData = (projectId)=>
     {
-        return this.getContributorDataByAddress(projectId, this.userAddress)
+        return this.getContributorDataByAddress(projectId, Web3AutoSetup.currentAccount)
     }
 
     getProposals = (projectId) =>
@@ -302,7 +268,7 @@ class UummContractInterface
         {
             this.contractInstance.VoteProposal.estimateGas(projectId, proposalId, vote)
             .then((estimatedGas)=>{
-                return this.contractInstance.VoteProposal(projectId, proposalId, vote, {from: this.userAddress, gas:estimatedGas})
+                return this.contractInstance.VoteProposal(projectId, proposalId, vote, {from: Web3AutoSetup.currentAccount, gas:estimatedGas})
             }).then((result)=> {
                 resolve()
                 this.getProposals(projectId)
@@ -319,7 +285,7 @@ class UummContractInterface
         {
             this.contractInstance.ResolveProposal.estimateGas(projectId, proposalId)
             .then((estimatedGas)=>{
-                return this.contractInstance.ResolveProposal(projectId, proposalId, {from: this.userAddress, gas:estimatedGas})
+                return this.contractInstance.ResolveProposal(projectId, proposalId, {from: Web3AutoSetup.currentAccount, gas:estimatedGas})
             }).then((result)=> {
                 resolve()
                 this.getProposals(projectId)
@@ -331,63 +297,10 @@ class UummContractInterface
 
     checkTransactionReceipt=(result)=>
     {
-        console.log(result)
         if(result.receipt.gasUsed === result.receipt.cumulativeGasUsed)
             console.error("Transaction may had run out of gas: gasUsed = cumulativeGasUsed = "+result.receipt.gasUsed)
     }
 
-    getCurrentNetwork=()=>
-    {
-        return new Promise((resolve, reject)=>
-        {
-            var network={}
-            window.web3.version.getNetwork((error, networkId) =>
-            {
-                
-                if(error)
-                    reject(error)
-
-                network.id = networkId
-
-                switch (networkId) {
-                    case "1":
-                        network.name= "Main-net"
-                        break
-                    case "2":
-                        network.name= "Morden"
-                        break
-                    case "3":
-                        network.name= "Ropsten"
-                        break
-                    default:
-                        network.name= "Unknown"
-                }
-
-                resolve(network)
-            })
-        })
-    }
-
-    getCurrentProvider=()=>
-    {
-        var provider={}
-               var constructorName = this.provider.constructor.name
-        switch (constructorName) {
-             case "MetamaskInpageProvider":
-                provider.name= "MetaMask"
-                provider.type= "injected"
-                break
-             case "HttpProvider":
-                provider.name= this.provider.host
-                provider.type= "localhost"
-                provider.rpcHost= this.provider.host
-                break
-             default:
-                 provider.name= "Unknown"
-        }
-        console.log(provider)
-        return provider
-    }
 }
 
 const instance = new UummContractInterface();
