@@ -56,16 +56,18 @@ class UummContractInterface
             .then((estimatedGas)=>{
                 return this.contractInstance.CreateProposal(projectId, title, reference, valueAmount, {from: Web3AutoSetup.currentAccount, gas:estimatedGas})
             }).then((result)=> {
+                console.log("A")
 
-                
                 this.getProposals(projectId).then(()=>
                 {   
+                    console.log("B")
                     this.checkTransactionReceipt(result)
                     State.deleteUnconfirmedProposal(projectId, unconfirmedProposal)
                     resolve()
                 }).catch((error)=>{reject(error)})
 
             }).catch((error)=>{
+                console.log("C")
                 State.deleteUnconfirmedProposal(projectId, unconfirmedProposal)
                 reject(error)
             })
@@ -206,10 +208,14 @@ class UummContractInterface
             .then((numberOfProposals)=>
             {
                 //TODO: record number of proposals so we don't need to reload them all
-
-                for(var proposalId=0; proposalId<numberOfProposals.toNumber(); proposalId++)
+                var propoalsAmount = numberOfProposals.toNumber()
+                var loadedAmount = 0
+                for(var proposalId=0; proposalId<propoalsAmount; proposalId++)
                 {
-                    this.getProposal(projectId, proposalId)
+                    this.getProposal(projectId, proposalId).then(()=>{loadedAmount++})
+
+                    if (loadedAmount === propoalsAmount)
+                        resolve()
                 }
             })
         })  
@@ -217,46 +223,43 @@ class UummContractInterface
 
     getProposal = (projectId, proposalId) =>
     {
+
         return new Promise((resolve, reject)=>
         {
-            var proposalDetails = State.getEmptyProposal()
+            if(!projectId || !proposalId)
+                reject("projectId or proposalId are not valid")
+
+            var proposalData = State.getEmptyProposal()
 
             this.contractInstance.GetProposalDetails.call(projectId, proposalId)
             .then((proposalDetails)=>
             {
-
-                proposalDetails.id = proposalDetails[0].toNumber()
-                proposalDetails.author = proposalDetails[1]
-                proposalDetails.title = proposalDetails[2]
-                proposalDetails.reference = proposalDetails[3]
-                proposalDetails.valueAmount = proposalDetails[4].toNumber()
-                proposalDetails.creationDate = new Date (proposalDetails[5].toNumber()*1000)
+                proposalData.id = proposalDetails[0].toNumber()
+                proposalData.author = proposalDetails[1]
+                proposalData.title = proposalDetails[2]
+                proposalData.reference = proposalDetails[3]
+                proposalData.valueAmount = proposalDetails[4].toNumber()
+                proposalData.creationDate = new Date (proposalDetails[5].toNumber()*1000)
                 
-                var project = {}
-                project.proposals = []
-                project.proposals[proposalDetails.id] = proposalDetails
+                this.contractInstance.GetProposalState.call(projectId, proposalId)
+                .then((proposalState)=>
+                {
+                    proposalData.id = proposalState[0].toNumber()
+                    proposalData.state = proposalState[1].toNumber()
+                    proposalData.positiveVotes = proposalState[2].toNumber()
+                    proposalData.negativeVotes = proposalState[3].toNumber()
+                    proposalData.creationDate = new Date (proposalState[4].toNumber()*1000)
+                    proposalData.totalSupply = proposalState[5].toNumber()
+                
+                    var project = {}
+                    project.proposals = []
+                    project.proposals[proposalId] = proposalData
 
-                State.addProject(projectId, project)
+                    State.addProject(projectId, project)
+                    resolve();
+
+                }).catch((error)=>{console.error(error)})
             })
-
-            //Proposal state
-            this.contractInstance.GetProposalState.call(projectId, proposalId)
-            .then((proposalState)=>
-            {
-                proposalDetails.id = proposalState[0].toNumber()
-                proposalDetails.state = proposalState[1].toNumber()
-                proposalDetails.positiveVotes = proposalState[2].toNumber()
-                proposalDetails.negativeVotes = proposalState[3].toNumber()
-                proposalDetails.creationDate = new Date (proposalState[4].toNumber()*1000)
-                proposalDetails.totalSupply = proposalState[5].toNumber()
-            
-                var project = {}
-                project.proposals = []
-                project.proposals[proposalState.id] = proposalState
-
-                State.addProject(projectId, project)
-            })
-
         })  
     }
 
@@ -278,7 +281,6 @@ class UummContractInterface
 
     resolveProposal=( projectId,  proposalId)=>
     {
-
         return new Promise((resolve, reject)=>
         {
             this.contractInstance.ResolveProposal.estimateGas(projectId, proposalId)
