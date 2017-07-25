@@ -5,6 +5,7 @@ import InjectTapEventPlugin from 'react-tap-event-plugin'
 import ProjectsListPage from './ProjectsListPage.js'
 import ProjectDetails from './ProjectDetails.js'
 import State from './State.js'
+import NetworkState from './NetworkState.js'
 import QueryString from 'query-string';
 
 InjectTapEventPlugin()
@@ -91,6 +92,7 @@ class App extends Component
             <div className="App">
                 <MuiThemeProvider>
                     <div>
+                        <NetworkState/>
                         {page}
                     </div>
                 </MuiThemeProvider>
