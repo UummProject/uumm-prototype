@@ -35,7 +35,7 @@ class NetworkState extends React.Component {
         .then(()=>{
             this.setState({
                 "connected": true,
-                "userAddress":Uumm.userAddress,
+                "userAddress":Web3AutoSetup.currentAccount,
                 "provider":Web3AutoSetup.getCurrentProvider().name,
                 "network": Web3AutoSetup.getCurrentNetwork().name
             })
@@ -44,6 +44,21 @@ class NetworkState extends React.Component {
             this.setState({"connected": false})
             console.error(error)
         })
+
+        Web3AutoSetup.addAccountChangedListener(this.onAddressChange)
+        Web3AutoSetup.addNetworkChangedListener(this.onNetworkChange)
+
+    }
+
+    onAddressChange=(newAddress)=>
+    {
+        console.log(newAddress)
+        this.setState({ "userAddress":newAddress})
+    }
+
+    onNetworkChange=(newNetworkId)=>
+    {
+        this.setState({ "provider":Web3AutoSetup.getCurrentNetwork().name})
     }
 
     render()
