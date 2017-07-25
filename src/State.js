@@ -66,7 +66,6 @@ class State
         this.stateUpdated(this.data.projects[projectId].unconfirmedProposals)
     }
 
-
     addUser=(userAddress,data)=>
     {
         DeepAssign(this.data.users[userAddress], data)

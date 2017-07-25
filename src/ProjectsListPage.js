@@ -19,13 +19,12 @@ const FloatingButtonStyle = {
 class ProjectsListPage extends Component
 {
     constructor(props) {
-      super(props)
+        super(props)
        this.state = {"createDialogIsOpen" : false};
     }
 
     closeDialog=()=>
     {
-        console.log("cancel")
         this.setState({'createDialogIsOpen':false})
     }
 
