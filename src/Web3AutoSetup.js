@@ -4,9 +4,8 @@ class Web3AutoSetup
 {
     constructor()
     {
-        console.log("Web3AutoSetup ")
-        this.currentAccount = 0
-        this.currentNetworkId = 0
+        this.currentAccount = undefined
+        this.currentNetworkId = undefined
         this.provider = {}
         this.accountListeners = []
         this.networkListeners = []
@@ -27,7 +26,7 @@ class Web3AutoSetup
         return this.setupFinished
     }
 
-    //resolves or rejects this.setupFinished promise
+    //Should be called after window load event
     setup=(customProvider, forceCustomProvider = false)=>
     {
         return new Promise((resolve, reject)=>{
@@ -75,8 +74,8 @@ class Web3AutoSetup
 
             this.checkInterval = setInterval(()=>
             {
-                //this.checkNetworkChange(window.web3.version.network)
-                //this.checkAccountChange(window.web3.eth.accounts[0])
+                this.checkNetworkChange(window.web3.version.network)
+                this.checkAccountChange(window.web3.eth.accounts[0])
             }, 500);
 
             console.log("Using "+ this.getCurrentProvider().type + " provider: "+ this.getCurrentProvider().name +" in "+this.getNetworkDetails(this.currentNetworkId).name+" network, with address: "+this.currentAccount )
@@ -90,7 +89,6 @@ class Web3AutoSetup
         return this.provider
     }
 
-    //check if address had changed and notify listeners if so
     checkAccountChange=(newAddress)=>
     {
         if(this.currentAccount !== newAddress)
