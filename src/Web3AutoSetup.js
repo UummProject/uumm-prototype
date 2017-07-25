@@ -50,9 +50,7 @@ class Web3AutoSetup
                 reject("No provider detected. Set your own like so: Web3AutoSetup.setup('http://localhost:8546')")
                 return
             }
-
-            console.log("Using "+ this.getCurrentProvider().type + " provider: "+ this.getCurrentProvider().name +" in "+this.getNetworkDetails(this.currentNetworkId).name+" network." )
-            
+           
             window.web3.version.getNetwork((error, networkId) =>
             {
                 if(error)
@@ -72,15 +70,17 @@ class Web3AutoSetup
             //we keep checking to see if the user changes the account/network (likely if she's using Metamask or an external provider)
             //We use sync methods, supported by Metamask (https://github.com/MetaMask/faq/blob/master/DEVELOPERS.md)
             
-            if(checkInterval)
-                clearInterval(checkInterval)
+            if(this.checkInterval)
+                clearInterval(this.checkInterval)
 
-            var checkInterval = setInterval(()=>
+            this.checkInterval = setInterval(()=>
             {
                 //this.checkNetworkChange(window.web3.version.network)
                 //this.checkAccountChange(window.web3.eth.accounts[0])
             }, 500);
 
+            console.log("Using "+ this.getCurrentProvider().type + " provider: "+ this.getCurrentProvider().name +" in "+this.getNetworkDetails(this.currentNetworkId).name+" network, with address: "+this.currentAccount )
+            
             resolve()
         })
     }
@@ -93,7 +93,7 @@ class Web3AutoSetup
     //check if address had changed and notify listeners if so
     checkAccountChange=(newAddress)=>
     {
-        if(this.currentAccount != newAddress)
+        if(this.currentAccount !== newAddress)
         {
             this.currentAccount = newAddress
             for(var i = 0; i< this.accountListeners.length; i++)
@@ -103,9 +103,8 @@ class Web3AutoSetup
 
     checkNetworkChange=(newNetworkId)=>
     {
-        if(this.currentNetworkId != newNetworkId)
+        if(this.currentNetworkId !== newNetworkId)
         {
-            console.log("New network: "+newNetworkId)
             this.currentNetworkId = newNetworkId
             for(var i = 0; i< this.networkListeners.length; i++)
                 this.networkListeners[i](newNetworkId)

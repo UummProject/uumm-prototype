@@ -2,7 +2,6 @@ import React from 'react'
 import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
 import State from './State.js'
-import Uumm from './UummContractInterface.js'
 import ThumbsUpIcon from 'react-icons/lib/md/thumb-up'
 import ThumbsDownIcon from 'react-icons/lib/md/thumb-down'
 import Numeral from 'numeral'
@@ -73,14 +72,14 @@ class ProposalCard extends React.Component {
     render()
     {  
         var totalSupply = this.props.projectData.totalSupply
-        if(this.props.proposalData.state != State.ProposalState.PENDING)
+        if(this.props.proposalData.state !== State.ProposalState.PENDING)
             totalSupply = this.props.proposalData.totalSupply
 
         var positiveVotes = this.props.proposalData.positiveVotes / totalSupply
         var negativeVotes = this.props.proposalData.negativeVotes / totalSupply
-        var participation = positiveVotes + negativeVotes
+        //var participation = positiveVotes + negativeVotes
         var hasConcensus = (positiveVotes > this.props.projectData.requiredConcensus) || (negativeVotes > this.props.projectData.requiredConcensus)
-        var hasEnoughParticipation =  participation > this.props.projectData.requiredParticipation
+        //var hasEnoughParticipation =  participation > this.props.projectData.requiredParticipation
 
         var actions = this.getAction(this.props.proposalData.state, hasConcensus) 
 

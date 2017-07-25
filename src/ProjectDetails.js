@@ -1,6 +1,6 @@
 import React from 'react'
 import Avatar from 'material-ui/Avatar'
-import FontIcon from 'material-ui/FontIcon'
+
 import State from './State.js'
 import Uumm from './UummContractInterface.js'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -9,28 +9,9 @@ import ProposalsList from './ProposalsList.js'
 import Numeral from 'numeral'
 
 import {
-  blue300,
-  indigo900,
-  orange200,
   deepOrange300,
-  pink400,
   purple500,
 } from 'material-ui/styles/colors'
-
-const containerStyle =
-{
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    height : 80,
-    padding : 15,
-    marginTop : 10,
-    margnBottom : 30,
-    marginLeft:5,
-    marginRight:5
-}
 
 const titleStyle =
 {
@@ -94,7 +75,9 @@ class ProjectDetails extends React.Component {
                     contributorData = projectData.contributors[Uumm.userAddress]
 
         var ownership = Numeral(contributorData.valueTokens/projectData.totalSupply).format('0.0%')
-          
+        var avatarCharacter = ""
+        if(projectData.name)
+            avatarCharacter = projectData.name[0]
         return (
             <div >
                 <Avatar
@@ -102,7 +85,7 @@ class ProjectDetails extends React.Component {
                     backgroundColor={purple500}
                     size={30}
                     style={style}>
-                    {projectData.name[0]}
+                    {avatarCharacter}
                 </Avatar>
 
                 <h4 style={titleStyle}> {projectData.name} </h4> 

@@ -23,7 +23,7 @@ class State
     addProject=(projectId, data)=>
     {
         if(!projectId || !data)
-            throw("projectId or data was not defined")
+            console.error("projectId or data was not defined")
 
         if(!this.data.projects[projectId])
             this.data.projects[projectId] = {} 

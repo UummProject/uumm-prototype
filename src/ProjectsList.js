@@ -6,11 +6,6 @@ import State from './State.js'
 
 class ProjectsList extends React.Component
 {
-    constructor()
-    {
-        super();
-    }
-
     componentWillMount=()=>
     {
         Uumm.isReady()
@@ -50,12 +45,12 @@ class ProjectsList extends React.Component
             if (!State.data.unconfirmedProjects.hasOwnProperty(unconfirmedProjectId))
                 continue
 
-            var projectData = State.data.unconfirmedProjects[unconfirmedProjectId]
+            var unconfirmedProjectData = State.data.unconfirmedProjects[unconfirmedProjectId]
 
             projects.push(
                 <UnconfirmedProjectCard
                     key={unconfirmedProjectId}
-                    data={projectData}
+                    data={unconfirmedProjectData}
                     onTouchTap={this.onProjectSelected}
                 />);
         }

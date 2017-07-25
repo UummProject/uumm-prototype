@@ -1,6 +1,5 @@
 import UummContract from '../build/contracts/Uumm.json'
 import Config from '../truffle-config.js'
-//import Web3 from 'web3'
 import Web3AutoSetup from './Web3AutoSetup.js'
 import State from './State.js'
 
@@ -113,6 +112,8 @@ class UummContractInterface
 
                 for(var i=0; i<numberOfProjects.toNumber(); i++)
                 {
+                    /*jshint loopfunc: true */
+
                     that.contractInstance.GetProjectIdByIndex.call(Web3AutoSetup.currentAccount, i)
                     .then(function(projectId)
                     {
@@ -142,12 +143,12 @@ class UummContractInterface
             {
                 var projectDetails = State.getEmptyProject()
 
-                projectDetails.creator = details[0],
-                projectDetails.name = details[1],
-                projectDetails.id = details[2],
-                projectDetails.creationDate = new Date (details[3].toNumber()*1000),
-                projectDetails.totalSupply=details[4].toNumber(),
-                projectDetails.requiredConcensus=details[5].toNumber()/100,
+                projectDetails.creator = details[0]
+                projectDetails.name = details[1]
+                projectDetails.id = details[2]
+                projectDetails.creationDate = new Date (details[3].toNumber()*1000)
+                projectDetails.totalSupply=details[4].toNumber()
+                projectDetails.requiredConcensus=details[5].toNumber()/100
                 projectDetails.requiredParticipation=details[6].toNumber()/100
 
                 State.addProject(projectId, projectDetails)
@@ -218,20 +219,19 @@ class UummContractInterface
     {
         return new Promise((resolve, reject)=>
         {
-            
+            var proposalDetails = State.getEmptyProposal()
+
             this.contractInstance.GetProposalDetails.call(projectId, proposalId)
             .then((proposalDetails)=>
             {
-                //TODO duplicated var. Move outside the callback
-                var proposalDetails = {
-                    'id' : proposalDetails[0].toNumber(),
-                    'author' : proposalDetails[1],
-                    'title' : proposalDetails[2],
-                    'reference' : proposalDetails[3],
-                    'valueAmount': proposalDetails[4].toNumber(),
-                    'creationDate': new Date (proposalDetails[5].toNumber()*1000)
-                }
-            
+
+                proposalDetails.id = proposalDetails[0].toNumber()
+                proposalDetails.author = proposalDetails[1]
+                proposalDetails.title = proposalDetails[2]
+                proposalDetails.reference = proposalDetails[3]
+                proposalDetails.valueAmount = proposalDetails[4].toNumber()
+                proposalDetails.creationDate = new Date (proposalDetails[5].toNumber()*1000)
+                
                 var project = {}
                 project.proposals = []
                 project.proposals[proposalDetails.id] = proposalDetails
@@ -243,14 +243,12 @@ class UummContractInterface
             this.contractInstance.GetProposalState.call(projectId, proposalId)
             .then((proposalState)=>
             {
-                var proposalState = {
-                    'id' : proposalState[0].toNumber(),
-                    'state' : proposalState[1].toNumber(),
-                    'positiveVotes' : proposalState[2].toNumber(),
-                    'negativeVotes' : proposalState[3].toNumber(),
-                    'creationDate': new Date (proposalState[4].toNumber()*1000),
-                    'totalSupply': proposalState[5].toNumber()
-                }
+                proposalDetails.id = proposalState[0].toNumber()
+                proposalDetails.state = proposalState[1].toNumber()
+                proposalDetails.positiveVotes = proposalState[2].toNumber()
+                proposalDetails.negativeVotes = proposalState[3].toNumber()
+                proposalDetails.creationDate = new Date (proposalState[4].toNumber()*1000)
+                proposalDetails.totalSupply = proposalState[5].toNumber()
             
                 var project = {}
                 project.proposals = []

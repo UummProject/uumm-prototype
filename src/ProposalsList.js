@@ -63,21 +63,22 @@ class ProposalsList extends React.Component
             }
         }
 
-        console.log(projectData.unconfirmedProposals)
         if(projectData.unconfirmedProposals)
         {
             for (var unconfirmedProposalId in projectData.unconfirmedProposals)
             {
-                var proposalData = State.getEmptyProposal()
+                if (!projectData.unconfirmedProposals.hasOwnProperty(unconfirmedProposalId))
+                    return
+                var unconfirmedProposalData = State.getEmptyProposal()
 
                 if(projectData.unconfirmedProposals[unconfirmedProposalId])
-                    proposalData = projectData.unconfirmedProposals[unconfirmedProposalId] 
+                    unconfirmedProposalData = projectData.unconfirmedProposals[unconfirmedProposalId] 
 
                 proposals.push(
                     <UnconfirmedProposalCard
                         key={"u"+unconfirmedProposalId}
                         projectId={this.props.projectId}
-                        proposalData={proposalData}
+                        proposalData={unconfirmedProposalData}
                         projectData={projectData}
                     />);
             }
