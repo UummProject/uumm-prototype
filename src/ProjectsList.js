@@ -9,17 +9,13 @@ class ProjectsList extends React.Component
     constructor()
     {
         super();
- 
-        //TODO: Rendering network state doesn't belong here
-        this.state = {"projects" : [],"statusText":"Checking network..."};
     }
 
     componentWillMount=()=>
     {
         Uumm.isReady()
         .then(()=>{
-            this.setState({"statusText": "Connected"})
-            Uumm.getUserProjects()
+            Uumm.getUserProjects().catch(function(error){console.error(error)})
         }).catch(function(error){console.error(error)})
     }
 
@@ -66,9 +62,7 @@ class ProjectsList extends React.Component
 
         return (
           <div>
-                <p style={{'textAlign':'center', 'color':'0#666666'}}>
-                    {this.state.statusText}
-                </p> 
+                <p style={{'textAlign':'center', 'color':'0#666666'}}></p> 
 
                 <div>
                     {projects}
