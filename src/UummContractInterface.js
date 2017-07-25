@@ -335,6 +335,59 @@ class UummContractInterface
         if(result.receipt.gasUsed === result.receipt.cumulativeGasUsed)
             console.error("Transaction may had run out of gas: gasUsed = cumulativeGasUsed = "+result.receipt.gasUsed)
     }
+
+    getCurrentNetwork=()=>
+    {
+        return new Promise((resolve, reject)=>
+        {
+            var network={}
+            window.web3.version.getNetwork((error, networkId) =>
+            {
+                
+                if(error)
+                    reject(error)
+
+                network.id = networkId
+
+                switch (networkId) {
+                    case "1":
+                        network.name= "Main-net"
+                        break
+                    case "2":
+                        network.name= "Morden"
+                        break
+                    case "3":
+                        network.name= "Ropsten"
+                        break
+                    default:
+                        network.name= "Unknown"
+                }
+
+                resolve(network)
+            })
+        })
+    }
+
+    getCurrentProvider=()=>
+    {
+        var provider={}
+               var constructorName = this.provider.constructor.name
+        switch (constructorName) {
+             case "MetamaskInpageProvider":
+                provider.name= "MetaMask"
+                provider.type= "injected"
+                break
+             case "HttpProvider":
+                provider.name= this.provider.host
+                provider.type= "localhost"
+                provider.rpcHost= this.provider.host
+                break
+             default:
+                 provider.name= "Unknown"
+        }
+        console.log(provider)
+        return provider
+    }
 }
 
 const instance = new UummContractInterface();
