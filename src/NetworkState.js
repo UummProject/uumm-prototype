@@ -1,6 +1,7 @@
 import React from 'react'
 import Paper from 'material-ui/Paper'
 import Uumm from './UummContractInterface.js'
+import Web3AutoSetup from './Web3AutoSetup.js'
 
 const containerStyle =
 {
@@ -35,12 +36,8 @@ class NetworkState extends React.Component {
             this.setState({
                 "connected": true,
                 "userAddress":Uumm.userAddress,
-                "provider":Uumm.getCurrentProvider().name
-            })
-
-            Uumm.getCurrentNetwork().then((network)=>
-            {
-                this.setState({"network": network.name})
+                "provider":Web3AutoSetup.getCurrentProvider().name,
+                "network": Web3AutoSetup.getCurrentNetwork().name
             })
 
         }).catch((error)=>{
