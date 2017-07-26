@@ -119,7 +119,10 @@ class ProjectDetails extends React.Component {
                     onCancel={this.closeDialog}
                     onCreate={this.onProposalSubmited}/>
 
-                <ProposalsList projectId={this.props.projectId} userAddress={this.props.userAddress} onProposalSelected={this.onProposalSelected}/>
+                <ProposalsList
+                    projectId={this.props.projectId}
+                    userAddress={this.props.userAddress}
+                    onProposalSelected={this.onProposalSelected}/>
             </div>
         )
     }
