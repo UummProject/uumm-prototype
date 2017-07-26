@@ -55,7 +55,7 @@ The current goal is to have an MVP running with no fancy features within a coupl
 - [x] Minimal user interface implementation 
 - [x] [Public Ropsten deployment](https://xavivives.github.io/Uumm/)
 - [ ] Testing and polishing **(WIP)**
-- [ ] Code optimizations
+- [ ] Code optimizations **(WIP)**
 - [ ] Beautification
 - [ ] Move on to next stage
 
@@ -148,7 +148,7 @@ Would be nice that on top of being a good looking character and had some meaning
 Not a focus on the current stage, but a vital element after the core/contract is solid.
 
 ### Privacy
-I have no solid opinion on how private data should be. Opinions are welcomed. Current apporach assumes no privacy.
+I have no solid opinion on how private data should be in this kind of project. Ideas are welcomed. Current apporach assumes no privacy.
 
 ##Other stuff
 
