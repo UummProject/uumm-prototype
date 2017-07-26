@@ -37,7 +37,7 @@ class ProjectsListPage extends Component
         this.setState({'createDialogIsOpen':false})
        
         Uumm.createProject(projectName)
-            .then(()=>{console.log("Project created")})
+            .then(()=>{})
             .catch((error)=>{console.error(error)})
     }
 
@@ -47,8 +47,8 @@ class ProjectsListPage extends Component
     }
 
     render() {
+        
         return (
-
             <div>
                 <FloatingActionButton
                     onTouchTap={this.onCreateProjectTap}
