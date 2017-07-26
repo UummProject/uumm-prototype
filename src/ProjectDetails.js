@@ -1,6 +1,5 @@
 import React from 'react'
 import Avatar from 'material-ui/Avatar'
-
 import State from './State.js'
 import Uumm from './UummContractInterface.js'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -37,9 +36,17 @@ class ProjectDetails extends React.Component {
             Uumm.getProjectDetails(props.projectId)
             Uumm.getUserContributorData(props.projectId, Web3AutoSetup.currentAccount)
             Uumm.getProposals(props.projectId)
+            Web3AutoSetup.addAccountChangedListener(this.onAddressChange)
         })
 
+        
+
         window.location.hash = "projectId="+props.projectId
+    }
+
+    onAddressChange=()=>
+    {
+        Uumm.getUserContributorData(this.props.projectId, Web3AutoSetup.currentAccount)
     }
 
     onMakeNewProposal=()=>
@@ -76,7 +83,14 @@ class ProjectDetails extends React.Component {
                     contributorData = projectData.contributors[Web3AutoSetup.currentAccount]
 
         var ownership = Numeral(contributorData.valueTokens/projectData.totalSupply).format('0.0%')
+
+        var notOwnerHint = "Your account doesn't own any shares of this project, therefore you can't vote or resolve proposals. You can still make proposals though"
         var avatarCharacter = ""
+
+        var hint = ""
+        if(contributorData.valueTokens===0)
+            hint = notOwnerHint
+
         if(projectData.name)
             avatarCharacter = projectData.name[0]
         return (
@@ -95,8 +109,9 @@ class ProjectDetails extends React.Component {
                 <p> Tokens amount: {contributorData.valueTokens}/{projectData.totalSupply} </p> 
                 <p> Ether amount: {contributorData.ethereumBalance} </p>
                 <p> Ownership: {ownership} </p> 
+                <p> {hint} </p> 
 
-                 <RaisedButton
+                <RaisedButton
                     secondary={true}
                     fullWidth={false}
                     label="Make new proposal"
