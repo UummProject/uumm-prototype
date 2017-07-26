@@ -99,35 +99,36 @@ class UummContractInterface
     getUserProjects=()=>
     {     
         var that = this
-        return new Promise(function (resolve, reject)
+        return new Promise((resolve, reject)=>
         {
             var array = []
             var loadedCount = 0
 
-            that.contractInstance.GetProjectsLength.call(Web3AutoSetup.currentAccount)
-            .then(function(numberOfProjects)
-            {
-                //State.addVar("projectsLength", numberOfProjects)
 
+
+            that.contractInstance.GetProjectsLength.call(Web3AutoSetup.currentAccount)
+            .then((numberOfProjects)=>
+            {
                 for(var i=0; i<numberOfProjects.toNumber(); i++)
                 {
-                    /*jshint loopfunc: true */
-
+                    var index = i
                     that.contractInstance.GetProjectIdByIndex.call(Web3AutoSetup.currentAccount, i)
-                    .then(function(projectId)
+                    .then((projectId)=>
                     {
+                        State.addUserProjectRef(Web3AutoSetup.currentAccount, projectId)
+
                         that.getProjectDetails(projectId)
-                        .then(function(details)
+                        .then((details)=>
                         {
                             array.push(details)
                             loadedCount ++
                             if(loadedCount===numberOfProjects.toNumber())
                                 resolve(array)
-                        }).catch(function(error){reject(error)})
-                    }).catch(function(error){reject(error)})
+                        }).catch((error)=>{reject(error)})
+                    }).catch((error)=>{reject(error)})
                 }
             
-            }).catch(function(error){reject(error)})
+            }).catch((error)=>{reject(error)})
         })
     }
 
