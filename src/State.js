@@ -77,6 +77,23 @@ class State
         this.stateUpdated()
     }
 
+    getContributorData=(projectId, contributorAddress)=>
+    {
+        var projectData = {}
+        var contributorData = undefined
+        if(this.data.projects[projectId])
+            projectData = this.data.projects[projectId]
+
+        console.log(contributorAddress)
+        if(projectData.contributors)
+               if(projectData.contributors[contributorAddress])
+                    contributorData = projectData.contributors[contributorAddress]
+
+        console.log(contributorData)
+
+        return contributorData
+    }
+
     stateUpdated=()=>
     {
         for(var i = 0; i<this.stateUpdatedCallbacks.length; i++)
