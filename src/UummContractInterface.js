@@ -56,18 +56,15 @@ class UummContractInterface
             .then((estimatedGas)=>{
                 return this.contractInstance.CreateProposal(projectId, title, reference, valueAmount, {from: Web3AutoSetup.currentAccount, gas:estimatedGas})
             }).then((result)=> {
-                console.log("A")
 
                 this.getProposals(projectId).then(()=>
                 {   
-                    console.log("B")
                     this.checkTransactionReceipt(result)
                     State.deleteUnconfirmedProposal(projectId, unconfirmedProposal)
                     resolve()
                 }).catch((error)=>{reject(error)})
 
             }).catch((error)=>{
-                console.log("C")
                 State.deleteUnconfirmedProposal(projectId, unconfirmedProposal)
                 reject(error)
             })
@@ -171,7 +168,6 @@ class UummContractInterface
             if(!contributorAddress)
                 reject("Invalid contributorAddress")
 
-
            this.contractInstance.GetContributorDataByAddress.call(projectId, contributorAddress)
             .then((details)=>
             {
@@ -197,7 +193,8 @@ class UummContractInterface
 
     getUserContributorData = (projectId)=>
     {
-        return this.getContributorDataByAddress(projectId, Web3AutoSetup.currentAccount)
+        if(Web3AutoSetup.currentAccount)
+            return this.getContributorDataByAddress(projectId, Web3AutoSetup.currentAccount)
     }
 
     getProposals = (projectId) =>
