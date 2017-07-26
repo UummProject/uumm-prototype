@@ -19,25 +19,26 @@ class App extends Component
 {
     constructor(props)
     {
-        super(props)
-       
-        this.state = {"userAddress" : Web3AutoSetup.currentAccount}  
+        super(props) 
 
         Uumm.isReady().then(()=>{
-             Web3AutoSetup.addAccountChangedListener(this.onAddressChange)
+            this.state = {"userAddress" : Web3AutoSetup.currentAccount} 
+            
         })
 
+        Web3AutoSetup.addAccountChangedListener(this.onAddressChange)
         State.addListener(this.onStateUpdated)
 
         this.state ={
             'currentPage':PROJECTS_LIST,
-            'currentProjectId':0
+            'currentProjectId':0,
+            "userAddress" : Web3AutoSetup.currentAccount
         }
     }
 
     onAddressChange=(newAddress)=>
     {
-        this.state = {"userAddress" : newAddress} 
+        this.setState ({"userAddress" : newAddress}) 
     }
 
     componentWillMount=()=>
