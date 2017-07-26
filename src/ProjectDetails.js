@@ -39,8 +39,6 @@ class ProjectDetails extends React.Component {
             Web3AutoSetup.addAccountChangedListener(this.onAddressChange)
         })
 
-        
-
         window.location.hash = "projectId="+props.projectId
     }
 

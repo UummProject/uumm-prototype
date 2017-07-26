@@ -214,9 +214,7 @@ class UummContractInterface
                         loadedAmount++
                         if (loadedAmount === propoalsAmount)
                             resolve()
-                    })
-
-                    
+                    })  
                 }
             })
         })  
