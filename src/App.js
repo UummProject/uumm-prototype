@@ -22,7 +22,7 @@ class App extends Component
         super(props) 
 
         Uumm.isReady().then(()=>{
-            this.state = {"userAddress" : Web3AutoSetup.currentAccount} 
+            this.setState({"userAddress" : Web3AutoSetup.currentAccount})
             
         })
 
@@ -38,7 +38,7 @@ class App extends Component
 
     onAddressChange=(newAddress)=>
     {
-        this.setState ({"userAddress" : newAddress}) 
+        this.setState ({"userAddress" : newAddress})
     }
 
     componentWillMount=()=>
@@ -103,7 +103,7 @@ class App extends Component
         }
     }
 
-    render() {
+    render(){
 
         var page=this.getCurrentPage();
         return (
