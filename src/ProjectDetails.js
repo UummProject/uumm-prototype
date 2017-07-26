@@ -7,6 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import CreateProposalPage from './CreateProposalPage.js'
 import ProposalsList from './ProposalsList.js'
 import Numeral from 'numeral'
+import Web3AutoSetup from './Web3AutoSetup.js'
 
 import {
   deepOrange300,
@@ -34,7 +35,7 @@ class ProjectDetails extends React.Component {
 
         Uumm.isReady().then(()=>{
             Uumm.getProjectDetails(props.projectId)
-            Uumm.getUserContributorData(props.projectId, Uumm.userAddress)
+            Uumm.getUserContributorData(props.projectId, Web3AutoSetup.currentAccount)
             Uumm.getProposals(props.projectId)
         })
 
@@ -71,8 +72,8 @@ class ProjectDetails extends React.Component {
             projectData = State.data.projects[this.props.projectId]
 
         if(projectData.contributors)
-               if(projectData.contributors[Uumm.userAddress])
-                    contributorData = projectData.contributors[Uumm.userAddress]
+               if(projectData.contributors[Web3AutoSetup.currentAccount])
+                    contributorData = projectData.contributors[Web3AutoSetup.currentAccount]
 
         var ownership = Numeral(contributorData.valueTokens/projectData.totalSupply).format('0.0%')
         var avatarCharacter = ""
