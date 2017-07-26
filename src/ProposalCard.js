@@ -43,7 +43,7 @@ class ProposalCard extends React.Component {
         this.props.onResolve(this.props.proposalData)
     }
 
-    getAction =(state, hasConcensus)=>
+    getAction =(state, hasConcensus, isOwner)=>
     {
         switch (state)
         {
@@ -54,6 +54,9 @@ class ProposalCard extends React.Component {
                 }
                 else
                 {
+                    if(!isOwner)
+                        return (<p> </p>)
+
                     return (<div>
                             <RaisedButton icon={<ThumbsUpIcon/>} onTouchTap={this.onPositiveVote}/>
                             <RaisedButton icon={<ThumbsDownIcon/>} onTouchTap={this.onNegativeVote}/>
@@ -62,8 +65,7 @@ class ProposalCard extends React.Component {
             case State.ProposalState.APPROVED: return (<p> Approved</p>)
             case State.ProposalState.DENIED: return (<p> Denied</p>)
             case State.ProposalState.EXPIRED: return (<p> Expired</p>)
-                
-               
+                              
             default :
                 return (<div/>)
         } 
@@ -71,6 +73,12 @@ class ProposalCard extends React.Component {
 
     render()
     {  
+        //TODO: Most of this data should come from props
+        var contributorData = State.getContributorData(this.props.projectId, this.props.userAddress)
+        var isOwner = false
+        if(contributorData)
+            var isOwner = contributorData.valueTokens > 0
+
         var totalSupply = this.props.projectData.totalSupply
         if(this.props.proposalData.state !== State.ProposalState.PENDING)
             totalSupply = this.props.proposalData.totalSupply
@@ -81,7 +89,7 @@ class ProposalCard extends React.Component {
         var hasConcensus = (positiveVotes > this.props.projectData.requiredConcensus) || (negativeVotes > this.props.projectData.requiredConcensus)
         //var hasEnoughParticipation =  participation > this.props.projectData.requiredParticipation
 
-        var actions = this.getAction(this.props.proposalData.state, hasConcensus) 
+        var actions = this.getAction(this.props.proposalData.state, hasConcensus, isOwner) 
 
         return (
             <Paper style={containerStyle} zDepth={1} >
