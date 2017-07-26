@@ -84,13 +84,10 @@ class State
         if(this.data.projects[projectId])
             projectData = this.data.projects[projectId]
 
-        console.log(contributorAddress)
         if(projectData.contributors)
                if(projectData.contributors[contributorAddress])
                     contributorData = projectData.contributors[contributorAddress]
-
-        console.log(contributorData)
-
+                
         return contributorData
     }
 
