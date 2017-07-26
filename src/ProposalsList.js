@@ -61,6 +61,7 @@ class ProposalsList extends React.Component
                         onPositiveVote={this.onPositiveVote}
                         onNegativeVote={this.onNegativeVote}
                         onResolve={this.onResolve}
+                        userAddress={this.props.userAddress}
                     />);
             }
         }
@@ -83,6 +84,7 @@ class ProposalsList extends React.Component
                         projectId={this.props.projectId}
                         proposalData={unconfirmedProposalData}
                         projectData={projectData}
+                        userAddress={this.props.userAddress}
                     />);
             }
         }

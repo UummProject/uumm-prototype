@@ -22,7 +22,6 @@ class ProjectsList extends React.Component
     render()
     {
         var projects = [];
-
         
         for (var projectId in State.data.projects)
         {
@@ -35,6 +34,7 @@ class ProjectsList extends React.Component
                 <ProjectCard
                     key={projectId}
                     data={projectData}
+                    userAddress={this.props.userAddress}
                     onTouchTap={this.onProjectSelected}
                 />);
         }
@@ -51,6 +51,7 @@ class ProjectsList extends React.Component
                 <UnconfirmedProjectCard
                     key={unconfirmedProjectId}
                     data={unconfirmedProjectData}
+                    userAddress={this.props.userAddress}
                     onTouchTap={this.onProjectSelected}
                 />);
         }

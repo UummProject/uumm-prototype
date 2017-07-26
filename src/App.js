@@ -7,23 +7,37 @@ import ProjectDetails from './ProjectDetails.js'
 import State from './State.js'
 import NetworkState from './NetworkState.js'
 import QueryString from 'query-string';
+import Web3AutoSetup from './Web3AutoSetup.js'
+import Uumm from './UummContractInterface.js'
 
 InjectTapEventPlugin()
 
-const PROJECTS_LIST = "ProjectsList"
-const PROJECT_DETAILS = "ProjectDetails"
+const PROJECTS_LIST="ProjectsList"
+const PROJECT_DETAILS="ProjectDetails"
 
 class App extends Component
 {
     constructor(props)
     {
-      super(props)
-      State.addListener(this.onStateUpdated)
+        super(props)
+       
+        this.state = {"userAddress" : Web3AutoSetup.currentAccount}  
 
-       this.state ={
-        'currentPage':PROJECTS_LIST,
-        'currentProjectId':0
-        };
+        Uumm.isReady().then(()=>{
+             Web3AutoSetup.addAccountChangedListener(this.onAddressChange)
+        })
+
+        State.addListener(this.onStateUpdated)
+
+        this.state ={
+            'currentPage':PROJECTS_LIST,
+            'currentProjectId':0
+        }
+    }
+
+    onAddressChange=(newAddress)=>
+    {
+        this.state = {"userAddress" : newAddress} 
     }
 
     componentWillMount=()=>
@@ -75,19 +89,22 @@ class App extends Component
          {
             case PROJECTS_LIST:
                 return  <ProjectsListPage
-                    onProjectSelected={this.onProjectSelected}/>
+                    onProjectSelected={this.onProjectSelected}
+                    userAddress={this.state.userAddress}/>
             case PROJECT_DETAILS:
                 return  <ProjectDetails
-                    projectId={this.state.currentProjectId}/>
+                    projectId={this.state.currentProjectId}
+                    userAddress={this.state.userAddress}/>
             default :
                 return <ProjectsListPage
-                    onProjectSelected={this.onProjectSelected}/>
+                    onProjectSelected={this.onProjectSelected}
+                    userAddress={this.state.userAddress}/>
         }
     }
 
     render() {
 
-        var page = this.getCurrentPage();
+        var page=this.getCurrentPage();
         return (
             <div className="App">
                 <MuiThemeProvider>

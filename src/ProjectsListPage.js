@@ -5,7 +5,6 @@ import Uumm from './UummContractInterface.js'
 import ProjectsList from './ProjectsList.js'
 import CreateProjectPage from './CreateProjectPage.js'
 
-
 const FloatingButtonStyle = {
     margin: 0,
     top: 'auto',
@@ -58,7 +57,9 @@ class ProjectsListPage extends Component
                     <AddIcon />
                 </FloatingActionButton>
 
-                <ProjectsList onProjectSelected={this.onProjectSelected}/>
+                <ProjectsList
+                    onProjectSelected={this.onProjectSelected}
+                    userAddress={this.props.userAddress}/>
 
                 <CreateProjectPage
                     open={this.state.createDialogIsOpen}
