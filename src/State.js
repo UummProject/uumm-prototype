@@ -66,9 +66,14 @@ class State
         this.stateUpdated(this.data.projects[projectId].unconfirmedProposals)
     }
 
-    addUser=(userAddress,data)=>
+    addUserProjectRef=(userAddress, projectId)=>
     {
-        DeepAssign(this.data.users[userAddress], data)
+        if(!this.data.users[userAddress])
+            this.data.users[userAddress]={projectsRef:[]}
+
+        if(this.data.users[userAddress].projectsRef.indexOf(projectId) === -1) //item does not exists in the array
+            this.data.users[userAddress].projectsRef.push(projectId)
+
         this.stateUpdated()
     }
 
@@ -120,6 +125,15 @@ class State
             'creationDate': new Date()
         }
         return proposalData
+    }
+
+    getEmptyUser =()=>
+    {
+        var userData = {
+            userAddress:"",
+            projectsRef:[]
+        }
+        return userData
     }
 
     addListener=(callback)=>
