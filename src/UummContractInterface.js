@@ -224,14 +224,10 @@ class UummContractInterface
 
     getProposal = (projectId, proposalId) =>
     {
-
         return new Promise((resolve, reject)=>
         {
             if(!projectId || isNaN(proposalId))
-            {
-                console.log(projectId, proposalId)
                 reject("projectId or proposalId are not valid")
-            }
 
             var proposalData = State.getEmptyProposal()
 
