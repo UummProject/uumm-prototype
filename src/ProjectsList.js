@@ -14,6 +14,17 @@ class ProjectsList extends React.Component
         }).catch(function(error){console.error(error)})
     }
 
+    componentWillReceiveProps=(nextProps)=>
+    {
+        if(nextProps.userAddress===this.props.userAddress)
+            return
+
+        Uumm.isReady()
+        .then(()=>{
+            Uumm.getUserProjects().catch(function(error){console.error(error)})
+        }).catch(function(error){console.error(error)})
+    }
+
     onProjectSelected = (projectData)=>
     {
         this.props.onProjectSelected(projectData)
@@ -21,11 +32,18 @@ class ProjectsList extends React.Component
   
     render()
     {
+
         var projects = [];
-        
-        for (var projectId in State.data.projects)
+        var user= State.getEmptyUser()
+
+        if(State.data.users[this.props.userAddress])
+            user = State.data.users[this.props.userAddress]
+
+        for(var i = 0; i < user.projectsRef.length; i++)
         {
-            if (!State.data.projects.hasOwnProperty(projectId))
+            var projectId = State.data.users[this.props.userAddress].projectsRef[i]
+
+            if(!State.data.projects[projectId])
                 continue
 
             var projectData = State.data.projects[projectId]
