@@ -213,10 +213,13 @@ class UummContractInterface
                 var loadedAmount = 0
                 for(var proposalId=0; proposalId<propoalsAmount; proposalId++)
                 {
-                    this.getProposal(projectId, proposalId).then(()=>{loadedAmount++})
+                    this.getProposal(projectId, proposalId).then(()=>{
+                        loadedAmount++
+                        if (loadedAmount === propoalsAmount)
+                            resolve()
+                    })
 
-                    if (loadedAmount === propoalsAmount)
-                        resolve()
+                    
                 }
             })
         })  
