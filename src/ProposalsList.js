@@ -35,22 +35,24 @@ class ProposalsList extends React.Component
         var projectData = State.getEmptyProject()
         
         if(State.data.projects[this.props.projectId])
-        {
             projectData = State.data.projects[this.props.projectId]
-        }
 
+        var proposalsComponents = [];
 
-        var proposals = [];
         if(projectData.proposals)
         {
-            for (var i = 0; i<projectData.proposals.length; i++) 
+
+            for (var proposalId in projectData.proposals) 
             {
+                if (!projectData.proposals.hasOwnProperty(proposalId))
+                    continue
+
                 var proposalData = State.getEmptyProposal()
 
-                if(projectData.proposals[i])
-                    proposalData = projectData.proposals[i] 
+                if(projectData.proposals[proposalId])
+                    proposalData = projectData.proposals[proposalId] 
 
-                proposals.push(
+                proposalsComponents.push(
                     <ProposalCard
                         key={proposalData.id}
                         projectId={this.props.projectId}
@@ -68,13 +70,14 @@ class ProposalsList extends React.Component
             for (var unconfirmedProposalId in projectData.unconfirmedProposals)
             {
                 if (!projectData.unconfirmedProposals.hasOwnProperty(unconfirmedProposalId))
-                    return
+                    continue
+
                 var unconfirmedProposalData = State.getEmptyProposal()
 
                 if(projectData.unconfirmedProposals[unconfirmedProposalId])
                     unconfirmedProposalData = projectData.unconfirmedProposals[unconfirmedProposalId] 
 
-                proposals.push(
+                proposalsComponents.push(
                     <UnconfirmedProposalCard
                         key={"u"+unconfirmedProposalId}
                         projectId={this.props.projectId}
@@ -86,7 +89,7 @@ class ProposalsList extends React.Component
 
         return (
           <div>
-                {proposals}    
+                {proposalsComponents}    
           </div>
         );
     }

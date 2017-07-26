@@ -208,6 +208,7 @@ class UummContractInterface
             .then((numberOfProposals)=>
             {
                 //TODO: record number of proposals so we don't need to reload them all
+                //TODO: only load pending proposals, since are the only ones that can change
                 var propoalsAmount = numberOfProposals.toNumber()
                 var loadedAmount = 0
                 for(var proposalId=0; proposalId<propoalsAmount; proposalId++)
@@ -226,8 +227,11 @@ class UummContractInterface
 
         return new Promise((resolve, reject)=>
         {
-            if(!projectId || !proposalId)
+            if(!projectId || isNaN(proposalId))
+            {
+                console.log(projectId, proposalId)
                 reject("projectId or proposalId are not valid")
+            }
 
             var proposalData = State.getEmptyProposal()
 
@@ -252,7 +256,7 @@ class UummContractInterface
                     proposalData.totalSupply = proposalState[5].toNumber()
                 
                     var project = {}
-                    project.proposals = []
+                    project.proposals = {}
                     project.proposals[proposalId] = proposalData
 
                     State.addProject(projectId, project)
