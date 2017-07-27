@@ -9,6 +9,7 @@ import NetworkState from './NetworkState.js'
 import QueryString from 'query-string';
 import Web3AutoSetup from './Web3AutoSetup.js'
 import Uumm from './UummContractInterface.js'
+import Paper from 'material-ui/Paper'
 
 InjectTapEventPlugin()
 
@@ -111,7 +112,16 @@ class App extends Component
                 <MuiThemeProvider>
                     <div>
                         <NetworkState/>
-                        {page}
+
+                        <div style={{
+                                display:"flex",
+                                justifyContent:"center",
+                                alignItems:"flexStart"
+                            }}>
+                            <div style={{width:600}}>
+                                {page}                              
+                            </div>
+                        </div>
                     </div>
                 </MuiThemeProvider>
             </div>
