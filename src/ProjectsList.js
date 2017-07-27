@@ -74,12 +74,18 @@ class ProjectsList extends React.Component
                 />);
         }
 
+        var hint=undefined
+        if(projects.length===0)
+            hint="This account has no associated projects. Why don't you create a new one?"
+
         return (
           <div>
                 <p style={{'textAlign':'center', 'color':'0#666666'}}></p> 
 
                 <div>
+                    {hint}
                     {projects}
+            
                 </div>      
           </div>
         );
