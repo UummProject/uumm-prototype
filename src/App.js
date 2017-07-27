@@ -11,6 +11,9 @@ import Web3AutoSetup from './Web3AutoSetup.js'
 import Uumm from './UummContractInterface.js'
 import Paper from 'material-ui/Paper'
 
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import GreyTheme from './GreyTheme.js'
+
 InjectTapEventPlugin()
 
 const PROJECTS_LIST="ProjectsList"
@@ -105,11 +108,11 @@ class App extends Component
     }
 
     render(){
-
+        console.log(GreyTheme)
         var page=this.getCurrentPage();
         return (
             <div className="App">
-                <MuiThemeProvider>
+                <MuiThemeProvider muiTheme={GreyTheme}>
                     <div>
                         <NetworkState/>
 
@@ -118,9 +121,9 @@ class App extends Component
                                 justifyContent:"center",
                                 alignItems:"flexStart"
                             }}>
-                            <div style={{width:600}}>
+                            <Paper zDepth={0} style={{margin:10, width:600}}>
                                 {page}                              
-                            </div>
+                            </Paper>
                         </div>
                     </div>
                 </MuiThemeProvider>
