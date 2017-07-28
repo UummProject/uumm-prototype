@@ -13,6 +13,7 @@ import Paper from 'material-ui/Paper'
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import GreyTheme from './GreyTheme.js'
+import './index.css'
 
 InjectTapEventPlugin()
 
