@@ -130,7 +130,7 @@ class ProjectDetails extends React.Component {
                     
                       
                     <div> 
-                        <p>Not implemented yet </p>
+                        <p>User interface not implemented yet </p>
                     </div> 
                 
                  </SwipeableViews>
