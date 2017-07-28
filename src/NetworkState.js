@@ -108,7 +108,7 @@ class NetworkState extends React.Component {
                         <p> Your address: {this.state.userAddress}</p>
                 
                     </Paper>)
-        if(this.loaded)
+        //if(this.loaded)
         if(hint)
             hintContainer = (<Paper style={containerStyle} >
                                 <div>
