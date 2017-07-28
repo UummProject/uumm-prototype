@@ -7,6 +7,8 @@ import CreateProposalPage from './CreateProposalPage.js'
 import ProposalsList from './ProposalsList.js'
 import Numeral from 'numeral'
 import Web3AutoSetup from './Web3AutoSetup.js'
+import {Tabs, Tab} from 'material-ui/Tabs'
+import SwipeableViews from 'react-swipeable-views'
 
 import {
   deepOrange300,
@@ -30,7 +32,7 @@ class ProjectDetails extends React.Component {
     {
         super()
 
-        this.state = {"newProposalDialogIsOpen" : false}
+        this.state = {"newProposalDialogIsOpen" : false, slideIndex: 0}
 
         Uumm.isReady().then(()=>{
             Uumm.getProjectDetails(props.projectId)
@@ -46,6 +48,13 @@ class ProjectDetails extends React.Component {
     {
         Uumm.getUserContributorData(this.props.projectId, Web3AutoSetup.currentAccount)
     }
+
+    handleChange = (value) => {
+    this.setState(
+    {
+          slideIndex: value,
+        });
+    };
 
     onMakeNewProposal=()=>
     {
@@ -101,28 +110,54 @@ class ProjectDetails extends React.Component {
                     {avatarCharacter}
                 </Avatar>
 
-                <h4 style={titleStyle}> {projectData.name} </h4> 
-                <p> Project Id: {projectData.id} </p>       
-                <p> ContributorId: {contributorData.id} </p>
-                <p> Tokens amount: {contributorData.valueTokens}/{projectData.totalSupply} </p> 
-                <p> Ether amount: {contributorData.ethereumBalance} </p>
-                <p> Ownership: {ownership} </p> 
-                <p> {hint} </p> 
+                
 
-                <RaisedButton
-                    secondary={true}
-                    fullWidth={false}
-                    label="Make new proposal"
-                    onTouchTap={this.onMakeNewProposal} /> 
-                <CreateProposalPage
-                    open={this.state.newProposalDialogIsOpen}
-                    onCancel={this.closeDialog}
-                    onCreate={this.onProposalSubmited}/>
+                
 
-                <ProposalsList
-                    projectId={this.props.projectId}
-                    userAddress={this.props.userAddress}
-                    onProposalSelected={this.onProposalSelected}/>
+                <h4 style={titleStyle}> {projectData.name} </h4>
+
+                <Tabs onChange={this.handleChange} value={this.state.slideIndex}>
+                     <Tab label="Overview" value={0}/>
+                     <Tab label="Proposals" value={1}/>
+                     <Tab label="Funding" value={2}/>
+                </Tabs>
+
+                <SwipeableViews index={this.state.slideIndex} onChangeIndex={this.handleChange}>
+
+                   
+                    <div>    
+                        <p> Project Id: {projectData.id} </p>       
+                        <p> ContributorId: {contributorData.id} </p>
+                        <p> Tokens amount: {contributorData.valueTokens}/{projectData.totalSupply} </p> 
+                        <p> Ether amount: {contributorData.ethereumBalance} </p>
+                        <p> Ownership: {ownership} </p> 
+                        <p> {hint} </p> 
+                    </div>
+
+                    <div> 
+                        <RaisedButton
+                            secondary={true}
+                            fullWidth={false}
+                            label="Make new proposal"
+                            onTouchTap={this.onMakeNewProposal} /> 
+                        <CreateProposalPage
+                            open={this.state.newProposalDialogIsOpen}
+                            onCancel={this.closeDialog}
+                            onCreate={this.onProposalSubmited}/>
+                        <ProposalsList
+                            projectId={this.props.projectId}
+                            userAddress={this.props.userAddress}
+                            onProposalSelected={this.onProposalSelected}/>
+                    </div> 
+
+                    
+                      
+                    <div> 
+                        <p>Not implemented yet </p>
+                    </div> 
+                
+                 </SwipeableViews>
+                
             </div>
         )
     }
