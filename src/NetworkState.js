@@ -97,7 +97,13 @@ class NetworkState extends React.Component {
                 {video}
             </div>
 
-
+        var details=(<Paper style={containerStyle} >
+                        <p> Connected: {connected} </p> 
+                        <p> Network: {this.state.network} </p> 
+                        <p> Provider: {this.state.provider} </p>
+                        <p> Your address: {this.state.userAddress}</p>
+                
+                    </Paper>)
 
         if(hint)
             hintContainer = (<Paper style={containerStyle} >
@@ -109,19 +115,8 @@ class NetworkState extends React.Component {
         
 
         return (
-            <div>
-                <Paper style={containerStyle} >
-                        <p> Connected: {connected} </p> 
-                        <p> Network: {this.state.network} </p> 
-                        <p> Provider: {this.state.provider} </p>
-                        <p> Your address: {this.state.userAddress}</p>
-                
-                </Paper>
-
+            <div>  
                {hintContainer}
-
-
-
             </div>
         )
     }
