@@ -1,5 +1,4 @@
 import React from 'react'
-import Avatar from 'material-ui/Avatar'
 import State from './State.js'
 import Uumm from './UummContractInterface.js'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -10,18 +9,9 @@ import Web3AutoSetup from './Web3AutoSetup.js'
 import {Tabs, Tab} from 'material-ui/Tabs'
 import SwipeableViews from 'react-swipeable-views'
 
-import {
-  deepOrange300,
-  purple500,
-} from 'material-ui/styles/colors'
-
 const titleStyle =
 {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flexStart',
-    flexGrow: 4
+    fontWeight: 300
 }
 
 const style = {margin: 5}
@@ -101,20 +91,8 @@ class ProjectDetails extends React.Component {
         if(projectData.name)
             avatarCharacter = projectData.name[0]
         return (
-            <div >
-                <Avatar
-                    color={deepOrange300}
-                    backgroundColor={purple500}
-                    size={30}
-                    style={style}>
-                    {avatarCharacter}
-                </Avatar>
-
-                
-
-                
-
-                <h4 style={titleStyle}> {projectData.name} </h4>
+            <div >             
+                <h2 style={titleStyle}> {projectData.name} </h2>
 
                 <Tabs onChange={this.handleChange} value={this.state.slideIndex}>
                      <Tab label="Overview" value={0}/>
@@ -124,7 +102,6 @@ class ProjectDetails extends React.Component {
 
                 <SwipeableViews index={this.state.slideIndex} onChangeIndex={this.handleChange}>
 
-                   
                     <div>    
                         <p> Project Id: {projectData.id} </p>       
                         <p> ContributorId: {contributorData.id} </p>
