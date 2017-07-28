@@ -27,6 +27,7 @@ class NetworkState extends React.Component {
         super()
 
         this.state = {
+            "loaded":false,
             "connected" : false,
             "network" : "",
             "provider":"Not found",
@@ -35,7 +36,8 @@ class NetworkState extends React.Component {
 
         Uumm.isReady()
         .then(()=>{
-            this.setState({
+            this.setState({ 
+                "loaded":true,
                 "connected": true,
                 "userAddress":Web3AutoSetup.currentAccount,
                 "provider":Web3AutoSetup.getCurrentProvider().name,
@@ -43,7 +45,9 @@ class NetworkState extends React.Component {
             })
 
         }).catch((error)=>{
-            this.setState({"connected": false})
+            this.setState({
+                "loaded":true,
+                "connected": false})
             console.error(error)
         })
 
@@ -104,7 +108,7 @@ class NetworkState extends React.Component {
                         <p> Your address: {this.state.userAddress}</p>
                 
                     </Paper>)
-
+        if(this.loaded)
         if(hint)
             hintContainer = (<Paper style={containerStyle} >
                                 <div>
