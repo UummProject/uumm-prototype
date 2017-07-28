@@ -10,8 +10,7 @@ const containerStyle =
     alignItems: 'center',
     height : 80,
     padding : 15,
-    marginTop : 10,
-    margnBottom : 30,
+
     marginLeft:5,
     marginRight:5
 }
@@ -22,7 +21,8 @@ const titleStyle =
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'flexStart',
-    flexGrow: 4
+    flexGrow: 4,
+    fontWeight: 300
 }
 
 class ProjectCard extends React.Component {
@@ -40,8 +40,8 @@ class ProjectCard extends React.Component {
     render()
     {
         return (
-            <Paper style={containerStyle} zDepth={1} onTouchTap={this.onTouchTap}>
-                <h4 style={titleStyle}> {this.props.data.name} </h4>       
+            <Paper style={containerStyle} zDepth={0} onTouchTap={this.onTouchTap}>
+                <h3 style={titleStyle}> {this.props.data.name} </h3>       
             </Paper>
         );
     }
