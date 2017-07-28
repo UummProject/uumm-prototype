@@ -8,9 +8,13 @@ class ProjectsList extends React.Component
 {
     componentWillMount=()=>
     {
+        this.state={"contentLoaded":false}
         Uumm.isReady()
         .then(()=>{
-            Uumm.getUserProjects().catch(function(error){console.error(error)})
+            Uumm.getUserProjects()
+            .then(()=>{
+                this.setState({"contentLoaded":true})
+            }).catch(function(error){console.error(error)})
         }).catch(function(error){console.error(error)})
     }
 
@@ -75,7 +79,7 @@ class ProjectsList extends React.Component
         }
 
         var hint=undefined
-        if(projects.length===0)
+        if(projects.length===0 && this.state.contentLoaded )
             hint="This account has no associated projects. Why don't you create a new one?"
 
         return (
