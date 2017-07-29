@@ -26,24 +26,32 @@ class App extends Component
     {
         super(props) 
 
+        this.state ={
+            'currentPage':PROJECTS_LIST,
+            'currentProjectId':0,
+            'userAddress' : Web3AutoSetup.currentAccount,
+            'canWrite':false
+        }
+
         Uumm.isReady().then(()=>{
-            this.setState({"userAddress" : Web3AutoSetup.currentAccount})
-            
+            this.onAddressChange(Web3AutoSetup.currentAccount)  
         })
 
         Web3AutoSetup.addAccountChangedListener(this.onAddressChange)
         State.addListener(this.onStateUpdated)
-
-        this.state ={
-            'currentPage':PROJECTS_LIST,
-            'currentProjectId':0,
-            "userAddress" : Web3AutoSetup.currentAccount
-        }
     }
 
     onAddressChange=(newAddress)=>
     {
-        this.setState ({"userAddress" : newAddress})
+        var canWrite = false
+
+        if(Web3AutoSetup.isConnected() && newAddress)
+            canWrite = true
+
+        this.setState({
+                'userAddress' : newAddress,
+                'canWrite':canWrite
+            })
     }
 
     componentWillMount=()=>
@@ -96,20 +104,23 @@ class App extends Component
             case PROJECTS_LIST:
                 return  <ProjectsListPage
                     onProjectSelected={this.onProjectSelected}
-                    userAddress={this.state.userAddress}/>
+                    userAddress={this.state.userAddress}
+                    canWrite={this.state.canWrite}/>
             case PROJECT_DETAILS:
                 return  <ProjectDetails
                     projectId={this.state.currentProjectId}
-                    userAddress={this.state.userAddress}/>
+                    userAddress={this.state.userAddress}
+                    canWrite={this.state.canWrite}/>
             default :
                 return <ProjectsListPage
                     onProjectSelected={this.onProjectSelected}
-                    userAddress={this.state.userAddress}/>
+                    userAddress={this.state.userAddress}
+                    canWrite={this.state.canWrite}/>
         }
     }
 
     render(){
-        console.log(GreyTheme)
+
         var page=this.getCurrentPage();
         return (
             <div className="App">
@@ -122,9 +133,9 @@ class App extends Component
                                 justifyContent:"center",
                                 alignItems:"flexStart"
                             }}>
-                            <Paper zDepth={0} style={{margin:10, width:600}}>
+                            <div style={{margin:10, maxWidth:600}}>
                                 {page}                              
-                            </Paper>
+                            </div>
                         </div>
                     </div>
                 </MuiThemeProvider>
