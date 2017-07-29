@@ -8,8 +8,8 @@ const containerStyle =
     flexWrap: 'nowrap',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height : 80,
-    padding : 15,
+    height : 50,
+    padding : 10,
 
     marginLeft:5,
     marginRight:5
@@ -40,9 +40,9 @@ class ProjectCard extends React.Component {
     render()
     {
         return (
-            <Paper style={containerStyle} zDepth={0} onTouchTap={this.onTouchTap}>
+            <div style={containerStyle} onTouchTap={this.onTouchTap}>
                 <h3 style={titleStyle}> {this.props.data.name} </h3>       
-            </Paper>
+            </div>
         );
     }
 }
