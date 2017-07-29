@@ -11,7 +11,6 @@ class UummContractInterface
     {
         this.contractInstance = {}
         this.init()
-
         this.isReadyPromise = new Promise((resolve, reject)=>
         {
             this.resolveIsReady = resolve
@@ -24,7 +23,8 @@ class UummContractInterface
     {
         var {host, port} = Config.networks[process.env.NODE_ENV]
 
-        Web3AutoSetup.setup('http://' + host + ':' + port).then(()=>{
+        Web3AutoSetup.setup('http://' + host + ':' + port)
+        .then(()=>{
             const contract = require('truffle-contract')
             const uummContract = contract(UummContract)
 
@@ -36,9 +36,12 @@ class UummContractInterface
             .then((instance)=>{
                 this.contractInstance = instance
                 this.resolveIsReady()
-            }).catch((error)=>{ this.rejectIsReady(error)})
+            }).catch((error)=>{
+                this.rejectIsReady(error)})
 
-        }).catch((error)=>{ this.rejectIsReady(error)})   
+        }).catch((error)=>{
+            this.rejectIsReady(error)
+        })   
     }
 
     isReady =()=>
