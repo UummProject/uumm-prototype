@@ -126,9 +126,7 @@ class ProjectDetails extends React.Component {
                             userAddress={this.props.userAddress}
                             onProposalSelected={this.onProposalSelected}/>
                     </div> 
-
-                    
-                      
+  
                     <div> 
                         <p>User interface not implemented yet </p>
                     </div> 
