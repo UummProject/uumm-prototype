@@ -47,24 +47,29 @@ class ProjectsListPage extends Component
     }
 
     render() {
+        console.log(this.props.canWrite)
         
         return (
             <div>
                 <FloatingActionButton
                     onTouchTap={this.onCreateProjectTap}
                     secondary={true}
-                    style={FloatingButtonStyle}>
+                    style={FloatingButtonStyle}
+                    disabled={!this.props.canWrite}
+                    >
                     <AddIcon />
                 </FloatingActionButton>
 
                 <ProjectsList
                     onProjectSelected={this.onProjectSelected}
-                    userAddress={this.props.userAddress}/>
+                    userAddress={this.props.userAddress}
+                    />
 
                 <CreateProjectPage
                     open={this.state.createDialogIsOpen}
                     onCancel={this.closeDialog}
-                    onCreate={this.createProject}/>
+                    onCreate={this.createProject}
+                    />
             </div>
         )
     }
