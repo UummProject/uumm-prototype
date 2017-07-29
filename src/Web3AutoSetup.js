@@ -162,6 +162,11 @@ class Web3AutoSetup
         }
         return provider
     }
+
+    isConnected=()=>
+    {
+        return window.web3.isConnected()
+    }
 }
 
 const instance = new Web3AutoSetup()
