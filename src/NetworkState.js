@@ -7,7 +7,7 @@ import Video from 'react-youtube'
 const containerStyle =
 {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     flexWrap: 'nowrap',
     justifyContent: 'center',
     alignItems: 'center',
@@ -66,61 +66,64 @@ class NetworkState extends React.Component {
         this.setState({ "network":Web3AutoSetup.getCurrentNetwork().name})
     }
 
-    render()
-    { 
-        var hint=undefined
-        var hint1=undefined
-        var video=undefined
-        if(this.state.provider === "MetaMask" && !this.state.userAddress)
-        {
-            hint= "Unlock MetaMask to interact with the contract"
-        }
+    getSmallHint=(text)=>
+    {
+        return (<Paper style={containerStyle} >
+            <div>
+                <p> {text}</p>
+            </div>
+        </Paper>)
+    }
 
-        if(this.state.network !== "Ropsten")
-            hint= "The contract is only deployed on the Ropsten Network. Make sure you are on the right network"
+    getNoConnectionHint=()=>
+    {
 
-        if(!this.state.connected)
-        {
+        var video =<Video videoId="6Gf_kRE4MJU"/>
 
-            hint= "In order to access the contract we need a connection to Ethereum network."
-            hint1 = "The easiest way is to install Metamaks"
-            video =<Video videoId="6Gf_kRE4MJU"/>
-        }
+        return(<div style={containerStyle} >
+                    <h3> We need access to the Ethereum network.</h3>
+                    <h3> The easiest way is to <a href="https://metamask.io/"> {"Install MetaMask"}</a> browser extension</h3>
+                    
+                    <br/>
+                    {video}
+                </div>)
+    }
 
-
+    getDetails=()=>
+    {
         var connected = "false"
         if(this.state.connected)
             connected = "true"
 
-        var hintContainer=<div/>
-
-        var installMetamaskContainer=
-            <div>
-                <p> {hint}</p>
-                <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn"> {"Install MetaMask"}</a>
-                {video}
-            </div>
-
-        var details=(<Paper style={containerStyle} >
-                        <p> Connected: {connected} </p> 
-                        <p> Network: {this.state.network} </p> 
-                        <p> Provider: {this.state.provider} </p>
-                        <p> Your address: {this.state.userAddress}</p>
+        return (<Paper style={containerStyle} >
+                    <p> Connected: {connected} </p> 
+                    <p> Network: {this.state.network} </p> 
+                    <p> Provider: {this.state.provider} </p>
+                    <p> Your address: {this.state.userAddress}</p>
                 
-                    </Paper>)
-        //if(this.loaded)
-        if(hint)
-            hintContainer = (<Paper style={containerStyle} >
-                                <div>
-                                    <p> {hint}</p>
-                                </div>
-                            </Paper>)
+                </Paper>)
+    }
 
-        
+    render()
+    { 
+        var content=<div/>
+
+        if(this.state.loaded)
+        {
+            if(!this.state.connected)
+                content = this.getNoConnectionHint()      
+            
+            if(this.state.provider === "MetaMask" && !this.state.userAddress)
+                content=this.getSmallHint("Unlock MetaMask to interact with the contract")
+
+            if(this.state.connected && this.state.network !== "Ropsten")
+                content=this.getSmallHint("The contract is only deployed on the Ropsten Network. Make sure you are on the right network")
+        }
 
         return (
-            <div>  
-               {hintContainer}
+
+            <div>
+                {content}
             </div>
         )
     }
