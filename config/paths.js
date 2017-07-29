@@ -32,7 +32,8 @@ var nodePaths = (process.env.NODE_PATH || '')
 // config after eject: we're in ./config/
 module.exports = {
   // Changed from build to build_webpack so smart contract compilations are not overwritten.
-  appBuild: resolveApp('build_webpack'),
+  // Xavi edit: changed from build_webpack to docs, so I don't need to copy it over everytime when deploying
+  appBuild: resolveApp('docs'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
   appIndexJs: resolveApp('src/index.js'),
