@@ -47,8 +47,7 @@ class ProjectsListPage extends Component
     }
 
     render() {
-        console.log(this.props.canWrite)
-        
+
         return (
             <div>
                 <FloatingActionButton

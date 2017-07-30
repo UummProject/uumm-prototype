@@ -9,9 +9,6 @@ import NetworkState from './NetworkState.js'
 import QueryString from 'query-string';
 import Web3AutoSetup from './Web3AutoSetup.js'
 import Uumm from './UummContractInterface.js'
-import Paper from 'material-ui/Paper'
-
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import GreyTheme from './GreyTheme.js'
 import './index.css'
 

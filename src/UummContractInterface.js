@@ -114,7 +114,6 @@ class UummContractInterface
             {
                 for(var i=0; i<numberOfProjects.toNumber(); i++)
                 {
-                    var index = i
                     that.contractInstance.GetProjectIdByIndex.call(Web3AutoSetup.currentAccount, i)
                     .then((projectId)=>
                     {

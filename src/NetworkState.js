@@ -18,8 +18,6 @@ const containerStyle =
     marginRight:0
 }
 
-const metamaskVideoId = "6Gf_kRE4MJU"
-
 class NetworkState extends React.Component {
 
     constructor(props)
