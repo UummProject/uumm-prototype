@@ -34,11 +34,11 @@ class State
 
     addUnconfirmedProject=(projectName)=>
     {
+        var id = this.unconfirmedProjectsNonce ++
         var project = this.getEmptyProject()
         project.name = projectName
-        project.id =this.unconfirmedProjectsNonce
-        this.unconfirmedProjectsNonce++
-        this.data.unconfirmedProjects[this.unconfirmedProjectsNonce] = project
+        project.id = id
+        this.data.unconfirmedProjects[id] = project
         this.stateUpdated()
         return project.id
     }
@@ -51,13 +51,13 @@ class State
 
     addUnconfirmedProposal=(projectId, title)=>
     {
+        var id = this.unconfirmedProposalsNonce++
         var proposal = this.getEmptyProposal()
         proposal.title = title
-        proposal.id = this.unconfirmedProposalsNonce
-        this.unconfirmedProposalsNonce++
-        this.data.projects[projectId].unconfirmedProposals[proposal.id] = proposal
+        proposal.id = id
+        this.data.projects[projectId].unconfirmedProposals[id] = proposal
         this.stateUpdated()
-        return proposal.id
+        return id
     }
 
     deleteUnconfirmedProposal=(projectId, unconfirmedProposalId)=>
