@@ -8,13 +8,7 @@ import Numeral from 'numeral'
 import Web3AutoSetup from './Web3AutoSetup.js'
 import {Tabs, Tab} from 'material-ui/Tabs'
 import SwipeableViews from 'react-swipeable-views'
-
-const titleStyle =
-{
-    fontWeight: 300
-}
-
-const style = {margin: 5}
+import OwnershipChart from './OwnershipChart.js'
 
 class ProjectDetails extends React.Component {
 
@@ -82,17 +76,14 @@ class ProjectDetails extends React.Component {
         var ownership = Numeral(contributorData.valueTokens/projectData.totalSupply).format('0.0%')
 
         var notOwnerHint = "Your account doesn't own any shares of this project, therefore you can't vote or resolve proposals. You can still make proposals though"
-        var avatarCharacter = ""
 
         var hint = ""
         if(contributorData.valueTokens===0)
             hint = notOwnerHint
 
-        if(projectData.name)
-            avatarCharacter = projectData.name[0]
         return (
             <div >             
-                <h2 style={titleStyle}> {projectData.name} </h2>
+                <h2> {projectData.name} </h2>
 
                 <Tabs onChange={this.handleChange} value={this.state.slideIndex}>
                      <Tab label="Overview" value={0}/>
@@ -108,7 +99,8 @@ class ProjectDetails extends React.Component {
                         <p> Tokens amount: {contributorData.valueTokens}/{projectData.totalSupply} </p> 
                         <p> Ether amount: {contributorData.ethereumBalance} </p>
                         <p> Ownership: {ownership} </p> 
-                        <p> {hint} </p> 
+                        <p> {hint} </p>
+                        <OwnershipChart userTokens={contributorData.valueTokens} totalSupply={projectData.totalSupply} />
                     </div>
 
                     <div> 
