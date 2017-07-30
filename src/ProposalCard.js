@@ -77,7 +77,7 @@ class ProposalCard extends React.Component {
         var contributorData = State.getContributorData(this.props.projectId, this.props.userAddress)
         var isOwner = false
         if(contributorData)
-            var isOwner = contributorData.valueTokens > 0
+            isOwner = contributorData.valueTokens > 0
 
         var totalSupply = this.props.projectData.totalSupply
         if(this.props.proposalData.state !== State.ProposalState.PENDING)
