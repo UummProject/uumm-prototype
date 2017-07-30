@@ -95,9 +95,9 @@ class ProposalCard extends React.Component {
             <Paper style={containerStyle} zDepth={1} >
                 <h4> {this.props.proposalData.title} </h4> 
                 {actions}
-                <p> Tokens amount: {this.props.proposalData.valueAmount} </p> 
-                <p> Positive: {Numeral(positiveVotes).format('0.0%')} </p>
-                <p> Negative:{Numeral(negativeVotes).format('0.0%')} </p>
+                <p> Tokens: {this.props.proposalData.valueAmount} </p> 
+                <p> + {Numeral(positiveVotes).format('0.0%')} </p>
+                <p> - {Numeral(negativeVotes).format('0.0%')} </p>
                 
             </Paper>
         )
