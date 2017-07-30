@@ -60,7 +60,8 @@
     "react-dom": "^15.4.2",
     "react-icons": "^2.2.5",
     "react-swipeable-views": "^0.12.5",
-    "react-tap-event-plugin": "^2.0.1"
+    "react-tap-event-plugin": "^2.0.1",
+    "react-vis": "^1.6.7"
   },
   "scripts": {
     "start": "node scripts/start.js",
