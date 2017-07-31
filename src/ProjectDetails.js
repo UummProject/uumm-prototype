@@ -9,6 +9,7 @@ import Web3AutoSetup from './Web3AutoSetup.js'
 import {Tabs, Tab} from 'material-ui/Tabs'
 import SwipeableViews from 'react-swipeable-views'
 import OwnershipChart from './OwnershipChart.js'
+import ProjectOverview from './ProjectOverview.js'
 
 class ProjectDetails extends React.Component {
 
@@ -83,7 +84,7 @@ class ProjectDetails extends React.Component {
 
         return (
             <div >             
-                <h2> {projectData.name} </h2>
+                <h1> {projectData.name} </h1>
 
                 <Tabs onChange={this.handleChange} value={this.state.slideIndex}>
                      <Tab label="Overview" value={0}/>
@@ -93,14 +94,8 @@ class ProjectDetails extends React.Component {
 
                 <SwipeableViews index={this.state.slideIndex} onChangeIndex={this.handleChange}>
 
-                    <div>    
-                        <p> Project Id: {projectData.id} </p>       
-                        <p> ContributorId: {contributorData.id} </p>
-                        <p> Tokens amount: {contributorData.valueTokens}/{projectData.totalSupply} </p> 
-                        <p> Ether amount: {contributorData.ethereumBalance} </p>
-                        <p> Ownership: {ownership} </p> 
-                        <p> {hint} </p>
-                        <OwnershipChart userTokens={contributorData.valueTokens} totalSupply={projectData.totalSupply} />
+                    <div>
+                        <ProjectOverview projectId = {this.props.projectId}/>      
                     </div>
 
                     <div> 
