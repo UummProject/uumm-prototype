@@ -10,6 +10,24 @@ h1,h2,h3,h4,h5,h6 {
     font-weight: 300;
 }
 
+.markdown {
+    color:#666666;
+}
 .markdown img {
     width:100%;
+}
+
+a{
+    text-decoration: none
+}
+a:link {
+    color: #ff3366;
+}
+
+a:visited {
+    color: #ff3366;
+}
+
+a:hover {
+    color: red;
 }
