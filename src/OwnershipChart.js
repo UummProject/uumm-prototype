@@ -1,5 +1,6 @@
 import React from 'react'
 import {Sunburst} from 'react-vis';
+import Numeral from 'numeral'
 
 const size = 200
 
@@ -48,6 +49,9 @@ class OwnershipChart extends React.Component {
 
     onValueMouseOver=(data)=>
     {
+        return
+        //
+        //var restOwnership = Numeral((this.props.totalSupply - this.props.userTokens)/this.props.totalSupply).format('0.0%')
         var overTitle = ""
         var overSize = ""
         var overColor = "#0"
@@ -66,31 +70,34 @@ class OwnershipChart extends React.Component {
     }
     onValueMouseOut=(data)=>
     {
+        return
         this.setState({overSize:"", overTitle:this.props.userTokens+"/"+this.props.totalSupply})
     }
 
     render()
     {
         var data = this.buildData(this.props.userTokens, this.props.totalSupply-this.props.userTokens)
-        var size = 200
-        var color = this.state.overColor
-        console.log(this.state)
+        var color = "#ff3366"
+        var userOwnership = Numeral(this.props.userTokens/this.props.totalSupply).format('0.0%')
+        var shares = this.props.userTokens+"/"+this.props.totalSupply
         return (
+
             <div style={{"position":"relative"}}> 
                
                 <div style={centerContentStyle}>
-                      <h2 style={{"color":color,"margin":2}}> {this.state.overSize}</h2>
-                      <h3 style={{"color":color,"margin":2}}> {this.state.overTitle}</h3>
+                      <h2 style={{"color":color,"margin":2}}> {userOwnership}</h2>
+                      <h4 style={{"color":"#aa3366","margin":2}}> {shares}</h4>                  
                 </div> 
 
                 <Sunburst
-                  hideRootNode
-                  colorType="literal"
-                  data={data}
-                  height={size}
-                  width={size}
-                  onValueMouseOver={this.onValueMouseOver} 
-                  onValueMouseOut={this.onValueMouseOut}/> 
+                    animation
+                    hideRootNode
+                    colorType="literal"
+                    data={data}
+                    height={size}
+                    width={size}
+                    onValueMouseOver={this.onValueMouseOver} 
+                    onValueMouseOut={this.onValueMouseOut}/> 
 
                           
             </div>
