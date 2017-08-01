@@ -71,16 +71,7 @@ class CreateProposalPage extends React.Component
                     value={this.state.proposalTitle}
                     onChange={this.onProposalTitleTextChange}/>
 
-                <br/>
-
-                <TextField
-                    autoFocus={true}
-                    id="reference"
-                    hintText="Reference link"
-                    value={this.state.proposalReference}
-                    onChange={this.onProposalReferenceTextChange}/>
-
-                <br/>
+                <br/>             
                 
                 <TextField
                     autoFocus={true}
