@@ -51,6 +51,7 @@ class ProjectDetails extends React.Component {
 
                <div style={{display:"flex", flexDirection:"row"}}> 
                     <OwnershipChart
+                        size = {200}
                         userTokens={contributorData.valueTokens}
                         totalSupply={projectData.totalSupply}
                         /> 
@@ -66,7 +67,6 @@ class ProjectDetails extends React.Component {
                         <p> {contributorData.valueTokens} </p>
                         <h5 style={subheaderStyle}>Available ethereum to withdraw</h5>
                         <p> {contributorData.ethereumBalance} ETH </p>
-
                     </div>
                     
                     <Divider/>
