@@ -10,7 +10,11 @@ import {Tabs, Tab} from 'material-ui/Tabs'
 import SwipeableViews from 'react-swipeable-views'
 import OwnershipChart from './OwnershipChart.js'
 import ProjectOverview from './ProjectOverview.js'
+import Divider from 'material-ui/Divider'
 
+const tabStyle={
+    paddingTop:20
+}
 class ProjectDetails extends React.Component {
 
     constructor(props)
@@ -76,11 +80,24 @@ class ProjectDetails extends React.Component {
 
         var ownership = Numeral(contributorData.valueTokens/projectData.totalSupply).format('0.0%')
 
-        var notOwnerHint = "Your account doesn't own any shares of this project, therefore you can't vote or resolve proposals. You can still make proposals though"
+         var noOwnershipWarning = <div/>
 
-        var hint = ""
-        if(contributorData.valueTokens===0)
-            hint = notOwnerHint
+        if(!contributorData)
+            contributorData = State.getEmptyContributor()
+        if(!contributorData.valueTokens)
+        {
+             noOwnershipWarning= (<div style={{backgroundColor:"rgba(158, 158, 158, 0.22)", padding:15, marginBottom:20}}>
+                <p>
+                    Your address doesn't own any shares of this project, therefore you can't vote.
+                </p>
+                <p>
+                    You can still make proposals though :)
+                </p>
+
+                
+
+            </div>)
+        }
 
         return (
             <div >             
@@ -89,16 +106,18 @@ class ProjectDetails extends React.Component {
                 <Tabs onChange={this.handleChange} value={this.state.slideIndex}>
                      <Tab label="Overview" value={0}/>
                      <Tab label="Proposals" value={1}/>
-                     <Tab label="Funding" value={2}/>
                 </Tabs>
 
                 <SwipeableViews index={this.state.slideIndex} onChangeIndex={this.handleChange}>
 
-                    <div>
-                        <ProjectOverview projectId = {this.props.projectId}/>      
+                    <div style={tabStyle}>
+                        <ProjectOverview
+                            projectId={this.props.projectId}
+                            userAddress={this.props.userAddress}/>      
                     </div>
 
-                    <div> 
+                    <div style={tabStyle}> 
+                        {noOwnershipWarning}
                         <RaisedButton
                             secondary={true}
                             fullWidth={false}
@@ -112,10 +131,6 @@ class ProjectDetails extends React.Component {
                             projectId={this.props.projectId}
                             userAddress={this.props.userAddress}
                             onProposalSelected={this.onProposalSelected}/>
-                    </div> 
-  
-                    <div> 
-                        <p>User interface not implemented yet </p>
                     </div> 
                 
                  </SwipeableViews>
