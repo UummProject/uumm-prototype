@@ -2,21 +2,7 @@ import React from 'react'
 import {Sunburst} from 'react-vis';
 import Numeral from 'numeral'
 
-const size = 200
 
-const centerContentStyle=
-{
-    "position":"absolute",
-    "top":0,
-    "left":0,
-    "width":size,
-    "height":size,
-    "display":"flex",
-    "flexDirection":"column",
-    "justifyContent":"center",
-    "alignItems":"center",
-    "zIndex":-1
-}
 
 class OwnershipChart extends React.Component {
 
@@ -35,6 +21,23 @@ class OwnershipChart extends React.Component {
             size:size,
             children:children
         }
+    }
+
+    getCenterContentStyle=()=>
+    {
+        return {
+            "position":"absolute",
+            "top":0,
+            "left":0,
+            "width":this.props.size,
+            "height":this.props.size,
+            "display":"flex",
+            "flexDirection":"column",
+            "justifyContent":"center",
+            "alignItems":"center",
+            "zIndex":-1
+        }
+        
     }
 
     buildData=(userTokens, restTokens)=>
@@ -84,7 +87,7 @@ class OwnershipChart extends React.Component {
 
             <div style={{"position":"relative"}}> 
                
-                <div style={centerContentStyle}>
+                <div style={this.getCenterContentStyle()}>
                       <h2 style={{"color":color,"margin":2}}> {userOwnership}</h2>
                       <h4 style={{"color":"#aa3366","margin":2}}> {shares}</h4>                  
                 </div> 
@@ -94,12 +97,10 @@ class OwnershipChart extends React.Component {
                     hideRootNode
                     colorType="literal"
                     data={data}
-                    height={size}
-                    width={size}
+                    height={this.props.size}
+                    width={this.props.size}
                     onValueMouseOver={this.onValueMouseOver} 
-                    onValueMouseOut={this.onValueMouseOut}/> 
-
-                          
+                    onValueMouseOut={this.onValueMouseOut}/>    
             </div>
 
         )
