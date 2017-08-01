@@ -3,6 +3,7 @@ import ProjectCard from './ProjectCard';
 import UnconfirmedProjectCard from './UnconfirmedProjectCard';
 import Uumm from './UummContractInterface.js'
 import State from './State.js'
+import Divider from 'material-ui/Divider';
 
 class ProjectsList extends React.Component
 {
@@ -54,12 +55,20 @@ class ProjectsList extends React.Component
 
             projects.push(
                 <ProjectCard
+                    style={{minWidth:400}}
                     key={projectId}
                     data={projectData}
                     userAddress={this.props.userAddress}
                     onTouchTap={this.onProjectSelected}
-                />);
-        }
+                />)
+
+
+            if(i<user.projectsRef.length)
+            {
+
+                projects.push(<Divider key={"d"+ projectId}/>)
+            }
+        }   
 
         //Unconfirmed projects
         for (var unconfirmedProjectId in State.data.unconfirmedProjects)
@@ -78,7 +87,7 @@ class ProjectsList extends React.Component
                 />);
         }
 
-        var hint=undefined
+        var hint="Your projects:"
         if(projects.length===0 && this.state.contentLoaded )
             hint="This account has no associated projects. Why don't you create a new one?"
 
@@ -87,7 +96,8 @@ class ProjectsList extends React.Component
                 <p style={{'textAlign':'center', 'color':'0#666666'}}></p> 
 
                 <div>
-                    {hint}
+                    <h4 style={{color:"grey"}}>{hint}</h4>
+
                     {projects}
             
                 </div>      

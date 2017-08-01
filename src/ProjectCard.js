@@ -1,4 +1,5 @@
 import React from 'react';
+import Divider from 'material-ui/Divider';
 
 const containerStyle =
 {
@@ -7,11 +8,8 @@ const containerStyle =
     flexWrap: 'nowrap',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height : 50,
-    padding : 10,
-
-    marginLeft:5,
-    marginRight:5
+    height : 60,
+    minWidth:600
 }
 
 const titleStyle =
@@ -40,7 +38,7 @@ class ProjectCard extends React.Component {
     {
         return (
             <div style={containerStyle} onTouchTap={this.onTouchTap}>
-                <h3 style={titleStyle}> {this.props.data.name} </h3>       
+                <h3 style={titleStyle}> {this.props.data.name} </h3>  
             </div>
         );
     }
