@@ -3,6 +3,7 @@ import ProposalCard from './ProposalCard';
 import UnconfirmedProposalCard from './UnconfirmedProposalCard';
 import Uumm from './UummContractInterface.js'
 import State from './State.js'
+import Divider from 'material-ui/Divider';
 
 class ProposalsList extends React.Component
 {
@@ -63,6 +64,9 @@ class ProposalsList extends React.Component
                         onResolve={this.onResolve}
                         userAddress={this.props.userAddress}
                     />);
+
+            proposalsComponents.push(<Divider key={"d"+ proposalData.id}/>)
+
             }
         }
 
@@ -86,6 +90,9 @@ class ProposalsList extends React.Component
                         projectData={projectData}
                         userAddress={this.props.userAddress}
                     />);
+
+                proposalsComponents.push(<Divider key={"d"+ unconfirmedProposalId}/>)
+
             }
         }
 

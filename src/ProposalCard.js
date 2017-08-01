@@ -5,6 +5,18 @@ import State from './State.js'
 import ThumbsUpIcon from 'react-icons/lib/md/thumb-up'
 import ThumbsDownIcon from 'react-icons/lib/md/thumb-down'
 import Numeral from 'numeral'
+import ProposalVotesChart from './ProposalVotesChart.js'
+
+const cardStyle =
+{
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'nowrap',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    padding : 5,
+    margin:5
+}
 
 const containerStyle =
 {
@@ -13,12 +25,7 @@ const containerStyle =
     flexWrap: 'nowrap',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height : 80,
-    padding : 15,
-    marginTop : 10,
-    margnBottom : 30,
-    marginLeft:5,
-    marginRight:5
+    width:"100%"
 }
 
 class ProposalCard extends React.Component {
@@ -92,14 +99,17 @@ class ProposalCard extends React.Component {
         var actions = this.getAction(this.props.proposalData.state, hasConcensus, isOwner) 
 
         return (
-            <Paper style={containerStyle} zDepth={1} >
-                <h4> {this.props.proposalData.title} </h4> 
-                {actions}
-                <p> Tokens: {this.props.proposalData.valueAmount} </p> 
-                <p> + {Numeral(positiveVotes).format('0.0%')} </p>
-                <p> - {Numeral(negativeVotes).format('0.0%')} </p>
+            <div style={cardStyle} >
+                <h3 style={{margin:5}}> {this.props.proposalData.title} </h3> 
                 
-            </Paper>
+                 <div style={containerStyle} >
+
+                    {actions}
+                    <p> Tokens asked: {this.props.proposalData.valueAmount} </p> 
+                    <p> + {Numeral(positiveVotes).format('0.0%')} </p>
+                    <p> - {Numeral(negativeVotes).format('0.0%')} </p>
+                </div>
+            </div>
         )
     }
 }

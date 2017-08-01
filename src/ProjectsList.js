@@ -62,11 +62,8 @@ class ProjectsList extends React.Component
                 />)
 
 
-            if(i<user.projectsRef.length)
-            {
-
-                projects.push(<Divider key={"d"+ projectId}/>)
-            }
+            projects.push(<Divider key={"d"+ projectId}/>)
+            
         }   
 
         //Unconfirmed projects
@@ -83,7 +80,9 @@ class ProjectsList extends React.Component
                     data={unconfirmedProjectData}
                     userAddress={this.props.userAddress}
                     onTouchTap={this.onProjectSelected}
-                />);
+                />)
+
+            projects.push(<Divider key={"d"+ projectId}/>)
         }
 
         var hint=""
