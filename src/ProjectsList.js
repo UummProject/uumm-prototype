@@ -55,7 +55,6 @@ class ProjectsList extends React.Component
 
             projects.push(
                 <ProjectCard
-                    style={{minWidth:400}}
                     key={projectId}
                     data={projectData}
                     userAddress={this.props.userAddress}
@@ -87,7 +86,9 @@ class ProjectsList extends React.Component
                 />);
         }
 
-        var hint="Your projects:"
+        var hint=""
+        if(this.state.contentLoaded)
+            hint="Your projects"
         if(projects.length===0 && this.state.contentLoaded )
             hint="This account has no associated projects. Why don't you create a new one?"
 
@@ -100,9 +101,9 @@ class ProjectsList extends React.Component
 
                     {projects}
             
-                </div>      
+                </div>          
           </div>
-        );
+        )
     }
 }
 
