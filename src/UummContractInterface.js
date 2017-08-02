@@ -1,3 +1,4 @@
+
 import UummContract from '../build/contracts/Uumm.json'
 import Config from '../truffle-config.js'
 import Web3AutoSetup from './Web3AutoSetup.js'
@@ -23,7 +24,12 @@ class UummContractInterface
     {
         var {host, port} = Config.networks[process.env.NODE_ENV]
 
-        Web3AutoSetup.setup('http://' + host + ':' + port)
+        var localNodeProvider = 'http://' + host + ':' + port
+        var infuraProvider = "https://ropsten.infura.io/rcj7IaE4gGAHIlV4pND6"
+
+        var providersList = ["*",infuraProvider,localNodeProvider]
+
+        Web3AutoSetup.setup(providersList)
         .then(()=>{
             const contract = require('truffle-contract')
             const uummContract = contract(UummContract)

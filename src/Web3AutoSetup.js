@@ -1,5 +1,12 @@
 import Web3 from 'web3'
 
+const InjectedProviders ={
+    INJECTED:"*",
+    METAMASK:"metamask",
+    PARITY:"parity",
+    MIST:"mist"
+}
+
 class Web3AutoSetup
 {
     constructor()
@@ -10,44 +17,25 @@ class Web3AutoSetup
         this.accountListeners = []
         this.networkListeners = []
         this.checkInterval = undefined
-
-        window.addEventListener('load', ()=> {
-            this.onWindowLoaded();
-        })
-    }
-
-    onWindowLoaded=()=>
-    {
-        //this.setup()
-    }
-
-    isReady=()=>
-    {
-        return this.setupFinished
+        this.injectedProvider = undefined
     }
 
     //Should be called after window load event
-    setup=(customProvider, forceCustomProvider = false)=>
+    setup=(providersList=[])=>
     {
         return new Promise((resolve, reject)=>{
 
-            //Set the provider
-            if (typeof web3 !== 'undefined' && !forceCustomProvider)
+            // Let's store the injected provider if exist
+            if (typeof web3 !== 'undefined') 
+                this.injectedProvider = window.web3.currentProvider
+
+            if(providersList.length===0)
+                providersList.push(InjectedProviders.INJECTED)
+
+            for(var i = 0; i<providersList.length;i++)
             {
-                // Use injected provider,  Mist/MetaMask's
-                window.web3 = new Web3(window.web3.currentProvider)
-                this.provider = window.web3.currentProvider   
-             }
-            else if(customProvider)
-            {
-                //Use fallback provider localhost provier geth/testrpc
-                this.provider = new Web3.providers.HttpProvider(customProvider)
-                window.web3 = new Web3(this.provider)
-            }
-            else
-            {
-                reject("No provider detected. Set your own like so: Web3AutoSetup.setup('http://localhost:8546')")
-                return
+                if(this.tryProvider(providersList[i]))
+                    break
             }
            
             window.web3.version.getNetwork((error, networkId) =>
@@ -82,6 +70,56 @@ class Web3AutoSetup
             
             resolve()
         })
+    }
+
+    tryProvider=(providerRef)=>
+    {
+        if(this.isInjectedProvider(providerRef))
+        {
+            if(this.injectedProvider)
+                this.provider = this.injectedProvider
+            else
+                return false
+        }
+        else if (this.isHttpProvider(providerRef))
+        {
+            this.provider = new Web3.providers.HttpProvider(providerRef)
+        }
+        else
+        {
+            console.error("Unkown provider, trying to use it anyway",providerRef)
+            this.provider = providerRef
+        } 
+
+        window.web3 = new Web3(this.provider)
+
+        return window.web3.isConnected()
+    }
+
+    isReady=()=>
+    {
+        return this.setupFinished
+    }   
+
+    isInjectedProvider=(providerRef)=>
+    {
+        switch (providerRef) {
+            case InjectedProviders.INJECTED:
+                return true
+            case InjectedProviders.METAMASK:
+                return true
+            case InjectedProviders.PARITY:
+                return true
+            default:
+                return false
+        }
+        return false
+    }
+
+    isHttpProvider=(providerRef)=>
+    {
+        //TODO: Do a proper check
+        return providerRef.indexOf("http")!==-1
     }
 
     getProvider=()=>
@@ -146,7 +184,9 @@ class Web3AutoSetup
     getCurrentProvider=()=>
     {
         var provider={}
+
         var constructorName = this.provider.constructor.name
+        console.log(constructorName)
         switch (constructorName) {
              case "MetamaskInpageProvider":
                 provider.name= "MetaMask"
