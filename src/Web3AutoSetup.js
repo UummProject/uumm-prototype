@@ -1,11 +1,22 @@
 import Web3 from 'web3'
 
-const InjectedProviders ={
+
+
+const Providers={
     INJECTED:"*",
-    METAMASK:"metamask",
-    PARITY:"parity",
-    MIST:"mist"
+    METAMASK:"MetMask",
+    PARITY:"Parity",
+    MIST:"Mist",
+    INFURA:"Infura",
+    LOCALHOST:"Localhost"
 }
+
+const InjectedProviders=[
+    Providers.INJECTED,
+    Providers.METAMASK,
+    Providers.PARITY,
+    Providers.MIST
+]
 
 class Web3AutoSetup
 {
@@ -30,7 +41,7 @@ class Web3AutoSetup
                 this.injectedProvider = window.web3.currentProvider
 
             if(providersList.length===0)
-                providersList.push(InjectedProviders.INJECTED)
+                providersList.push(Providers.INJECTED)
 
             for(var i = 0; i<providersList.length;i++)
             {
@@ -103,17 +114,7 @@ class Web3AutoSetup
 
     isInjectedProvider=(providerRef)=>
     {
-        switch (providerRef) {
-            case InjectedProviders.INJECTED:
-                return true
-            case InjectedProviders.METAMASK:
-                return true
-            case InjectedProviders.PARITY:
-                return true
-            default:
-                return false
-        }
-        return false
+       return InjectedProviders.indexOf(providerRef)!== -1
     }
 
     isHttpProvider=(providerRef)=>
@@ -193,13 +194,21 @@ class Web3AutoSetup
                 provider.type= "injected"
                 break
              case "HttpProvider":
-                provider.name= this.provider.host
-                provider.type= "custom"
+                if(this.provider.host.indexOf("infura")!==-1)   
+                    provider.name= "Infura"
+
+                else if(this.provider.host.indexOf("localhost")!==-1)   
+                    provider.name= "Localhost"
+
+                else
+                    provider.name = "custom"
+                provider.type= "http"
                 provider.rpcHost= this.provider.host
                 break
              default:
                  provider.name= "Unknown"
         }
+
         return provider
     }
 

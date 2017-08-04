@@ -73,18 +73,29 @@ class NetworkState extends React.Component {
         </Paper>)
     }
 
+    getInfuraHint=()=>
+    {
+        var exampleLink="https://xavivives.github.io/Uumm/#projectId=0x1568dca1bef08d48017f034930c853bd9487ba947eb58fd51db9979e6de638f9"
+        var infuraLink ="https://infura.io/"
+        return (<Paper style={containerStyle} >
+            <p> You're connected to ethereum using <a href={infuraLink}> {"Infura gateway"}</a></p>
+            <p> This means that you can only read the content of already existing projects, <a href={exampleLink}> {"Like this one"}</a></p>
+            <p> If you want to create a project or participate in one, we suggest you to  <a href="https://metamask.io/"> {"install MetaMask"}</a> browser extension</p>
+        </Paper>)
+    }
+
     getNoConnectionHint=()=>
     {
 
         var video =<Video videoId="6Gf_kRE4MJU"/>
 
-        return(<div style={containerStyle} >
+        return(<Paper style={containerStyle} >
                     <h3> We need access to the Ethereum network.</h3>
                     <h3> The easiest way is to <a href="https://metamask.io/"> {"Install MetaMask"}</a> browser extension</h3>
-                    
+
                     <br/>
                     {video}
-                </div>)
+                </Paper>)
     }
 
     getDetails=()=>
@@ -104,13 +115,15 @@ class NetworkState extends React.Component {
 
     render()
     { 
-        var content=<div/>
+        var content=<div style={{width:600}}/>
 
         if(this.state.loaded)
         {
             if(!this.state.connected)
                 content = this.getNoConnectionHint()      
-            
+             if(this.state.provider === "Infura")
+                content=this.getInfuraHint()
+
             if(this.state.provider === "MetaMask" && !this.state.userAddress)
                 content=this.getSmallHint("Unlock MetaMask to interact with the contract")
 
