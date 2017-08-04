@@ -21,11 +21,6 @@ const ReadOnlyProviders=[
     Providers.INFURA
 ]
 
-const HttpProviders=[
-    Providers.INFURA,
-    Providers.LOCALHOST
-]
-
 class Web3AutoSetup
 {
     constructor()
@@ -41,11 +36,11 @@ class Web3AutoSetup
     }
 
     //Should be called after window load event
-    setup=(providersList=[])=>
+    setup=(providersList=[], updateInterval=1000)=>
     {
         return new Promise((resolve, reject)=>{
 
-            // Let's store the injected provider if exist
+            // Let's store the injected provider if exist, we may use it or not
             if (typeof web3 !== 'undefined') 
                 this.injectedProvider = window.web3.currentProvider
 
@@ -58,59 +53,71 @@ class Web3AutoSetup
                     break
             }
 
-            this.providerInfo = this.currentProvider()
-           
-            window.web3.version.getNetwork((error, networkId) =>
-            {
-                if(error)
-                    reject(error)
+            this.providerInfo = this.getCurrentProviderInfo()
+            console.log(this.providerInfo)
 
-                this.checkNetworkChange(networkId)
-            })
-            //Check if accounts are available and set the [0] as a main one
-            window.web3.eth.getAccounts((error, accounts)=>
-            {
-                if(error)
-                    reject(error)
-            
-                this.checkAccountChange(accounts[0])
-            })
+            this.checkNetwork()
 
-            //we keep checking to see if the user changes the account/network (likely if she's using Metamask or an external provider)
-            //We use sync methods, supported by Metamask (https://github.com/MetaMask/faq/blob/master/DEVELOPERS.md)
+            resolve()
+
+            //No need to check for account changes, and network?
+            if(!this.providerInfo.canWrite)
+                return    
             
+            this.checkAccount()
+
             if(this.checkInterval)
                 clearInterval(this.checkInterval)
 
             this.checkInterval = setInterval(()=>
             {
-                this.checkNetworkChange(window.web3.version.network)
-                this.checkAccountChange(window.web3.eth.accounts[0])
-            }, 500);
-
-            console.log("Using "+ this.getCurrentProviderInfo().type + " provider: "+ this.getCurrentProviderInfo().name +" in "+this.getNetworkDetails(this.currentNetworkId).name+" network, with address: "+this.currentAccount )
+                this.checkNetwork()
+                this.checkAccount()
+            }, updateInterval)
             
-            resolve()
         })
     }
 
-    tryProvider=(providerId)=>
+    //checks if we still on the same Ethereum network: Mainnet/Ropsten...
+    checkNetwork=()=>
     {
-        if(this.isProviderType(InjectedProviders, providerId))
+        window.web3.version.getNetwork((error, networkId) =>
+        {
+            if(error)
+                console.error(error)
+
+            this.checkNetworkChange(networkId)
+        })
+    }
+    //check to see if the user changes the account, or unlocks it
+    checkAccount=()=>
+    {
+        window.web3.eth.getAccounts((error, accounts)=>
+        {
+            if(error)
+                console.error(error)
+        
+            this.checkAccountChange(accounts[0])
+        })
+    }
+
+    tryProvider=(providerRef)=>
+    {
+        if(this.isProviderType(InjectedProviders, providerRef))
         {
             if(this.injectedProvider)
                 this.provider = this.injectedProvider
             else
                 return false
         }
-        else if (this.isProviderType(HttpProviders, providerId))
+        else if (this.isUrl(providerRef))
         {
-            this.provider = new Web3.providers.HttpProvider(providerId)
+            this.provider = new Web3.providers.HttpProvider(providerRef)
         }
         else
         {
-            console.error("Unkown provider, trying to use it anyway",providerId)
-            this.provider = providerId
+            console.error("Unkown provider, trying to use it anyway", providerRef)
+            this.provider = providerRef
         } 
 
         window.web3 = new Web3(this.provider)
@@ -121,7 +128,13 @@ class Web3AutoSetup
     isReady=()=>
     {
         return this.setupFinished
-    }   
+    } 
+
+    isUrl=(url)=>
+    {  //TODO: Do a proper check
+        return url.indexOf("http")!==-1
+    }
+
 
     isProviderType=(providersList, providerId)=>
     {
@@ -135,6 +148,11 @@ class Web3AutoSetup
 
     checkAccountChange=(newAddress)=>
     {
+        if(this.newAddress)
+            this.providerInfo.canWrite = true
+        else
+             this.providerInfo.canWrite = false
+        
         if(this.currentAccount !== newAddress)
         {
             this.currentAccount = newAddress
@@ -202,34 +220,31 @@ class Web3AutoSetup
         //Using it only to detecte MetaMask
         if(this.provider.constructor.name === "MetamaskInpageProvider")        
         {
-            providerInfo.name= Providers.METAMASK
+            providerInfo.id= Providers.METAMASK
             providerInfo.type= "injected"
-            providerInfo.couldWrite = true
         }
 
         else if(this.provider.host.indexOf("infura")!==-1) 
         {
-            providerInfo.name= Providers.INFURA
+            providerInfo.id= Providers.INFURA
             providerInfo.type= "http"
-            providerInfo.couldWrite = false
-            providerInfo.canWrite = false
-            providerInfo.host= this.provider.host
+            providerInfo.canWrite = false          
         } 
             
         else if(this.provider.host.indexOf("localhost")!==-1)  
         { 
-            providerInfo.name= Providers.LOCALHOST
+            providerInfo.id= Providers.LOCALHOST
             providerInfo.type= "http"
             providerInfo.canWrite = false
-            providerInfo.couldWrite = true
-            providerInfo.host= this.provider.host
         }
 
         else
         {
-            providerInfo.name= Providers.UNKNOWN
-            providerInfo.host= this.provider.host
+            providerInfo.id= Providers.UNKNOWN
         }
+
+        providerInfo.couldWrite = !this.isProviderType(ReadOnlyProviders, providerInfo.id)
+        providerInfo.host= this.provider.host
 
         return providerInfo
     }
@@ -241,4 +256,4 @@ class Web3AutoSetup
 }
 
 const instance = new Web3AutoSetup()
-export default instance;
+export default instance

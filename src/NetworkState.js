@@ -38,7 +38,7 @@ class NetworkState extends React.Component {
                 "loaded":true,
                 "connected": true,
                 "userAddress":Web3AutoSetup.currentAccount,
-                "provider":Web3AutoSetup.getCurrentProvider().name,
+                "provider":Web3AutoSetup.providerInfo.id,
                 "network": Web3AutoSetup.getCurrentNetwork().name
             })
 
