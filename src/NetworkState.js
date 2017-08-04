@@ -38,7 +38,7 @@ class NetworkState extends React.Component {
                 "loaded":true,
                 "connected": true,
                 "userAddress":Web3AutoSetup.currentAccount,
-                "provider":Web3AutoSetup.providerInfo.id,
+                "provider":Web3AutoSetup.getProviderInfo(),
                 "network": Web3AutoSetup.getCurrentNetwork().name
             })
 
@@ -56,7 +56,9 @@ class NetworkState extends React.Component {
     onAddressChange=(newAddress)=>
     {
         console.log(newAddress)
-        this.setState({ "userAddress":newAddress})
+        this.setState({
+            "provider":Web3AutoSetup.getProviderInfo(),
+            "userAddress":newAddress})
     }
 
     onNetworkChange=(newNetworkId)=>
@@ -107,7 +109,7 @@ class NetworkState extends React.Component {
         return (<Paper style={containerStyle} >
                     <p> Connected: {connected} </p> 
                     <p> Network: {this.state.network} </p> 
-                    <p> Provider: {this.state.provider} </p>
+                    <p> Provider: {this.state.provider.id} </p>
                     <p> Your address: {this.state.userAddress}</p>
                 
                 </Paper>)
@@ -120,12 +122,13 @@ class NetworkState extends React.Component {
         if(this.state.loaded)
         {
             if(!this.state.connected)
-                content = this.getNoConnectionHint()      
-             if(this.state.provider === "Infura")
+                content = this.getNoConnectionHint()
+
+            if(this.state.provider.id === "Infura")
                 content=this.getInfuraHint()
 
-            if(this.state.provider === "MetaMask" && !this.state.userAddress)
-                content=this.getSmallHint("Unlock MetaMask to interact with the contract")
+            if(this.state.provider.couldWrite && !this.state.provider.canWrite)
+                content=this.getSmallHint("Unlock a " + this.state.provider.id + " account to interact with the contract")
 
             if(this.state.connected && this.state.network !== "Ropsten")
                 content=this.getSmallHint("The contract is only deployed on the Ropsten Network. Make sure you are on the right network")

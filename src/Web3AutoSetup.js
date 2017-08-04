@@ -61,7 +61,7 @@ class Web3AutoSetup
             resolve()
 
             //No need to check for account changes, and network?
-            if(!this.providerInfo.canWrite)
+            if(!this.providerInfo.couldWrite)
                 return    
             
             this.checkAccount()
@@ -78,6 +78,34 @@ class Web3AutoSetup
         })
     }
 
+    //see if the user changes the account, or unlocks it
+    checkAccount=()=>
+    {
+        window.web3.eth.getAccounts((error, accounts)=>
+        {
+            if(error)
+                console.error(error)
+        
+            this.checkAccountChange(accounts[0])
+        })
+    }
+
+
+    checkAccountChange=(newAddress)=>
+    {
+        if(newAddress)
+            this.providerInfo.canWrite = true
+        else
+             this.providerInfo.canWrite = false
+
+        if(this.currentAccount !== newAddress)
+        {
+            this.currentAccount = newAddress
+            for(var i = 0; i< this.accountListeners.length; i++)
+                this.accountListeners[i](newAddress)
+        }
+    }
+
     //checks if we still on the same Ethereum network: Mainnet/Ropsten...
     checkNetwork=()=>
     {
@@ -89,16 +117,15 @@ class Web3AutoSetup
             this.checkNetworkChange(networkId)
         })
     }
-    //check to see if the user changes the account, or unlocks it
-    checkAccount=()=>
+
+    checkNetworkChange=(newNetworkId)=>
     {
-        window.web3.eth.getAccounts((error, accounts)=>
+        if(this.currentNetworkId !== newNetworkId)
         {
-            if(error)
-                console.error(error)
-        
-            this.checkAccountChange(accounts[0])
-        })
+            this.currentNetworkId = newNetworkId
+            for(var i = 0; i< this.networkListeners.length; i++)
+                this.networkListeners[i](newNetworkId)
+        }
     }
 
     tryProvider=(providerRef)=>
@@ -146,31 +173,6 @@ class Web3AutoSetup
         return this.provider
     }
 
-    checkAccountChange=(newAddress)=>
-    {
-        if(this.newAddress)
-            this.providerInfo.canWrite = true
-        else
-             this.providerInfo.canWrite = false
-        
-        if(this.currentAccount !== newAddress)
-        {
-            this.currentAccount = newAddress
-            for(var i = 0; i< this.accountListeners.length; i++)
-                this.accountListeners[i](newAddress)
-        }
-    }
-
-    checkNetworkChange=(newNetworkId)=>
-    {
-        if(this.currentNetworkId !== newNetworkId)
-        {
-            this.currentNetworkId = newNetworkId
-            for(var i = 0; i< this.networkListeners.length; i++)
-                this.networkListeners[i](newNetworkId)
-        }
-    }
-
     addAccountChangedListener=(callback)=>
     {
         this.accountListeners.push(callback)
@@ -208,11 +210,11 @@ class Web3AutoSetup
     getCurrentProviderInfo=()=>
     {
         var providerInfo={
-            name:undefined,
+            id:undefined,
             type:undefined,
             host:undefined,
-            couldWrite:undefined,
-            canWrite:undefined
+            couldWrite:undefined, //refering to the blockchain
+            canWrite:undefined //refering to the blockchain 
         }
 
         //provider.contsructor.name seems not reliable 
@@ -247,6 +249,11 @@ class Web3AutoSetup
         providerInfo.host= this.provider.host
 
         return providerInfo
+    }
+
+    getProviderInfo=()=>
+    {
+        return this.providerInfo
     }
 
     isConnected=()=>
