@@ -9,7 +9,7 @@ module.exports = {
     ropsten: {
       host: "localhost",
       port: 8545,
-      gas: 4612388,
+      gas: 461288, //if to big fails
       network_id: "3"
     },
     //When "npm start build",  process.env.NODE_ENV == production
