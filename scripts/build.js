@@ -121,6 +121,10 @@ function printErrors(summary, errors) {
 
 // Create the production build and print the deployment instructions.
 function build(previousSizeMap) {
+
+if(process.argv[2]==="local")
+    config.output.publicPath = "/"
+
   console.log('Creating an optimized production build...');
   webpack(config).run((err, stats) => {
     if (err) {
@@ -150,6 +154,14 @@ function build(previousSizeMap) {
     var appPackage  = require(paths.appPackageJson);
     var homepagePath = appPackage.homepage;
     var publicPath = config.output.publicPath;
+
+    if(process.argv[2]==="local")
+    {
+        console.log("Ignoring homepage url. Building for local testing");
+        homepagePath = undefined;   
+        publicPath = "/";
+    }
+
     if (homepagePath && homepagePath.indexOf('.github.io/') !== -1) {
       // "homepage": "http://user.github.io/project"
       console.log('The project was built assuming it is hosted at ' + chalk.green(publicPath) + '.');
