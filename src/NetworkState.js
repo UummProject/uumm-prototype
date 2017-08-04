@@ -88,7 +88,14 @@ class NetworkState extends React.Component {
 
     getNoConnectionHint=()=>
     {
+        return(<Paper style={containerStyle} >
+                    <h3> Unable to connect to the Ethereum blockchain</h3>
+                   
+                </Paper>)
+    }
 
+    getNoProviderHint=()=>
+    {
         var video =<Video videoId="6Gf_kRE4MJU"/>
 
         return(<Paper style={containerStyle} >
@@ -121,8 +128,12 @@ class NetworkState extends React.Component {
 
         if(this.state.loaded)
         {
-            if(!this.state.connected)
+            if(!this.state.provider && !this.state.connected)
+                content = this.getNoProviderHint()
+
+            else if(!this.state.connected)
                 content = this.getNoConnectionHint()
+
 
             if(this.state.provider.id === "Infura")
                 content=this.getInfuraHint()
