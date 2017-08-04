@@ -17,17 +17,27 @@ const InjectedProviders=[
     Providers.MIST
 ]
 
+const ReadOnlyProviders=[
+    Providers.INFURA
+]
+
+const HttpProviders=[
+    Providers.INFURA,
+    Providers.LOCALHOST
+]
+
 class Web3AutoSetup
 {
     constructor()
     {
         this.currentAccount = undefined
         this.currentNetworkId = undefined
+        this.injectedProvider = undefined
         this.provider = {}
+        this.providerInfo = {}
         this.accountListeners = []
         this.networkListeners = []
         this.checkInterval = undefined
-        this.injectedProvider = undefined
     }
 
     //Should be called after window load event
@@ -47,6 +57,8 @@ class Web3AutoSetup
                 if(this.tryProvider(providersList[i]))
                     break
             }
+
+            this.providerInfo = this.currentProvider()
            
             window.web3.version.getNetwork((error, networkId) =>
             {
@@ -70,36 +82,35 @@ class Web3AutoSetup
             if(this.checkInterval)
                 clearInterval(this.checkInterval)
 
-
             this.checkInterval = setInterval(()=>
             {
                 this.checkNetworkChange(window.web3.version.network)
                 this.checkAccountChange(window.web3.eth.accounts[0])
             }, 500);
 
-            console.log("Using "+ this.getCurrentProvider().type + " provider: "+ this.getCurrentProvider().name +" in "+this.getNetworkDetails(this.currentNetworkId).name+" network, with address: "+this.currentAccount )
+            console.log("Using "+ this.getCurrentProviderInfo().type + " provider: "+ this.getCurrentProviderInfo().name +" in "+this.getNetworkDetails(this.currentNetworkId).name+" network, with address: "+this.currentAccount )
             
             resolve()
         })
     }
 
-    tryProvider=(providerRef)=>
+    tryProvider=(providerId)=>
     {
-        if(this.isInjectedProvider(providerRef))
+        if(this.isProviderType(InjectedProviders, providerId))
         {
             if(this.injectedProvider)
                 this.provider = this.injectedProvider
             else
                 return false
         }
-        else if (this.isHttpProvider(providerRef))
+        else if (this.isProviderType(HttpProviders, providerId))
         {
-            this.provider = new Web3.providers.HttpProvider(providerRef)
+            this.provider = new Web3.providers.HttpProvider(providerId)
         }
         else
         {
-            console.error("Unkown provider, trying to use it anyway",providerRef)
-            this.provider = providerRef
+            console.error("Unkown provider, trying to use it anyway",providerId)
+            this.provider = providerId
         } 
 
         window.web3 = new Web3(this.provider)
@@ -112,15 +123,9 @@ class Web3AutoSetup
         return this.setupFinished
     }   
 
-    isInjectedProvider=(providerRef)=>
+    isProviderType=(providersList, providerId)=>
     {
-       return InjectedProviders.indexOf(providerRef)!== -1
-    }
-
-    isHttpProvider=(providerRef)=>
-    {
-        //TODO: Do a proper check
-        return providerRef.indexOf("http")!==-1
+       return providersList.indexOf(providerId)!== -1
     }
 
     getProvider=()=>
@@ -182,34 +187,51 @@ class Web3AutoSetup
         return this.getNetworkDetails(this.currentNetworkId)
     }
 
-    getCurrentProvider=()=>
+    getCurrentProviderInfo=()=>
     {
-        var provider={}
+        var providerInfo={
+            name:undefined,
+            type:undefined,
+            host:undefined,
+            couldWrite:undefined,
+            canWrite:undefined
+        }
 
         //provider.contsructor.name seems not reliable 
         //In certain circumstances that I can't figure out is "i" when it should be "HttpProvider"
         //Using it only to detecte MetaMask
         if(this.provider.constructor.name === "MetamaskInpageProvider")        
         {
-            provider.name= Providers.METAMASK
-            provider.type= "injected"
+            providerInfo.name= Providers.METAMASK
+            providerInfo.type= "injected"
+            providerInfo.couldWrite = true
         }
+
+        else if(this.provider.host.indexOf("infura")!==-1) 
+        {
+            providerInfo.name= Providers.INFURA
+            providerInfo.type= "http"
+            providerInfo.couldWrite = false
+            providerInfo.canWrite = false
+            providerInfo.host= this.provider.host
+        } 
+            
+        else if(this.provider.host.indexOf("localhost")!==-1)  
+        { 
+            providerInfo.name= Providers.LOCALHOST
+            providerInfo.type= "http"
+            providerInfo.canWrite = false
+            providerInfo.couldWrite = true
+            providerInfo.host= this.provider.host
+        }
+
         else
         {
-            if(this.provider.host.indexOf("infura")!==-1)   
-                provider.name= Providers.INFURA
-
-            else if(this.provider.host.indexOf("localhost")!==-1)   
-                provider.name= Providers.LOCALHOST
-
-            else
-                provider.name= Providers.UNKNOWN
-
-            provider.rpcHost= this.provider.host
-
+            providerInfo.name= Providers.UNKNOWN
+            providerInfo.host= this.provider.host
         }
 
-        return provider
+        return providerInfo
     }
 
     isConnected=()=>
