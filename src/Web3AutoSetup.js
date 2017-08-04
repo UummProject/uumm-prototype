@@ -1,14 +1,13 @@
 import Web3 from 'web3'
 
-
-
 const Providers={
     INJECTED:"*",
+    UNKNOWN:"unknown",
     METAMASK:"MetMask",
     PARITY:"Parity",
     MIST:"Mist",
     INFURA:"Infura",
-    LOCALHOST:"Localhost"
+    LOCALHOST:"localhost"
 }
 
 const InjectedProviders=[
@@ -71,6 +70,7 @@ class Web3AutoSetup
             if(this.checkInterval)
                 clearInterval(this.checkInterval)
 
+
             this.checkInterval = setInterval(()=>
             {
                 this.checkNetworkChange(window.web3.version.network)
@@ -87,7 +87,6 @@ class Web3AutoSetup
     {
         if(this.isInjectedProvider(providerRef))
         {
-            console.log("B")
             if(this.injectedProvider)
                 this.provider = this.injectedProvider
             else
@@ -95,9 +94,7 @@ class Web3AutoSetup
         }
         else if (this.isHttpProvider(providerRef))
         {
-            console.log("A")
             this.provider = new Web3.providers.HttpProvider(providerRef)
-            console.log(this.provider)
         }
         else
         {
@@ -189,27 +186,27 @@ class Web3AutoSetup
     {
         var provider={}
 
-        var constructorName = this.provider.constructor.name
-        console.log(this.provider)
-        switch (constructorName) {
-             case "MetamaskInpageProvider":
-                provider.name= "MetaMask"
-                provider.type= "injected"
-                break
-             case "HttpProvider":
-                if(this.provider.host.indexOf("infura")!==-1)   
-                    provider.name= "Infura"
+        //provider.contsructor.name seems not reliable 
+        //In certain circumstances that I can't figure out is "i" when it should be "HttpProvider"
+        //Using it only to detecte MetaMask
+        if(this.provider.constructor.name === "MetamaskInpageProvider")        
+        {
+            provider.name= Providers.METAMASK
+            provider.type= "injected"
+        }
+        else
+        {
+            if(this.provider.host.indexOf("infura")!==-1)   
+                provider.name= Providers.INFURA
 
-                else if(this.provider.host.indexOf("localhost")!==-1)   
-                    provider.name= "Localhost"
+            else if(this.provider.host.indexOf("localhost")!==-1)   
+                provider.name= Providers.LOCALHOST
 
-                else
-                    provider.name = "custom"
-                provider.type= "http"
-                provider.rpcHost= this.provider.host
-                break
-             default:
-                 provider.name= "Unknown"
+            else
+                provider.name= Providers.UNKNOWN
+
+            provider.rpcHost= this.provider.host
+
         }
 
         return provider
