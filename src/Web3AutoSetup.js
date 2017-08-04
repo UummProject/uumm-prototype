@@ -87,6 +87,7 @@ class Web3AutoSetup
     {
         if(this.isInjectedProvider(providerRef))
         {
+            console.log("B")
             if(this.injectedProvider)
                 this.provider = this.injectedProvider
             else
@@ -94,7 +95,9 @@ class Web3AutoSetup
         }
         else if (this.isHttpProvider(providerRef))
         {
+            console.log("A")
             this.provider = new Web3.providers.HttpProvider(providerRef)
+            console.log(this.provider)
         }
         else
         {
@@ -187,7 +190,7 @@ class Web3AutoSetup
         var provider={}
 
         var constructorName = this.provider.constructor.name
-        console.log(constructorName)
+        console.log(this.provider)
         switch (constructorName) {
              case "MetamaskInpageProvider":
                 provider.name= "MetaMask"
