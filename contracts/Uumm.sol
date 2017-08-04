@@ -415,6 +415,11 @@ contract Uumm
             );
     }
 
+    function GetContributorsLength(bytes32 projectId)  constant returns (uint256)
+    {
+        return(projects[projectId].contributors.length);
+    }
+
     function GetContributorProposalsLength(bytes32 projectId, uint256 contributorId) returns (uint256)
     {
         return(projects[projectId].contributors[contributorId].proposalsRef.length);
