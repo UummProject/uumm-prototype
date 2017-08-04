@@ -2,8 +2,6 @@ import React from 'react'
 import {Sunburst} from 'react-vis';
 import Numeral from 'numeral'
 
-
-
 class ProposalVotesChart extends React.Component {
 
     constructor(props)
@@ -42,11 +40,11 @@ class ProposalVotesChart extends React.Component {
 
     buildData=(positive, negative, total)=>
     {
-        var positive= this.getData(positive, "#ff3366", "Positive")
-        var negative= this.getData(negative, "#aa3366", "Negative")
-        var rest= this.getData(total-positive-negative, "#aa33aa", "Rest")
+        var positiveData= this.getData(positive, "#ff3366", "Positive")
+        var negativeData= this.getData(negative, "#aa3366", "Negative")
+        //var restData= this.getData(total-positive-negative, "#aa33aa", "Rest")
         var data = {
-            children:[positive, negative]
+            children:[positiveData, negativeData]
         }
         return data
     }

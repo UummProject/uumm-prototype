@@ -1,11 +1,9 @@
 import React from 'react'
-import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
 import State from './State.js'
 import ThumbsUpIcon from 'react-icons/lib/md/thumb-up'
 import ThumbsDownIcon from 'react-icons/lib/md/thumb-down'
 import Numeral from 'numeral'
-import ProposalVotesChart from './ProposalVotesChart.js'
 
 const cardStyle =
 {

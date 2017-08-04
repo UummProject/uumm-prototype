@@ -52,29 +52,10 @@ class OwnershipChart extends React.Component {
 
     onValueMouseOver=(data)=>
     {
-        return
-        //
-        //var restOwnership = Numeral((this.props.totalSupply - this.props.userTokens)/this.props.totalSupply).format('0.0%')
-        var overTitle = ""
-        var overSize = ""
-        var overColor = "#0"
-        if(data.title)
-            overTitle=data.title
-        if(data.size)
-            overSize=data.size
-        if(data.color)
-            overColor=data.color
-
-        this.setState({
-            overSize:overSize, 
-            overTitle:overTitle,
-            overColor:overColor
-        })
     }
+    
     onValueMouseOut=(data)=>
     {
-        return
-        this.setState({overSize:"", overTitle:this.props.userTokens+"/"+this.props.totalSupply})
     }
 
     render()

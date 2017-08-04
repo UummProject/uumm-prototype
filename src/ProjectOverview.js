@@ -1,10 +1,8 @@
 import React from 'react'
 import State from './State.js'
 import Web3AutoSetup from './Web3AutoSetup.js'
-import OwnershipChart from './OwnershipChart.js'
-import Numeral from 'numeral'
-import MarkdownLoader from './MarkdownLoader.js'
 import Divider from 'material-ui/Divider';
+import OwnershipChart from './OwnershipChart.js'
 
 const overflowStyle = {
     whiteSpace: "nowrap",
@@ -23,7 +21,6 @@ class ProjectDetails extends React.Component {
     constructor(props)
     {
         super()
-        var address = process.env.PUBLIC_URL
     }
 
     getAddressStyle=(color)=>
@@ -44,14 +41,14 @@ class ProjectDetails extends React.Component {
                if(projectData.contributors[Web3AutoSetup.currentAccount])
                     contributorData = projectData.contributors[Web3AutoSetup.currentAccount]
 
-        var ownership = Numeral(contributorData.valueTokens/projectData.totalSupply).format('0.0%')
+        //var ownership = Numeral(contributorData.valueTokens/projectData.totalSupply).format('0.0%')
 
         return (
             <div>
 
                <div style={{display:"flex", flexDirection:"row"}}> 
                     <OwnershipChart
-                        size = {200}
+                        size={200}
                         userTokens={contributorData.valueTokens}
                         totalSupply={projectData.totalSupply}
                         /> 

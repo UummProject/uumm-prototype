@@ -4,17 +4,16 @@ import Uumm from './UummContractInterface.js'
 import RaisedButton from 'material-ui/RaisedButton'
 import CreateProposalPage from './CreateProposalPage.js'
 import ProposalsList from './ProposalsList.js'
-import Numeral from 'numeral'
 import Web3AutoSetup from './Web3AutoSetup.js'
 import {Tabs, Tab} from 'material-ui/Tabs'
 import SwipeableViews from 'react-swipeable-views'
-import OwnershipChart from './OwnershipChart.js'
 import ProjectOverview from './ProjectOverview.js'
-import Divider from 'material-ui/Divider'
 
-const tabStyle={
+const tabStyle=
+{
     paddingTop:20
 }
+
 class ProjectDetails extends React.Component {
 
     constructor(props)
@@ -78,7 +77,7 @@ class ProjectDetails extends React.Component {
                if(projectData.contributors[Web3AutoSetup.currentAccount])
                     contributorData = projectData.contributors[Web3AutoSetup.currentAccount]
 
-        var ownership = Numeral(contributorData.valueTokens/projectData.totalSupply).format('0.0%')
+        //var ownership = Numeral(contributorData.valueTokens/projectData.totalSupply).format('0.0%')
 
          var noOwnershipWarning = <div/>
 
