@@ -107,7 +107,8 @@ class State
             'id' : "",
             'creationDate' : new Date (),
             'totalSupply': 0,
-            'unconfirmedProposals':{}
+            'unconfirmedProposals':{},
+            'contributors':{}
         }
         return projectDetails
     }

@@ -3,7 +3,7 @@ import Web3 from 'web3'
 const Providers={
     INJECTED:"*",
     UNKNOWN:"unknown",
-    METAMASK:"MetMask",
+    METAMASK:"MetaMask",
     PARITY:"Parity",
     MIST:"Mist",
     INFURA:"Infura",
