@@ -24,10 +24,14 @@ class UummContractInterface
     {
         var {host, port} = Config.networks[process.env.NODE_ENV]
 
+
         var localNodeProvider = 'http://' + host + ':' + port
         var infuraProvider = "https://ropsten.infura.io/rcj7IaE4gGAHIlV4pND6"
 
-        var providersList = ["*",infuraProvider,localNodeProvider]
+        var providersList = []
+        providersList.push("*")
+        providersList.push(localNodeProvider)
+        providersList.push(infuraProvider)
 
         Web3AutoSetup.setup(providersList)
         .then(()=>{
@@ -55,7 +59,7 @@ class UummContractInterface
         return this.isReadyPromise
     }
 
-    createProposal=(projectId, title, reference, valueAmount)=>
+    createProposal=(projectId, title, reference="", valueAmount)=>
     {
         var unconfirmedProposal = State.addUnconfirmedProposal(projectId, title)
 
@@ -113,7 +117,8 @@ class UummContractInterface
             var array = []
             var loadedCount = 0
 
-
+            if(!Web3AutoSetup.currentAccount)
+                reject("No valid address")
 
             that.contractInstance.GetProjectsLength.call(Web3AutoSetup.currentAccount)
             .then((numberOfProjects)=>
@@ -171,7 +176,7 @@ class UummContractInterface
     {
         return new Promise((resolve, reject)=>
         {
-            //TODO: better vadilation
+            //TODO: better validation
             if(!projectId)
                 reject("projectId is not valid")
             if(!contributorAddress)
@@ -198,6 +203,60 @@ class UummContractInterface
 
             }).catch(function(error){reject(error)})
         })       
+    }
+
+    getContributors = (projectId) =>
+    {
+        return new Promise((resolve, reject)=>
+        {
+            this.contractInstance.GetContributorsLength.call(projectId)
+            .then((numberOfContributors)=>
+            {
+                //TODO: record number of proposals so we don't need to reload them all
+                //TODO: only load pending proposals, since are the only ones that can change
+                var contributorsAmount = numberOfContributors.toNumber()
+
+                var loadedAmount = 0
+                for(var contributorIndex=0; contributorIndex<contributorsAmount; contributorIndex++)
+                {
+                    this.getContributorData(projectId, contributorIndex).then(()=>{
+                        loadedAmount++
+                        if (loadedAmount === contributorsAmount)
+                            resolve()
+                    })  
+                }
+            })
+        })  
+    }
+
+    getContributorData = (projectId, contributorIndex)=>
+    {
+        return new Promise((resolve, reject)=>
+        {
+            if(!projectId)
+                reject("projectId is not valid")
+
+           this.contractInstance.GetContributorData.call(projectId, contributorIndex)
+            .then((details)=>
+            {
+                var contributorData = {
+                    'id' : details[0].toNumber(),
+                    'contributorAddress' : details[1],
+                    'name' : details[2],
+                    'valueTokens' : details[3].toNumber(),
+                    'ethereumBalance': details[4].toNumber()
+                }
+
+                var project = {}
+                project.contributors={}
+                project.contributors[contributorData.contributorAddress]=contributorData
+
+                State.addProject(projectId, project)
+
+                resolve(contributorData)
+
+            }).catch(function(error){reject(error)})
+        }) 
     }
 
     getUserContributorData = (projectId)=>
