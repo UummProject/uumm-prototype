@@ -24,7 +24,7 @@ class ProjectDetails extends React.Component {
 
         Uumm.isReady().then(()=>{
             Uumm.getProjectDetails(props.projectId)
-            Uumm.getUserContributorData(props.projectId, Web3AutoSetup.currentAccount)
+            Uumm.getContributors(props.projectId)
             Uumm.getProposals(props.projectId)
             Web3AutoSetup.addAccountChangedListener(this.onAddressChange)
         })
