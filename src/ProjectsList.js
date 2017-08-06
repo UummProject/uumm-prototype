@@ -76,7 +76,7 @@ class ProjectsList extends React.Component
 
             projects.push(
                 <UnconfirmedProjectCard
-                    key={unconfirmedProjectId}
+                    key={"u"+unconfirmedProjectId}
                     data={unconfirmedProjectData}
                     userAddress={this.props.userAddress}
                     onTouchTap={this.onProjectSelected}
