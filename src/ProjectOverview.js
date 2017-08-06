@@ -49,6 +49,7 @@ class ProjectDetails extends React.Component {
                <div style={{display:"flex", flexDirection:"row"}}> 
                     <OwnershipChart
                         size={200}
+                        contributorsData={projectData.contributors}
                         userTokens={contributorData.valueTokens}
                         totalSupply={projectData.totalSupply}
                         /> 

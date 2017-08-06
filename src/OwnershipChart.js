@@ -1,8 +1,7 @@
 import React from 'react'
-import {Sunburst} from 'react-vis';
+import {Sunburst} from 'react-vis'
 import Numeral from 'numeral'
-
-
+import Chroma from 'chroma-js'
 
 class OwnershipChart extends React.Component {
 
@@ -40,12 +39,26 @@ class OwnershipChart extends React.Component {
         
     }
 
-    buildData=(userTokens, restTokens)=>
+    buildData=(userTokens, restTokens, contributorsData)=>
     {
-        var userData= this.getData(userTokens, "#ff3366", "you")
-        var restData= this.getData(restTokens, "#aa3366", "rest")
+        //var userData= this.getData(userTokens, "#ff3366", "you")
+        //var restData= this.getData(restTokens, "#aa3366", "rest")
         var data = {
-            children:[userData, restData]
+            children:[]
+        }
+
+        var contributorsAmount = Object.keys(contributorsData).length
+        var colors = Chroma.scale(['#fafa6e','#2A4858']).mode('lch').colors(contributorsAmount)
+        var index = 0
+
+        for (let address in contributorsData){
+            if (contributorsData.hasOwnProperty(address))
+            {
+                let contributor = contributorsData[address]
+                let d = this.getData(contributor.valueTokens, colors[index], address)
+                data.children.push(d)
+                index++
+            }
         }
         return data
     }
@@ -60,7 +73,8 @@ class OwnershipChart extends React.Component {
 
     render()
     {
-        var data = this.buildData(this.props.userTokens, this.props.totalSupply-this.props.userTokens)
+        var total = this.props.totalSupply-this.props.userTokens
+        var data = this.buildData(this.props.userTokens, total, this.props.contributorsData)
         var color = "#ff3366"
         var userOwnership = Numeral(this.props.userTokens/this.props.totalSupply).format('0.0%')
         var shares = this.props.userTokens+"/"+this.props.totalSupply
