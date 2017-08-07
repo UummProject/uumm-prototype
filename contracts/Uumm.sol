@@ -108,7 +108,6 @@ contract Uumm
     function GetProjectsLength( address userAddress) constant
         returns (uint256)
     {
-        //Maybe should only be called by the sender instead of any user 
         return (users[userAddress].projectsRef.length);
     }
 
@@ -170,7 +169,10 @@ contract Uumm
 
         //new contributor
         if(contributorId == 0)
-           addContributor(projectId, msg.sender);   
+        {  
+            addContributor(projectId, msg.sender); 
+            contributorId = projects[projectId].contributorsRef[msg.sender];  
+        }
 
         projects[projectId].contributors[contributorId].proposalsRef.push(proposalId);    
     }
