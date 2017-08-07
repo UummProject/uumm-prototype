@@ -21,6 +21,12 @@ const arguments = {
     unexistingProposalId:123
 }
 
+const errors = 
+{
+    VmException:"Uncaught Error: Error: VM Exception while executing eth_call: invalid opcode",
+    InvalidOpcode:"Error: VM Exception while executing eth_call: invalid opcode"
+}
+
 contract('Uumm', async function(accounts)
 {
 
@@ -34,9 +40,15 @@ contract('Uumm', async function(accounts)
         let projectsLength = await uummInstance.GetProjectsLength.call(projectCreator, {from: projectCreator});
         assert.equal (projectsLength.toNumber(), initialSateResults.projectsLength, "No project should exist yet");
 
-        //Unexisting ProjectId
-        //let projectId = await uummInstance.GetProjectIdByIndex.call(projectCreator, 0 );
-        //assert.equal (projectId.toNumber(), initialSateResults.projectId, "No project should exist yet")
+        //Unexisting project Id
+        uummInstance.GetProjectIdByIndex.call(projectCreator, 0, {from: projectCreator})
+        .then(assert.fail)
+         .catch(function(error) {
+                assert(
+                    error.message.indexOf(errors.InvalidOpcode) !== -1,
+                    'No project should exist yet: It should throw:'+errors.InvalidOpcode
+                )
+         });
 
         //ProposalLength
         let proposalsLength = await uummInstance.GetProposalsLength.call(arguments.unexistingProjectId, {from: projectCreator});
@@ -47,9 +59,14 @@ contract('Uumm', async function(accounts)
         assert.equal (pendingProposalsLength.toNumber(), initialSateResults.pendingProposalsLength, "No pending proposal should exist yet");
 
         //ProposalDetails
-
-        //let proposalDetails = await uummInstance.GetProposalDetails.call(arguments.unexistingProjectId, arguments.unexistingProposalId, {from: projectCreator});
-        assert.throws ( function(){ uummInstance.GetProposalDetails.call(arguments.unexistingProjectId, arguments.unexistingProposalId, {from: projectCreator})},Error, "Blah");
+        uummInstance.GetProposalDetails.call(arguments.unexistingProjectId, arguments.unexistingProposalId, {from: projectCreator})
+        .then(assert.fail)
+         .catch(function(error) {
+                assert(
+                    error.message.indexOf(errors.InvalidOpcode) !== -1,
+                    'No proposal exists yet: It should throw'+errors.InvalidOpcode
+                )
+         });
 
         //ProposalDetails - id
         //assert.equal(proposalDetails[0], initialSateResults.proposalDetails.proposalId, "Uninitialized proposal id should be empty");
