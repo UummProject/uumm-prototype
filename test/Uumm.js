@@ -1,9 +1,14 @@
 var Uumm = artifacts.require("./Uumm.sol");
 
-const initialSateData = {
+const initialSateResults = {
     projectsLength : 0,
     projectId:0,
-    proposalsLength:0
+    proposalsLength:0,
+    pendingProposalsLength:0
+}
+
+const arguments = {
+    unexistingProjectId:"32bytesString"
 }
 
 contract('Uumm', async function(accounts)
@@ -13,19 +18,23 @@ contract('Uumm', async function(accounts)
 
     let uummInstance = await  Uumm.deployed()
 
-    it("...validate initial state data",async function()
+    it("...validate initial state data", async function()
     {
         //ProjectLength
         let projectsLength = await uummInstance.GetProjectsLength.call(projectCreator, {from: projectCreator});
-        assert.equal (projectsLength.toNumber(), initialSateData.projectsLength, "No project should exist yet");
+        assert.equal (projectsLength.toNumber(), initialSateResults.projectsLength, "No project should exist yet");
 
         //Unexisting ProjectId
         //let projectId = await uummInstance.GetProjectIdByIndex.call(projectCreator, 0 );
-        //assert.equal (projectId.toNumber(), initialSateData.projectId, "No project should exist yet")
+        //assert.equal (projectId.toNumber(), initialSateResults.projectId, "No project should exist yet")
 
-        //PoposalLength
-        let proposalsLength = await uummInstance.GetProposalsLength.call("randombytes32", {from: projectCreator});
-        assert.equal (proposalsLength.toNumber(), initialSateData.proposalsLength, "No proposal should exist yet");    
+        //ProposalLength
+        let proposalsLength = await uummInstance.GetProposalsLength.call(arguments.unexistingProjectId, {from: projectCreator});
+        assert.equal (proposalsLength.toNumber(), initialSateResults.proposalsLength, "No proposal should exist yet"); 
+
+        //PendingProposalLength
+        let pendingProposalsLength = await uummInstance.GetPendingProposalsLength.call(arguments.unexistingProjectId, {from: projectCreator});
+        assert.equal (pendingProposalsLength.toNumber(), initialSateResults.pendingProposalsLength, "No pending proposal should exist yet");    
 
     });
 
