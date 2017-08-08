@@ -40,6 +40,7 @@ const firstProposal=
     reference:"ProposalReference",
     valueAmount:10,
     id:0,
+    proposalsLength:0
 
 }
 
@@ -138,13 +139,21 @@ contract('Uumm', async function(accounts)
         let valueAmount = proposalDetails[4].toNumber()
         let creationTimestamp = proposalDetails[5].toNumber()
 
+        let currentTimestamp = Date.now()/1000
+
         assert.equal(id, firstProposal.id, "Id of first proposal should be zero")
         assert.equal(author, projectCreator, "Author should be equal to the creator of the proposal")
         assert.equal(title, firstProposal.title, "Id of first proposal should be zero")
         assert.equal(valueAmount, firstProposal.valueAmount, "Value amount should match")
         assert.isAbove(creationTimestamp, currentTimestamp - 60, "Creation timestamp should more or less match current timestamp")
         assert.isBelow(creationTimestamp, currentTimestamp + 60, "Creation timestamp should more or less match current timestamp")
+    })
 
-    }) 
+    it("...One proposal should be created", async function() {
+        firstProjectId = await uummInstance.GetProposalsLength(projectId, {from: randomAddress})
+        assert.equal(firstProposal.proposalsLength,"one project should be created")
+    })
+
+
    
 })
