@@ -16,9 +16,11 @@ const initialSateResults = {
     }
 }
 
-const arguments = {
-    unexistingProjectId:"32bytesString",
-    unexistingProposalId:123
+
+const nonexistentArguments = {
+    ProjectId:"32bytesString",
+    ProposalId:123,
+    PendingProposalIndex:123
 }
 
 const errors = 
@@ -27,76 +29,86 @@ const errors =
     InvalidOpcode:"Error: VM Exception while executing eth_call: invalid opcode"
 }
 
+const firstProject =
+{
+    name:"First Project Name"
+}
 contract('Uumm', async function(accounts)
 {
+    let projectCreator = accounts[0];
+    let randomAddress = accounts[9]; //Never writes (only calls, no transfers)
 
-    let projectCreator = accounts[0]
-
-    let uummInstance = await  Uumm.deployed()
+    let uummInstance = await  Uumm.deployed();
 
     it("...validate initial state data", async function()
     {
+ 
         //ProjectLength
-        let projectsLength = await uummInstance.GetProjectsLength.call(projectCreator, {from: projectCreator});
+        let projectsLength = await uummInstance.GetProjectsLength.call(randomAddress, {from: randomAddress});
         assert.equal (projectsLength.toNumber(), initialSateResults.projectsLength, "No project should exist yet");
 
-        //Unexisting project Id
-        uummInstance.GetProjectIdByIndex.call(projectCreator, 0, {from: projectCreator})
+        // project Id
+        uummInstance.GetProjectIdByIndex.call(randomAddress, 0, {from: randomAddress})
         .then(assert.fail)
          .catch(function(error) {
                 assert(
                     error.message.indexOf(errors.InvalidOpcode) !== -1,
-                    'No project should exist yet: It should throw:'+errors.InvalidOpcode
+                    'No project should exist yet: It should throw: '+errors.InvalidOpcode
                 )
          });
 
         //ProposalLength
-        let proposalsLength = await uummInstance.GetProposalsLength.call(arguments.unexistingProjectId, {from: projectCreator});
+        let proposalsLength = await uummInstance.GetProposalsLength.call(nonexistentArguments.ProjectId, {from: randomAddress});
         assert.equal (proposalsLength.toNumber(), initialSateResults.proposalsLength, "No proposal should exist yet"); 
 
         //PendingProposalLength
-        let pendingProposalsLength = await uummInstance.GetPendingProposalsLength.call(arguments.unexistingProjectId, {from: projectCreator});
+        let pendingProposalsLength = await uummInstance.GetPendingProposalsLength.call(nonexistentArguments.ProjectId, {from: randomAddress});
         assert.equal (pendingProposalsLength.toNumber(), initialSateResults.pendingProposalsLength, "No pending proposal should exist yet");
 
         //ProposalDetails
-        uummInstance.GetProposalDetails.call(arguments.unexistingProjectId, arguments.unexistingProposalId, {from: projectCreator})
+        uummInstance.GetProposalDetails.call(nonexistentArguments.ProjectId, nonexistentArguments.ProposalId, {from: randomAddress})
         .then(assert.fail)
-         .catch(function(error) {
+        .catch(function(error) {
                 assert(
                     error.message.indexOf(errors.InvalidOpcode) !== -1,
-                    'No proposal exists yet: It should throw'+errors.InvalidOpcode
+                    'No proposal exists yet: It should throw: '+errors.InvalidOpcode
                 )
          });
 
-        //ProposalDetails - id
-        //assert.equal(proposalDetails[0], initialSateResults.proposalDetails.proposalId, "Uninitialized proposal id should be empty");
-        //ProposalDetails - author
-        //assert.equal(proposalDetails[1], initialSateResults.proposalDetails.author, "Uninitialized proposal id should be empty");
+        //ProposalState
+        uummInstance.GetProposalState.call(nonexistentArguments.ProjectId, nonexistentArguments.ProposalId, {from: randomAddress})
+        .then(assert.fail)
+        .catch(function(error) {
+                assert(
+                    error.message.indexOf(errors.InvalidOpcode) !== -1,
+                    'No proposal exists yet: It should throw: '+errors.InvalidOpcode
+                )
+         });
 
-        //proposalData.id = proposalDetails[0].toNumber()
-        //proposalData.author = proposalDetails[1]
-        //proposalData.title = proposalDetails[2]
-        //proposalData.reference = proposalDetails[3]
-        //proposalData.valueAmount = proposalDetails[4].toNumber()
-        //proposalData.creationDate = new Date (proposalDetails[5].toNumber()*1000)
+
+        //Pending proposal Id
+        uummInstance.GetPendingProposalId.call(nonexistentArguments.ProjectId, nonexistentArguments.PendingProposalIndex, {from: randomAddress})
+        .then(assert.fail)
+        .catch(function(error) {
+                assert(
+                    error.message.indexOf(errors.InvalidOpcode) !== -1,
+                    'No proposal exists yet: It should throw: '+errors.InvalidOpcode
+                )
+         });
+
+        //TODO
+        //GetContributorData
+        //GetContributorsLength
+        //GetContributorProposalsLength
 
     });
 
+    it("...should create a new project", async function() {
 
-    it("...should create a project named 'Project 1'.", function() {
+        await uummInstance.CreateProject(firstProject.name, {from: projectCreator})
+       
+        let numberOfProjects = await uummInstance.GetProjectsLength.call(projectCreator , {from: randomAddress});
 
-        let projectName = "Project1";
-
-        uummInstance.CreateProject(projectName, {from: projectCreator})
-        .then(function() {
-
-            uummInstance.GetProjectsLength.call(accounts[0])
-            .then(function(numberOfProjects) {
-
-                assert.isNumber(numberOfProjects.toNumber(), "Should return number");
-                assert.equal(numberOfProjects.toNumber(), 1, "One single project should exist");
-
-            });
-        });
+        assert.equal(numberOfProjects.toNumber(), 1, "One single project should exist");
     });    
 });
