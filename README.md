@@ -45,7 +45,8 @@ I'm starting with an MVP for a usecase I've been exposed to, and if it makes sen
 Everyone is welcome to join.
 
 # Status
-The current goal is to have an MVP running with no fancy features within a couple of weeks (by 20/07/17) Once the MVP is done and tested we will re-think the direction of the project.
+The current goal is to have an MVP running with no fancy features.
+Once the MVP is done and tested we will re-think the direction of the project.
 
 - [x] Initial design and sketches
 - [x] Repo and readme setup 
@@ -54,9 +55,11 @@ The current goal is to have an MVP running with no fancy features within a coupl
 - [x] User interface design
 - [x] Minimal user interface implementation 
 - [x] [Public Ropsten deployment](https://xavivives.github.io/Uumm/)
+- [x] Code optimizations
+- [ ] Unit tests **(WIP)**
 - [ ] Testing and polishing **(WIP)**
-- [ ] Code optimizations **(WIP)**
-- [ ] Beautification
+- [x] Beautification
+- [ ] Deploy to mainnet
 - [ ] Move on to next stage
 
 # Tech stack
