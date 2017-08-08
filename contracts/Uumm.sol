@@ -159,6 +159,7 @@ contract Uumm
         proposal.reference = reference;
         proposal.valueAmount = valueAmount;
         proposal.state = proposalState.pending;
+        proposal.creationTimestamp = block.timestamp;
 
         projects[projectId].proposals.push(proposal);
         
@@ -331,8 +332,6 @@ contract Uumm
         {
             projects[projectId].proposals[proposalId].state = proposalState.denied;
         }
-        
-        
     }
     
     //Have proposal reached concensus within current voters?
