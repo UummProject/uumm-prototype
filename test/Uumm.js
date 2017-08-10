@@ -143,24 +143,27 @@ contract('Uumm', async function(accounts)
     })
 
     //TODO: We should be able to get the generated projectId on the frontend
-    let firstProjectId 
+    let project1Id 
     it("...should create a new project", async function() {
         await uummInstance.CreateProject(firstProject.name, {from: projectCreator})
         let numberOfProjects = await uummInstance.GetProjectsLength.call(projectCreator , {from: randomAddress})
         assert.equal(numberOfProjects.toNumber(), firstProject.projectsLength, "One single project should exist")
     }) 
 
-    it("...a new project should exist", async function() {
-        firstProjectId = await uummInstance.GetProjectId(projectCreator, 0, {from: randomAddress})
+    it("...get the project id", async function() {
+        project1Id = await uummInstance.GetProjectId(projectCreator, 0, {from: randomAddress})
         //TODO: Check the hash
-        assert.isOk(firstProjectId,"should be a sha3 of the project creator address + a nonce")
+        assert.isOk(project1Id,"should be a sha3 of the project creator address + a nonce")
     })
 
-    //#0
+    ////ProposalState #0
     it("...project creator creates a new proposal", async function() {
-        await uummInstance.CreateProposal(firstProjectId, firstProposal.title, firstProposal.reference, firstProposal.valueAmount,  {from: projectCreator})
-        let proposalDetails = await uummInstance.GetProposalDetails.call(firstProjectId, 0, {from: randomAddress})
 
+        Data.proposal1.creationTimestamp = Date.now()/1000
+        Data.proposal1.author = projectCreator
+
+        await uummInstance.CreateProposal(project1Id, firstProposal.title, firstProposal.reference, firstProposal.valueAmount,  {from: projectCreator})
+        let proposalDetails = await uummInstance.GetProposalDetails.call(project1Id, 0, {from: randomAddress})
         let id = proposalDetails[0].toNumber()
         let author = proposalDetails[1]
         let title = proposalDetails[2]
@@ -168,40 +171,37 @@ contract('Uumm', async function(accounts)
         let valueAmount = proposalDetails[4].toNumber()
         let creationTimestamp = proposalDetails[5].toNumber()
 
-        let currentTimestamp = Date.now()/1000
-
         assert.equal(id, Data.proposal1.id, "Id of first proposal should be zero")
-        assert.equal(author, projectCreator, "Author should be equal to the creator of the proposal")
-        assert.equal(title, Data.proposal1.title, "Id of first proposal should be zero")
+        assert.equal(author, Data.proposal1.author, "Author should be equal to the creator of the proposal")
+        assert.equal(title, Data.proposal1.title, "Title doesn't match")
         assert.equal(valueAmount, Data.proposal1.valueAmount, "Value amount should match")
-        assert.isAbove(creationTimestamp, currentTimestamp - 60, "Creation timestamp should more or less match current timestamp")
-        assert.isBelow(creationTimestamp, currentTimestamp + 60, "Creation timestamp should more or less match current timestamp")
+        assert.isAbove(creationTimestamp, Data.proposal1.creationTimestamp - 60, "Creation timestamp should more or less match current timestamp")
+        assert.isBelow(creationTimestamp, Data.proposal1.creationTimestamp + 60, "Creation timestamp should more or less match current timestamp")
+
+        validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 0)
     })
 
-
-
-    it("...one proposal should be created", async function() {
-        let proposalsLength = await uummInstance.GetProposalsLength(firstProjectId, {from: randomAddress})
-        assert.equal(proposalsLength.toNumber(), 1 ,"one project should be created")
+    it("...one proposal should exist", async function() {
+        let proposalsLength = await uummInstance.GetProposalsLength.call(project1Id, {from: randomAddress})
+        assert.equal(proposalsLength.toNumber(), 1 ,"one proposal should be created")
     })
 
     //ProposalState #1
     it("...vote in favor of existing proposal", async function() {
-        let transaction = await uummInstance.VoteProposal(firstProjectId, Data.proposal1.id, true, {from: projectCreator})
-        //validateGasUsed(transaction.gasUsed,expectedGasUsed.voteProposalMin, expectedGasUsed.voteProposalMax)
-        //validateProposalState(uummInstance, firstProject, 0, randomAddress, Data.proposal1.stateData[1])
+        let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: projectCreator})
+        validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 1)
     })
 
     it("...vote in favor of existing proposal", async function() {      
 
-        //validateProposalState(uummInstance,firstProject, 0,randomAddress, Data.proposal1.stateData[1])
+        
     })
     
 })
 
-async function validateProposalState (contract, projectId, proposalId, fromAddress, expected)
+async function validateProposalState (contract, fromAddress, projectId, expected, stateIndex)
 {
-    let proposalState = await contract.GetProposalState(arguments.projectId, arguments.proposalId, {from: fromAddress})
+    let proposalState = await contract.GetProposalState(projectId, proposalId, {from: fromAddress})
     
     let id = proposalState[0].toNumber()
     let state = proposalState[1].toNumber()
@@ -210,12 +210,16 @@ async function validateProposalState (contract, projectId, proposalId, fromAddre
     let creationTimestamp = proposalState[4].toNumber()
     let totalSupply = proposalState[5].toNumber()
 
-    assert.equal(id, expected.id, "Id not matching")
-    assert.equal(state, expected.state, "State not matching")
-    assert.equal(positiveVotes, expected.positiveVotes, "Positive votes not matching")
-    assert.equal(negativeVotes, expected.negativeVotes, "Negative votes not matching")
+    assert.equal(id, proposalId, "Id not matching")
+    assert.equal(state, expected.state[stateIndex].state, "State not matching")
+    assert.equal(positiveVotes, expected.state[stateIndex].positiveVotes, "Positive votes not matching")
+    assert.equal(negativeVotes, expected.state[stateIndex].negativeVotes, "Negative votes not matching")
+
     assert.isAbove(creationTimestamp, expected.creationTimeStamp - 60, "Creation timestamp should more or less match current timestamp")
     assert.isBelow(creationTimestamp, expected.creationTimeStamp + 60, "Creation timestamp should more or less match current timestamp")
+
+    assert.equal(totalSupply, positiveVotes + negativeVotes, "Should be the sum of the negative and the positive votes")
+    assert.equal(totalSupply, expected.state[stateIndex].totalSupply, "TotalSupply not matching")
 }
 
 async function validateGasUsed(used, expectedMax, expectedMin)
