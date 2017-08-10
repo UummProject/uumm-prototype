@@ -215,6 +215,7 @@ contract Uumm
     }
 
     //Proposal data is splited in two (GetProposalState and GetProposalDetails) because solidity doesn't allow to return more than 9 values
+    //Proposal state is the data that changes over time plus id and creationTimestamp
     function  GetProposalState(bytes32 projectId, uint256 proposalId) constant
         returns (uint256, proposalState, uint256, uint256, uint, uint256)
     {
