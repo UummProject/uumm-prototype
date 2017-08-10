@@ -219,13 +219,19 @@ contract Uumm
     function  GetProposalState(bytes32 projectId, uint256 proposalId) constant
         returns (uint256, proposalState, uint256, uint256, uint, uint256)
     {
+        //proposal's totalSupply is only set once it's approved or dennied
+        uint256 totalSupply = projects[projectId].proposals[proposalId].totalSupply;
+
+        if(totalSupply==0)
+            totalSupply = projects[projectId].totalSupply;
+
         return(
             projects[projectId].proposals[proposalId].id,
             projects[projectId].proposals[proposalId].state,
             projects[projectId].proposals[proposalId].positiveVotes,
             projects[projectId].proposals[proposalId].negativeVotes,
             projects[projectId].proposals[proposalId].creationTimestamp,
-            projects[projectId].proposals[proposalId].totalSupply
+            totalSupply
             );
     }
     
@@ -296,13 +302,11 @@ contract Uumm
         //Enough contributors have voted
         if((projects[projectId].proposals[proposalId].positiveVotes*precision / projects[projectId].totalSupply*precision) > projects[projectId].requiredConcensus/100*precision)
         {
-             ApproveProposal(projectId, proposalId, true);
-             return;
+             ApproveOrDennyProposal(projectId, proposalId, true);
         }
         if((projects[projectId].proposals[proposalId].negativeVotes*precision / projects[projectId].totalSupply*precision) > projects[projectId].requiredConcensus/100*precision)
         {
-             ApproveProposal(projectId, proposalId, false);
-             return;
+             ApproveOrDennyProposal(projectId, proposalId, false);
         }  
 
         //Deadline has expired
@@ -311,16 +315,16 @@ contract Uumm
             if(IsProposalConcensusThresholdReached(projectId, proposalId))
             {
                 if(projects[projectId].proposals[proposalId].positiveVotes > projects[projectId].proposals[proposalId].negativeVotes)
-                    ApproveProposal(projectId, proposalId, true);
+                    ApproveOrDennyProposal(projectId, proposalId, true);
                 else
-                    ApproveProposal(projectId, proposalId, false);
+                    ApproveOrDennyProposal(projectId, proposalId, false);
 
                 return;
             }
         }
     }
 
-    function ApproveProposal (bytes32 projectId, uint256 proposalId, bool approved) private
+    function ApproveOrDennyProposal (bytes32 projectId, uint256 proposalId, bool approved) private
     {
         projects[projectId].proposals[proposalId].totalSupply = projects[projectId].totalSupply;
 
@@ -385,7 +389,7 @@ contract Uumm
 
     function WithdrawFunds(bytes32 projectId) 
     {
-        uint256 contributorId  =   projects[projectId].contributorsRef[msg.sender];
+        uint256 contributorId = projects[projectId].contributorsRef[msg.sender];
         if(projects[projectId].contributors[contributorId].ethereumBalance == 0)
             revert();
             
@@ -399,7 +403,7 @@ contract Uumm
 
     function GetContributorDataByAddress(bytes32 projectId, address contributorAddress)  constant returns (uint256, address, string, uint256, uint256)
     {   
-        uint256 contributorId  = projects[projectId].contributorsRef[contributorAddress];
+        uint256 contributorId = projects[projectId].contributorsRef[contributorAddress];
         if(contributorId==0)
             throw;
 
