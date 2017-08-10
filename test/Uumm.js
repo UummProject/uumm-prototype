@@ -178,7 +178,7 @@ contract('Uumm', async function(accounts)
         assert.isAbove(creationTimestamp, Data.proposal1.creationTimestamp - 60, "Creation timestamp should more or less match current timestamp")
         assert.isBelow(creationTimestamp, Data.proposal1.creationTimestamp + 60, "Creation timestamp should more or less match current timestamp")
 
-        validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 0)
+        await validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 0)
     })
 
     it("...one proposal should exist", async function() {
@@ -189,11 +189,18 @@ contract('Uumm', async function(accounts)
     //ProposalState #1
     it("...vote in favor of existing proposal", async function() {
         let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: projectCreator})
-        validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 1)
+        await validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 1)
     })
-
-    it("...vote in favor of existing proposal", async function() {      
-
+    //ProposalState #2 (idem)
+    it("...voting again should not make a difference ", async function() {      
+        let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: projectCreator})
+        await validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 2)
+        
+    })
+    //ProposalState #3
+    it("...voting again against it, should change the vote", async function() {      
+        let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, false, {from: projectCreator})
+        await validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 3)
         
     })
     
@@ -201,7 +208,7 @@ contract('Uumm', async function(accounts)
 
 async function validateProposalState (contract, fromAddress, projectId, expected, stateIndex)
 {
-    let proposalState = await contract.GetProposalState(projectId, proposalId, {from: fromAddress})
+    let proposalState = await contract.GetProposalState(projectId, expected.id, {from: fromAddress})
     
     let id = proposalState[0].toNumber()
     let state = proposalState[1].toNumber()
@@ -210,16 +217,15 @@ async function validateProposalState (contract, fromAddress, projectId, expected
     let creationTimestamp = proposalState[4].toNumber()
     let totalSupply = proposalState[5].toNumber()
 
-    assert.equal(id, proposalId, "Id not matching")
-    assert.equal(state, expected.state[stateIndex].state, "State not matching")
-    assert.equal(positiveVotes, expected.state[stateIndex].positiveVotes, "Positive votes not matching")
-    assert.equal(negativeVotes, expected.state[stateIndex].negativeVotes, "Negative votes not matching")
+    assert.equal(id, expected.id, "Id not matching")
+    assert.equal(state, expected.stateData[stateIndex].state, "State not matching")
+    assert.equal(positiveVotes, expected.stateData[stateIndex].positiveVotes, "Positive votes not matching")
+    assert.equal(negativeVotes, expected.stateData[stateIndex].negativeVotes, "Negative votes not matching")
 
-    assert.isAbove(creationTimestamp, expected.creationTimeStamp - 60, "Creation timestamp should more or less match current timestamp")
-    assert.isBelow(creationTimestamp, expected.creationTimeStamp + 60, "Creation timestamp should more or less match current timestamp")
-
-    assert.equal(totalSupply, positiveVotes + negativeVotes, "Should be the sum of the negative and the positive votes")
-    assert.equal(totalSupply, expected.state[stateIndex].totalSupply, "TotalSupply not matching")
+    assert.isAbove(creationTimestamp, expected.creationTimestamp - 60, "Creation timestamp should more or less match current timestamp")
+    assert.isBelow(creationTimestamp, expected.creationTimestamp + 60, "Creation timestamp should more or less match current timestamp")
+    
+    assert.equal(totalSupply, expected.stateData[stateIndex].totalSupply, "TotalSupply not matching")
 }
 
 async function validateGasUsed(used, expectedMax, expectedMin)
