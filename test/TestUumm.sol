@@ -6,13 +6,11 @@ import "../contracts/Uumm.sol";
 
 contract TestUumm 
 {
-
-    function testCreateProject()
+    function testFunction()
     {
-       // Uumm uumm = Uumm(DeployedAddresses.Uumm());
-
-        uint256 expected = 2;
-        Assert.equal( 2, expected, "It should return the sha3 of the address + the nonce");
+        //Uumm uumm = Uumm(DeployedAddresses.Uumm());
+        //uint256 expected = 2;
+        //Assert.equal( 2, expected, "It should return the sha3 of the address + the nonce");
         
     }
 }
