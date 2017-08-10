@@ -162,7 +162,9 @@ contract('Uumm', async function(accounts)
         Data.proposal1.creationTimestamp = Date.now()/1000
         Data.proposal1.author = projectCreator
 
-        await uummInstance.CreateProposal(project1Id, firstProposal.title, firstProposal.reference, firstProposal.valueAmount,  {from: projectCreator})
+        let transaction = await uummInstance.CreateProposal(project1Id, firstProposal.title, firstProposal.reference, firstProposal.valueAmount,  {from: projectCreator})
+        validateGasUsed ("CreateProposal", transaction.receipt.gasUsed, 250000)
+
         let proposalDetails = await uummInstance.GetProposalDetails.call(project1Id, 0, {from: randomAddress})
         let id = proposalDetails[0].toNumber()
         let author = proposalDetails[1]
@@ -189,17 +191,20 @@ contract('Uumm', async function(accounts)
     //ProposalState #1
     it("...vote in favor of existing proposal", async function() {
         let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: projectCreator})
+        validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
         await validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 1)
     })
     //ProposalState #2 (idem)
     it("...voting again should not make a difference ", async function() {      
         let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: projectCreator})
+        validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
         await validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 2)
         
     })
     //ProposalState #3
     it("...voting again against it, should change the vote", async function() {      
         let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, false, {from: projectCreator})
+        validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
         await validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 3)
         
     })
@@ -224,12 +229,20 @@ async function validateProposalState (contract, fromAddress, projectId, expected
 
     assert.isAbove(creationTimestamp, expected.creationTimestamp - 60, "Creation timestamp should more or less match current timestamp")
     assert.isBelow(creationTimestamp, expected.creationTimestamp + 60, "Creation timestamp should more or less match current timestamp")
-    
+
     assert.equal(totalSupply, expected.stateData[stateIndex].totalSupply, "TotalSupply not matching")
 }
 
-async function validateGasUsed(used, expectedMax, expectedMin)
+async function validateGasUsed(functionName, used, expectedMax = 10000, expectedMin = 0)
 {
-    assert.isAbove(used, expectedMin, "To much gas was used")
-    assert.isBelow(used, expectedMax, "Not enough gas was used")
+    log("Gas used by "+functionName+":"+ used)
+    assert.isAbove(used, expectedMin, "Not enough gas was used")
+    assert.isBelow(used, expectedMax, "To much gas was used")
+}
+
+function log(txt)
+{
+    blue = "\x1b[33m"
+    indentation= "       "
+    console.log(blue, indentation + txt)
 }
