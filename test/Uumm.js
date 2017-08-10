@@ -2,7 +2,6 @@ var Uumm = artifacts.require("./Uumm.sol")
 var Data = require("./TestData.js")
 
 
-
 const initialSateResults = {
     projectsLength : 0,
     projectId:0,
@@ -205,8 +204,13 @@ contract('Uumm', async function(accounts)
     it("...voting again against it, should change the vote", async function() {      
         let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, false, {from: projectCreator})
         validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
-        await validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 3)
-        
+        await validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 3)  
+    })
+    //ProposalState #3
+    it("...voting again in favor, should change the vote back", async function() {      
+        let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, false, {from: projectCreator})
+        validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
+        await validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 4)  
     })
     
 })
@@ -235,14 +239,19 @@ async function validateProposalState (contract, fromAddress, projectId, expected
 
 async function validateGasUsed(functionName, used, expectedMax = 10000, expectedMin = 0)
 {
-    log("Gas used by "+functionName+":"+ used)
+    logGas(used, functionName)
     assert.isAbove(used, expectedMin, "Not enough gas was used")
     assert.isBelow(used, expectedMax, "To much gas was used")
 }
 
-function log(txt)
+function logGas(functionName, usedGas)
 {
-    blue = "\x1b[33m"
-    indentation= "       "
-    console.log(blue, indentation + txt)
+    let gasPriceInGwei = 4
+    let gweiToEther = 1/1000000000
+    let etherToUsd = 300     
+    let usdPrice = usedGas * gasPriceInGwei * gweiToEther * etherToUsd
+
+    let blue = "\x1b[33m"
+
+    console.log(blue, "      Gas used by  "+usedGas+ "($"+usdPrice+")")
 }
