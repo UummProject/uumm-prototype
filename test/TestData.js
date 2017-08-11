@@ -62,13 +62,41 @@ exports.proposals =
             {
                 //#5 Proposal is resolved and approved
                 //State changes from PENDING to APPROVED
-                //The token amount asked for the proposal is added to the total supply (1+10=11)
+                //The totalSupply in the proposal remains the same
                 state:ProposalState.APPROVED,
                 positiveVotes:1,
                 negativeVotes:0,
-                totalSupply:11,
+                totalSupply:1,
                 contributorVotes:[1]
             }
+        ]
+    },
+    {
+        //Proposal[1]. Done by contributor1
+        id:1,
+        author:"",
+        title:"Second proposal title",
+        reference:"Proposal 2 Reference",
+        valueAmount:30,
+        creationTimestamp:0,
+        stateData:[
+            {
+                //#0 Initial state
+                //Token supply is updated because of previous proposal (1+10)
+                state:ProposalState.PENDING,
+                positiveVotes:0,
+                negativeVotes:0,
+                totalSupply:11,
+                contributorVotes:[0]
+            },
+            {
+                //#1 Project creator voted (11 tokens)
+                state:ProposalState.PENDING,
+                positiveVotes:11,
+                negativeVotes:0,
+                totalSupply:11,
+                contributorVotes:[11]
+            },
         ]
     }
 ]

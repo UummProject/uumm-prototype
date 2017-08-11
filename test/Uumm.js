@@ -27,24 +27,14 @@ const nonexistentArguments = {
 
 const errors = 
 {
-    VmException:"Uncaught Error: Error: VM Exception while executing eth_call: invalid opcode",
-    InvalidOpcode:"Error: VM Exception while executing eth_call: invalid opcode"
+    InvalidOpcodeInCall:        "VM Exception while executing eth_call: invalid opcode",
+    InvalidOpcodeInTransaction: "VM Exception while processing transaction: invalid opcode"
 }
 
 const firstProject =
 {
     name:"First Project Name",
     projectsLength:1,
-}
-
-const firstProposal=
-{
-    title:"First proposal title",
-    reference:"ProposalReference",
-    valueAmount:10,
-    id:0,
-    proposalsLength:1,
-    state:0
 }
 
 const expectedGasUsed=
@@ -97,7 +87,6 @@ contract('Uumm', async function(accounts)
 
     it("...validate initial state data", async function()
     {
- 
         //ProjectLength
         let projectsLength = await uummInstance.GetProjectsLength.call(getAddress(addressBook.RANDOM_USER), {from: getAddress(addressBook.RANDOM_USER)})
         assert.equal (projectsLength.toNumber(), initialSateResults.projectsLength, "No project should exist yet")
@@ -106,10 +95,10 @@ contract('Uumm', async function(accounts)
         uummInstance.GetProjectIdByIndex.call(getAddress(addressBook.RANDOM_USER), 0, {from: getAddress(addressBook.RANDOM_USER)})
         .then(assert.fail)
          .catch(function(error) {
-                assert(
-                    error.message.indexOf(errors.InvalidOpcode) !== -1,
-                    'No project should exist yet: It should throw: '+errors.InvalidOpcode
-                )
+            assert(
+                error.message.indexOf(errors.InvalidOpcodeInCall) !== -1,
+                'No project should exist yet: It should throw: ' + errors.InvalidOpcodeInCall
+            )
          })
 
         //ProposalLength
@@ -124,31 +113,30 @@ contract('Uumm', async function(accounts)
         uummInstance.GetProposalDetails.call(nonexistentArguments.ProjectId, nonexistentArguments.ProposalId, {from: getAddress(addressBook.RANDOM_USER)})
         .then(assert.fail)
         .catch(function(error) {
-                assert(
-                    error.message.indexOf(errors.InvalidOpcode) !== -1,
-                    'No proposal exists yet: It should throw: '+errors.InvalidOpcode
-                )
+            assert(
+                error.message.indexOf(errors.InvalidOpcodeInCall) !== -1,
+                'No proposal exists yet: It should throw: ' + errors.InvalidOpcodeInCall
+            )
          })
 
         //ProposalState
         uummInstance.GetProposalState.call(nonexistentArguments.ProjectId, nonexistentArguments.ProposalId, {from: getAddress(addressBook.RANDOM_USER)})
         .then(assert.fail)
         .catch(function(error) {
-                assert(
-                    error.message.indexOf(errors.InvalidOpcode) !== -1,
-                    'No proposal exists yet: It should throw: '+errors.InvalidOpcode
-                )
+            assert(
+                error.message.indexOf(errors.InvalidOpcodeInCall) !== -1,
+                'No proposal exists yet: It should throw: ' + errors.InvalidOpcodeInCall
+            )
          })
-
 
         //Pending proposal Id
         uummInstance.GetPendingProposalId.call(nonexistentArguments.ProjectId, nonexistentArguments.PendingProposalIndex, {from: getAddress(addressBook.RANDOM_USER)})
         .then(assert.fail)
         .catch(function(error) {
-                assert(
-                    error.message.indexOf(errors.InvalidOpcode) !== -1,
-                    'No proposal exists yet: It should throw: '+errors.InvalidOpcode
-                )
+            assert(
+                error.message.indexOf(errors.InvalidOpcodeInCall) !== -1,
+                'No proposal exists yet: It should throw: ' + errors.InvalidOpcodeInCall
+            )
          })
 
         //TODO
@@ -171,13 +159,18 @@ contract('Uumm', async function(accounts)
         assert.isOk(project1Id,"should be a sha3 of the project creator address + a nonce")
     })
 
+    it("...only 1 token should exist", async function() {
+        let totalSupply = await uummInstance.GetTotalSupply.call(project1Id, {from: getAddress(addressBook.RANDOM_USER)})
+        assert.equal(totalSupply.toNumber(), 1, "One single token should exist")
+    }) 
+
     ////ProposalState #0
     it("...project creator creates a new proposal", async function() {
 
         Proposals[0].creationTimestamp = Date.now()/1000
         Proposals[0].author = getAddress(addressBook.PROJECT_CREATOR)
 
-        let transaction = await uummInstance.CreateProposal(project1Id, firstProposal.title, firstProposal.reference, firstProposal.valueAmount,  {from: getAddress(addressBook.PROJECT_CREATOR)})
+        let transaction = await uummInstance.CreateProposal(project1Id, Proposals[0].title, Proposals[0].reference, Proposals[0].valueAmount,  {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("CreateProposal", transaction.receipt.gasUsed, 250000)
 
         await validateProposalDetails(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[0])
@@ -223,11 +216,62 @@ contract('Uumm', async function(accounts)
         validateGasUsed ("ResolveProposal", transaction.receipt.gasUsed, 104000)
         await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[0], 5)
     })
+
+    it("...11 token should exist", async function() {
+        let totalSupply = await uummInstance.GetTotalSupply.call(project1Id, {from: getAddress(addressBook.RANDOM_USER)})
+        assert.equal(totalSupply.toNumber(), 11, "11 token should exist")
+    }) 
+
+
+    //New proposal from contributor 1
+    ////ProposalState #0
+    it("...external user creates a new proposal", async function() {
+
+        Proposals[1].creationTimestamp = Date.now()/1000
+        Proposals[1].author = getAddress(addressBook.CONTRIBUTOR1)
+
+        let transaction = await uummInstance.CreateProposal(project1Id, Proposals[1].title, Proposals[1].reference, Proposals[1].valueAmount,  {from: getAddress(addressBook.CONTRIBUTOR1)})
+        validateGasUsed ("CreateProposal", transaction.receipt.gasUsed, 390000)
+
+        await validateProposalDetails(uummInstance, getAddress(addressBook.RANDOM_USER), project1Id, Proposals[1])
+        await validateProposalState(uummInstance, getAddress(addressBook.RANDOM_USER), project1Id, Proposals[1], 0)
+    })
+
+    it("...token supply should be 11", async function() {
+        let totalSupply = await uummInstance.GetTotalSupply.call(project1Id, {from: getAddress(addressBook.RANDOM_USER)})
+        assert.equal(totalSupply.toNumber(), 11, "11 token should exist")
+    }) 
+
+    it("...two proposals should exist", async function() {
+        let proposalsLength = await uummInstance.GetProposalsLength.call(project1Id, {from: getAddress(addressBook.RANDOM_USER)})
+        assert.equal(proposalsLength.toNumber(), 2 ,"two proposals should be created")
+    })
+
+    //Proposal2 State #1
+    it("...project creator vote in favor of existing proposal", async function() {
+        let transaction = await uummInstance.VoteProposal(project1Id, Proposals[1].id, true, {from: getAddress(addressBook.PROJECT_CREATOR)})
+        validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
+        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[1], 1)
+        await validateContributorVote(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[1], 1, addressBook.PROJECT_CREATOR)
+    })
+
+    //Proposal2 State #1
+    it("...proposal creator votes in favor of existing proposal and fails", async function() {
+        uummInstance.VoteProposal(project1Id, Proposals[1].id, true, {from: getAddress(addressBook.CONTRIBUTOR1)})
+        .then(assert.fail)
+        .catch(function(error) {
+            assert(
+                error.message.indexOf(errors.InvalidOpcodeInTransaction) !== -1,
+                'Only exsisting contributors should be able to vote '+errors.InvalidOpcodeInTransaction
+            )
+         })
+    })
+    
 })
 
 async function validateProposalDetails (contract, fromAddress, projectId, expectedProposalData)
 {
-    let proposalDetails = await contract.GetProposalDetails.call(projectId, 0, {from: fromAddress})
+    let proposalDetails = await contract.GetProposalDetails.call(projectId, expectedProposalData.id, {from: fromAddress})
     let id = proposalDetails[0].toNumber()
     let author = proposalDetails[1]
     let title = proposalDetails[2]
@@ -245,7 +289,7 @@ async function validateProposalDetails (contract, fromAddress, projectId, expect
 
 async function validateProposalState (contract, fromAddress, projectId, expectedProposalData, stateIndex)
 {
-    let proposalState = await contract.GetProposalState(projectId, expectedProposalData.id, {from: fromAddress})
+    let proposalState = await contract.GetProposalState.call(projectId, expectedProposalData.id, {from: fromAddress})
     
     let id = proposalState[0].toNumber()
     let state = proposalState[1].toNumber()
@@ -267,7 +311,7 @@ async function validateProposalState (contract, fromAddress, projectId, expected
 
 async function validateContributorVote(contract, fromAddress, projectId, expectedProposalData, stateIndex, voterAddressIndex)
 {
-    let vote = await contract.GetContributorVote(projectId, expectedProposalData.id, getAddress(voterAddressIndex), {from: fromAddress})
+    let vote = await contract.GetContributorVote.call(projectId, expectedProposalData.id, getAddress(voterAddressIndex), {from: fromAddress})
     assert.equal(vote.toNumber(), expectedProposalData.stateData[stateIndex].contributorVotes[voterAddressIndex], "Contributor vote not matching")
 }
 
