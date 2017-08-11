@@ -223,6 +223,8 @@ contract('Uumm', async function(accounts)
     }) 
 
 
+
+
     //New proposal from contributor 1
     ////ProposalState #0
     it("...external user creates a new proposal", async function() {
@@ -266,6 +268,17 @@ contract('Uumm', async function(accounts)
             )
          })
     })
+
+    it("...Resolving proposal", async function() {      
+        let transaction = await uummInstance.ResolveProposal(project1Id, Proposals[1].id, {from: getAddress(addressBook.RANDOM_USER)})
+        validateGasUsed ("ResolveProposal", transaction.receipt.gasUsed, 104000)
+        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[1], 2)
+    })
+
+    it("...totalSupply should be 31", async function() {
+        let totalSupply = await uummInstance.GetTotalSupply.call(project1Id, {from: getAddress(addressBook.RANDOM_USER)})
+        assert.equal(totalSupply.toNumber(), 31, "Total supply should be 31")
+    }) 
     
 })
 

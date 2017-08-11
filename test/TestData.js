@@ -77,7 +77,7 @@ exports.proposals =
         author:"",
         title:"Second proposal title",
         reference:"Proposal 2 Reference",
-        valueAmount:30,
+        valueAmount:20,
         creationTimestamp:0,
         stateData:[
             {
@@ -92,6 +92,14 @@ exports.proposals =
             {
                 //#1 Project creator voted (11 tokens)
                 state:ProposalState.PENDING,
+                positiveVotes:11,
+                negativeVotes:0,
+                totalSupply:11,
+                contributorVotes:[11]
+            },
+            {
+                //#2 Project creator resolved (11 tokens)
+                state:ProposalState.APPROVED,
                 positiveVotes:11,
                 negativeVotes:0,
                 totalSupply:11,
