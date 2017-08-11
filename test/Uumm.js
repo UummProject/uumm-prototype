@@ -208,25 +208,28 @@ contract('Uumm', async function(accounts)
         let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
         await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 1)
+        await validateContributorVote(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 1, addressBook.PROJECT_CREATOR)
     })
     //ProposalState #2 (idem)
     it("...voting again should not make a difference ", async function() {      
         let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
         await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 2)
-        
+        await validateContributorVote(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 2, addressBook.PROJECT_CREATOR)
     })
     //ProposalState #3
     it("...voting again against it, should change the vote", async function() {      
         let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, false, {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
-        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 3)  
+        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 3)
+        await validateContributorVote(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 3, addressBook.PROJECT_CREATOR)
     })
     //ProposalState #4
     it("...voting again in favor, should change the vote back", async function() {      
         let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
-        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 4)  
+        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 4)
+        await validateContributorVote(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 4, addressBook.PROJECT_CREATOR)
     })
 })
 
@@ -252,9 +255,10 @@ async function validateProposalState (contract, fromAddress, projectId, expected
     assert.equal(totalSupply, expectedProposalData.stateData[stateIndex].totalSupply, "TotalSupply not matching")
 }
 
-async function validateContributorVote(contract, fromAddress, projectId, expectedProposalData, index)
+async function validateContributorVote(contract, fromAddress, projectId, expectedProposalData, stateIndex, voterAddressIndex)
 {
-    let vote = await contract.GetContributorVote(projectId, expectedProposalData, 1, {from: fromAddress})
+    let vote = await contract.GetContributorVote(projectId, expectedProposalData.id, getAddress(voterAddressIndex), {from: fromAddress})
+    assert.equal(vote.toNumber(), expectedProposalData.stateData[stateIndex].contributorVotes[voterAddressIndex], "Contributor vote not matching")
 }
 
 async function validateGasUsed(functionName, used, expectedMax = 10000, expectedMin = 0)
@@ -274,5 +278,5 @@ function logGas(functionName, usedGas)
 
     let blue = "\x1b[33m"
 
-    console.log(blue, "      Gas used by  "+functionName+ ": "+usedGas+" ("+usdPriceFormatted+")")
+    console.log(blue, "      "+functionName+ " "+usedGas+" gas ("+usdPriceFormatted+")")
 }

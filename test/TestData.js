@@ -13,7 +13,7 @@ exports.proposal1=
             positiveVotes:0,
             negativeVotes:0,
             totalSupply:1,
-            contributorVotes:[0]//Represents the list of contributors
+            contributorVotes:[0]//Represents the list of contributors, indexes matches accounts[]
         },
         {
             //#1 ProjectCreator (1 token) voted to approve
@@ -47,7 +47,8 @@ exports.proposal1=
             state:0,
             positiveVotes:1,
             negativeVotes:0,
-            totalSupply:1
+            totalSupply:1,
+            contributorVotes:[1]
         }
     ]
 }
