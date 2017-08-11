@@ -1,5 +1,5 @@
 var Uumm = artifacts.require("./Uumm.sol")
-var Data = require("./TestData.js")
+var Proposals = require("./TestData.js").proposals
 var Numeral = require("numeral")
 
 
@@ -174,14 +174,14 @@ contract('Uumm', async function(accounts)
     ////ProposalState #0
     it("...project creator creates a new proposal", async function() {
 
-        Data.proposal1.creationTimestamp = Date.now()/1000
-        Data.proposal1.author = getAddress(addressBook.PROJECT_CREATOR)
+        Proposals[0].creationTimestamp = Date.now()/1000
+        Proposals[0].author = getAddress(addressBook.PROJECT_CREATOR)
 
         let transaction = await uummInstance.CreateProposal(project1Id, firstProposal.title, firstProposal.reference, firstProposal.valueAmount,  {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("CreateProposal", transaction.receipt.gasUsed, 250000)
 
-        await validateProposalDetails(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1)
-        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 0)
+        await validateProposalDetails(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[0])
+        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[0], 0)
     })
 
     it("...one proposal should exist", async function() {
@@ -191,37 +191,37 @@ contract('Uumm', async function(accounts)
 
     //ProposalState #1
     it("...vote in favor of existing proposal", async function() {
-        let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: getAddress(addressBook.PROJECT_CREATOR)})
+        let transaction = await uummInstance.VoteProposal(project1Id, Proposals[0].id, true, {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
-        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 1)
-        await validateContributorVote(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 1, addressBook.PROJECT_CREATOR)
+        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[0], 1)
+        await validateContributorVote(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[0], 1, addressBook.PROJECT_CREATOR)
     })
     //ProposalState #2 (idem)
     it("...voting again should not make a difference ", async function() {      
-        let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: getAddress(addressBook.PROJECT_CREATOR)})
+        let transaction = await uummInstance.VoteProposal(project1Id, Proposals[0].id, true, {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
-        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 2)
-        await validateContributorVote(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 2, addressBook.PROJECT_CREATOR)
+        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[0], 2)
+        await validateContributorVote(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[0], 2, addressBook.PROJECT_CREATOR)
     })
     //ProposalState #3
     it("...voting again, against it, should change the vote", async function() {      
-        let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, false, {from: getAddress(addressBook.PROJECT_CREATOR)})
+        let transaction = await uummInstance.VoteProposal(project1Id, Proposals[0].id, false, {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
-        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 3)
-        await validateContributorVote(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 3, addressBook.PROJECT_CREATOR)
+        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[0], 3)
+        await validateContributorVote(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[0], 3, addressBook.PROJECT_CREATOR)
     })
     //ProposalState #4
     it("...voting again, in favor, should change the vote back", async function() {      
-        let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: getAddress(addressBook.PROJECT_CREATOR)})
+        let transaction = await uummInstance.VoteProposal(project1Id, Proposals[0].id, true, {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
-        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 4)
-        await validateContributorVote(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 4, addressBook.PROJECT_CREATOR)
+        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[0], 4)
+        await validateContributorVote(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[0], 4, addressBook.PROJECT_CREATOR)
     })
     //ProposalState #5
     it("...Resolving proposal", async function() {      
-        let transaction = await uummInstance.ResolveProposal(project1Id, Data.proposal1.id, {from: getAddress(addressBook.RANDOM_USER)})
+        let transaction = await uummInstance.ResolveProposal(project1Id, Proposals[0].id, {from: getAddress(addressBook.RANDOM_USER)})
         validateGasUsed ("ResolveProposal", transaction.receipt.gasUsed, 104000)
-        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 5)
+        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[0], 5)
     })
 })
 
