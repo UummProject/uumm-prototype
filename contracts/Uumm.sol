@@ -259,13 +259,13 @@ contract Uumm
         //Reset the vote if she has voted already. 
         if(projects[projectId].proposals[proposalId].votes[msg.sender] > 0)
         {
-            projects[projectId].proposals[proposalId].positiveVotes -=  uint256(projects[projectId].proposals[proposalId].votes[msg.sender]);
+            projects[projectId].proposals[proposalId].positiveVotes -= uint256(projects[projectId].proposals[proposalId].votes[msg.sender]);
             //This fails for an unknown reason on local testrpc
             projects[projectId].proposals[proposalId].votes[msg.sender] = 0;
         }
         else if(projects[projectId].proposals[proposalId].votes[msg.sender] < 0)
         {
-            projects[projectId].proposals[proposalId].negativeVotes -=  uint256(projects[projectId].proposals[proposalId].votes[msg.sender]);
+            projects[projectId].proposals[proposalId].negativeVotes -= uint256(-1 * projects[projectId].proposals[proposalId].votes[msg.sender]);
             //This fails for an unknown reason on local testrpc
             projects[projectId].proposals[proposalId].votes[msg.sender] = 0;
         }
