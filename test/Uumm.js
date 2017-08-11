@@ -72,10 +72,25 @@ const expectedGasUsed=
     -Validate proposal is resolved
 */
 
+const addressBook=
+{
+    PROJECT_CREATOR:0,
+    CONTRIBUTOR1: 1,
+    CONTRIBUTOR2: 2,
+    CONTRIBUTOR3: 3,
+    RANDOM_USER:9 //Never writes (only calls, no transfers)
+}
+
+
 contract('Uumm', async function(accounts)
 {
-    let projectCreator = accounts[0]
-    let randomAddress = accounts[9] //Never writes (only calls, no transfers)
+
+    getAddress=(index)=>
+    {
+        return accounts[index]
+    }
+
+    getAddress(addressBook.PROJECT_CREATOR)
 
     let uummInstance = await  Uumm.deployed()
 
@@ -84,11 +99,11 @@ contract('Uumm', async function(accounts)
     {
  
         //ProjectLength
-        let projectsLength = await uummInstance.GetProjectsLength.call(randomAddress, {from: randomAddress})
+        let projectsLength = await uummInstance.GetProjectsLength.call(getAddress(addressBook.RANDOM_USER), {from: getAddress(addressBook.RANDOM_USER)})
         assert.equal (projectsLength.toNumber(), initialSateResults.projectsLength, "No project should exist yet")
 
         // project Id
-        uummInstance.GetProjectIdByIndex.call(randomAddress, 0, {from: randomAddress})
+        uummInstance.GetProjectIdByIndex.call(getAddress(addressBook.RANDOM_USER), 0, {from: getAddress(addressBook.RANDOM_USER)})
         .then(assert.fail)
          .catch(function(error) {
                 assert(
@@ -98,15 +113,15 @@ contract('Uumm', async function(accounts)
          })
 
         //ProposalLength
-        let proposalsLength = await uummInstance.GetProposalsLength.call(nonexistentArguments.ProjectId, {from: randomAddress})
+        let proposalsLength = await uummInstance.GetProposalsLength.call(nonexistentArguments.ProjectId, {from: getAddress(addressBook.RANDOM_USER)})
         assert.equal (proposalsLength.toNumber(), initialSateResults.proposalsLength, "No proposal should exist yet") 
 
         //PendingProposalLength
-        let pendingProposalsLength = await uummInstance.GetPendingProposalsLength.call(nonexistentArguments.ProjectId, {from: randomAddress})
+        let pendingProposalsLength = await uummInstance.GetPendingProposalsLength.call(nonexistentArguments.ProjectId, {from: getAddress(addressBook.RANDOM_USER)})
         assert.equal (pendingProposalsLength.toNumber(), initialSateResults.pendingProposalsLength, "No pending proposal should exist yet")
 
         //ProposalDetails
-        uummInstance.GetProposalDetails.call(nonexistentArguments.ProjectId, nonexistentArguments.ProposalId, {from: randomAddress})
+        uummInstance.GetProposalDetails.call(nonexistentArguments.ProjectId, nonexistentArguments.ProposalId, {from: getAddress(addressBook.RANDOM_USER)})
         .then(assert.fail)
         .catch(function(error) {
                 assert(
@@ -116,7 +131,7 @@ contract('Uumm', async function(accounts)
          })
 
         //ProposalState
-        uummInstance.GetProposalState.call(nonexistentArguments.ProjectId, nonexistentArguments.ProposalId, {from: randomAddress})
+        uummInstance.GetProposalState.call(nonexistentArguments.ProjectId, nonexistentArguments.ProposalId, {from: getAddress(addressBook.RANDOM_USER)})
         .then(assert.fail)
         .catch(function(error) {
                 assert(
@@ -127,7 +142,7 @@ contract('Uumm', async function(accounts)
 
 
         //Pending proposal Id
-        uummInstance.GetPendingProposalId.call(nonexistentArguments.ProjectId, nonexistentArguments.PendingProposalIndex, {from: randomAddress})
+        uummInstance.GetPendingProposalId.call(nonexistentArguments.ProjectId, nonexistentArguments.PendingProposalIndex, {from: getAddress(addressBook.RANDOM_USER)})
         .then(assert.fail)
         .catch(function(error) {
                 assert(
@@ -145,13 +160,13 @@ contract('Uumm', async function(accounts)
     //TODO: We should be able to get the generated projectId on the frontend
     let project1Id 
     it("...should create a new project", async function() {
-        await uummInstance.CreateProject(firstProject.name, {from: projectCreator})
-        let numberOfProjects = await uummInstance.GetProjectsLength.call(projectCreator , {from: randomAddress})
+        await uummInstance.CreateProject(firstProject.name, {from: getAddress(addressBook.PROJECT_CREATOR)})
+        let numberOfProjects = await uummInstance.GetProjectsLength.call(getAddress(addressBook.PROJECT_CREATOR) , {from: getAddress(addressBook.RANDOM_USER)})
         assert.equal(numberOfProjects.toNumber(), firstProject.projectsLength, "One single project should exist")
     }) 
 
     it("...get the project id", async function() {
-        project1Id = await uummInstance.GetProjectId(projectCreator, 0, {from: randomAddress})
+        project1Id = await uummInstance.GetProjectId(getAddress(addressBook.PROJECT_CREATOR), 0, {from: getAddress(addressBook.RANDOM_USER)})
         //TODO: Check the hash
         assert.isOk(project1Id,"should be a sha3 of the project creator address + a nonce")
     })
@@ -160,12 +175,12 @@ contract('Uumm', async function(accounts)
     it("...project creator creates a new proposal", async function() {
 
         Data.proposal1.creationTimestamp = Date.now()/1000
-        Data.proposal1.author = projectCreator
+        Data.proposal1.author = getAddress(addressBook.PROJECT_CREATOR)
 
-        let transaction = await uummInstance.CreateProposal(project1Id, firstProposal.title, firstProposal.reference, firstProposal.valueAmount,  {from: projectCreator})
+        let transaction = await uummInstance.CreateProposal(project1Id, firstProposal.title, firstProposal.reference, firstProposal.valueAmount,  {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("CreateProposal", transaction.receipt.gasUsed, 250000)
 
-        let proposalDetails = await uummInstance.GetProposalDetails.call(project1Id, 0, {from: randomAddress})
+        let proposalDetails = await uummInstance.GetProposalDetails.call(project1Id, 0, {from: getAddress(addressBook.RANDOM_USER)})
         let id = proposalDetails[0].toNumber()
         let author = proposalDetails[1]
         let title = proposalDetails[2]
@@ -180,45 +195,44 @@ contract('Uumm', async function(accounts)
         assert.isAbove(creationTimestamp, Data.proposal1.creationTimestamp - 60, "Creation timestamp should more or less match current timestamp")
         assert.isBelow(creationTimestamp, Data.proposal1.creationTimestamp + 60, "Creation timestamp should more or less match current timestamp")
 
-        await validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 0)
+        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 0)
     })
 
     it("...one proposal should exist", async function() {
-        let proposalsLength = await uummInstance.GetProposalsLength.call(project1Id, {from: randomAddress})
+        let proposalsLength = await uummInstance.GetProposalsLength.call(project1Id, {from: getAddress(addressBook.RANDOM_USER)})
         assert.equal(proposalsLength.toNumber(), 1 ,"one proposal should be created")
     })
 
     //ProposalState #1
     it("...vote in favor of existing proposal", async function() {
-        let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: projectCreator})
+        let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
-        await validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 1)
+        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 1)
     })
     //ProposalState #2 (idem)
     it("...voting again should not make a difference ", async function() {      
-        let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: projectCreator})
+        let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
-        await validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 2)
+        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 2)
         
     })
     //ProposalState #3
     it("...voting again against it, should change the vote", async function() {      
-        let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, false, {from: projectCreator})
+        let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, false, {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
-        await validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 3)  
+        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 3)  
     })
-    //ProposalState #3
+    //ProposalState #4
     it("...voting again in favor, should change the vote back", async function() {      
-        let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, false, {from: projectCreator})
+        let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
-        await validateProposalState(uummInstance, projectCreator, project1Id, Data.proposal1, 4)  
+        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 4)  
     })
-    
 })
 
-async function validateProposalState (contract, fromAddress, projectId, expected, stateIndex)
+async function validateProposalState (contract, fromAddress, projectId, expectedProposalData, stateIndex)
 {
-    let proposalState = await contract.GetProposalState(projectId, expected.id, {from: fromAddress})
+    let proposalState = await contract.GetProposalState(projectId, expectedProposalData.id, {from: fromAddress})
     
     let id = proposalState[0].toNumber()
     let state = proposalState[1].toNumber()
@@ -227,15 +241,20 @@ async function validateProposalState (contract, fromAddress, projectId, expected
     let creationTimestamp = proposalState[4].toNumber()
     let totalSupply = proposalState[5].toNumber()
 
-    assert.equal(id, expected.id, "Id not matching")
-    assert.equal(state, expected.stateData[stateIndex].state, "State not matching")
-    assert.equal(positiveVotes, expected.stateData[stateIndex].positiveVotes, "Positive votes not matching")
-    assert.equal(negativeVotes, expected.stateData[stateIndex].negativeVotes, "Negative votes not matching")
+    assert.equal(id, expectedProposalData.id, "Id not matching")
+    assert.equal(state, expectedProposalData.stateData[stateIndex].state, "State not matching")
+    assert.equal(positiveVotes, expectedProposalData.stateData[stateIndex].positiveVotes, "Positive votes not matching")
+    assert.equal(negativeVotes, expectedProposalData.stateData[stateIndex].negativeVotes, "Negative votes not matching")
 
-    assert.isAbove(creationTimestamp, expected.creationTimestamp - 60, "Creation timestamp should more or less match current timestamp")
-    assert.isBelow(creationTimestamp, expected.creationTimestamp + 60, "Creation timestamp should more or less match current timestamp")
+    assert.isAbove(creationTimestamp, expectedProposalData.creationTimestamp - 60, "Creation timestamp should more or less match current timestamp")
+    assert.isBelow(creationTimestamp, expectedProposalData.creationTimestamp + 60, "Creation timestamp should more or less match current timestamp")
 
-    assert.equal(totalSupply, expected.stateData[stateIndex].totalSupply, "TotalSupply not matching")
+    assert.equal(totalSupply, expectedProposalData.stateData[stateIndex].totalSupply, "TotalSupply not matching")
+}
+
+async function validateContributorVote(contract, fromAddress, projectId, expectedProposalData, index)
+{
+    let vote = await contract.GetContributorVote(projectId, expectedProposalData, 1, {from: fromAddress})
 }
 
 async function validateGasUsed(functionName, used, expectedMax = 10000, expectedMin = 0)
@@ -252,7 +271,6 @@ function logGas(functionName, usedGas)
     let gweiToEther = 1/1000000000
     let usdPrice = usedGas * gasPriceInGwei * gweiToEther * etherToUsd
     let usdPriceFormatted = Numeral(usdPrice).format('$0,0.000')
-
 
     let blue = "\x1b[33m"
 
