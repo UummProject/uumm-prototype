@@ -180,21 +180,7 @@ contract('Uumm', async function(accounts)
         let transaction = await uummInstance.CreateProposal(project1Id, firstProposal.title, firstProposal.reference, firstProposal.valueAmount,  {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("CreateProposal", transaction.receipt.gasUsed, 250000)
 
-        let proposalDetails = await uummInstance.GetProposalDetails.call(project1Id, 0, {from: getAddress(addressBook.RANDOM_USER)})
-        let id = proposalDetails[0].toNumber()
-        let author = proposalDetails[1]
-        let title = proposalDetails[2]
-        let reference = proposalDetails[3]
-        let valueAmount = proposalDetails[4].toNumber()
-        let creationTimestamp = proposalDetails[5].toNumber()
-
-        assert.equal(id, Data.proposal1.id, "Id of first proposal should be zero")
-        assert.equal(author, Data.proposal1.author, "Author should be equal to the creator of the proposal")
-        assert.equal(title, Data.proposal1.title, "Title doesn't match")
-        assert.equal(valueAmount, Data.proposal1.valueAmount, "Value amount should match")
-        assert.isAbove(creationTimestamp, Data.proposal1.creationTimestamp - 60, "Creation timestamp should more or less match current timestamp")
-        assert.isBelow(creationTimestamp, Data.proposal1.creationTimestamp + 60, "Creation timestamp should more or less match current timestamp")
-
+        await validateProposalDetails(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1)
         await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 0)
     })
 
@@ -238,6 +224,24 @@ contract('Uumm', async function(accounts)
         await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 5)
     })
 })
+
+async function validateProposalDetails (contract, fromAddress, projectId, expectedProposalData)
+{
+    let proposalDetails = await contract.GetProposalDetails.call(projectId, 0, {from: fromAddress})
+    let id = proposalDetails[0].toNumber()
+    let author = proposalDetails[1]
+    let title = proposalDetails[2]
+    let reference = proposalDetails[3]
+    let valueAmount = proposalDetails[4].toNumber()
+    let creationTimestamp = proposalDetails[5].toNumber()
+
+    assert.equal(id, expectedProposalData.id, "Id of first proposal should be zero")
+    assert.equal(author, expectedProposalData.author, "Author should be equal to the creator of the proposal")
+    assert.equal(title, expectedProposalData.title, "Title doesn't match")
+    assert.equal(valueAmount, expectedProposalData.valueAmount, "Value amount should match")
+    assert.isAbove(creationTimestamp, expectedProposalData.creationTimestamp - 60, "Creation timestamp should more or less match current timestamp")
+    assert.isBelow(creationTimestamp, expectedProposalData.creationTimestamp + 60, "Creation timestamp should more or less match current timestamp")
+}
 
 async function validateProposalState (contract, fromAddress, projectId, expectedProposalData, stateIndex)
 {
