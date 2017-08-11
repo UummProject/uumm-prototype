@@ -218,18 +218,24 @@ contract('Uumm', async function(accounts)
         await validateContributorVote(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 2, addressBook.PROJECT_CREATOR)
     })
     //ProposalState #3
-    it("...voting again against it, should change the vote", async function() {      
+    it("...voting again, against it, should change the vote", async function() {      
         let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, false, {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
         await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 3)
         await validateContributorVote(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 3, addressBook.PROJECT_CREATOR)
     })
     //ProposalState #4
-    it("...voting again in favor, should change the vote back", async function() {      
+    it("...voting again, in favor, should change the vote back", async function() {      
         let transaction = await uummInstance.VoteProposal(project1Id, Data.proposal1.id, true, {from: getAddress(addressBook.PROJECT_CREATOR)})
         validateGasUsed ("VoteProposal", transaction.receipt.gasUsed, 70000)
         await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 4)
         await validateContributorVote(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 4, addressBook.PROJECT_CREATOR)
+    })
+    //ProposalState #5
+    it("...Resolving proposal", async function() {      
+        let transaction = await uummInstance.ResolveProposal(project1Id, Data.proposal1.id, {from: getAddress(addressBook.RANDOM_USER)})
+        validateGasUsed ("ResolveProposal", transaction.receipt.gasUsed, 104000)
+        await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Data.proposal1, 5)
     })
 })
 
