@@ -256,5 +256,5 @@ function logGas(functionName, usedGas)
 
     let blue = "\x1b[33m"
 
-    console.log(blue, "      Gas used by  "+usedGas+ "("+usdPriceFormatted+")")
+    console.log(blue, "      Gas used by  "+functionName+ ": "+usedGas+" ("+usdPriceFormatted+")")
 }
