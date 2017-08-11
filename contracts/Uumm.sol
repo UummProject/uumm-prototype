@@ -31,8 +31,8 @@ contract Uumm
     {
         pending, //ongoing proposal, users can still vote
         approved, //succesfully resolved proposal, can't be change
-        denied,// denied proposal, can't be changed
-        expired // no minimum participation was reached
+        denied, //denied proposal, can't be changed
+        expired //no minimum participation was reached
     }
     
     struct proposalData
