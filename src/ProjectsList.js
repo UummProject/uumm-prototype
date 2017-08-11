@@ -62,7 +62,7 @@ class ProjectsList extends React.Component
                 />)
 
 
-            projects.push(<Divider key={"d"+ projectId}/>)
+            projects.push(<Divider key={"d1"+ projectId}/>)
             
         }   
 
@@ -82,7 +82,7 @@ class ProjectsList extends React.Component
                     onTouchTap={this.onProjectSelected}
                 />)
 
-            projects.push(<Divider key={"d"+ projectId}/>)
+            projects.push(<Divider key={"d2"+ projectId}/>)
         }
 
         var hint=""
