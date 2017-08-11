@@ -373,6 +373,12 @@ contract Uumm
             return false;
     }
 
+    function GetContributorVote(bytes32 projectId, uint256 proposalId, address contributor) constant
+    returns (int256)
+    {
+        return projects[projectId].proposals[proposalId].votes[contributor];
+    }
+
     //CRITICAL
     function FundProject(bytes32 projectId) payable
     {
