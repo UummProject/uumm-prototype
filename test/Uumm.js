@@ -1,5 +1,6 @@
 var Uumm = artifacts.require("./Uumm.sol")
 var Data = require("./TestData.js")
+var Numeral = require("numeral")
 
 
 const initialSateResults = {
@@ -239,7 +240,7 @@ async function validateProposalState (contract, fromAddress, projectId, expected
 
 async function validateGasUsed(functionName, used, expectedMax = 10000, expectedMin = 0)
 {
-    logGas(used, functionName)
+    logGas(functionName,used)
     assert.isAbove(used, expectedMin, "Not enough gas was used")
     assert.isBelow(used, expectedMax, "To much gas was used")
 }
@@ -247,11 +248,13 @@ async function validateGasUsed(functionName, used, expectedMax = 10000, expected
 function logGas(functionName, usedGas)
 {
     let gasPriceInGwei = 4
-    let gweiToEther = 1/1000000000
     let etherToUsd = 300     
+    let gweiToEther = 1/1000000000
     let usdPrice = usedGas * gasPriceInGwei * gweiToEther * etherToUsd
+    let usdPriceFormatted = Numeral(usdPrice).format('$0,0.000')
+
 
     let blue = "\x1b[33m"
 
-    console.log(blue, "      Gas used by  "+usedGas+ "($"+usdPrice+")")
+    console.log(blue, "      Gas used by  "+usedGas+ "("+usdPriceFormatted+")")
 }
