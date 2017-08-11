@@ -134,7 +134,7 @@ contract Uumm
     //CRITICAL
     function AddValueTokens(bytes32 projectId, address contributor, uint256 valueAmount) private
     {
-        uint256 contributorId  =   projects[projectId].contributorsRef[contributor];
+        uint256 contributorId = projects[projectId].contributorsRef[contributor];
         projects[projectId].contributors[contributorId].valueTokens += valueAmount;
         projects[projectId].totalSupply += valueAmount;
     }
@@ -302,11 +302,14 @@ contract Uumm
         //Enough contributors have voted
         if((projects[projectId].proposals[proposalId].positiveVotes*precision / projects[projectId].totalSupply*precision) > projects[projectId].requiredConcensus/100*precision)
         {
-             ApproveOrDennyProposal(projectId, proposalId, true);
+            ApproveOrDennyProposal(projectId, proposalId, true);
+            return;
         }
+
         if((projects[projectId].proposals[proposalId].negativeVotes*precision / projects[projectId].totalSupply*precision) > projects[projectId].requiredConcensus/100*precision)
         {
-             ApproveOrDennyProposal(projectId, proposalId, false);
+            ApproveOrDennyProposal(projectId, proposalId, false);
+            return;
         }  
 
         //Deadline has expired
