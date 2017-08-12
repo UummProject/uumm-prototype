@@ -13,7 +13,7 @@ contract Uumm
         //Governance features
         uint256 requiredConcensus; //Represented in %*100. what % of the voting participants (not percentage of contributors) is required for a proposal to be approved
         uint256 requiredParticipation; //Represented in %*100.  what % of participation is required to resolve a proposal
-        uint  totalSupply;
+        uint totalSupply;
 
         //Proposal stuff
         uint256 proposalsIndex;
@@ -55,7 +55,7 @@ contract Uumm
         address contributorAddress;
         string name;
         uint256 valueTokens;
-        uint256 ethereumBalance;
+        uint256 weiBalance;
         uint256 [] proposalsRef ;
     }
 
@@ -392,17 +392,17 @@ contract Uumm
         uint256 factor = msg.value / projects[projectId].totalSupply; //by default integer divisions use floor
         for (uint256 i = 0; i < projects[projectId].contributors.length; i++)
         {
-            projects[projectId].contributors[i].ethereumBalance += (projects[projectId].contributors[i].valueTokens * factor);
+            projects[projectId].contributors[i].weiBalance += (projects[projectId].contributors[i].valueTokens * factor);
         }
     }
 
     function WithdrawFunds(bytes32 projectId) 
     {
         uint256 contributorId = projects[projectId].contributorsRef[msg.sender];
-        if(projects[projectId].contributors[contributorId].ethereumBalance == 0)
+        if(projects[projectId].contributors[contributorId].weiBalance == 0)
             revert();
             
-        msg.sender.transfer(projects[projectId].contributors[contributorId].ethereumBalance);
+        msg.sender.transfer(projects[projectId].contributors[contributorId].weiBalance);
     }
 
     function GetContributorId(bytes32 projectId, address contributorAddress) constant returns (uint256)
@@ -426,7 +426,7 @@ contract Uumm
             projects[projectId].contributors[contributorId].contributorAddress,
             projects[projectId].contributors[contributorId].name,
             projects[projectId].contributors[contributorId].valueTokens,
-            projects[projectId].contributors[contributorId].ethereumBalance
+            projects[projectId].contributors[contributorId].weiBalance
             );
     }
 
