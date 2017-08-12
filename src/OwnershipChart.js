@@ -24,8 +24,12 @@ class OwnershipChart extends React.Component {
     {
         if(newProps.contributorsData)
             if(newProps.contributorsData[newProps.userAddress])
-                this.setState({user:newProps.contributorsData[newProps.userAddress]})
-
+                this.setState({
+                    user:newProps.contributorsData[newProps.userAddress],
+                    selectedId:newProps.contributorsData[newProps.userAddress].id,
+                    color:startColor,
+                    stake:newProps.contributorsData[newProps.userAddress].valueTokens
+                })
     }
 
     getData=(size= 0 ,color = "#e0d9cc" ,title="", children=[], id:-1)=>
@@ -53,7 +57,6 @@ class OwnershipChart extends React.Component {
             "alignItems":"center",
             "zIndex":-1
         }
-        
     }
 
     buildEmptyData=()=>
@@ -87,7 +90,7 @@ class OwnershipChart extends React.Component {
 
         for (let contributor of array)
         {
-            let color = Chroma(colors[index]).desaturate(3).hex()
+            let color = Chroma(colors[index]).desaturate(4).hex()
             if(this.state.selectedId === contributor.id)
                 color= Chroma(colors[index]).hex()
 
