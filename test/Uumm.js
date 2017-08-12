@@ -1,5 +1,6 @@
 var Uumm = artifacts.require("./Uumm.sol")
 var Numeral = require("numeral")
+var Web3 = new (require("web3"))
 
 var Proposals = require("./TestData.js").proposals
 var Contributors = require("./TestData.js").contributors
@@ -215,9 +216,9 @@ contract('Uumm', async function(accounts)
         await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[0], 5)
     })
 
-    it("...11 token should exist", async function() {
+    it("...10 token should exist", async function() {
         let totalSupply = await uummInstance.GetTotalSupply.call(project1Id, {from: getAddress(addressBook.RANDOM_USER)})
-        assert.equal(totalSupply.toNumber(), 11, "11 token should exist")
+        assert.equal(totalSupply.toNumber(), 10, "10 token should exist")
     }) 
 
     //New proposal from contributor 1
@@ -234,9 +235,9 @@ contract('Uumm', async function(accounts)
         await validateProposalState(uummInstance, getAddress(addressBook.RANDOM_USER), project1Id, Proposals[1], 0)
     })
 
-    it("...token supply should be 11", async function() {
+    it("...token supply should be 10", async function() {
         let totalSupply = await uummInstance.GetTotalSupply.call(project1Id, {from: getAddress(addressBook.RANDOM_USER)})
-        assert.equal(totalSupply.toNumber(), 11, "11 token should exist")
+        assert.equal(totalSupply.toNumber(), 10, "10 token should exist")
     }) 
 
     it("...two proposals should exist", async function() {
@@ -270,22 +271,22 @@ contract('Uumm', async function(accounts)
         await validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[1], 2)
     })
 
-    it("...totalSupply should be 31", async function() {
+    it("...totalSupply should be 40", async function() {
         let totalSupply = await uummInstance.GetTotalSupply.call(project1Id, {from: getAddress(addressBook.RANDOM_USER)})
-        assert.equal(totalSupply.toNumber(), 31, "Total supply should be 31")
+        assert.equal(totalSupply.toNumber(), 40, "Total supply should be 40")
     }) 
 
     //FUNDING
 
     it("...should fund with 100 eth the project and update the eth balances of the contributors", async function(){
-        let transaction = await uummInstance.FundProject(project1Id, {from: getAddress(addressBook.RANDOM_USER), value: 100})
+        let etherAmount = 1
+        let weiAmount = web3.toWei(etherAmount, "ether")
+
+        let transaction = await uummInstance.FundProject(project1Id, {from: getAddress(addressBook.RANDOM_USER), value: weiAmount})
         let contributorsLength = await uummInstance.GetContributorsLength.call(project1Id, {from: getAddress(addressBook.RANDOM_USER)})
         //assert.equal(contributorsLength.toNumber(), 2, "Two contributors exist")
-
-        console.log(contributorsLength.toNumber())
         for(let i = 0; i<contributorsLength.toNumber(); i++)
         {
-            console.log("i:",i)
             await validateContributorData(uummInstance, getAddress(addressBook.RANDOM_USER),  project1Id, Contributors[i])
         }
     })    
@@ -300,15 +301,15 @@ async function validateContributorData (contract, fromAddress, projectId, expect
     let contributorAddress = contributorData[1]
     let name = contributorData[2]
     let valueTokens = contributorData[3].toNumber()
-    let ethereumBalance = contributorData[4].toNumber()
+    let etherBalance = Web3.fromWei(contributorData[4].toNumber())
 
-    console.log(id, valueTokens, ethereumBalance)
+    console.log(id, valueTokens, etherBalance)
 
     assert.equal(id, expectedContributorData.id, "Contributor id does not match")
     //assert.equal(contributorAddress, expectedContributorData.contributorAddress, "Contributor address does not match")
     assert.equal(name, expectedContributorData.name, "Contributor name does not match")
     assert.equal(valueTokens, expectedContributorData.valueTokens, "Contributor value tokens")
-    assert.equal(ethereumBalance, expectedContributorData.ethereumBalance, "Contributor ethereum balance does not match")
+    assert.equal(etherBalance, expectedContributorData.etherBalance, "Contributor ethereum balance does not match")
 }
 
 async function validateProposalDetails (contract, fromAddress, projectId, expectedProposalData)

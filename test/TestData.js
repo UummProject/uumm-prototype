@@ -13,7 +13,7 @@ exports.proposals =
         author:"",
         title:"First proposal title",
         reference:"ProposalReference",
-        valueAmount:10,
+        valueAmount:9,
         creationTimestamp:0,
         stateData:[
             {
@@ -77,33 +77,33 @@ exports.proposals =
         author:"",
         title:"Second proposal title",
         reference:"Proposal 2 Reference",
-        valueAmount:20,
+        valueAmount:30,
         creationTimestamp:0,
         stateData:[
             {
                 //#0 Initial state
-                //Token supply is updated because of previous proposal (1+10)
+                //Token supply is updated because of previous proposal (1+9)
                 state:ProposalState.PENDING,
                 positiveVotes:0,
                 negativeVotes:0,
-                totalSupply:11,
+                totalSupply:10,
                 contributorVotes:[0]
             },
             {
-                //#1 Project creator voted (11 tokens)
+                //#1 Project creator voted (10 tokens)
                 state:ProposalState.PENDING,
-                positiveVotes:11,
+                positiveVotes:10,
                 negativeVotes:0,
-                totalSupply:11,
-                contributorVotes:[11]
+                totalSupply:10,
+                contributorVotes:[10]
             },
             {
-                //#2 Project creator resolved (11 tokens)
+                //#2 Project creator resolved (10 tokens)
                 state:ProposalState.APPROVED,
-                positiveVotes:11,
+                positiveVotes:10,
                 negativeVotes:0,
-                totalSupply:11,
-                contributorVotes:[11]
+                totalSupply:10,
+                contributorVotes:[10]
             },
         ]
     }
@@ -117,21 +117,21 @@ exports.contributors =
         contributorAddress:"",
         name:"",
         valueTokens:0,
-        ethereumBalance:0
+        etherBalance:0
     },
     {
         id:1,
         contributorAddress:"",
         name:"",
-        valueTokens:11,
-        ethereumBalance:33
+        valueTokens:10,
+        etherBalance:0.25
     },
     {
         id:2,
         contributorAddress:"",
         name:"",
-        valueTokens:20,
-        ethereumBalance:60
+        valueTokens:30,
+        etherBalance:0.75
     }
 ]
 
