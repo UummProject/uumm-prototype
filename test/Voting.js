@@ -35,7 +35,7 @@ const errors =
 
 const firstProject =
 {
-    name:"First Project Name",
+    name:"Project name with 32 characters.",
     projectsLength:1,
 }
 

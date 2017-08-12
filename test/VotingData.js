@@ -11,8 +11,8 @@ exports.proposals =
     {
         id:0,
         author:"",
-        title:"First proposal title",
-        reference:"ProposalReference",
+        title:"This is a 32 characthers title!!",
+        reference:"This is a 35 characthers reference!!",
         valueAmount:9,
         creationTimestamp:0,
         stateData:[
