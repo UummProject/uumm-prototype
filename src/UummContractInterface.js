@@ -4,6 +4,10 @@ import Config from '../truffle-config.js'
 import Web3AutoSetup from './Web3AutoSetup.js'
 import State from './State.js'
 
+const gasEstimates=
+{
+    VoteProposal:80000
+}
 class UummContractInterface
 {
     //"User" makes reference to the current app user
@@ -67,7 +71,7 @@ class UummContractInterface
         {
             this.contractInstance.CreateProposal.estimateGas(projectId, title, reference, valueAmount)
             .then((estimatedGas)=>{
-                return this.contractInstance.CreateProposal(projectId, title, reference, valueAmount, {from: Web3AutoSetup.currentAccount, gas:estimatedGas})
+                return this.contractInstance.CreateProposal(projectId, title, reference, valueAmount, {from: Web3AutoSetup.currentAccount, gas:estimatedGas*1.2})
             }).then((result)=> {
 
                 this.getProposals(projectId).then(()=>
@@ -93,7 +97,7 @@ class UummContractInterface
             this.contractInstance.CreateProject.estimateGas(projectName)
             .then((estimatedGas)=>{
 
-                var gasLimit = Math.round(estimatedGas * 1.1)
+                let gasLimit = estimatedGas * 1.2
                 return this.contractInstance.CreateProject(projectName, {from: Web3AutoSetup.currentAccount, gas:gasLimit})
             }).then((result)=> {
                 this.checkTransactionReceipt(result)
@@ -335,7 +339,14 @@ class UummContractInterface
         {
             this.contractInstance.VoteProposal.estimateGas(projectId, proposalId, vote)
             .then((estimatedGas)=>{
-                return this.contractInstance.VoteProposal(projectId, proposalId, vote, {from: Web3AutoSetup.currentAccount, gas:estimatedGas})
+
+                let estimateVoteProposalGas= estimatedGas
+                if(estimateVoteProposalGas>100000)
+                {
+                    estimateVoteProposalGas = gasEstimates.VoteProposal
+                }
+
+                return this.contractInstance.VoteProposal(projectId, proposalId, vote, {from: Web3AutoSetup.currentAccount, gas:estimateVoteProposalGas})
             }).then((result)=> {
                 resolve()
                 this.getProposals(projectId)
