@@ -5,7 +5,6 @@ var Proposals = require("./TestData.js").proposals
 var Contributors = require("./TestData.js").contributors
 var Validators = require("./Validators.js")
 
-console.log(Validators)
 
 const initialSateResults = {
     projectsLength : 0,
@@ -39,12 +38,6 @@ const firstProject =
 {
     name:"First Project Name",
     projectsLength:1,
-}
-
-const expectedGasUsed=
-{
-    voteProposalMin: 1000,
-    voteProposalMax: 100
 }
 
 const addressBook=
