@@ -8,11 +8,11 @@ class OwnershipChart extends React.Component {
     constructor(props)
     {
         super()
-
         this.state = {}
+        window.setTimeout(this.showGraph,3000)
     }
 
-    getData=(size= 0 ,color = "#0000000",title="Not defined", children=[])=>
+    getData=(size= 0 ,color = "#e0d9cc" ,title="Not defined", children=[])=>
     {
         return {
             title:title,
@@ -39,28 +39,61 @@ class OwnershipChart extends React.Component {
         
     }
 
-    buildData=(userTokens, restTokens, contributorsData)=>
+    buildEmptyData=()=>
     {
-        //var userData= this.getData(userTokens, "#ff3366", "you")
-        //var restData= this.getData(restTokens, "#aa3366", "rest")
-        var data = {
+        let data = {
+            children:[this.getData(1),this.getData(0)]
+        }
+        console.log(data)
+        return data
+    }
+
+    buildData=(total, contributorsData, userAddress)=>
+    {
+        let data = {
             children:[]
         }
 
-        var contributorsAmount = Object.keys(contributorsData).length
-        var colors = Chroma.scale(['#fafa6e','#2A4858']).mode('lch').colors(contributorsAmount)
-        var index = 0
-
-        for (let address in contributorsData){
+        let sum = 0
+        let array = []
+        for (var address in  contributorsData)
+        {
             if (contributorsData.hasOwnProperty(address))
             {
-                let contributor = contributorsData[address]
-                let d = this.getData(contributor.valueTokens, colors[index], address)
-                data.children.push(d)
-                index++
+                array.push(contributorsData[address])
             }
         }
+
+        let colors = Chroma.scale(['#ff3366','#FBFF12']).mode('lch').colors(array.length+1)
+        array.sort(this.sortById)
+        let index = 0
+
+        for (let contributor of array)
+        {
+            let color = Chroma(colors[index]).desaturate(5).hex()
+            if(contributor.contributorAddress === userAddress)
+                color= Chroma(colors[index]).hex()
+
+            let d = this.getData(contributor.valueTokens, color , contributor.address)
+            
+            data.children.push(d)
+            sum += contributor.valueTokens
+            index++
+        }
+
+        //Maybe not all contributors are loaded
+        data.children.unshift(this.getData(total-sum, "#e0d9cc","Rest of contributors"))
+
         return data
+    }
+
+    sortById=(a,b)=>
+    {
+        if (a.id < b.id)
+            return -1;
+        if (a.id > b.id)
+            return 1;
+        return 0;
     }
 
     onValueMouseOver=(data)=>
@@ -71,15 +104,28 @@ class OwnershipChart extends React.Component {
     {
     }
 
+    showGraph=()=>
+    {
+        this.setState({showGraph:true})
+    }    
+
     render()
     {
-        var total = this.props.totalSupply-this.props.userTokens
-        var data = this.buildData(this.props.userTokens, total, this.props.contributorsData)
-        var color = "#ff3366"
-        var userOwnership = Numeral(this.props.userTokens/this.props.totalSupply).format('0.0%')
-        var shares = this.props.userTokens+"/"+this.props.totalSupply
-        return (
+        let userTokens="-"
+        if(this.props.contributorsData)
+            if(this.props.contributorsData[this.props.userAddress])
+                userTokens = this.props.contributorsData[this.props.userAddress].valueTokens
 
+        
+        let data = this.buildEmptyData()
+        let color = "#ff3366"
+        let userOwnership = Numeral(userTokens/this.props.totalSupply).format('0.0%')
+        let shares = userTokens+"/"+this.props.totalSupply
+       
+       if(this.state.showGraph)
+            data = this.buildData( this.props.totalSupply, this.props.contributorsData, this.props.userAddress)
+
+        return (
             <div style={{"position":"relative"}}> 
                
                 <div style={this.getCenterContentStyle()}>
@@ -95,9 +141,9 @@ class OwnershipChart extends React.Component {
                     height={this.props.size}
                     width={this.props.size}
                     onValueMouseOver={this.onValueMouseOver} 
-                    onValueMouseOut={this.onValueMouseOut}/>    
+                    onValueMouseOut={this.onValueMouseOut}/>
+                 
             </div>
-
         )
     }
 }
