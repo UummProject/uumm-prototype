@@ -109,3 +109,29 @@ exports.proposals =
     }
 ]
 
+exports.contributors =
+[
+    {
+        //First contributor is empty
+        id:0,
+        contributorAddress:"",
+        name:"",
+        valueTokens:0,
+        ethereumBalance:0
+    },
+    {
+        id:1,
+        contributorAddress:"",
+        name:"",
+        valueTokens:11,
+        ethereumBalance:33
+    },
+    {
+        id:2,
+        contributorAddress:"",
+        name:"",
+        valueTokens:20,
+        ethereumBalance:60
+    }
+]
+

@@ -1,6 +1,8 @@
 var Uumm = artifacts.require("./Uumm.sol")
-var Proposals = require("./TestData.js").proposals
 var Numeral = require("numeral")
+
+var Proposals = require("./TestData.js").proposals
+var Contributors = require("./TestData.js").contributors
 
 
 const initialSateResults = {
@@ -138,17 +140,13 @@ contract('Uumm', async function(accounts)
                 'No proposal exists yet: It should throw: ' + errors.InvalidOpcodeInCall
             )
          })
-
-        //TODO
-        //GetContributorData
-        //GetContributorsLength
-        //GetContributorProposalsLength
     })
 
     //TODO: We should be able to get the generated projectId on the frontend
     let project1Id 
     it("...should create a new project", async function() {
-        await uummInstance.CreateProject(firstProject.name, {from: getAddress(addressBook.PROJECT_CREATOR)})
+        let transaction = await uummInstance.CreateProject(firstProject.name, {from: getAddress(addressBook.PROJECT_CREATOR)})
+        validateGasUsed ("CreateProject", transaction.receipt.gasUsed, 390000)
         let numberOfProjects = await uummInstance.GetProjectsLength.call(getAddress(addressBook.PROJECT_CREATOR) , {from: getAddress(addressBook.RANDOM_USER)})
         assert.equal(numberOfProjects.toNumber(), firstProject.projectsLength, "One single project should exist")
     }) 
@@ -222,9 +220,6 @@ contract('Uumm', async function(accounts)
         assert.equal(totalSupply.toNumber(), 11, "11 token should exist")
     }) 
 
-
-
-
     //New proposal from contributor 1
     ////ProposalState #0
     it("...external user creates a new proposal", async function() {
@@ -279,8 +274,42 @@ contract('Uumm', async function(accounts)
         let totalSupply = await uummInstance.GetTotalSupply.call(project1Id, {from: getAddress(addressBook.RANDOM_USER)})
         assert.equal(totalSupply.toNumber(), 31, "Total supply should be 31")
     }) 
-    
+
+    //FUNDING
+
+    it("...should fund with 100 eth the project and update the eth balances of the contributors", async function(){
+        let transaction = await uummInstance.FundProject(project1Id, {from: getAddress(addressBook.RANDOM_USER), value: 100})
+        let contributorsLength = await uummInstance.GetContributorsLength.call(project1Id, {from: getAddress(addressBook.RANDOM_USER)})
+        //assert.equal(contributorsLength.toNumber(), 2, "Two contributors exist")
+
+        console.log(contributorsLength.toNumber())
+        for(let i = 0; i<contributorsLength.toNumber(); i++)
+        {
+            console.log("i:",i)
+            await validateContributorData(uummInstance, getAddress(addressBook.RANDOM_USER),  project1Id, Contributors[i])
+        }
+    })    
 })
+
+
+async function validateContributorData (contract, fromAddress, projectId, expectedContributorData,)
+{
+    let contributorData = await contract.GetContributorData.call(projectId, expectedContributorData.id, {from: fromAddress})
+    
+    let id = contributorData[0].toNumber()
+    let contributorAddress = contributorData[1]
+    let name = contributorData[2]
+    let valueTokens = contributorData[3].toNumber()
+    let ethereumBalance = contributorData[4].toNumber()
+
+    console.log(id, valueTokens, ethereumBalance)
+
+    assert.equal(id, expectedContributorData.id, "Contributor id does not match")
+    //assert.equal(contributorAddress, expectedContributorData.contributorAddress, "Contributor address does not match")
+    assert.equal(name, expectedContributorData.name, "Contributor name does not match")
+    assert.equal(valueTokens, expectedContributorData.valueTokens, "Contributor value tokens")
+    assert.equal(ethereumBalance, expectedContributorData.ethereumBalance, "Contributor ethereum balance does not match")
+}
 
 async function validateProposalDetails (contract, fromAddress, projectId, expectedProposalData)
 {
