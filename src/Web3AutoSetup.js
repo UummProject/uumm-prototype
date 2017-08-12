@@ -226,6 +226,12 @@ class Web3AutoSetup
             providerInfo.type= "injected"
         }
 
+        else if(this.provider.constructor.name === "EthereumProvider")        
+        {
+            providerInfo.id= Providers.MIST
+            providerInfo.type= "injected"
+        }
+
         else if(this.provider.host.indexOf("infura")!==-1) 
         {
             providerInfo.id= Providers.INFURA
