@@ -80,7 +80,8 @@ class OwnershipChart extends React.Component {
             }
         }
 
-        let colors = Chroma.scale([startColor,endColor]).mode('lch').colors(array.length+1)
+        let colors = Chroma.scale([startColor,endColor]).mode('lch').colors(array.length)
+        colors=this.rotateArray(colors, this.state.user.id)
         array.sort(this.sortById)
         let index = 0
 
@@ -103,11 +104,6 @@ class OwnershipChart extends React.Component {
         return data
     }
 
-    getColor=()=>
-    {
-
-    }
-
     sortById=(a,b)=>
     {
         if (a.id < b.id)
@@ -116,6 +112,13 @@ class OwnershipChart extends React.Component {
             return 1;
         return 0;
     }
+
+    rotateArray=(array, positions)=>
+    {
+        for(let i=0;i<positions;i++)
+            array.unshift(array.pop())
+        return array
+    } 
 
     onMouseOver=(data)=>
     {
