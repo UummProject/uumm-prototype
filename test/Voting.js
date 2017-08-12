@@ -1,9 +1,8 @@
 var Uumm = artifacts.require("./Uumm.sol")
 var Web3 = new (require("web3"))
-
-var Proposals = require("./TestData.js").proposals
-var Contributors = require("./TestData.js").contributors
 var Validators = require("./Validators.js")
+var Proposals = require("./VotingData.js").proposals
+var Contributors = require("./VotingData.js").contributors
 
 
 const initialSateResults = {
@@ -264,5 +263,6 @@ contract('Uumm', async function(accounts)
         {
             await Validators.validateContributorData(uummInstance, getAddress(addressBook.RANDOM_USER),  project1Id, Contributors[i])
         }
-    })    
+    })
+
 })
