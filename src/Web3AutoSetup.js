@@ -217,9 +217,8 @@ class Web3AutoSetup
             canWrite:undefined //refering to the blockchain 
         }
 
-        //provider.contsructor.name seems not reliable 
+        //provider.contsructor.name is not reliable to detect the current Provider.
         //In certain circumstances that I can't figure out is "i" when it should be "HttpProvider"
-        //Using it only to detecte MetaMask
         if(this.provider.constructor.name === "MetamaskInpageProvider")        
         {
             providerInfo.id= Providers.METAMASK
@@ -229,6 +228,12 @@ class Web3AutoSetup
         else if(this.provider.constructor.name === "EthereumProvider")        
         {
             providerInfo.id= Providers.MIST
+            providerInfo.type= "injected"
+        }
+
+         else if(this.provider.constructor.name === "o")        
+        {
+            providerInfo.id= Providers.PARITY
             providerInfo.type= "injected"
         }
 
