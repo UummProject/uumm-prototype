@@ -3,7 +3,7 @@ import 'material-ui'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import InjectTapEventPlugin from 'react-tap-event-plugin'
 import ProjectsListPage from './ProjectsListPage.js'
-import ProjectDetails from './ProjectDetails.js'
+import ProjectPage from './ProjectPage.js'
 import State from './State.js'
 import NetworkState from './NetworkState.js'
 import QueryString from 'query-string';
@@ -15,7 +15,7 @@ import './index.css'
 InjectTapEventPlugin()
 
 const PROJECTS_LIST="ProjectsList"
-const PROJECT_DETAILS="ProjectDetails"
+const PROJECT_PAGE="ProjectPage"
 
 class App extends Component
 {
@@ -74,7 +74,7 @@ class App extends Component
         if(params.projectId)
         {
             this.setState({
-                'currentPage':PROJECT_DETAILS,
+                'currentPage':PROJECT_PAGE,
                 'currentProjectId':params.projectId
                 })
         }
@@ -89,7 +89,7 @@ class App extends Component
     onProjectSelected = (projectData)=>
     {
         this.setState({
-            'currentPage':PROJECT_DETAILS,
+            'currentPage':PROJECT_PAGE,
             'currentProjectId':projectData.id
         })
     }
@@ -103,8 +103,8 @@ class App extends Component
                     onProjectSelected={this.onProjectSelected}
                     userAddress={this.state.userAddress}
                     canWrite={this.state.canWrite}/>
-            case PROJECT_DETAILS:
-                return  <ProjectDetails
+            case PROJECT_PAGE:
+                return  <ProjectPage
                     projectId={this.state.currentProjectId}
                     userAddress={this.state.userAddress}
                     canWrite={this.state.canWrite}/>

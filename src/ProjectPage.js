@@ -85,7 +85,7 @@ class ProjectDetails extends React.Component {
             contributorData = State.getEmptyContributor()
         if(!contributorData.valueTokens)
         {
-             noOwnershipWarning= (<div style={{backgroundColor:"rgba(158, 158, 158, 0.22)", padding:15, marginBottom:20}}>
+             noOwnershipWarning= (<div style={{backgroundColor:"rgba(158, 158, 158, 0.22)", padding:20, marginBottom:20}}>
                 <p>
                     Your address doesn't own any shares of this project, therefore you can't vote.
                 </p>
@@ -126,6 +126,7 @@ class ProjectDetails extends React.Component {
                             open={this.state.newProposalDialogIsOpen}
                             onCancel={this.closeDialog}
                             onCreate={this.onProposalSubmited}/>
+                            
                         <ProposalsList
                             projectId={this.props.projectId}
                             userAddress={this.props.userAddress}
