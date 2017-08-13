@@ -76,7 +76,6 @@ class ProposalCard extends React.Component {
 
     getAction =(state, hasConcensus, isOwner)=>
     {
-        console.log(state)
         switch (state)
         {
             case State.ProposalState.PENDING:
