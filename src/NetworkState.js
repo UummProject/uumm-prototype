@@ -128,21 +128,20 @@ class NetworkState extends React.Component {
 
         if(this.state.loaded)
         {
-            if(!this.state.provider && !this.state.connected)
+            if(!this.state.provider)
                 content = this.getNoProviderHint()
+
+            else if(this.state.network && this.state.network !== "Ropsten")
+                content=this.getSmallHint("The contract is only deployed on the Ropsten Network. You're currently on "+this.state.network)
 
             else if(!this.state.connected)
                 content = this.getNoConnectionHint()
 
-
-            if(this.state.provider.id === "Infura")
+            else if(this.state.provider.id === "Infura")
                 content=this.getInfuraHint()
 
-            if(this.state.provider.couldWrite && !this.state.provider.canWrite)
+            else if(!this.state.provider.canWrite)
                 content=this.getSmallHint("Unlock a " + this.state.provider.id + " account to interact with the contract")
-
-            if(this.state.connected && this.state.network !== "Ropsten")
-                content=this.getSmallHint("The contract is only deployed on the Ropsten Network. Make sure you are on the right network")
         }
 
         return (
