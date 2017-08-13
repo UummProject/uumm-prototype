@@ -1,8 +1,8 @@
 import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import State from './State.js'
-import ThumbsUpIcon from 'react-icons/lib/md/thumb-up'
-import ThumbsDownIcon from 'react-icons/lib/md/thumb-down'
+import ApproveIcon from 'react-icons/lib/fa/check'
+import DennyIcon from 'react-icons/lib/fa/close'
 import Numeral from 'numeral'
 
 const cardStyle =
@@ -24,6 +24,11 @@ const containerStyle =
     justifyContent: 'space-between',
     alignItems: 'center',
     width:"100%"
+}
+
+const pStyle = 
+{
+    color:"#aaa"
 }
 
 class ProposalCard extends React.Component {
@@ -63,8 +68,8 @@ class ProposalCard extends React.Component {
                         return (<p> </p>)
 
                     return (<div>
-                            <RaisedButton icon={<ThumbsUpIcon/>} onTouchTap={this.onPositiveVote}/>
-                            <RaisedButton icon={<ThumbsDownIcon/>} onTouchTap={this.onNegativeVote}/>
+                            <RaisedButton icon={<ApproveIcon/>} onTouchTap={this.onPositiveVote}/>
+                            <RaisedButton icon={<DennyIcon/>} onTouchTap={this.onNegativeVote}/>
                         </div>)
                 }
             case State.ProposalState.APPROVED: return (<p> Approved</p>)
@@ -103,9 +108,9 @@ class ProposalCard extends React.Component {
                  <div style={containerStyle} >
 
                     {actions}
-                    <p> Tokens asked: {this.props.proposalData.valueAmount} </p> 
-                    <p> + {Numeral(positiveVotes).format('0.0%')} </p>
-                    <p> - {Numeral(negativeVotes).format('0.0%')} </p>
+                    <p style={pStyle}> Tokens asked: {this.props.proposalData.valueAmount} </p> 
+                    <p style={pStyle}> <ApproveIcon/> {Numeral(positiveVotes).format('0.0%')} </p>
+                    <p style={pStyle}> <DennyIcon/> {Numeral(negativeVotes).format('0.0%')} </p>
                 </div>
             </div>
         )
