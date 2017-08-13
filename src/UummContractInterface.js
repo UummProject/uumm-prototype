@@ -63,7 +63,7 @@ class UummContractInterface
         })   
     }
 
-    isReady =()=>
+    isReady=()=>
     {
         return this.isReadyPromise
     }

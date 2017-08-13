@@ -27,11 +27,6 @@ class UnconfirmedProjectCard extends React.Component {
         super();
     }
 
-    onTouchTap =() =>
-    {
-        //this.props.onTouchTap(this.props.data)
-    }
-
     render()
     {
         return (

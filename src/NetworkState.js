@@ -135,7 +135,7 @@ class NetworkState extends React.Component {
                 content=this.getSmallHint("The contract is only deployed on the Ropsten Network. You're currently on "+this.state.network)
 
             else if(!this.state.connected)
-                content = this.getNoConnectionHint()
+                content=this.getNoConnectionHint()
 
             else if(this.state.provider.id === "Infura")
                 content=this.getInfuraHint()

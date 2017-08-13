@@ -1,5 +1,4 @@
 import React from 'react'
-import InProgressIcon from 'react-icons/lib/md/keyboard-control'
 
 const cardStyle =
 {
@@ -32,20 +31,6 @@ const cellStyle =
     flexGrow:1,
     textAlign:"center",
     flexShring:0
-}
-
-const stateCellStyle = 
-{
-    textAlign:"center",
-    flexGrow:1,
-    width:110,
-    color:"#ccc"
-}
-
-const emptyCellStyle = 
-{
-    flexGrow:1,
-    flexShring:1
 }
 
 class ProposalCard extends React.Component {

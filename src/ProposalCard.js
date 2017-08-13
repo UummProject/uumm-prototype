@@ -89,8 +89,8 @@ class ProposalCard extends React.Component {
                         return (<p> </p>)
 
                     return (<div>
-                            <RaisedButton style= {{minWidth:50, width:50}} icon={<ApproveIcon/>} onTouchTap={this.onPositiveVote}/>
-                            <RaisedButton style= {{minWidth:50, width:50}} icon={<DenniedIcon/>} onTouchTap={this.onNegativeVote}/>
+                            <RaisedButton style={{minWidth:50, width:50}} icon={<ApproveIcon/>} onTouchTap={this.onPositiveVote}/>
+                            <RaisedButton style={{minWidth:50, width:50}} icon={<DenniedIcon/>} onTouchTap={this.onNegativeVote}/>
                         </div>)
                 }
             case State.ProposalState.APPROVED: return (<ApproveIcon size={25}/>)

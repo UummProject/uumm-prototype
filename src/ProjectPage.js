@@ -78,7 +78,6 @@ class ProjectDetails extends React.Component {
                     contributorData = projectData.contributors[Web3AutoSetup.currentAccount]
 
         let noOwnershipWarning = <div/>
-        let makeProposalButton = <div/>
 
         if(!contributorData)
             contributorData = State.getEmptyContributor()
@@ -121,7 +120,7 @@ class ProjectDetails extends React.Component {
                             fullWidth={false}
                             label="Make new proposal"
                             onTouchTap={this.onMakeNewProposal}
-                            disabled = {!Web3AutoSetup.getProvider().canWrite}/> 
+                            disabled={!Web3AutoSetup.getProvider().canWrite}/> 
 
                         <CreateProposalPage
                             open={this.state.newProposalDialogIsOpen}
