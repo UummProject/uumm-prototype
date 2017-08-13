@@ -2,7 +2,8 @@ import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import State from './State.js'
 import ApproveIcon from 'react-icons/lib/fa/check'
-import DennyIcon from 'react-icons/lib/fa/close'
+import DenniedIcon from 'react-icons/lib/fa/close'
+import InProgressIcon from 'react-icons/lib/md/keyboard-control'
 import Numeral from 'numeral'
 
 const cardStyle =
@@ -31,6 +32,18 @@ const pStyle =
     color:"#aaa"
 }
 
+const cellStyle = 
+{
+    flexGrow:1,
+    textAlign:"center"
+}
+
+const stateCellStyle = 
+{
+    flexGrow:2,
+    textAlign:"center"
+}
+
 class ProposalCard extends React.Component {
 
     constructor(props)
@@ -55,6 +68,7 @@ class ProposalCard extends React.Component {
 
     getAction =(state, hasConcensus, isOwner)=>
     {
+        console.log(state)
         switch (state)
         {
             case State.ProposalState.PENDING:
@@ -69,12 +83,13 @@ class ProposalCard extends React.Component {
 
                     return (<div>
                             <RaisedButton icon={<ApproveIcon/>} onTouchTap={this.onPositiveVote}/>
-                            <RaisedButton icon={<DennyIcon/>} onTouchTap={this.onNegativeVote}/>
+                            <RaisedButton icon={<DenniedIcon/>} onTouchTap={this.onNegativeVote}/>
                         </div>)
                 }
-            case State.ProposalState.APPROVED: return (<p> Approved</p>)
-            case State.ProposalState.DENIED: return (<p> Denied</p>)
+            case State.ProposalState.APPROVED: return (<ApproveIcon size={25}/>)
+            case State.ProposalState.DENIED: return (<DenniedIcon size={25}/>)
             case State.ProposalState.EXPIRED: return (<p> Expired</p>)
+            case State.ProposalState.IN_PROGRESS: return (<InProgressIcon size={25}/>)
                               
             default :
                 return (<div/>)
@@ -107,10 +122,10 @@ class ProposalCard extends React.Component {
                 
                  <div style={containerStyle} >
 
-                    {actions}
-                    <p style={pStyle}> Tokens asked: {this.props.proposalData.valueAmount} </p> 
-                    <p style={pStyle}> <ApproveIcon/> {Numeral(positiveVotes).format('0.0%')} </p>
-                    <p style={pStyle}> <DennyIcon/> {Numeral(negativeVotes).format('0.0%')} </p>
+                    <div style={stateCellStyle}> {actions} </div>
+                    <div style={cellStyle}><p style={pStyle}> Tokens asked: {this.props.proposalData.valueAmount} </p> </div>
+                    <div style={cellStyle}><p style={pStyle}> <ApproveIcon/> {Numeral(positiveVotes).format('0.0%')} </p></div>
+                    <div style={cellStyle}><p style={pStyle}> <DenniedIcon/> {Numeral(negativeVotes).format('0.0%')} </p></div>
                 </div>
             </div>
         )
