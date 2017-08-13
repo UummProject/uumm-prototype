@@ -14,7 +14,7 @@ class OwnershipChart extends React.Component {
         this.state = {
             color:startColor,
             stake:0,
-            id:-1,
+            id:undefined,
             user:{}
         }
         this.resetTimeout = {}
@@ -142,10 +142,18 @@ class OwnershipChart extends React.Component {
     //Not triggering for unkown reason
     onMouseOut=(data)=>
     {
+        let id = undefined
+        if(this.state.user.id)
+            id = this.state.user.id
+
+        let stake = 0
+        if(this.state.user.valueTokens)
+            stake = this.state.user.valueTokens
+
         this.setState({
-            selectedId:this.state.user.id,
+            selectedId:id,
             color:startColor,
-            stake:this.state.user.valueTokens,
+            stake:stake
         })
     }
 
@@ -180,8 +188,7 @@ class OwnershipChart extends React.Component {
                     data={data}
                     height={this.props.size}
                     width={this.props.size}
-                    />
-                 
+                />
             </div>
         )
     }
