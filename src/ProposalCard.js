@@ -96,7 +96,7 @@ class ProposalCard extends React.Component {
             case State.ProposalState.APPROVED: return (<ApproveIcon size={25}/>)
             case State.ProposalState.DENIED: return (<DenniedIcon size={25}/>)
             case State.ProposalState.EXPIRED: return (<p> Expired</p>)
-            case State.ProposalState.IN_PROGRESS: return (<InProgressIcon size={25}/>)
+            case State.ProposalState.IN_PROGRESS: return (<InProgressIcon size={30}/>)
                               
             default :
                 return (<div/>)
