@@ -35,13 +35,21 @@ const pStyle =
 const cellStyle = 
 {
     flexGrow:1,
-    textAlign:"center"
+    textAlign:"center",
+    flexShring:0
 }
 
 const stateCellStyle = 
 {
-    flexGrow:2,
-    textAlign:"center"
+    textAlign:"center",
+    flexGrow:1,
+    width:110
+}
+
+const emptyCellStyle = 
+{
+    flexGrow:1,
+    flexShring:1
 }
 
 class ProposalCard extends React.Component {
@@ -82,8 +90,8 @@ class ProposalCard extends React.Component {
                         return (<p> </p>)
 
                     return (<div>
-                            <RaisedButton icon={<ApproveIcon/>} onTouchTap={this.onPositiveVote}/>
-                            <RaisedButton icon={<DenniedIcon/>} onTouchTap={this.onNegativeVote}/>
+                            <RaisedButton style= {{minWidth:50, width:50}} icon={<ApproveIcon/>} onTouchTap={this.onPositiveVote}/>
+                            <RaisedButton style= {{minWidth:50, width:50}} icon={<DenniedIcon/>} onTouchTap={this.onNegativeVote}/>
                         </div>)
                 }
             case State.ProposalState.APPROVED: return (<ApproveIcon size={25}/>)
@@ -118,11 +126,12 @@ class ProposalCard extends React.Component {
 
         return (
             <div style={cardStyle} >
-                <h3 style={{margin:5}}> {this.props.proposalData.title} </h3> 
+                <h3 style={{margin:7}}> {this.props.proposalData.title} </h3> 
                 
                  <div style={containerStyle} >
 
                     <div style={stateCellStyle}> {actions} </div>
+                    <div style={emptyCellStyle}/>
                     <div style={cellStyle}><p style={pStyle}> Tokens asked: {this.props.proposalData.valueAmount} </p> </div>
                     <div style={cellStyle}><p style={pStyle}> <ApproveIcon/> {Numeral(positiveVotes).format('0.0%')} </p></div>
                     <div style={cellStyle}><p style={pStyle}> <DenniedIcon/> {Numeral(negativeVotes).format('0.0%')} </p></div>

@@ -130,7 +130,7 @@ class App extends Component
                                 justifyContent:"center",
                                 alignItems:"flexStart"
                             }}>
-                            <div style={{margin:10, maxWidth:600}}>
+                            <div style={{margin:20, maxWidth:600, minWidth:400}}>
                                 {page}                              
                             </div>
                         </div>
