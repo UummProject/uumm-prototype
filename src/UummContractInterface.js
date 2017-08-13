@@ -2,6 +2,7 @@
 import UummContract from '../build/contracts/Uumm.json'
 import Config from '../truffle-config.js'
 import Web3AutoSetup from './Web3AutoSetup.js'
+import Web3 from 'web3'
 import State from './State.js'
 
 const gasEstimates=
@@ -24,6 +25,7 @@ class UummContractInterface
             this.resolveIsReady = resolve
             this.rejectIsReady = reject
         })
+        this.web3= new Web3()//This is only used for utility funcitons
     }
 
     //resolves or rejects this.setupFinished promise
@@ -197,7 +199,7 @@ class UummContractInterface
                     'contributorAddress' : details[1],
                     'name' : details[2],
                     'valueTokens' : details[3].toNumber(),
-                    'ethereumBalance': details[4].toNumber()
+                    'etherBalance': details[4].toNumber()
                 }
 
                 var project = {}
@@ -251,7 +253,7 @@ class UummContractInterface
                     'contributorAddress' : details[1],
                     'name' : details[2],
                     'valueTokens' : details[3].toNumber(),
-                    'ethereumBalance': details[4].toNumber()
+                    'etherBalance': this.web3.fromWei(details[4].toNumber(), "ether")
                 }
 
                 var project = {}
