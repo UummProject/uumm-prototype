@@ -16,7 +16,8 @@ class State
             PENDING : 0,
             APPROVED: 1,
             DENIED: 2,
-            EXPIRED: 3
+            EXPIRED: 3,
+            IN_PROGRESS:4
        }
     }
 
@@ -93,6 +94,7 @@ class State
 
     stateUpdated=()=>
     {
+        console.log("updated")
         for(var i = 0; i<this.stateUpdatedCallbacks.length; i++)
         {
             this.stateUpdatedCallbacks[i]()
@@ -133,7 +135,7 @@ class State
             'title' : "",
             'reference' :"",
             'valueAmount':0,
-            'proposalState':0,
+            'state':0,
             'votes':{},
             'positiveVotes': 0,
             'negativeVotes': 0,
@@ -155,6 +157,19 @@ class State
     {
         this.stateUpdatedCallbacks.push(callback)
     }
+
+    setProposalInProgress=(projectId, proposalId)=>
+    {
+        if(this.data.projects[projectId])
+        {
+            if(this.data.projects[projectId].proposals[proposalId])
+            {
+                this.data.projects[projectId].proposals[proposalId].state=this.ProposalState.IN_PROGRESS
+                this.stateUpdated()
+            }
+        }
+    }
+
 }
 
 const instance = new State()

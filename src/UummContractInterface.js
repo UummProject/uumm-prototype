@@ -338,6 +338,7 @@ class UummContractInterface
 
     voteProposal=(projectId, proposalId, vote)=>
     {
+        State.setProposalInProgress(projectId, proposalId)
         return new Promise((resolve, reject)=>
         {
             this.contractInstance.VoteProposal.estimateGas(projectId, proposalId, vote)
@@ -359,6 +360,7 @@ class UummContractInterface
 
     resolveProposal=( projectId,  proposalId)=>
     {
+        State.setProposalInProgress(projectId, proposalId)
         return new Promise((resolve, reject)=>
         {
             this.contractInstance.ResolveProposal.estimateGas(projectId, proposalId)
