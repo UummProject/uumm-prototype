@@ -67,8 +67,8 @@ class ProjectDetails extends React.Component {
 
     render()
     {
-        var projectData = State.getEmptyProject()
-        var contributorData = State.getEmptyContributor()
+        let projectData = State.getEmptyProject()
+        let contributorData = State.getEmptyContributor()
     
         if(State.data.projects[this.props.projectId])
             projectData = State.data.projects[this.props.projectId]
@@ -77,24 +77,21 @@ class ProjectDetails extends React.Component {
                if(projectData.contributors[Web3AutoSetup.currentAccount])
                     contributorData = projectData.contributors[Web3AutoSetup.currentAccount]
 
-        //var ownership = Numeral(contributorData.valueTokens/projectData.totalSupply).format('0.0%')
-
-         var noOwnershipWarning = <div/>
+        let noOwnershipWarning = <div/>
+        let makeProposalButton = <div/>
 
         if(!contributorData)
             contributorData = State.getEmptyContributor()
-        if(!contributorData.valueTokens)
+
+        if(!contributorData.valueTokens && Web3AutoSetup.getProvider().canWrite)
         {
-             noOwnershipWarning= (<div style={{backgroundColor:"rgba(158, 158, 158, 0.22)", padding:20, marginBottom:20}}>
+            noOwnershipWarning= (<div style={{backgroundColor:"rgba(158, 158, 158, 0.22)", padding:20, marginBottom:20}}>           
                 <p>
                     Your address doesn't own any shares of this project, therefore you can't vote.
                 </p>
                 <p>
                     You can still make proposals though :)
-                </p>
-
-                
-
+                </p>         
             </div>)
         }
 
@@ -116,17 +113,21 @@ class ProjectDetails extends React.Component {
                     </div>
 
                     <div style={tabStyle}> 
+
                         {noOwnershipWarning}
+                        
                         <RaisedButton
                             secondary={true}
                             fullWidth={false}
                             label="Make new proposal"
-                            onTouchTap={this.onMakeNewProposal} /> 
+                            onTouchTap={this.onMakeNewProposal}
+                            disabled = {!Web3AutoSetup.getProvider().canWrite}/> 
+
                         <CreateProposalPage
                             open={this.state.newProposalDialogIsOpen}
                             onCancel={this.closeDialog}
                             onCreate={this.onProposalSubmited}/>
-                            
+
                         <ProposalsList
                             projectId={this.props.projectId}
                             userAddress={this.props.userAddress}
