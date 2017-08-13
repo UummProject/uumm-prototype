@@ -14,7 +14,8 @@ class OwnershipChart extends React.Component {
         this.state = {
             color:startColor,
             stake:0,
-            id:-1
+            id:-1,
+            user:{}
         }
         this.resetTimeout = {}
         window.setTimeout(this.showGraph,3000)
@@ -84,7 +85,8 @@ class OwnershipChart extends React.Component {
         }
 
         let colors = Chroma.scale([startColor,endColor]).mode('lch').colors(array.length)
-        colors=this.rotateArray(colors, this.state.user.id)
+        if(this.state.user.id)
+            colors=this.rotateArray(colors, this.state.user.id)
         array.sort(this.sortById)
         let index = 0
 
