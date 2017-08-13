@@ -3,6 +3,7 @@ import State from './State.js'
 import Web3AutoSetup from './Web3AutoSetup.js'
 import Divider from 'material-ui/Divider';
 import OwnershipChart from './OwnershipChart.js'
+import Numeral from 'numeral'
 
 const overflowStyle = {
     whiteSpace: "nowrap",
@@ -47,25 +48,40 @@ class ProjectDetails extends React.Component {
             <div>
 
                <div style={{display:"flex", flexDirection:"row"}}> 
-                    <OwnershipChart
-                        size={200}
-                        contributorsData={projectData.contributors}
-                        totalSupply={projectData.totalSupply}
-                        userAddress={this.props.userAddress}
-                        /> 
+                     
+                    <div style={{display:"flex",flexDirection:"column"}}>
+                        <OwnershipChart
+                            size={190}
+                            contributorsData={projectData.contributors}
+                            totalSupply={projectData.totalSupply}
+                            userAddress={this.props.userAddress}
+                            /> 
+                    </div>
+
 
                     <div style={{display:"flex",flexDirection:"column", overflow: "hidden",  paddingLeft:10 }}>
-                        <h5 style={subheaderStyle}>Project ID</h5>
-                        <p style={overflowStyle}> {projectData.id} </p>
-                        <h5 style={subheaderStyle}>Project total token supply</h5>
-                        <p> {projectData.totalSupply} </p>
+
                         <h5 style={subheaderStyle}>Your address</h5>
                         <p style={this.getAddressStyle("#ff3366")}> {this.props.userAddress}</p>
                         <h5 style={subheaderStyle}>Your tokens</h5>
                         <p> {contributorData.valueTokens} </p>
                         <h5 style={subheaderStyle}>Available ethereum to withdraw</h5>
-                        <p> {contributorData.ethereumBalance} ETH </p>
+                        <p> {contributorData.etherBalance} ETH </p>
+
+
+                        <h5 style={subheaderStyle}>Project ID</h5>
+                        <p style={overflowStyle}> {projectData.id} </p>
+                        <h5 style={subheaderStyle}>Project total token supply</h5>
+                        <p> {projectData.totalSupply} </p>
+                        
+
+                        <h5 style={subheaderStyle}>Required concensus</h5>
+                        <p style={overflowStyle}> {Numeral(projectData.requiredConcensus).format('0%')} </p>
+
+                        <h5 style={subheaderStyle}>Minimum participation</h5>
+                        <p style={overflowStyle}> {Numeral(projectData.requiredParticipation).format('0%')}  </p>
                     </div>
+
                     
                     <Divider/>
 

@@ -94,7 +94,6 @@ class State
 
     stateUpdated=()=>
     {
-        console.log("updated")
         for(var i = 0; i<this.stateUpdatedCallbacks.length; i++)
         {
             this.stateUpdatedCallbacks[i]()
@@ -108,6 +107,8 @@ class State
             'name' : "",
             'id' : "",
             'creationDate' : new Date (),
+            'requiredConcensus':0,
+            'requiredParticipation':0,
             'totalSupply': 0,
             'unconfirmedProposals':{},
             'contributors':{}
