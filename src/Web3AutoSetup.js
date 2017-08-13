@@ -10,6 +10,11 @@ const Providers={
     LOCALHOST:"localhost"
 }
 
+const ProviderTypes={
+    INJECTED:"injected",
+    HTTP:"http"
+}
+
 const InjectedProviders=[
     Providers.INJECTED,
     Providers.METAMASK,
@@ -213,8 +218,8 @@ class Web3AutoSetup
             id:undefined,
             type:undefined,
             host:undefined,
-            couldWrite:undefined, //refering to the blockchain
-            canWrite:undefined //refering to the blockchain 
+            couldWrite:true, //refering to the blockchain. By default we assume that a provider could write
+            canWrite:undefined //refering to the blockchain. Meaning that an account it's unlocked
         }
 
         //provider.contsructor.name is not reliable to detect the current Provider.
@@ -222,32 +227,32 @@ class Web3AutoSetup
         if(this.provider.constructor.name === "MetamaskInpageProvider")        
         {
             providerInfo.id= Providers.METAMASK
-            providerInfo.type= "injected"
+            providerInfo.type= ProviderTypes.INJECTED
         }
 
         else if(this.provider.constructor.name === "EthereumProvider")        
         {
             providerInfo.id= Providers.MIST
-            providerInfo.type= "injected"
+            providerInfo.type= ProviderTypes.INJECTED
         }
 
          else if(this.provider.constructor.name === "o")        
         {
             providerInfo.id= Providers.PARITY
-            providerInfo.type= "injected"
+            providerInfo.type= ProviderTypes.INJECTED
         }
 
         else if(this.provider.host.indexOf("infura")!==-1) 
         {
             providerInfo.id= Providers.INFURA
-            providerInfo.type= "http"
+            providerInfo.type= ProviderTypes.HTTP
             providerInfo.canWrite = false          
         } 
             
         else if(this.provider.host.indexOf("localhost")!==-1)  
         { 
             providerInfo.id= Providers.LOCALHOST
-            providerInfo.type= "http"
+            providerInfo.type= ProviderTypes.HTTP
             providerInfo.canWrite = false
         }
 
