@@ -11,6 +11,7 @@ import Web3AutoSetup from './Web3AutoSetup.js'
 import Uumm from './UummContractInterface.js'
 import GreyTheme from './GreyTheme.js'
 import './index.css'
+import LandingPage from './LandingPage.js'
 
 InjectTapEventPlugin()
 
@@ -123,7 +124,8 @@ class App extends Component
             <div className="App">
                 <MuiThemeProvider muiTheme={GreyTheme}>
                     <div>
-                        <NetworkState/>
+                        
+                       
 
                         <div style={{
                                 display:"flex",
@@ -131,6 +133,8 @@ class App extends Component
                                 alignItems:"flexStart"
                             }}>
                             <div style={{margin:20, maxWidth:600, minWidth:400}}>
+                                
+                                <NetworkState/>
                                 {page}                              
                             </div>
                         </div>
