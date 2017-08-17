@@ -79,10 +79,7 @@ class ProjectDetails extends React.Component {
 
         let noOwnershipWarning = <div/>
 
-        if(!contributorData)
-            contributorData = State.getEmptyContributor()
-
-        if(!contributorData.valueTokens && Web3AutoSetup.getProvider().canWrite)
+        if(!contributorData.valueTokens && Web3AutoSetup.getProviderInfo().canWrite)
         {
             noOwnershipWarning= (<div style={{backgroundColor:"rgba(158, 158, 158, 0.22)", padding:20, marginBottom:20}}>           
                 <p>
@@ -120,7 +117,7 @@ class ProjectDetails extends React.Component {
                             fullWidth={false}
                             label="Make new proposal"
                             onTouchTap={this.onMakeNewProposal}
-                            disabled={!Web3AutoSetup.getProvider().canWrite}/> 
+                            disabled={!Web3AutoSetup.getProviderInfo().canWrite}/> 
 
                         <CreateProposalPage
                             open={this.state.newProposalDialogIsOpen}
