@@ -78,7 +78,7 @@ class ProjectDetails extends React.Component {
                         <h5 style={subheaderStyle}>Required concensus</h5>
                         <p style={overflowStyle}> {Numeral(projectData.requiredConcensus).format('0%')} </p>
 
-                        <h5 style={subheaderStyle}>Minimum participation</h5>
+                        <h5 style={subheaderStyle}>Required participation</h5>
                         <p style={overflowStyle}> {Numeral(projectData.requiredParticipation).format('0%')}  </p>
                     </div>
 
