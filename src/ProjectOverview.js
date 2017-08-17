@@ -58,7 +58,6 @@ class ProjectDetails extends React.Component {
                             /> 
                     </div>
 
-
                     <div style={{display:"flex",flexDirection:"column", overflow: "hidden",  paddingLeft:10 }}>
 
                         <h5 style={subheaderStyle}>Your address</h5>
@@ -72,8 +71,7 @@ class ProjectDetails extends React.Component {
                         <h5 style={subheaderStyle}>Project ID</h5>
                         <p style={overflowStyle}> {projectData.id} </p>
                         <h5 style={subheaderStyle}>Project total token supply</h5>
-                        <p> {projectData.totalSupply} </p>
-                        
+                        <p> {projectData.totalSupply} </p>    
 
                         <h5 style={subheaderStyle}>Required concensus</h5>
                         <p style={overflowStyle}> {Numeral(projectData.requiredConcensus).format('0%')} </p>
@@ -81,10 +79,6 @@ class ProjectDetails extends React.Component {
                         <h5 style={subheaderStyle}>Required participation</h5>
                         <p style={overflowStyle}> {Numeral(projectData.requiredParticipation).format('0%')}  </p>
                     </div>
-
-                    
-                    <Divider/>
-
 
                 </div>
            </div>
