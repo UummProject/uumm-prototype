@@ -56,11 +56,11 @@ Once the MVP is done and tested we will re-think the direction of the project.
 - [x] Minimal user interface implementation 
 - [x] [Public Ropsten deployment](https://xavivives.github.io/Uumm/)
 - [x] Code optimizations
+- [x] Beautification
 - [ ] Unit tests **(WIP)**
 - [ ] Testing and polishing **(WIP)**
-- [x] Beautification
 - [ ] Deploy to mainnet
-- [ ] Move on to next stage
+- [ ] Re-think. Re-design.
 
 # Tech stack
 The project runs on top of the Ethereum network.
