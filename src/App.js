@@ -20,7 +20,7 @@ const PROJECTS_LIST="ProjectsList"
 const PROJECT_PAGE="ProjectPage"
 const LANDING_PAGE="LandingPage"
 
-const contentStyle= {margin:20, maxWidth:600, minWidth:400}
+const contentStyle={margin:20, maxWidth:600, minWidth:400}
 
 class App extends Component
 {
@@ -75,18 +75,26 @@ class App extends Component
 
     route=(params)=>
     {
-        //TODO: validate string
+        let page = QueryString.stringify(params)
+
         if(params.projectId)
         {
             this.setState({
+
                 'currentPage':PROJECT_PAGE,
                 'currentProjectId':params.projectId
                 })
         }
-        else
+        else if (page === 'projects')
         {
             this.setState({
-                 'currentPage':this.LANDING_PAGE,
+                 'currentPage':PROJECTS_LIST
+             })
+        }
+        else if (page === 'intro')
+        {
+            this.setState({
+                 'currentPage':LANDING_PAGE,
             })
         }
     }
@@ -138,8 +146,8 @@ class App extends Component
         }
     }
 
-    render(){
-
+    render()
+    {
         var page=this.getCurrentPage();
         return (
             <div className="App">
