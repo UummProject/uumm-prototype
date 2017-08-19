@@ -8,6 +8,7 @@ import Web3AutoSetup from './Web3AutoSetup.js'
 import {Tabs, Tab} from 'material-ui/Tabs'
 import SwipeableViews from 'react-swipeable-views'
 import ProjectOverview from './ProjectOverview.js'
+import Warning from './Warning.js'
 
 const tabStyle=
 {
@@ -81,14 +82,10 @@ class ProjectDetails extends React.Component {
 
         if(!contributorData.valueTokens && Web3AutoSetup.getProviderInfo().canWrite)
         {
-            noOwnershipWarning= (<div style={{backgroundColor:"rgba(158, 158, 158, 0.22)", padding:20, marginBottom:20}}>           
-                <p>
-                    Your address doesn't own any shares of this project, therefore you can't vote.
-                </p>
-                <p>
-                    You can still make proposals though :)
-                </p>         
-            </div>)
+            noOwnershipWarning= <Warning>           
+                <p>Your address doesn't own any shares of this project, therefore you can't vote.</p>
+                <p>You can still make proposals though :)</p>         
+            </Warning>
         }
 
         return (

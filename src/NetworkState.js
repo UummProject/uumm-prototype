@@ -1,22 +1,8 @@
 import React from 'react'
-import Paper from 'material-ui/Paper'
+import Warning from './Warning.js'
 import Uumm from './UummContractInterface.js'
 import Web3AutoSetup from './Web3AutoSetup.js'
 import Video from 'react-youtube'
-
-const containerStyle =
-{
-    display: 'flex',
-    flexDirection: 'column',
-    flexWrap: 'nowrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding : 15,
-    marginTop : 0,
-    margnBottom : 30,
-    marginLeft:0,
-    marginRight:0
-}
 
 class NetworkState extends React.Component {
 
@@ -68,43 +54,43 @@ class NetworkState extends React.Component {
 
     getSmallHint=(text)=>
     {
-        return (<Paper style={containerStyle} >
+        return (<Warning important >
             <div>
                 <p> {text}</p>
             </div>
-        </Paper>)
+        </Warning>)
     }
 
     getInfuraHint=()=>
     {
         var exampleLink="https://xavivives.github.io/Uumm/#projectId=0x1568dca1bef08d48017f034930c853bd9487ba947eb58fd51db9979e6de638f9"
         var infuraLink ="https://infura.io/"
-        return (<Paper style={containerStyle} >
+        return (<Warning important>
             <p> You're connected to ethereum using <a href={infuraLink}> {"Infura gateway"}</a></p>
             <p> This means that you can only read the content of already existing projects, <a href={exampleLink}> {"Like this one"}</a></p>
             <p> If you want to create a project or participate in one, we suggest you to  <a href="https://metamask.io/"> {"install MetaMask"}</a> browser extension</p>
-        </Paper>)
+        </Warning>)
     }
 
     getNoConnectionHint=()=>
     {
-        return(<Paper style={containerStyle} >
+        return(<Warning important>
                     <h3> Unable to connect to the Ethereum blockchain</h3>
                    
-                </Paper>)
+                </Warning>)
     }
 
     getNoProviderHint=()=>
     {
         var video =<Video videoId="6Gf_kRE4MJU"/>
 
-        return(<Paper style={containerStyle} >
+        return(<Warning important>
                     <h3> We need access to the Ethereum network.</h3>
                     <h3> The easiest way is to <a href="https://metamask.io/"> {"Install MetaMask"}</a> browser extension</h3>
 
                     <br/>
                     {video}
-                </Paper>)
+                </Warning>)
     }
 
     getDetails=()=>
@@ -113,13 +99,13 @@ class NetworkState extends React.Component {
         if(this.state.connected)
             connected = "true"
 
-        return (<Paper style={containerStyle} >
+        return (<Warning>
                     <p> Connected: {connected} </p> 
                     <p> Network: {this.state.network} </p> 
                     <p> Provider: {this.state.provider.id} </p>
                     <p> Your address: {this.state.userAddress}</p>
                 
-                </Paper>)
+                </Warning>)
     }
 
     render()
