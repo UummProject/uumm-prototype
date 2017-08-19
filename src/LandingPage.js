@@ -32,7 +32,7 @@ We have a first working prototype. It covers a simple use-case where
 
 We are already working on a second iteration, and we would love to hear any input you may have.`
 
-const imgUrl= 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Anatomical_engraving_of_a_horse._Wellcome_V0016883.jpg'
+const imgUrl= process.env.PUBLIC_URL + '/img/horseAnatomy.jpg'
 
 const introStyle={
     backgroundColor:'grey',
@@ -49,6 +49,16 @@ const backgroundImageStyle={
     backgroundPosition:'center',
 }
 
+const titleStyle ={
+   color: '#666666',
+   fontSize: '3em',
+   margin:0
+}
+
+const subtitleStyle = {
+    color: '#666666'
+}
+
 class LandingPage extends React.Component {
 
     constructor(props)
@@ -61,24 +71,24 @@ class LandingPage extends React.Component {
         return (
             <div>
                 <div style = {backgroundImageStyle}>
-                  <div style={{color:'white', display:"flex", justifyContent:"center", alignItems:"center", height:'100%', flexDirection: 'column' }}>
-                        <h1 style={{color:'white'}}>
-                            UUMM
+                  <div style={{color:'white', display:'flex', justifyContent:'center', alignItems:'center', height:'100%', flexDirection: 'column' }}>
+                        <h1 style={titleStyle}>
+                            uumm
                         </h1>
-                        <h3>
-                            Decentralized meritocracy
-                        </h3>
-
+                        <p style={subtitleStyle}>
+                            decentralized meritocracy
+                        </p>
+                        <br/>
                         <RaisedButton
-                            secondary={false}
+                            secondary={true}
                             fullWidth={false}
-                            label="Create a project"
+                            label='Create a project'
                             onTouchTap={this.props.createProject}/> 
 
                     </div>
                 </div>
-                    <div style={{ display:"flex", justifyContent:"center", alignItems:"flexStart" }}>
-                        <div className="markdown"  style={{margin:20, maxWidth:600, minWidth:400}}>            
+                    <div style={{ display:'flex', justifyContent:'center', alignItems:'flexStart', 'backgroundColor':'#333333' }}>
+                        <div className='markdown'  style={{margin:20, marginBottom:50, maxWidth:600, minWidth:400, color:'#cccccc'}}>            
                             <ReactMarkdown source={whatIsThis}/>
                         </div>
                     </div>
