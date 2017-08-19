@@ -6,16 +6,6 @@ import ProjectsList from './ProjectsList.js'
 import CreateProjectPage from './CreateProjectPage.js'
 import RaisedButton from 'material-ui/RaisedButton'
 
-const FloatingButtonStyle = {
-    margin: 0,
-    top: 'auto',
-    right: 20,
-    bottom: 20,
-    left: 'auto',
-    position: 'fixed',
-    zIndex:100
-};
-
 class ProjectsListPage extends Component
 {
     constructor(props) {
