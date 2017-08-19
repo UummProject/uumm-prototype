@@ -26,7 +26,7 @@ const imgUrl= process.env.PUBLIC_URL + '/img/horseAnatomy.jpg'
 
 const introStyle={
     backgroundColor:'grey',
-    height:window.innerHeight
+    height:window.innerHeight,
 }
 
 const backgroundImageStyle={
@@ -42,7 +42,7 @@ const backgroundImageStyle={
 const titleStyle ={
    color: '#666666',
    fontSize: '3em',
-   margin:0
+   margin:0,
 }
 
 const subtitleStyle = {
@@ -54,6 +54,7 @@ class LandingPage extends React.Component {
     constructor(props)
     {
         super()
+        window.location.hash = "intro"
     }
 
     render()
@@ -78,7 +79,7 @@ class LandingPage extends React.Component {
                     </div>
                 </div>
                 <div style={{ display:'flex', justifyContent:'center', alignItems:'flexStart', 'backgroundColor':'#333333'}}>
-                    <div className='markdown'  style={{margin:20, marginBottom:50, maxWidth:600, minWidth:400, color:'#cccccc'}}>            
+                    <div className='markdown'  style={{margin:20, marginBottom:50, maxWidth:600, minWidth:400, color:'#cccccc', 'lineHeight':1.7}}>            
                         <ReactMarkdown source={whatIsThis}/>
                         <br/>
 
