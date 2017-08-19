@@ -4,6 +4,7 @@ import AddIcon from 'material-ui/svg-icons/content/add'
 import Uumm from './UummContractInterface.js'
 import ProjectsList from './ProjectsList.js'
 import CreateProjectPage from './CreateProjectPage.js'
+import RaisedButton from 'material-ui/RaisedButton'
 
 const FloatingButtonStyle = {
     margin: 0,
@@ -19,7 +20,8 @@ class ProjectsListPage extends Component
 {
     constructor(props) {
         super(props)
-       this.state = {"createDialogIsOpen" : false};
+        window.location.hash = "projects"
+        this.state = {"createDialogIsOpen" : false};
     }
 
     closeDialog=()=>
@@ -50,14 +52,12 @@ class ProjectsListPage extends Component
 
         return (
             <div>
-                <FloatingActionButton
+                <RaisedButton
                     onTouchTap={this.onCreateProjectTap}
                     secondary={true}
-                    style={FloatingButtonStyle}
                     disabled={!this.props.canWrite}
-                    >
-                    <AddIcon />
-                </FloatingActionButton>
+                    label ='Create a project'
+                    />
 
                 <ProjectsList
                     onProjectSelected={this.onProjectSelected}
