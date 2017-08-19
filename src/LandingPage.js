@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 
 
 const whatIsThis=`
-## What is this
+# What is this
 
 In recent years a new paradigm around decentralization has emerged.
 Technologies such as [Ethereum](https://www.ethereum.org/), [IPFS](https://ipfs.io/) or [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin) offer a new set of possibilities for re-designing most of the systems that drive our society.
@@ -15,17 +15,12 @@ Technologies such as [Ethereum](https://www.ethereum.org/), [IPFS](https://ipfs.
 
 For good decisions to be made the right incentives must be in place. One of the goals of this project is to create a tool that makes easy to create such ecosystem.
 
-## How it works
+# Where are we
+We have a first working prototype. On the [Github repo](https://github.com/xavivives/uumm) you can find all the details about it.
 
-The logic behind Uumm runs on Ethereum Network. Making the process extremely hard to censorship, transparent and accessible to anyone/anything.
+At the same time we are already working on a second iteration.
 
-
-## Where are we
-We have a first working prototype. It covers a simple use-case where
-
-**Contribution = Voting rights = Earnings**
-
-We are already working on a second iteration, and we [would love to hear any input you may have](https://github.com/xavivives/uumm/issues).`
+[Follow us on twitter](https://twitter.com/xavivives), to stay up to date.`
 
 const imgUrl= process.env.PUBLIC_URL + '/img/horseAnatomy.jpg'
 
@@ -82,12 +77,22 @@ class LandingPage extends React.Component {
 
                     </div>
                 </div>
-                    <div style={{ display:'flex', justifyContent:'center', alignItems:'flexStart', 'backgroundColor':'#333333' }}>
-                        <div className='markdown'  style={{margin:20, marginBottom:50, maxWidth:600, minWidth:400, color:'#cccccc'}}>            
-                            <ReactMarkdown source={whatIsThis}/>
-                        </div>
+                <div style={{ display:'flex', justifyContent:'center', alignItems:'flexStart', 'backgroundColor':'#333333'}}>
+                    <div className='markdown'  style={{margin:20, marginBottom:50, maxWidth:600, minWidth:400, color:'#cccccc'}}>            
+                        <ReactMarkdown source={whatIsThis}/>
+                        <br/>
+
+                        <div style={{color:'white', display:'flex', justifyContent:'center', alignItems:'center', flexDirection: 'column' }}>
+                             <RaisedButton
+                                secondary={false}
+                                fullWidth={false}
+                                label='Create your first governance'
+                                onTouchTap={this.props.onActionButton}/> 
+                        <div/>            
                     </div>
-           </div>
+                </div>
+            </div>
+        </div>
         )
     }
 }
