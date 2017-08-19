@@ -1,7 +1,5 @@
 import React from 'react'
-import Divider from 'material-ui/Divider'
 import ReactMarkdown from'react-markdown'
-import text from './site.md'
 import RaisedButton from 'material-ui/RaisedButton'
 
 const whatIsThis=`
@@ -19,12 +17,7 @@ We're also working on the next second iteration.
 
 [Follow us on twitter](https://twitter.com/xavivives), to stay up to date.`
 
-const imgUrl= process.env.PUBLIC_URL + '/img/horseAnatomy.jpg'
-
-const introStyle={
-    backgroundColor:'grey',
-    height:window.innerHeight,
-}
+const imgUrl= process.env.PUBLIC_URL + '/img/horseAnatomy.jpg'  
 
 const backgroundImageStyle={
     backgroundColor:'grey',
@@ -58,7 +51,7 @@ class LandingPage extends React.Component {
     {
         return (
             <div>
-                <div style = {backgroundImageStyle}>
+                <div style={backgroundImageStyle}>
                   <div style={{color:'white', display:'flex', justifyContent:'center', alignItems:'center', height:'100%', flexDirection: 'column' }}>
                         <h1 style={titleStyle}>
                             uumm

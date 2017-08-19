@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import AddIcon from 'material-ui/svg-icons/content/add'
 import Uumm from './UummContractInterface.js'
 import ProjectsList from './ProjectsList.js'
 import CreateProjectPage from './CreateProjectPage.js'
@@ -46,7 +44,7 @@ class ProjectsListPage extends Component
                     onTouchTap={this.onCreateProjectTap}
                     secondary={true}
                     disabled={!this.props.canWrite}
-                    label ='Create a project'
+                    label='Create a project'
                     />
 
                 <ProjectsList

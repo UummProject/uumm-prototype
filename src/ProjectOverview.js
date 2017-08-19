@@ -1,7 +1,6 @@
 import React from 'react'
 import State from './State.js'
 import Web3AutoSetup from './Web3AutoSetup.js'
-import Divider from 'material-ui/Divider';
 import OwnershipChart from './OwnershipChart.js'
 import Numeral from 'numeral'
 

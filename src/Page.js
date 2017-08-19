@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Warning from './Warning.js'
 import RaisedButton from 'material-ui/RaisedButton'
 
-const FloatingButtonStyle = {
+const FloatingButtonStyle={
     margin: 0,
     top: 'auto',
     right: 20,
@@ -12,7 +12,7 @@ const FloatingButtonStyle = {
     zIndex:100
 };
 
-const FloatingButtonStyle2 = {
+const FloatingButtonStyle2={
     margin: 0,
     top: 'auto',
     right: 20,
@@ -22,8 +22,8 @@ const FloatingButtonStyle2 = {
     zIndex:100
 };
 
-const twitterLink = 'http://twitter.com/home?status=@xavivives About this Uumm tool...'
-const issueLink = 'https://github.com/xavivives/uumm/issues/new'
+const twitterLink='http://twitter.com/home?status=@xavivives About this Uumm tool...'
+const issueLink='https://github.com/xavivives/uumm/issues/new'
 
 class Page extends Component
 {
@@ -41,20 +41,20 @@ class Page extends Component
                          {this.props.children}
 
                          <RaisedButton
-                            style = {FloatingButtonStyle2}
-                            href = {twitterLink}
+                            style={FloatingButtonStyle2}
+                            href={twitterLink}
                             secondary={false}
                             disabled={false}
-                            label ='Feedback?'
+                            label='Feedback?'
                             />
 
                             <RaisedButton
-                            style = {FloatingButtonStyle}
-                            href = {issueLink}
+                            style={FloatingButtonStyle}
+                            href={issueLink}
                             onTouchTap={this.onProblemClicked}
                             secondary={false}
                             disabled={false}
-                            label ='Problems?'
+                            label='Problems?'
                             />
 
                      </div>                             

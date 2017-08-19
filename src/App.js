@@ -20,8 +20,6 @@ const PROJECTS_LIST="ProjectsList"
 const PROJECT_PAGE="ProjectPage"
 const LANDING_PAGE="LandingPage"
 
-const contentStyle={margin:20, maxWidth:600, minWidth:400}
-
 class App extends Component
 {
     constructor(props)
