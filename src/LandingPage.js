@@ -83,7 +83,7 @@ class LandingPage extends React.Component {
                             secondary={true}
                             fullWidth={false}
                             label='Create a project'
-                            onTouchTap={this.props.createProject}/> 
+                            onTouchTap={this.props.onActionButton}/> 
 
                     </div>
                 </div>

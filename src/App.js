@@ -12,11 +12,15 @@ import Uumm from './UummContractInterface.js'
 import GreyTheme from './GreyTheme.js'
 import './index.css'
 import LandingPage from './LandingPage.js'
+import Page from './Page.js'
 
 InjectTapEventPlugin()
 
 const PROJECTS_LIST="ProjectsList"
 const PROJECT_PAGE="ProjectPage"
+const LANDING_PAGE="LandingPage"
+
+const contentStyle= {margin:20, maxWidth:600, minWidth:400}
 
 class App extends Component
 {
@@ -25,7 +29,7 @@ class App extends Component
         super(props) 
 
         this.state ={
-            'currentPage':PROJECTS_LIST,
+            'currentPage':LANDING_PAGE,
             'currentProjectId':0,
             'userAddress' : Web3AutoSetup.currentAccount,
             'canWrite':false
@@ -82,7 +86,7 @@ class App extends Component
         else
         {
             this.setState({
-                 'currentPage':this.PROJECT_LIST,
+                 'currentPage':this.LANDING_PAGE,
             })
         }
     }
@@ -95,25 +99,42 @@ class App extends Component
         })
     }
 
+    onActionButton = ()=>
+    {
+         this.setState({
+            'currentPage':PROJECTS_LIST
+        })
+    }
+
     getCurrentPage = () =>
     {
          switch (this.state.currentPage)
          {
             case PROJECTS_LIST:
-                return  <ProjectsListPage
-                    onProjectSelected={this.onProjectSelected}
-                    userAddress={this.state.userAddress}
-                    canWrite={this.state.canWrite}/>
+                return  <Page>   
+                            <NetworkState/>
+                            <ProjectsListPage
+                                onProjectSelected={this.onProjectSelected}
+                                userAddress={this.state.userAddress}
+                                canWrite={this.state.canWrite}/>                             
+                        </Page>
+
             case PROJECT_PAGE:
-                return  <ProjectPage
-                    projectId={this.state.currentProjectId}
-                    userAddress={this.state.userAddress}
-                    canWrite={this.state.canWrite}/>
+                return  <Page>   
+                            <NetworkState/>
+                            <ProjectPage
+                                projectId={this.state.currentProjectId}
+                                userAddress={this.state.userAddress}
+                                canWrite={this.state.canWrite}/>                             
+                        </Page>
+
+            case LANDING_PAGE:
+                return  <LandingPage
+                    onActionButton={this.onActionButton}/>
+
             default :
-                return <ProjectsListPage
-                    onProjectSelected={this.onProjectSelected}
-                    userAddress={this.state.userAddress}
-                    canWrite={this.state.canWrite}/>
+                return  <LandingPage
+                    onActionButton={this.onActionButton}/>
         }
     }
 
@@ -122,23 +143,8 @@ class App extends Component
         var page=this.getCurrentPage();
         return (
             <div className="App">
-                <MuiThemeProvider muiTheme={GreyTheme}>
-                    <div>
-                        
-                       
-
-                        <div style={{
-                                display:"flex",
-                                justifyContent:"center",
-                                alignItems:"flexStart"
-                            }}>
-                            <div style={{margin:20, maxWidth:600, minWidth:400}}>
-                                
-                                <NetworkState/>
-                                {page}                              
-                            </div>
-                        </div>
-                    </div>
+                <MuiThemeProvider muiTheme={GreyTheme}>              
+                  {page}                              
                 </MuiThemeProvider>
             </div>
         )
