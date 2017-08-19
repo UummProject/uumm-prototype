@@ -22,7 +22,7 @@ const FloatingButtonStyle2 = {
     zIndex:100
 };
 
-const twitterLink = 'http://twitter.com/home?status=@xavivives About the Uummm tool...'
+const twitterLink = 'http://twitter.com/home?status=@xavivives About this Uumm tool...'
 const issueLink = 'https://github.com/xavivives/uumm/issues/new'
 
 class Page extends Component
