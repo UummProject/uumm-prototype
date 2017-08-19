@@ -103,7 +103,6 @@ Another important motivation for me is to use the system for future projects of 
 # Brainstorming
 _When an idea seems a little cohesive I dump it here. Have more? Let me know!_
 
-
 ### Proposal types
 - **Contribution done:** The only type of proposal for the current MVP. The contributor asks for token after contribution. _"I've done X, I believe I should receive Y tokens for it"_
 - **Contribution promise:** The preferable type since the participants agreed on the conditions before any effort is made. _"I will do X for Y tokens before deadline"._
@@ -147,13 +146,10 @@ A symbol for representing is likely to be needed as well.
 [Greek alphabet](https://en.wikipedia.org/wiki/Greek_alphabet) is a good source of inspiration.
 Would be nice that on top of being a good looking character and had some meaning.
 
-### User interface
-Not a focus on the current stage, but a vital element after the core/contract is solid.
-
 ### Privacy
 I have no solid opinion on how private data should be in this kind of project. Ideas are welcomed. Current apporach assumes no privacy.
 
-##Other stuff
+## Other stuff
 
 #### Project name 
 **D**ecentralized **C**ontribution **B**ased **G**overnance was its original name. It was kind of super shitty and after few days I was unable to keep coding and seeing _DCBG_ everywhere...
