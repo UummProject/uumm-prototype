@@ -1,5 +1,6 @@
-# Interoperabile Adhocracy
+# Interoperable Adhocracy
 
+_This is a live document, let us know if you think some hipothesis is incorrect, you have a better idea how to phrase things, use a more accurate terminology, see any error, have insights..._
 
 ## The ideal governance
 For "ideal" I mean the necessary features that a system needs to make the best decisions possible, for whatever the goal is.
