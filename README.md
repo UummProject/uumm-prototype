@@ -81,7 +81,7 @@ The system was never put in practice, but a good amount thinking went into it.
 Just recently I've been digging deep into Ethereum, and that seemed a perfect fit and a great excuse to explore and understand the platform better.
 
 ### Generalization
-It is common for collaborative or open projects to start with an abstract idea, grow organically to finally shape into more serious/structured stuff.
+It is common for collaborative or open projects to start being some sort of [adhocracy](https://en.m.wikipedia.org/wiki/Adhocracy), with aan abstract idea, grow organically to finally shape into more serious/structured stuff.
 
 Common features at the begining of these projects are:
 - No tools for tracking progress
