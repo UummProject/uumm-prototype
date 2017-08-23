@@ -1,21 +1,40 @@
 # Interoperable Adhocracy
 
-_This is a live document, let us know if you think some hipothesis is incorrect, you have a better idea how to phrase things, use a more accurate terminology, see any error, have insights..._
+_This is a live document, I'll appreciate any idea on how it could be improved_
 
-## The ideal governance
-For "ideal" I mean the necessary features that a system needs to make the best decisions possible, for whatever the goal is.
+##Deconsturcting governance
+As part of the Uumm project I wanted to distill 'governance' to its bare bones, to later put it together in some sort of tool. It was personal exercice I wanted to do to understand the theortical and empirical issues.
+
+It soon become aparent that 'governance' is a wide concept and very loosley used. What I really was trying to understand was Adhocracy.
+
 
 ### Meritocracy as a base.
-All the governance models are a supset of Meritocracy, if you understand _merit_ as the feature that defines the right to vote.
+All governance models are a supset of Meritocracy, if you understand _merit_ as the feature that defines the right of an entitity opinion to be considered (vote).
 
-For a meritocracy to work, the defniniton of merit needs to create incentives towards the system goals. It should tell what it gives value to. If is defined broadly or incorrectly the system is likely to [fail](http://lesswrong.com/lw/y3/value_is_fragile/) or be gammed.
+For a system to work, the defniniton of merit needs to create incentives towards the system goals. Merit should tell what is of value to the system in order to make decisions. If is defined broadly or incorrectly the system is likely to have [unintended consequences](http://lesswrong.com/lw/y3/value_is_fragile/) or be gammed.
+
+In Bitcoin, to change the protocol (vote), the miner needs to secure the network (merit)
+
+In a small business the right to make decisions (vote) belongs to the owner (merit)
 
 ### Merit is not a currency
-In rerospective it seems so ovious, but it wasn't that clear before.
-
 `Merit can't be a medium of exchange`
 
 If you can trade the merit you end up with a system ruled by the entities that have more economic power.
+
+It does makes sense, of course, to reward the entities based on its merit. Or ideally based on a decision proven to be correct. 
+
+####Reputation
+Reputation systems have a very close correlation to merit. You could define reputation as a proven capcity of an entity. 
+
+####Prediction markets
+####Tokens
+
+
+### Clear and simple goal
+It is required for merit to be defined accurately
+
+
 
 ### Clear and simple goal
 It is required for merit to be defined accurately
@@ -30,9 +49,6 @@ Governance models tend to complexity. By nesting a governance inside another the
 
 
 
-### Interoperable
-If it is nestable, it needs to to communicate with other governaces (parents or childs). That means that some sort of interoperability should exist.
-
 ###Friction less
 ###Voluntary
 ###Simple
@@ -41,3 +57,12 @@ If it is nestable, it needs to to communicate with other governaces (parents or 
 
 
 ##What can we build
+One of the things that facinated me about Bitcoin was the fact that something as complex as a currency could work without an authority, or laws, Not imposed, completley voluntary.
+
+
+For the first iteration I went for a hands on approach on how to implement a very specific usecase I was dealing with few months ago. I called 'contribution-based governance', where...
+
+**Contribution = Voting rights = Earnings**
+
+
+any small companies have adopted the lean start-up model, which emphasizes early prototyping and pivoting rapidly to new business models as circumstances change.8 In all these settings, informed, decisive action matters more than formal authority or knowledge.
