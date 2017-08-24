@@ -1,33 +1,55 @@
 # Interoperable Adhocracy
 
-_This is a live document, I'll appreciate any idea on how it could be improved_
+_This is a live document, Any ideas on how it can be improved will be highly appreciated_
 
-##Deconsturcting governance
-As part of the Uumm project I wanted to distill 'governance' to its bare bones, to later put it together in some sort of tool. It was personal exercice I wanted to do to understand the theortical and empirical issues.
+##Reconstructing governance
+In recent years a new paradigm around decentralization has emerged.
+technologies such as [Ethereum](https://www.ethereum.org/), [IPFS](https://ipfs.io/) or [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin) offer a new set of possibilities for re-designing most of the systems that drive our society.
 
-It soon become aparent that 'governance' is a wide concept and very loosley used. What I really was trying to understand was Adhocracy.
+_Governance_ has been echoing within the community for long time. And for good reason. The abscence of a central authority seems to imply no-governance. Whatever this is true or not governance issues have been all over the place.
+
+As part of the [Uumm](https://xavivives.github.io/Uumm/#intro) project I wanted to distill _governance_, to later put it together in some sort of tool. It was personal exercice to better understand how the future of governance may look like.
+
+It soon become aparent that _governance_ is a very broad concept and very loosley used. What I really was trying to understand was [Adhocracy](https://en.m.wikipedia.org/wiki/Adhocracy).
+
+This document is an attempt to imagine and lay down the fundamental pieces on how future organization could be govern within this new paradigm.
+
+# Meritocracy as a base.
+All governance models are a supset of [Meritocracy](https://en.wikipedia.org/wiki/Meritocracy), if you understand _merit_ as the feature that defines the right of an entitity opinion to be considered (vote).
+
+### Merit properties
+
+* Defines what's of value to the system in order to make decisions.
+* Can't be a medium of exchange
+* Needs to be quantifiable
+
+The previous properties don't get along very well to each other.
+
+## Merit is value
+
+For a system to work, the defniniton of merit needs to be aligned with the system goals. It should tell what is of value to the system in order to make decisions. If defined broadly or incorrectly the system is likely to have [unintended consequences](http://lesswrong.com/lw/y3/value_is_fragile/) or be gammed.
 
 
-### Meritocracy as a base.
-All governance models are a supset of Meritocracy, if you understand _merit_ as the feature that defines the right of an entitity opinion to be considered (vote).
 
-For a system to work, the defniniton of merit needs to create incentives towards the system goals. Merit should tell what is of value to the system in order to make decisions. If is defined broadly or incorrectly the system is likely to have [unintended consequences](http://lesswrong.com/lw/y3/value_is_fragile/) or be gammed.
 
-In Bitcoin, to change the protocol (vote), the miner needs to secure the network (merit)
 
-In a small business the right to make decisions (vote) belongs to the owner (merit)
-
-### Merit is not a currency
-`Merit can't be a medium of exchange`
+## Merit is not a currency
 
 If you can trade the merit you end up with a system ruled by the entities that have more economic power.
 
-It does makes sense, of course, to reward the entities based on its merit. Or ideally based on a decision proven to be correct. 
+It does makes sense, of course, to reward the entities based on its merit. Or ideally based on a decision proven to be correct. But this is not the same thing.
 
-####Reputation
-Reputation systems have a very close correlation to merit. You could define reputation as a proven capcity of an entity. 
+## Tokenized merit
+This is not a desired feature but a limitation. In order to operate, we need merit in a quantifiable format. Some sort of none-exchangable token.
+
+
+### Reputation
+Reputation systems have a very close correlation to merit. You could define reputation as a proven capcity of an entity.
+
+Repoutation sytems 
 
 ####Prediction markets
+
 ####Tokens
 
 
@@ -57,6 +79,13 @@ Governance models tend to complexity. By nesting a governance inside another the
 
 
 ##What can we build
+In Bitcoin, to change the protocol (vote), the miner needs to secure the network (merit)
+
+In a small business the right to make decisions (vote) belongs to the owner (merit)
+
+In a nation state to vote on elections (vote) you need to be a citizen  (merit)
+
+
 One of the things that facinated me about Bitcoin was the fact that something as complex as a currency could work without an authority, or laws, Not imposed, completley voluntary.
 
 
