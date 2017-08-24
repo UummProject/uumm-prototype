@@ -6,7 +6,7 @@ _This is a live document, Any ideas on how it can be improved will be highly app
 In recent years a new paradigm around decentralization has emerged.
 technologies such as [Ethereum](https://www.ethereum.org/), [IPFS](https://ipfs.io/) or [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin) offer a new set of possibilities for re-designing most of the systems that drive our society.
 
-_Governance_ has been echoing within the community for long time. And for good reason. The abscence of a central authority seems to imply no-governance. Whatever this is true or not governance issues have been all over the place.
+_Governance_ has been echoing within the community for long time. And for good reason. **The abscence of a central authority seems to imply no-governance**. Whatever this is true or not governance issues have been all over the place.
 
 As part of the [Uumm](https://xavivives.github.io/Uumm/#intro) project I wanted to distill _governance_, to later put it together in some sort of tool. It was personal exercice to better understand how the future of governance may look like.
 
@@ -20,14 +20,16 @@ All governance models are a supset of [Meritocracy](https://en.wikipedia.org/wik
 ### Merit properties
 
 * Defines what's of value to the system in order to make decisions.
-* Can't be a medium of exchange
+* **Can't** be a medium of exchange
 * Needs to be quantifiable
 
 The previous properties don't get along very well to each other.
 
 ## Merit is value
 
-For a system to work, the defniniton of merit needs to be aligned with the system goals. It should tell what is of value to the system in order to make decisions. If defined broadly or incorrectly the system is likely to have [unintended consequences](http://lesswrong.com/lw/y3/value_is_fragile/) or be gammed.
+For a system to work, the defniniton of merit needs to be aligned with the system goals. It should tell what is of value to the system in order to make decisions.
+
+If defined broadly or incorrectly the system is likely to have [unintended consequences](http://lesswrong.com/lw/y3/value_is_fragile/) or be gammed.
 
 
 
