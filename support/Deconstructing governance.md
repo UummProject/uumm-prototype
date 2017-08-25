@@ -6,7 +6,7 @@ _This is a live document, Any ideas on how it can be improved will be highly app
 In recent years a new paradigm around decentralization has emerged.
 technologies such as [Ethereum](https://www.ethereum.org/), [IPFS](https://ipfs.io/) or [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin) offer a new set of possibilities for re-designing most of the systems that drive our society.
 
-_Governance_ has been echoing within the community for long time. And for good reason. **e abscence of a central authority seems to imply no-governance. Whatever this is true or not governance issues have been all over the place.
+_Governance_ has been echoing within the community for long time. And for good reason. ** The abscence of a central authority seems to imply no-governance. Whatever this is true or not governance issues have been all over the place.
 
 As part of the [Uumm](https://xavivives.github.io/Uumm/#intro) project I wanted to distill _governance_, to later put it together in some sort of tool. It was personal exercice to better understand how the future of governance may look like.
 
@@ -16,6 +16,10 @@ This document is an attempt to imagine and lay down the fundamental pieces on ho
 
 # Meritocracy as a base.
 All governance systems are a supset of [Meritocracy](https://en.wikipedia.org/wiki/Meritocracy), if you understand _merit_ as the feature that defines the right of an entitity opinion to be considered (vote).
+
+_For ease of use and simplification I concentrated all the examples in a single section down below. You may jump there if something doesn't make total sense._
+
+_And for the same resaons I narrowed down the relevant merit properties to the following._
 
 ### Ideal properties of merit
 
@@ -27,7 +31,7 @@ All governance systems are a supset of [Meritocracy](https://en.wikipedia.org/wi
 
 For the system to work, the defniniton of merit needs to be aligned with the system goals. It should tell what is of value to the system in order to make decisions. In this sense, merit is used as a filter, only the entities with certain capacities can take decisions.
 
-If defined broadly or incorrectly the system is likely to have [unintended consequences](http://lesswrong.com/lw/y3/value_is_fragile/) or be gammed.x
+If defined broadly or incorrectly the system is likely to have [unintended consequences](http://lesswrong.com/lw/y3/value_is_fragile/) or be gammed.
 
 ## 2. Merit is not a currency
 It is not a medium of exchange.
@@ -47,18 +51,20 @@ This should be some sort of none-exchangable token, but not necessarly, for exam
 
 In the case of nation state elections, this your ID card.
 
-In the first iteration of Uumm this is the amount of contributions done.
+In the first iteration of Uumm this is the amount of contributions done by an entitity.
 
 ### System failure
 
 Most systems end up compromizing its own interest (#1) in order to make the system usable (#3). And so many others have an direct or indirect way to exchange merit (#2) and therfore compromizing its integrity.
 
-Defining merit is hard because it is a complex data type. How do you quantify in a sin But one of the reasons is complex, is because systems are complex.
+Defining merit is hard because it is a complex data type, and can't be easily reduced to a single number.
+
+The reason merit is complex is because systems are complex. Making systens simpler may be of great help (this is what the second part of this post is about), but it is not enough.
 
 ### Examples
 
 ### We can do better
-So, how do we create merit.
+So, where is the merit?
 
 ### Reputation
 Reputation systems have a very close correlation to merit. You could define reputation as a proven capcity of an entity.
@@ -71,7 +77,7 @@ Repoutation sytems are usually build on top of identities
 ## Reputation agreagators
 
 ### What do we need?
-An standard api for reading reputation
+An standard interface for reading reputation
 
 ### Clear and simple goal
 It is required for merit to be defined accurately
