@@ -1,4 +1,4 @@
-# Interoperable Adhocracy
+
 
 _This is a live document, Any ideas on how it can be improved will be highly appreciated_
 
@@ -29,7 +29,7 @@ _And for the same resaons I narrowed down the relevant merit properties to the f
 
 ## 1. Merit defines value
 
-For the system to work, the defniniton of merit needs to be aligned with the system goals. It should tell what is of value to the system in order to make decisions. In this sense, merit is used as a filter, only the entities with certain capacities can take decisions.
+For the system to work, the defininiton of merit needs to be aligned with the system goals. It should tell what is of value to the system in order to make decisions. In this sense, merit is used as a filter, only the entities with certain capacities can take decisions.
 
 If defined broadly or incorrectly the system is likely to have [unintended consequences](http://lesswrong.com/lw/y3/value_is_fragile/) or be gammed.
 
@@ -55,23 +55,42 @@ In the first iteration of Uumm this is the amount of contributions done by an en
 
 ### System failure
 
-Most systems end up compromizing its own interest (#1) in order to make the system usable (#3). And so many others have an direct or indirect way to exchange merit (#2) and therfore compromizing its integrity.
+Most systems end up compromizing its own interest (#1) in order to make the system usable (#3). And so many others have an direct or indirect way to exchange merit (#2) and therefore compromizing its integrity.
 
 Defining merit is hard because it is a complex data type, and can't be easily reduced to a single number.
 
-The reason merit is complex is because systems are complex. Making systens simpler may be of great help (this is what the second part of this post is about), but it is not enough.
+The reason merit is complex is because systems are complex. Making systems simpler may be of great help (this is what the second part of this post is about), but it is not enough.
 
-### Examples
+
 
 ### We can do better
-So, where is the merit?
+So, how can we make less compromized governance systems?
 
-### Reputation
+We could use the past as an indicator of future events. Which is something quite instinctive for human beings.
+
+### Prediction markets
+For not very complex systems, where data is mesurable, something like Futarchy is very close to ideal. 
+
+The merit of a participant is the capacity to predict events correctly. And it is rewarded if so.
+
+### Reputation systems
 Reputation systems have a very close correlation to merit. You could define reputation as a proven capcity of an entity.
+
+There are thousands of reputation systems already in use (any 5 stars raiting, credentials, comments, followers, likes...), the problem is that they usually live in mutable (therefore can be altered) permissioned (therefore unaccessible) databases. And because they're owned by entities that monetize on them, they have no incentive to change.
+
+The new paradigmn is different. Communities/platforms/daos that live on decentralized networks do not survive by keeping all this data, its quite the oposite. They enhance each other when the data is accesible.
+
+
+over Ethereum is the most ideal tool I'm aware of to build such systems. 
+
+
 
 Repoutation sytems are usually build on top of identities
 
-####Prediction markets
+### Examples
+
+**Nation state**
+Ideal merit doesn't exist because interst are different.
 
 
 ## Reputation agreagators
@@ -81,6 +100,8 @@ An standard interface for reading reputation
 
 ### Clear and simple goal
 It is required for merit to be defined accurately
+
+# Interoperable Adhocracy
 
 ### Identity agnostic
 If the goal is to make the best decision possible, it should not matter where the ideas com from. Anyone/thing should be a potential participant, whatever it's a kid, an AI, a prediction market, another governance entity.
