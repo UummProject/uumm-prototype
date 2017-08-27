@@ -78,7 +78,7 @@ The new paradigmn is different. Communities/platforms/daos that live on decentra
 
 The problem is that there is no standaritzation. The data is there, but is not accessible in the first place.
 
-[This document](https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust/blob/master/topics-and-advance-readings/DecentralizedCooperationNeedsDecentralizedReputation.md) by 
+[This document](https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust/blob/master/topics-and-advance-readings/DecentralizedCooperationNeedsDecentralizedReputation.md) by [Noah Thorp](https://twitter.com/noahthorp)  (2015) and [this proposal] (https://tools.ietf.org/html/rfc7071) by [IETF](https://www.ietf.org/), have a lot in common in what I'm suggesting.
 
 
 ### Processed reputation
