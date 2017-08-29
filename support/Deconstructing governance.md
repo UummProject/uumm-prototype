@@ -36,8 +36,8 @@ If defined broadly or incorrectly the system is likely to have [unintended conse
 ### 2. Merit is not a currency
 It is not a medium of exchange.
 
-If you can trade the merit you end up with a system ruled by the entities that have more economic power and any required skill intrinsic to the merit is gone.
-Therefore you end up with a system where the goal is to maximize profit but the entities that rule it have no necessary skill other than have economic power.
+If you can trade the merit you end up with a system ruled by the entities that have more economic power and any required capcity intrinsic to the merit is gone.
+Therefore you end up with a system where the goal is to maximize profit but the entities that rule it don't have thne necessary capacities other than having economic power.
 
 `Fun game: How many ICO tokens are used for governance?`
 
@@ -65,7 +65,7 @@ The reason merit is complex is because systems are complex. Making systems simpl
 We need metrics that can contain complex information.
 
 ## Reputation
-FOr complex decisions. Tokens for simple decisons?
+For complex decisions. Tokens for simple decisons?
 
 Within this context, merit defines a required capacity of an entity, while reputation is a proven record of a capacity.
 
@@ -86,9 +86,6 @@ Even with reputation sytems we still need to deal with the complexity problem.
 Is up to each system to decide how to compute merit. But is likely that it will use several reputation metrics to do so.
 As far as I can imagine, a system that can access and compute the necessary reputation metrics in order to build its own merit token, is the closest we can be to a true goverance.
 
-## Anonimity
- Zero knowledge reputation proofs.
-
 ## Incentives
 
 ## Aditional notes
@@ -108,6 +105,8 @@ It does seem an idea with a lot of potential and with very interesting usecases.
 Proxy voting is another common suggested improvement that the new paradigmn makes easy to implement.
 
 It makes merit exchangable, therefore breaking property #2.
+
+
 
 ### Questions
 - Is there any wrong assumption on this document?
@@ -142,8 +141,9 @@ It is required for merit to be defined accurately
 
 # Interoperable Adhocracy
 
-Until now we were descriving what will make a decision process ideal within the context of a single entity. Here we will be talking as how those entities could interact as a whole
+Before we attempted to describe the ideal features that single governance should have.
 
+What if any governance system could interact with any other governance? How this ecosystem should look like. What would it enable.
 
 ### Why adhocracy?
 _Governance_ is a broad concept very loosely used. The new decentralized paradigmn has a set of properties that are much better captured by adhocracy.
@@ -151,29 +151,44 @@ _Governance_ is a broad concept very loosely used. The new decentralized paradig
 >[Adhocracy](https://en.wikipedia.org/wiki/Adhocracy#Types_of_adhocracy) is characterized by an adaptive, creative and flexible integrative behavior based on **non-permanence**  and **spontaneity**. - Wikipedia
 
 
-
-
 ## Voluntary
 
-If you go over its [characteristics](https://en.wikipedia.org/wiki/Adhocracy#Characteristics_of_adhocracy) you will realize that many of those are just the result of participation being voluntary, therefore the _non-permanence_ feature.
+If you go over adhocracy [characteristics](https://en.wikipedia.org/wiki/Adhocracy#Characteristics_of_adhocracy) you will realize that many of those are just the result of participation being voluntary, therefore the _non-permanence_ feature.
 
 ### Darwinian selection
-https://en.wikipedia.org/wiki/Universal_Darwinism
-https://en.wikipedia.org/wiki/Adhocracy#Characteristics_of_adhocracy
+Voluntary participation on a governance system serves as [natural selection](https://en.wikipedia.org/wiki/Universal_Darwinism) tool.
+
+The reason this is important is because it becomes another governance process at the most fundamental level. It tells if a project should exist or not.
+
+Decentralized projects are intrinsically open-source, therfore they also can adapt or transofrm by being forked.
 
 
-### Identity agnostic
+## Identity agnostic
 
-If the goal is to make the best decision possible, it should not matter where the ideas com from. Anyone/thing should be a potential participant, whatever it's a kid, an AI, a prediction market or another governance entity.
+If the goal is to make the best decision possible, it should not matter where the ideas com from. Anyone/anything should be a potential participant, whatever it's a kid, an AI, a prediction market or another governance entity.
+
+Is the merit's job to filter who can participate.
+
+### Zero knowledge proof reputation
+There is a little paradox here. We need decentralized identities in order to build decentralized reputation systems.
+We also want the governance tools to be identity agnostic. While I don't see this as showstopper, [Zero knoledge proof](https://en.wikipedia.org/wiki/Zero-knowledge_proof) reputation seems be a nice to have
+
+
 
 Crypto-currencies almost come with this property built-in. The main problem here is accounts can be exchanged. [a](Reference required)
 
-### Nestable governance
+
+
+## Nestable governance
 That means that a governance system should be able to act as a participant entity to another governance system.
 
-Governance models tend to complexity. By nesting a governance inside another the incentives towards simple clear goals are kept, while adding sofistication to the system as a whole.
+### Keep it simple
+Governance models tend to complexity. By nesting a governance inside another the goals of a single governance entity can be keep simpler and therefore making the required merits simpler as well.
 
-This is common in most goverances already, that's why I was surprized to not find any existing proposal withing the new paradigm.
+### But complex
+This would allow the creation of hierachical structures, making the system as a whole complex, while keeping each entity simple.
+
+This is common in most goverances already (departments of a company, states/countys), that's why I was surprized to not find any existing proposal withinthe decentralized paradigm.
 
 
 
@@ -190,8 +205,6 @@ This is common in most goverances already, that's why I was surprized to not fin
 ###Simple
 ###Enforcable or turstable
 
-https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust/blob/master/topics-and-advance-readings/DecentralizedCooperationNeedsDecentralizedReputation.md
-
 ##What can we build
 In Bitcoin, to change the protocol (vote), the miner needs to secure the network (merit)
 
@@ -199,13 +212,3 @@ In a small business the right to make decisions (vote) belongs to the owner (mer
 
 In a nation state to vote on elections (vote) you need to be a citizen  (merit)
 
-
-One of the things that facinated me about Bitcoin was the fact that something as complex as a currency could work without an authority, or laws, Not imposed, completley voluntary.
-
-
-For the first iteration I went for a hands on approach on how to implement a very specific usecase I was dealing with few months ago. I called 'contribution-based governance', where...
-
-**Contribution = Voting rights = Earnings**
-
-
-any small companies have adopted the lean start-up model, which emphasizes early prototyping and pivoting rapidly to new business models as circumstances change.8 In all these settings, informed, decisive action matters more than formal authority or knowledge.
