@@ -177,19 +177,24 @@ We also want the governance tools to be identity agnostic. While I don't see thi
 
 Crypto-currencies almost come with this property built-in. The main problem here is accounts can be exchanged. [a](Reference required)
 
-
-
 ## Nestable governance
 That means that a governance system should be able to act as a participant entity to another governance system.
 
 ### Keep it simple
 Governance models tend to complexity. By nesting a governance inside another the goals of a single governance entity can be keep simpler and therefore making the required merits simpler as well.
 
+This means that a governance entity would be used as merit agregator of its participants.
+
 ### But complex
 This would allow the creation of hierachical structures, making the system as a whole complex, while keeping each entity simple.
 
-This is common in most goverances already (departments of a company, states/countys), that's why I was surprized to not find any existing proposal withinthe decentralized paradigm.
+This is common in most goverances already (departments of a company, states/counties), that's why I was surprized to not find any existing proposal within the decentralized paradigm.
 
+
+### Interoperability
+Few DAOs exist and so many others are being created. It seems a good time to start working on some sort of standard. An [ERC20](https://theethereum.wiki/w/index.php/ERC20_Token_Standard) for governance.
+
+I haven't directly tackled this problem yet. Would love to hear proposals on how this interface may look like.
 
 
 ## Relevant reads
