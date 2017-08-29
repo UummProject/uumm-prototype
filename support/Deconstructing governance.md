@@ -142,19 +142,22 @@ It is required for merit to be defined accurately
 
 # Interoperable Adhocracy
 
-Crypto anarchism
-
 Until now we were descriving what will make a decision process ideal within the context of a single entity. Here we will be talking as how those entities could interact as a whole
 
 
-## Why adhocracy?
+### Why adhocracy?
 _Governance_ is a broad concept very loosely used. The new decentralized paradigmn has a set of properties that are much better captured by adhocracy.
 
->[Adhocracy](https://en.wikipedia.org/wiki/Adhocracy#Types_of_adhocracy) is characterized by an adaptive, creative and flexible integrative behavior based on non-permanence and spontaneity. - Wikipedia
+>[Adhocracy](https://en.wikipedia.org/wiki/Adhocracy#Types_of_adhocracy) is characterized by an adaptive, creative and flexible integrative behavior based on **non-permanence**  and **spontaneity**. - Wikipedia
 
-The `non-permanence` feature is the key one. And if you go over its [common characteristics](https://en.wikipedia.org/wiki/Adhocracy#Characteristics_of_adhocracy) you will realized that so many of those are just the result of participation is voluntary.
 
-## Darwinism selection
+
+
+## Voluntary
+
+If you go over its [characteristics](https://en.wikipedia.org/wiki/Adhocracy#Characteristics_of_adhocracy) you will realize that many of those are just the result of participation being voluntary, therefore the _non-permanence_ feature.
+
+### Darwinian selection
 https://en.wikipedia.org/wiki/Universal_Darwinism
 https://en.wikipedia.org/wiki/Adhocracy#Characteristics_of_adhocracy
 
