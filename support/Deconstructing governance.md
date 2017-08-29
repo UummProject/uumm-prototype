@@ -1,4 +1,4 @@
-# The broken meritocracy
+# From broken meritocracy to interoperable adhocracy
 
 _This is a live document, Any ideas on how it can be improved will be highly appreciated_
 
@@ -6,7 +6,7 @@ _This is a live document, Any ideas on how it can be improved will be highly app
 In recent years a new paradigm around decentralization has emerged.
 technologies such as [Ethereum](https://www.ethereum.org/), [IPFS](https://ipfs.io/) or [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin) offer a new set of possibilities for re-designing most of the systems that drive our society.
 
-_Governance_ has been echoing within the community for long time. And for good reason. ** The abscence of a central authority seems to imply no-governance. Whatever this is true or not governance issues have been all over the place.
+_Governance_ has been echoing within the community for long time. And for good reason. The abscence of a central authority seems to imply no-governance. Whatever this is true or not governance, issues have been all over the place.
 
 As part of the [Uumm](https://xavivives.github.io/Uumm/#intro) project I wanted to distill _governance_, to later put it together in some sort of tool with full consideration of this new paradigm. It was personal exercice to better understand how the future of governance may look like.
 
@@ -38,7 +38,8 @@ If defined broadly or incorrectly the system is likely to have [unintended conse
 ### 2. Merit is not a currency
 It is not a medium of exchange.
 
-If you can trade the merit you end up with a system ruled by the entities that have more economic power. Any incentive intrinsic to the merit is gone, and the only remaining incentive is to benefit the new owner.
+If you can trade the merit you end up with a system ruled by the entities that have more economic power and any required skill intrinsic to the merit is gone.
+Therefore you end up with a system where the goal is to maximize profit but the entities that rule it have no necessary skill other than have economic power.
 
 `Fun game: How many ICO tokens are used for governance?`
 
@@ -78,7 +79,6 @@ The new paradigmn is different. Communities/platforms/daos that live on decentra
 
 The problem is that there is no standaritzation. The data is there, but is not accessible in the first place.
 
-[This document](https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust/blob/master/topics-and-advance-readings/DecentralizedCooperationNeedsDecentralizedReputation.md) by [Noah Thorp](https://twitter.com/noahthorp)  (2015) and [this proposal] (https://tools.ietf.org/html/rfc7071) by [IETF](https://www.ietf.org/), have a lot in common in what I'm suggesting.
 
 
 ### Processed reputation
@@ -91,12 +91,28 @@ For not very complex systems, where data is mesurable, something like Futarchy i
 
 The merit of a participant is the capacity to predict events correctly. And it is rewarded if so.
 
+### Other properties
+I belive that properties such as **voluntary participation** and **incentives** are quite relevant to merit.
+To keep things simple I left them out of this first iteration, but I'll love to complete this document. If you would like to participate, your help would be welcome.
 
 ### Examples
 
-**Nation state**
-Ideal merit doesn't exist because interst are different.
+_The numbers make reference to the previously described propeties_
 
+
+#### Nation state
+Theory:
+
+1. The required merit is to be a citizen.
+2. Merit is binded to your identity, therefore can't be exchanged
+3. Merit is tokenized by using ID cards. Each ID card is one vote.
+
+Reality:
+
+1. All the participants (whatever they have the right capacities to make good decisions or not), have the same decision power. There is no required skill to vote.
+2. While the ID card can't be exchange, the opinion of the participants can be esyly manipulated by media which is manipulated by lobbist, which are the entities with more economic power. This could be minimized if the #1 property was in place.
+3. Id cards tokenize merit but not without compromizing the other properties.
+ 
 
 ## Reputation agreagators
 
@@ -109,12 +125,24 @@ It is required for merit to be defined accurately
 # Interoperable Adhocracy
 
 ### Identity agnostic
-If the goal is to make the best decision possible, it should not matter where the ideas com from. Anyone/thing should be a potential participant, whatever it's a kid, an AI, a prediction market, another governance entity.
+If the goal is to make the best decision possible, it should not matter where the ideas com from. Anyone/thing should be a potential participant, whatever it's a kid, an AI, a prediction market or another governance entity.
+
+Crypto-currencies almost come with this property built-in. The main problem here is accounts can be exchanged. [a](Reference required)
 
 ### Nestable
-That means a governance system should be able to act as a participant entity to another governance system.
+That means that a governance system should be able to act as a participant entity to another governance system.
 
 Governance models tend to complexity. By nesting a governance inside another the incentives towards simple clear goals are kept, while adding sofistication to the system as a whole.
+
+This is common in most goverances already, that's why I was surprized to not find any existing proposal withing the new paradigm.
+
+
+
+## Relevant reads
+- [A Media Type for Reputation Interchange] (https://tools.ietf.org/html/rfc7071) by [IETF](https://www.ietf.org/) (2013).
+- [Decentralized Cooperation needs Decentralized Reputation](https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust/blob/master/topics-and-advance-readings/DecentralizedCooperationNeedsDecentralizedReputation.md) by [Noah Thorp](https://twitter.com/noahthorp)(2015).
+- [An Introduction to Futarchy] (https://blog.ethereum.org/2014/08/21/introduction-futarchy/) by [Vitalik Buterin](https://twitter.com/VitalikButerin) (2014)
+
 
 
 
