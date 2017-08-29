@@ -86,21 +86,26 @@ Even with reputation sytems we still need to deal with the complexity problem.
 Is up to each system to decide how to compute merit. But is likely that it will use several reputation metrics to do so.
 As far as I can imagine, a systen that can access and compute the necessary reputation metrics in order to build its own merit token, is the closest we can be to a true goverance.
 
+
+
+### Aditional notes
+To keep things simple I left some things out of the current document.
+I'll love to keep extending it. You're welcomed to open a issue on Github.
+
+#### Properties
+I belive that properties such as **voluntary participation** and **incentives**(reward for making good decsions) are quite relevant for the merit.
+
 ### Prediction markets
-For not very complex systems, where data is mesurable, something like Futarchy is very close to ideal. 
+There has been a lot of talk about the role that prediction markets could have on governance. 
 
-The merit of a participant is the capacity to predict events correctly. And it is rewarded if so.
+When the results of the decisions can be easly mesured and the amount of participants is high futarchy seems a very intersting approach. I'll love some extra thoughts on how it fits on this document.
 
-### Other properties
-I belive that properties such as **voluntary participation** and **incentives** are quite relevant to merit.
-To keep things simple I left them out of this first iteration, but I'll love to complete this document. If you would like to participate, your help would be welcome.
-
-### Examples
+## Examples
 
 _The numbers make reference to the previously described propeties_
 
 
-#### Nation state
+### Nation state
 Theory:
 
 1. The required merit is to be a citizen.
