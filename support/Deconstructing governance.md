@@ -1,8 +1,8 @@
 # From broken meritocracy to interoperable adhocracy
 
-_This is a live document, Any ideas on how it can be improved will be highly appreciated_
+_This is a live document, any feedback to improved it will be highly appreciated._
 
-##Reconstructing governance
+### Context and motivations
 In recent years a new paradigm around decentralization has emerged.
 technologies such as [Ethereum](https://www.ethereum.org/), [IPFS](https://ipfs.io/) or [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin) offer a new set of possibilities for re-designing most of the systems that drive our society.
 
@@ -10,13 +10,11 @@ _Governance_ has been echoing within the community for long time. And for good r
 
 As part of the [Uumm](https://xavivives.github.io/Uumm/#intro) project I wanted to distill _governance_, to later put it together in some sort of tool with full consideration of this new paradigm. It was personal exercice to better understand how the future of governance may look like.
 
-It soon become aparent that _governance_ is a very broad concept and very loosley used. What I really was trying to understand was [Adhocracy](https://en.m.wikipedia.org/wiki/Adhocracy).
-
 This document is an attempt to imagine and lay down the fundamental pieces on how future organization could be govern within this new paradigm.
 
 It became aparent that in order to make any significant advancement in governance systems, a solid standaritzation of reputation metrics is a must.
 
-# Meritocracy as a base.
+# Meritocracy as a base
 All governance systems are a supset of [Meritocracy](https://en.wikipedia.org/wiki/Meritocracy), if you understand _merit_ as the feature that defines the right of an entitity opinion to be considered (vote).
 
 _For ease of use and simplification I concentrated all the examples in a single section down below. You may jump there if something doesn't make total sense._
@@ -67,6 +65,8 @@ The reason merit is complex is because systems are complex. Making systems simpl
 We need metrics that can contain complex information.
 
 ## Reputation
+FOr complex decisions. Tokens for simple decisons?
+
 Within this context, merit defines a required capacity of an entity, while reputation is a proven record of a capacity.
 
 This makes reputation systems extremely suitable for governance.
@@ -84,25 +84,38 @@ The problem is that there is no standaritzation. The data is there, but is not a
 ### Processed reputation
 Even with reputation sytems we still need to deal with the complexity problem. 
 Is up to each system to decide how to compute merit. But is likely that it will use several reputation metrics to do so.
-As far as I can imagine, a systen that can access and compute the necessary reputation metrics in order to build its own merit token, is the closest we can be to a true goverance.
+As far as I can imagine, a system that can access and compute the necessary reputation metrics in order to build its own merit token, is the closest we can be to a true goverance.
 
+## Anonimity
+ Zero knowledge reputation proofs.
 
+## Incentives
 
-### Aditional notes
+## Aditional notes
 To keep things simple I left some things out of the current document.
-I'll love to keep extending it. You're welcomed to open a issue on Github.
-
-#### Properties
-I belive that properties such as **voluntary participation** and **incentives**(reward for making good decsions) are quite relevant for the merit.
+I'll love to keep extending it. You're welcome to open a issue on Github.
 
 ### Prediction markets
-There has been a lot of talk about the role that prediction markets could have on governance. 
+There has been a lot of talk about the role that prediction markets could have on governance.
 
-When the results of the decisions can be easly mesured and the amount of participants is high futarchy seems a very intersting approach. I'll love some extra thoughts on how it fits on this document.
+They are specially intersting because they add an strong incentive layer.
+
+When the results of the decisions can be easly mesured and the amount of participants is high futarchy seems a very intersting approach, but it makes it only duable on a very narrow scope.
+
+It does seem an idea with a lot of potential and with very interesting usecases.
+
+### Liquid democracy
+Proxy voting is another common suggested improvement that the new paradigmn makes easy to implement.
+
+It makes merit exchangable, therefore breaking property #2.
+
+### Questions
+- Is there any wrong assumption on this document?
+- Is there better alternatives to reputation?
 
 ## Examples
 
-_The numbers make reference to the previously described propeties_
+_The numbers (1,2,3) make reference to the previously described properties_
 
 
 ### Nation state
@@ -119,22 +132,40 @@ Reality:
 3. Id cards tokenize merit but not without compromizing the other properties.
  
 
-## Reputation agreagators
-
 ### What do we need?
 An standard interface for reading reputation
 
 ### Clear and simple goal
 It is required for merit to be defined accurately
 
+
+
 # Interoperable Adhocracy
 
+Crypto anarchism
+
+Until now we were descriving what will make a decision process ideal within the context of a single entity. Here we will be talking as how those entities could interact as a whole
+
+
+## Why adhocracy?
+_Governance_ is a broad concept very loosely used. The new decentralized paradigmn has a set of properties that are much better captured by adhocracy.
+
+>[Adhocracy](https://en.wikipedia.org/wiki/Adhocracy#Types_of_adhocracy) is characterized by an adaptive, creative and flexible integrative behavior based on non-permanence and spontaneity. - Wikipedia
+
+The `non-permanence` feature is the key one. And if you go over its [common characteristics](https://en.wikipedia.org/wiki/Adhocracy#Characteristics_of_adhocracy) you will realized that so many of those are just the result of participation is voluntary.
+
+## Darwinism selection
+https://en.wikipedia.org/wiki/Universal_Darwinism
+https://en.wikipedia.org/wiki/Adhocracy#Characteristics_of_adhocracy
+
+
 ### Identity agnostic
+
 If the goal is to make the best decision possible, it should not matter where the ideas com from. Anyone/thing should be a potential participant, whatever it's a kid, an AI, a prediction market or another governance entity.
 
 Crypto-currencies almost come with this property built-in. The main problem here is accounts can be exchanged. [a](Reference required)
 
-### Nestable
+### Nestable governance
 That means that a governance system should be able to act as a participant entity to another governance system.
 
 Governance models tend to complexity. By nesting a governance inside another the incentives towards simple clear goals are kept, while adding sofistication to the system as a whole.
