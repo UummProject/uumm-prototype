@@ -15,7 +15,7 @@ This document is an attempt to imagine and lay down the fundamental pieces on ho
 It became aparent that in order to make any significant advancement in governance systems, a solid standaritzation of reputation metrics is a must.
 
 # Meritocracy as a base
-All governance systems are a supset of [Meritocracy](https://en.wikipedia.org/wiki/Meritocracy), if you understand _merit_ as the feature that defines the right of an entitity opinion to be considered (vote).
+All governance systems are a supset of [Meritocracy](https://en.wikipedia.org/wiki/Meritocracy), if you understand _merit_ as the feature that defines the right of an entity opinion to be considered (vote).
 
 _For ease of use and simplification I concentrated all the examples in a single section down below. You may jump there if something doesn't make total sense._
 
@@ -65,20 +65,26 @@ The reason merit is complex is because systems are complex. Making systems simpl
 We need metrics that can contain complex information.
 
 ## Reputation
-For complex decisions. Tokens for simple decisons?
 
 Within this context, merit defines a required capacity of an entity, while reputation is a proven record of a capacity.
 
 This makes reputation systems extremely suitable for governance.
 
-### In the past
+### Centralized
 There are thousands of reputation systems already in use (5 stars raiting, credentials, comments, followers, likes...), the problem is that they usually live in mutable (therefore can be altered) permissioned (therefore unaccessible) databases. And because they're owned by entities that monetize on them, they have no incentive to change.
 
-### The new one 
-The new paradigmn is different. Communities/platforms/daos that live on decentralized networks do not survive by keeping all this data, its quite the oposite. They enhance each other when the data is accesible.
+### Decentralized
+The new paradigmn is different. Communities/platforms/DAOs that live on decentralized networks do not survive by keeping all this data, its quite the oposite. They enhance each other when the data is accesible.
 
-The problem is that there is no standaritzation. The data is there, but is not accessible in the first place.
+###Problems
+The first problem is that in order to create decentralized reputation we need decentralized identities. Luckily several endeveours are on the works. [DID](https://w3c-ccg.github.io/did-spec/), [UPort](https://www.uport.me/), [Blockstack](https://blockstack.org/)
 
+The next problem is that there is no standaritzation. The data is there, but is not accessible in the first place.
+
+Standaritzation attempts I'm aware
+
+- [A Media Type for Reputation Interchange] (https://tools.ietf.org/html/rfc7071) by [IETF](https://www.ietf.org/) (2013).
+- [Decentralized Cooperation needs Decentralized Reputation](https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust/blob/master/topics-and-advance-readings/DecentralizedCooperationNeedsDecentralizedReputation.md) by [Noah Thorp](https://twitter.com/noahthorp) (2015).
 
 
 ### Processed reputation
@@ -86,7 +92,6 @@ Even with reputation sytems we still need to deal with the complexity problem.
 Is up to each system to decide how to compute merit. But is likely that it will use several reputation metrics to do so.
 As far as I can imagine, a system that can access and compute the necessary reputation metrics in order to build its own merit token, is the closest we can be to a true goverance.
 
-## Incentives
 
 ## Aditional notes
 To keep things simple I left some things out of the current document.
@@ -198,8 +203,6 @@ I haven't directly tackled this problem yet. Would love to hear proposals on how
 
 
 ## Relevant reads
-- [A Media Type for Reputation Interchange] (https://tools.ietf.org/html/rfc7071) by [IETF](https://www.ietf.org/) (2013).
-- [Decentralized Cooperation needs Decentralized Reputation](https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust/blob/master/topics-and-advance-readings/DecentralizedCooperationNeedsDecentralizedReputation.md) by [Noah Thorp](https://twitter.com/noahthorp)(2015).
 - [An Introduction to Futarchy] (https://blog.ethereum.org/2014/08/21/introduction-futarchy/) by [Vitalik Buterin](https://twitter.com/VitalikButerin) (2014)
 
 
