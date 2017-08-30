@@ -1,19 +1,5 @@
 # Broken meritocracy
 
-_This is a live document, any feedback to improved it will be highly appreciated._
-
-### Context
-In recent years a new paradigm around decentralization has emerged.
-technologies such as [Ethereum](https://www.ethereum.org/), [IPFS](https://ipfs.io/) or [Bitcoin](https://en.wikipedia.org/wiki/Bitcoin) offer a new set of possibilities for re-designing most of the systems that drive our society.
-
-_Governance_ has been echoing within the community for long time. And for good reason. The abscence of a central authority seems to imply no-governance. Whatever this is true or not governance, issues have been all over the place.
-
-### Motivations
-As part of the [Uumm](https://xavivives.github.io/Uumm/#intro) project I wanted to distill _governance_, to later put it together in some sort of tool with full consideration of this new paradigm. It was personal exercice to better understand how the future of governance may look like.
-
-This document is an attempt to imagine and lay down the fundamental pieces on how future organizations build ont top of this new paradigmn may look like.
-
-
 # Meritocracy as a base
 All governance systems are a supset of [Meritocracy](https://en.wikipedia.org/wiki/Meritocracy), if you understand _merit_ as the feature that defines the right of an entity opinion to be considered (vote).
 
@@ -29,7 +15,9 @@ _And for the same resaons I narrowed down the relevant merit properties to the f
 
 ### 1. Merit defines value
 
-For the system to work, the defininiton of merit needs to be aligned with the system goals. It should tell what is of value to the system in order to make decisions. In this sense, merit is used as a filter, only the entities with certain capacities can take decisions.
+For the system to work, the defininiton of merit needs to be aligned with the system goals.
+
+It should tell what is of value to the system in order to make decisions. In this sense, merit is used as a filter, only the entities with certain capacities can take decisions.
 
 If defined broadly or incorrectly the system is likely to have [unintended consequences](http://lesswrong.com/lw/y3/value_is_fragile/) or be gammed.
 
@@ -60,44 +48,49 @@ How do you abstract all the necessary capacities to make an specialized decision
 
 I don't know.
 
-Instead what we can do is to quantify proven capacities, and use it as merit. AKA Reputation.
+Instead what we can do is to use the past as indicator of the future.
+We can quantify proven capacities, and use it as merit. AKA Reputation.
 
-# Reputation
+# Reputation systems
 
 Within this context, merit defines a required capacity of an entity, while reputation is a proven record of a capacity.
 
 This makes reputation systems extremely suitable for governance.
 
 ### Centralized
-There are thousands of reputation systems already in use (5 stars raiting, credentials, comments, followers, likes...), the problem is that they usually live in mutable (therefore can be altered) permissioned (therefore unaccessible) databases. And because they're owned by entities that monetize on them, they have no incentive to change.
-
-Tim Pastoor on [Fixing Orwellian Reputation Systems](https://medium.com/@2W/fixing-orwellian-reputation-systems-4d01d489dcb7)
+There are thousands of reputation systems already in use (5 stars raiting, credentials, comments, followers, likes...), the problem is that they usually live in mutable (therefore can be altered) permissioned (therefore unaccessible) databases. And because they're owned by entities that monetize on them, they have no incentive to change. 
 
 ### Decentralized
-The new paradigmn is different. Communities/platforms/DAOs that live on decentralized networks do not survive by keeping all this data, its quite the oposite. They enhance each other when the data is accesible. It shoul
+The new paradigmn is different, and there are already [so many reasons](https://medium.com/@2W/fixing-orwellian-reputation-systems-4d01d489dcb7) to move away from the centralized reputation.
 
-###Problems
+Communities/platforms/DAOs that live on decentralized networks do not benefit by keeping all this data, its quite the oposite. They enhance each other when the data is accesible.
 
-###ID
-In order to create decentralized reputation we need decentralized identities. Luckily several endeveours are on the works ([DID](https://w3c-ccg.github.io/did-spec/), [UPort](https://www.uport.me/), [Blockstack](https://blockstack.org/), [Keybase](https://keybase.io), [identifi](https://github.com/identifi/))
 
-### Standaritzation
-The next problem is that there is no standaritzation. The data may be public and inmutable, but it may not be accessible enough.
+##Towards merit as reputation
+So , how do we get there?
 
-- [A Media Type for Reputation Interchange] (https://tools.ietf.org/html/rfc7071) by [IETF](https://www.ietf.org/) (2013).
-- [Decentralized Cooperation needs Decentralized Reputation](https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust/blob/master/topics-and-advance-readings/DecentralizedCooperationNeedsDecentralizedReputation.md) by [Noah Thorp](https://twitter.com/noahthorp) (2015).
+### Decentralized identity
+In order to create decentralized reputation we need decentralized identities. Luckily, with different aproaches, there are several endeveours on the works: [DID](https://w3c-ccg.github.io/did-spec/), [UPort](https://www.uport.me/), [Blockstack](https://blockstack.org/), [Keybase](https://keybase.io), [identifi](https://github.com/identifi/) (missing any?)
+
+### Accesible reputation
+While each governance is free to use any reputation metric it wants (even if centralized), an standard would makes things much accesible. In the same fashion that the [ERC20](http://www.investopedia.com/news/what-erc20-and-what-does-it-mean-ethereum/) has enabled all sorts of new services and platforms. Having and standard for decentralized reputation will greatly benefit the community.
+
+While there's been attempts to standarize reputation [in the past] (https://tools.ietf.org/html/rfc7071), as far as I know this great document by [Noah Thorp](https://twitter.com/noahthorp) is the closest thing we have:
+
+[Decentralized Cooperation needs Decentralized Reputation](https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust/blob/master/topics-and-advance-readings/DecentralizedCooperationNeedsDecentralizedReputation.md)  (2015).
 
 ### Subjective reputation??? [WIP]
 The previous assumes reputation systems to be objective. Meaning that at least the participants need to have concensus over the state of a reputation metric.
+To my knowledge blockchains are the more suitable technology for it.
+
+Can the same be acomplished with subjective reputation?
 
 
-### Processed reputation
-Even with available reputation sytems we still need to deal with the complexity problem. 
-Is up to each system to decide how to compute merit. But is likely that it will use several reputation metrics to do so.
-The more data liquidity the system has, the more accurate the merit can be.
+## Conclusion
+
+Is up to each system to decide how to compute merit. But is likely that it will use several reputation metrics to do so. The more data liquidity the system has, the more accurate the merit can be, and therfore the better the outcome of the governace.
 
 As far as I can imagine, a system that can access and compute the necessary reputation metrics in order to build its own 'ideal' merit token, is the closest we can be to a goverance truth to its goals.
-
 
 ## Aditional notes
 To keep things simple I left some things out of the current document.
@@ -110,8 +103,6 @@ When the results of the decisions can be easly mesured and the pool of participa
 
 
 These systems are specially intersting because they add an strong incentive layer.
-
-
 
 
 ### Proxy voting
@@ -136,7 +127,7 @@ _The numbers (1,2,3) make reference to the previously described merit properties
 **Decisions to make:** Choose the representatives
 **Participants:** Legal citizens
 
-**Theory:**
+**Merit properties:**
 
 1. The required merit is to be a citizen.
 2. Merit is binded to your identity, therefore can't be exchanged
@@ -154,10 +145,10 @@ _The numbers (1,2,3) make reference to the previously described merit properties
 **Decisions to make:** Change the protocol rules
 **Participants:** Miners
 
-**Theory:**
+**Merit properties:**
 
 1. The required merit is a proof that it recently secured the network by validating transactions 
-2. POW can't be exchanged. It is also directly attached to the coinbase reward, making not logical to exchange.
+2. POW can't be exchanged. It is also directly attached to the coinbase reward, disincentivizing any attempt.
 3. How many times a miner has been the first to find the block hash within a defined amount of blocks.
 
 **Reality (undersired consequences):**
@@ -170,15 +161,8 @@ _The numbers (1,2,3) make reference to the previously described merit properties
 **Decisions to make:** What features of a product should we focus, who to hire, how much to pay?
 **Participants:** Head of the department
 
-**Theory:**
+**Merit properties:**
 
 1. Someone with expertise on the subject, with fidelity to the company.
 2. The merit is being himself, can't be excahnged, can be influenced.
 3. Role defined in its contract (consequence of the time working for the company, resume...)
-
-
-**Reality (undersired consequences):**
-
-1. Miners don't want nework upgrades that don't maximize their profit. A brutal amount of electricity is used.
-2. All good here
-3. All good here.
