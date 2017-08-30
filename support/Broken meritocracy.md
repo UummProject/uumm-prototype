@@ -22,7 +22,7 @@ It should tell what is of value to the system in order to make decisions. In thi
 If defined broadly or incorrectly the system is likely to have [unintended consequences](http://lesswrong.com/lw/y3/value_is_fragile/) or be gamed.
 
 ### 2. Merit is not a currency
-It is not a medium of exchange.
+It is not a [medium of exchange](https://en.wikipedia.org/wiki/Currency).
 
 If you can trade the merit you end up with a system ruled by the entities that have more economic power and any required capacity intrinsic to the merit is gone.
 
