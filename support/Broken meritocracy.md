@@ -26,18 +26,20 @@ It is not a [medium of exchange](https://en.wikipedia.org/wiki/Currency).
 
 If you can trade the merit you end up with a system ruled by the entities that have more economic power and any required capacity intrinsic to the merit is gone.
 
-In consequence, you end up with a system where the goal is to maximize profit and the entities that rule it don't have the necessary capacities to do so (other than having economy power).
+In consequence, you end up with a system where the goal is to maximize profit and the entities that rule it don't have the necessary capacities to do so (other than having economic power).
 
-`Fun game: How many ICOs use ERC20 tokens for governance?`
+`Fun game: How many ICOs and platforms use ERC20 tokens and other currencies for governance?`
 
 ### 3. Tokenized merit
 This is not a desired feature but a limitation. In order to operate in a system that can scale, we need merit in a quantifiable format.
 
-This should be some sort of none-exchangeable token, but not necessarily, for example in the case of Bitcoin, this is how many times a miner has been the first to find the block hash within a defined amount of blocks.
+This should be some sort of none-exchangeable capacity-for-decision-making token, although it may have other formats. 
 
-In the case of nation state elections, this your ID card.
+_In the case of Bitcoin, this is how many times a miner has been the first to find the block hash within a defined amount of blocks._
 
-In the first iteration of Uumm, this is a number of contributions done by an entity.
+_In the case of nation state elections, this your ID card._
+
+_In the first iteration of [Uumm](https://xavivives.github.io/Uumm/), this is a number of contributions done by an entity._
 
 ## System failure
 
