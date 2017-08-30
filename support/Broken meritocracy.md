@@ -68,7 +68,7 @@ The new paradigm is different, and there are already [so many reasons](https://m
 Communities/platforms/DAOs that live on decentralized networks do not benefit by keeping all this data, it's quite the opposite. They enhance each other when the data is accessible.
 
 
-##Towards merit as reputation
+## Towards merit as reputation
 So, how do we get there?
 
 ### Decentralized identity
@@ -118,13 +118,14 @@ The way I see it, it makes merit exchangeable, therefore breaking property #2.
 - Will it make sense for the described meritocracy to strongly reward any participation (voting), whatever the decision is correct or not?
 
 
-## Examples
+# Examples
 
 _The numbers (1,2,3) make reference to the previously described merit properties_
 
 
-### Nation state elections
+## Nation state elections
 **Decisions to make:** Choose the representatives
+
 **Participants:** Legal citizens
 
 **Merit properties:**
@@ -139,8 +140,9 @@ _The numbers (1,2,3) make reference to the previously described merit properties
 2. While the ID card can't be exchanged, the opinion of the participants can be easily manipulated by media (especially because they don't have the capacities to understand the problems (#1)) which is manipulated by lobbyist, which are the entities with more economic power. 
 3. Id cards tokenize merit but not without compromising the other properties.
 
-### Bitcoin
+## Bitcoin
 **Decisions to make:** Change the protocol rules
+
 **Participants:** Miners
 
 **Merit properties:**
@@ -155,8 +157,9 @@ _The numbers (1,2,3) make reference to the previously described merit properties
 2. All good here
 3. All good here.
 
-### A company department
+## A company department
 **Decisions to make:** What features of a product should we focus, who to hire, how much to pay?
+
 **Participants:** Head of the department
 
 **Merit properties:**
