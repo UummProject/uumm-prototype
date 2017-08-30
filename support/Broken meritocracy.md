@@ -1,11 +1,11 @@
 # Broken meritocracy
 
 # Meritocracy as a base
-All governance systems are a supset of [Meritocracy](https://en.wikipedia.org/wiki/Meritocracy), if you understand _merit_ as the feature that defines the right of an entity opinion to be considered (vote).
+All governance systems are a subset of [Meritocracy](https://en.wikipedia.org/wiki/Meritocracy) if you understand _merit_ as the feature that defines the right of an entity opinion to be considered (vote).
 
 _For ease of use and simplification I concentrated all the examples in a single section down below. You may jump there if something doesn't make total sense._
 
-_And for the same resaons I narrowed down the relevant merit properties to the following._
+_And for the same reasons I narrowed down the relevant merit properties to the following._
 
 ## The ideal merit
 
@@ -15,40 +15,40 @@ _And for the same resaons I narrowed down the relevant merit properties to the f
 
 ### 1. Merit defines value
 
-For the system to work, the defininiton of merit needs to be aligned with the system goals.
+For the system to work, the definition of merit needs to be aligned with the system goals.
 
 It should tell what is of value to the system in order to make decisions. In this sense, merit is used as a filter, only the entities with certain capacities can take decisions.
 
-If defined broadly or incorrectly the system is likely to have [unintended consequences](http://lesswrong.com/lw/y3/value_is_fragile/) or be gammed.
+If defined broadly or incorrectly the system is likely to have [unintended consequences](http://lesswrong.com/lw/y3/value_is_fragile/) or be gamed.
 
 ### 2. Merit is not a currency
 It is not a medium of exchange.
 
-If you can trade the merit you end up with a system ruled by the entities that have more economic power and any required capcity intrinsic to the merit is gone.
+If you can trade the merit you end up with a system ruled by the entities that have more economic power and any required capacity intrinsic to the merit is gone.
 
-In consequence you end up with a system where the goal is to maximize profit and the entities that rule it don't have the necessary capacities to do so (other than having economy power).
+In consequence, you end up with a system where the goal is to maximize profit and the entities that rule it don't have the necessary capacities to do so (other than having economy power).
 
 `Fun game: How many ICOs use ERC20 tokens for governance?`
 
 ### 3. Tokenized merit
 This is not a desired feature but a limitation. In order to operate in a system that can scale, we need merit in a quantifiable format.
 
-This should be some sort of none-exchangable token, but not necessarly, for example in the case of Bitcoin this is how many times a miner has been the first to find the block hash within a defined amount of blocks.
+This should be some sort of none-exchangeable token, but not necessarily, for example in the case of Bitcoin, this is how many times a miner has been the first to find the block hash within a defined amount of blocks.
 
 In the case of nation state elections, this your ID card.
 
-In the first iteration of Uumm this is the amount of contributions done by an entitity.
+In the first iteration of Uumm, this is a number of contributions done by an entity.
 
 ## System failure
 
-Most (I really mean 'most') systems end up compromizing its own interest (#1) in order to make the system usable (#3). And so many others have an direct or indirect way to exchange merit (#2) and therefore compromizing its integrity.
+Most (I really mean 'most') systems end up compromising its own interest (#1) in order to make the system usable (#3). And so many others have a direct or indirect way to exchange merit (#2) and therefore compromising its integrity.
 
 ### Tokenetization problem
-How do you abstract all the necessary capacities to make an specialized decision and put them into a single number?
+How do you abstract all the necessary capacities to make a specialized decision and put them into a single number?
 
 I don't know.
 
-Instead what we can do is to use the past as indicator of the future.
+Instead what we can do is to use the past as an indicator of the future.
 We can quantify proven capacities, and use it as merit. AKA Reputation.
 
 # Reputation systems
@@ -58,39 +58,39 @@ Within this context, merit defines a required capacity of an entity, while reput
 This makes reputation systems extremely suitable for governance.
 
 ### Centralized
-There are thousands of reputation systems already in use (5 stars raiting, credentials, comments, followers, likes...), the problem is that they usually live in mutable (therefore can be altered) permissioned (therefore unaccessible) databases. And because they're owned by entities that monetize on them, they have no incentive to change. 
+There are thousands of reputation systems already in use (5 stars rating, credentials, comments, followers, likes...), the problem is that they usually live in mutable (therefore can be altered) permission-ed (therefore un-accessible) databases. And because they're owned by entities that monetize on them, they have no incentive to change. 
 
 ### Decentralized
-The new paradigmn is different, and there are already [so many reasons](https://medium.com/@2W/fixing-orwellian-reputation-systems-4d01d489dcb7) to move away from the centralized reputation.
+The new paradigm is different, and there are already [so many reasons](https://medium.com/@2W/fixing-orwellian-reputation-systems-4d01d489dcb7) to move away from the centralized reputation.
 
-Communities/platforms/DAOs that live on decentralized networks do not benefit by keeping all this data, its quite the oposite. They enhance each other when the data is accesible.
+Communities/platforms/DAOs that live on decentralized networks do not benefit by keeping all this data, it's quite the opposite. They enhance each other when the data is accessible.
 
 
 ##Towards merit as reputation
-So , how do we get there?
+So, how do we get there?
 
 ### Decentralized identity
 In order to create decentralized reputation we need decentralized identities. Luckily, with different aproaches, there are several endeveours on the works: [DID](https://w3c-ccg.github.io/did-spec/), [UPort](https://www.uport.me/), [Blockstack](https://blockstack.org/), [Keybase](https://keybase.io), [identifi](https://github.com/identifi/) (missing any?)
 
-### Accesible reputation
-While each governance is free to use any reputation metric it wants (even if centralized), an standard would makes things much accesible. In the same fashion that the [ERC20](http://www.investopedia.com/news/what-erc20-and-what-does-it-mean-ethereum/) has enabled all sorts of new services and platforms. Having and standard for decentralized reputation will greatly benefit the community.
+### Accessible reputation
+While each governance is free to use any reputation metric it wants (even if centralized), a standard would make things much accessible. In the same fashion that the [ERC20](http://www.investopedia.com/news/what-erc20-and-what-does-it-mean-ethereum/) has enabled all sorts of new services and platforms. Having and standard for decentralized reputation will greatly benefit the community.
 
-While there's been attempts to standarize reputation [in the past] (https://tools.ietf.org/html/rfc7071), as far as I know this great document by [Noah Thorp](https://twitter.com/noahthorp) is the closest thing we have:
+While there have been attempts to standardize reputation [in the past] (https://tools.ietf.org/html/rfc7071), as far as I know, this great document by [Noah Thorp](https://twitter.com/noahthorp) is the closest thing we have:
 
 [Decentralized Cooperation needs Decentralized Reputation](https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust/blob/master/topics-and-advance-readings/DecentralizedCooperationNeedsDecentralizedReputation.md)  (2015).
 
 ### Subjective reputation??? [WIP]
-The previous assumes reputation systems to be objective. Meaning that at least the participants need to have concensus over the state of a reputation metric.
+The previous assumes reputation systems to be objective. Meaning that at least the participants need to have consensus over the state of a reputation metric.
 To my knowledge blockchains are the more suitable technology for it.
 
-Can the same be acomplished with subjective reputation?
+Can the same be accomplished with subjective reputation?
 
 
-## Conclusion
+# Conclusion
 
-Is up to each system to decide how to compute merit. But is likely that it will use several reputation metrics to do so. The more data liquidity the system has, the more accurate the merit can be, and therfore the better the outcome of the governace.
+Is up to each system to decide how to compute merit. But is likely that it will use several reputation metrics to do so. The more data liquidity the system has, the more accurate the merit can be, and therefore the better the outcome of the governance.
 
-As far as I can imagine, a system that can access and compute the necessary reputation metrics in order to build its own 'ideal' merit token, is the closest we can be to a goverance truth to its goals.
+As far as I can imagine, a system that can access and compute the necessary reputation metrics in order to build its own 'ideal' merit token, is the closest we can be to a governance truth to its goals.
 
 ## Aditional notes
 To keep things simple I left some things out of the current document.
@@ -99,23 +99,21 @@ I'll love to keep extending it. Feedback is welcome as always.
 ### Prediction markets
 There has been a lot of talk about the role that prediction markets could have on governance.
 
-When the results of the decisions can be easly mesured and the pool of participants is high [futarchy](https://blog.ethereum.org/2014/08/21/introduction-futarchy/) seems a very intersting approach, but it makes it only duable on a very narrow scope.
+When the results of the decisions can be easily measured and the pool of participants is high [futarchy](https://blog.ethereum.org/2014/08/21/introduction-futarchy/) seems a very interesting approach, but it makes it only doable on a very narrow scope.
 
-
-These systems are specially intersting because they add an strong incentive layer.
-
+These systems are especially interesting because they add a strong incentive layer.
 
 ### Proxy voting
-[Proxy voting](https://en.wikipedia.org/wiki/Proxy_voting) or [Liquid democracy](https://en.wikipedia.org/wiki/Delegative_democracy) are commonly suggested improvements that the new paradigmn makes easy to implement.
+[Proxy voting](https://en.wikipedia.org/wiki/Proxy_voting) or [Liquid democracy](https://en.wikipedia.org/wiki/Delegative_democracy) are commonly suggested improvements that the new paradigm makes easy to implement.
 
-The way I see it, it makes merit exchangable, therefore breaking property #2.
+The way I see it, it makes merit exchangeable, therefore breaking property #2.
 
 
 ### Questions
-- Are there any wrong assumption on this document?
+- Is there any wrong assumption on this document?
 - Are there better alternatives to reputation?
 - Could subjective reputation be used on decentralized governance? How?
-- Will it make sense for the descrived meritocracy to strongly reward any participation (voting), whatever the decision is correct or not?
+- Will it make sense for the described meritocracy to strongly reward any participation (voting), whatever the decision is correct or not?
 
 
 ## Examples
@@ -130,16 +128,14 @@ _The numbers (1,2,3) make reference to the previously described merit properties
 **Merit properties:**
 
 1. The required merit is to be a citizen.
-2. Merit is binded to your identity, therefore can't be exchanged
+2. Merit is bound to your identity, therefore can't be exchanged
 3. Merit is tokenized by using ID cards. Each ID card is one vote.
 
-**Reality (undersired consequences):**
+**Reality (undesired consequences):**
 
-1. All the participants (whatever they have the right capacities to make good decisions or not), have the same decision power. There is no required skill to vote.
-2. While the ID card can't be exchange, the opinion of the participants can be esyly manipulated by media (specially because they don't have the capcities to understand the problems (#1)) which is manipulated by lobbist, which are the entities with more economic power. 
-3. Id cards tokenize merit but not without compromizing the other properties.
-
-
+1. All the participants (whatever they have the right capacities to make good decisions or not) have the same decision power. There is no required skill to vote.
+2. While the ID card can't be exchanged, the opinion of the participants can be easily manipulated by media (especially because they don't have the capacities to understand the problems (#1)) which is manipulated by lobbyist, which are the entities with more economic power. 
+3. Id cards tokenize merit but not without compromising the other properties.
 
 ### Bitcoin
 **Decisions to make:** Change the protocol rules
@@ -151,9 +147,9 @@ _The numbers (1,2,3) make reference to the previously described merit properties
 2. POW can't be exchanged. It is also directly attached to the coinbase reward, disincentivizing any attempt.
 3. How many times a miner has been the first to find the block hash within a defined amount of blocks.
 
-**Reality (undersired consequences):**
+**Reality (undesired consequences):**
 
-1. Miners don't want nework upgrades that don't maximize their profit. A brutal amount of electricity is used.
+1. Miners don't want network upgrades that don't maximize their profit. A brutal amount of electricity is used.
 2. All good here
 3. All good here.
 
@@ -164,5 +160,5 @@ _The numbers (1,2,3) make reference to the previously described merit properties
 **Merit properties:**
 
 1. Someone with expertise on the subject, with fidelity to the company.
-2. The merit is being himself, can't be excahnged, can be influenced.
-3. Role defined in its contract (consequence of the time working for the company, resume...)
+2. The merit is being himself, can't be exchanged, can be influenced.
+3. Role defined in its contract ( a consequence of the time working for the company, resume...)
