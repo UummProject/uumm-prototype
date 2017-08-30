@@ -119,6 +119,7 @@ The way I see it, it makes merit exchangeable, therefore breaking property #2.
 
 
 # Examples
+This examples are to show how any governance system fits the described meritocracy.
 
 _The numbers (1,2,3) make reference to the previously described merit properties_
 
