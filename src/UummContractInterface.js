@@ -331,6 +331,10 @@ class UummContractInterface
                     project.proposals[proposalId] = proposalData
 
                     State.addProject(projectId, project)
+
+                    if(Web3AutoSetup.currentAccount)
+                        this.getContributorVote(projectId, proposalId, Web3AutoSetup.currentAccount)
+
                     resolve();
 
                 }).catch((error)=>{console.error(error)})
@@ -376,6 +380,25 @@ class UummContractInterface
                 this.getUserContributorData(projectId)
             }).catch((error)=>{console.error(error)})
         })
+    }
+
+    getContributorVote = (projectId, proposalId, contributorAddress)=>
+    {
+        return new Promise((resolve, reject)=>
+        {
+            this.contractInstance.GetContributorVote(projectId, proposalId, contributorAddress).then((vote)=>{
+
+                var project = {}
+                project.proposals = {}
+                project.proposals[proposalId] = {}
+                project.proposals[proposalId].votes = {}
+                project.proposals[proposalId].votes[contributorAddress]=vote.toNumber()
+
+                State.addProject(projectId, project)
+
+                resolve()
+            }) 
+        })  
     }
 
     checkTransactionReceipt=(result)=>
