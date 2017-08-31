@@ -13,7 +13,7 @@ Uumm is an open-source, experimental tool, for the process of decision making bu
 # Where are we
 We have a first working prototype. On the [Github repo](https://github.com/xavivives/uumm) you can find all the details about it.
 
-We're already [designing the next iteration](https://github.com/xavivives/Uumm/blob/master/support/Deconstructing%20governance.md), while keep polishing this one.
+We're already [designing the next iteration](https://github.com/xavivives/Uumm/blob/master/support/Broken%20meritocracy.md), while keep polishing this one.
 
 [Follow us on twitter](https://twitter.com/xavivives), to stay up to date.`
 
