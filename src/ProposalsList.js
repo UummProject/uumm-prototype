@@ -65,7 +65,7 @@ class ProposalsList extends React.Component
                         userAddress={this.props.userAddress}
                     />);
 
-            proposalsComponents.push(<Divider key={"d"+ proposalData.id}/>)
+                proposalsComponents.push(<Divider key={"d"+ proposalData.id}/>)
 
             }
         }
