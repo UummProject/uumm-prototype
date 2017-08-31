@@ -17,7 +17,7 @@ _And for the same reasons I narrowed down the relevant merit properties to the f
 
 For the system to work, the definition of merit needs to be aligned with the system goals.
 
-It should tell what is of value to the system in order to make decisions. In this sense, merit is used as a filter, only the entities with certain capacities can take decisions.
+It should tell what is of value to the system in order to make decisions. In this sense, merit is used as a filter, only the entities with certain capacities can participate on the decision making process.
 
 If defined broadly or incorrectly the system is likely to have [unintended consequences](http://lesswrong.com/lw/y3/value_is_fragile/) or be gamed.
 
@@ -55,7 +55,7 @@ We can quantify proven capacities, and use it as merit. AKA Reputation.
 
 # Reputation systems
 
-Within this context, merit defines a required capacity of an entity, while reputation is a proven record of a capacity.
+Within this context, merit defines a required capacity of an entity to make decisions, while reputation is a proven record of a capacity.
 
 This makes reputation systems extremely suitable for governance.
 
@@ -75,17 +75,18 @@ So, how do we get there?
 In order to create decentralized reputation we need decentralized identities. Luckily, with different aproaches, there are several endeveours on the works: [DID](https://w3c-ccg.github.io/did-spec/), [UPort](https://www.uport.me/), [Blockstack](https://blockstack.org/), [Keybase](https://keybase.io), [identifi](https://github.com/identifi/) (missing any?)
 
 ### Accessible reputation
-While each governance is free to use any reputation metric it wants (even if centralized), a standard would make things much accessible. In the same fashion that the [ERC20](http://www.investopedia.com/news/what-erc20-and-what-does-it-mean-ethereum/) has enabled all sorts of new services and platforms. Having and standard for decentralized reputation will greatly benefit the community.
+While each governance is free to use any reputation metric it wants, a standaritzation would make things much accessible. In the same fashion that the [ERC20](http://www.investopedia.com/news/what-erc20-and-what-does-it-mean-ethereum/) has enabled all sorts of new services and platforms. Having and standard for decentralized reputation will greatly benefit the community.
 
-While there have been attempts to standardize reputation [in the past] (https://tools.ietf.org/html/rfc7071), as far as I know, this great document by [Noah Thorp](https://twitter.com/noahthorp) is the closest thing we have:
+While there have been attempts to standardize reputation [in the past](https://tools.ietf.org/html/rfc7071), this document  is only attempt of decentralized reputation I'm aware of:
 
-[Decentralized Cooperation needs Decentralized Reputation](https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust/blob/master/topics-and-advance-readings/DecentralizedCooperationNeedsDecentralizedReputation.md)  (2015).
+[Decentralized Cooperation needs Decentralized Reputation](https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust/blob/master/topics-and-advance-readings/DecentralizedCooperationNeedsDecentralizedReputation.md) by [Noah Thorp](https://twitter.com/noahthorp) (2015)
 
-### Subjective reputation??? [WIP]
+### Subjective reputation?
 The previous assumes reputation systems to be objective. Meaning that at least the participants need to have consensus over the state of a reputation metric.
 To my knowledge blockchains are the more suitable technology for it.
 
 Can the same be accomplished with subjective reputation?
+Projects like [identifi](https://github.com/identifi/) and [Trust Graph](https://github.com/trustgraph/trustgraph) work on P2P basis.
 
 
 # Conclusion
