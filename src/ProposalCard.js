@@ -13,8 +13,8 @@ const cardStyle =
     flexWrap: 'nowrap',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    padding : 5,
-    margin:5
+    paddingTop:15,
+    paddingBottom:20
 }
 
 const containerStyle =
@@ -29,7 +29,8 @@ const containerStyle =
 
 const pStyle = 
 {
-    color:"#aaa"
+    color:"#aaa",
+    margin:5
 }
 
 const cellStyle = 
@@ -125,7 +126,7 @@ class ProposalCard extends React.Component {
 
         return (
             <div style={cardStyle} >
-                <h3 style={{margin:7}}> {this.props.proposalData.title} </h3> 
+                <h3 style={{margin:5}}> {this.props.proposalData.title} </h3> 
                 
                  <div style={containerStyle} >
 
