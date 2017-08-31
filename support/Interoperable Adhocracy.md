@@ -32,8 +32,6 @@ Is the merit's job to filter who can participate.
 There is a little paradox here. We need decentralized identities in order to build decentralized reputation systems.
 We also want the governance tools to be identity agnostic. While I don't see this as showstopper, [Zero knoledge proof](https://en.wikipedia.org/wiki/Zero-knowledge_proof) reputation seems be a nice to have
 
-
-
 Crypto-currencies almost come with this property built-in. The main problem here is accounts can be exchanged. [a](Reference required)
 
 ## Nestable governance
