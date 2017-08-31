@@ -14,7 +14,7 @@ const cardStyle =
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     paddingTop:15,
-    paddingBottom:20
+    paddingBottom:20,
 }
 
 const containerStyle =
@@ -58,6 +58,7 @@ class ProposalCard extends React.Component {
     constructor(props)
     {
         super()
+        this.state = {extended:false}
     }
 
     onPositiveVote =() =>
@@ -73,6 +74,12 @@ class ProposalCard extends React.Component {
     onResolve =() =>
     {
         this.props.onResolve(this.props.proposalData)
+    }
+
+    onTitleClicked =() =>
+    {
+        console.log("click")
+       this.setState({extended:!this.state.extended})
     }
 
     getAction =(state, hasConcensus, isOwner)=>
@@ -124,18 +131,27 @@ class ProposalCard extends React.Component {
 
         var actions = this.getAction(this.props.proposalData.state, hasConcensus, isOwner) 
 
-        return (
-            <div style={cardStyle} >
-                <h3 style={{margin:5}}> {this.props.proposalData.title} </h3> 
-                
-                 <div style={containerStyle} >
+        var header = (<div onClick={this.onTitleClicked} >
+                        <h3 style={{margin:5}}> {this.props.proposalData.title} </h3> 
+                    </div>)
 
-                    <div style={stateCellStyle}> {actions} </div>
-                    <div style={emptyCellStyle}/>
-                    <div style={cellStyle}><p style={pStyle}> Tokens asked: {this.props.proposalData.valueAmount} </p> </div>
-                    <div style={cellStyle}><p style={pStyle}> <ApproveIcon/> {Numeral(positiveVotes).format('0.0%')} </p></div>
-                    <div style={cellStyle}><p style={pStyle}> <DenniedIcon/> {Numeral(negativeVotes).format('0.0%')} </p></div>
-                </div>
+        var body = <div/>
+
+        if (this.state.extended)
+            body =(                       
+                         <div style={containerStyle}>
+
+                            <div style={stateCellStyle}> {actions} </div>
+                            <div style={emptyCellStyle}/>
+                            <div style={cellStyle}><p style={pStyle}> Tokens asked: {this.props.proposalData.valueAmount} </p> </div>
+                            <div style={cellStyle}><p style={pStyle}> <ApproveIcon/> {Numeral(positiveVotes).format('0.0%')} </p></div>
+                            <div style={cellStyle}><p style={pStyle}> <DenniedIcon/> {Numeral(negativeVotes).format('0.0%')} </p></div>
+                    </div>)
+
+        return (
+            <div style={cardStyle}>
+               {header}
+               {body}
             </div>
         )
     }
