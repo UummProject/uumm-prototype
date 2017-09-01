@@ -92,6 +92,20 @@ class State
         return contributorData
     }
 
+    getContributorVote=(projectId, proposalId, contributorAddress)=>
+    {
+        var projectData = {}
+        if(this.data.projects[projectId])
+            projectData = this.data.projects[projectId]
+
+        if(projectData.proposals)
+               if(projectData.proposals[proposalId])
+                    if(projectData.proposals[proposalId].votes[contributorAddress])
+                        return projectData.proposals[proposalId].votes[contributorAddress]
+                
+        return undefined
+    }
+
     stateUpdated=()=>
     {
         for(var i = 0; i<this.stateUpdatedCallbacks.length; i++)
