@@ -66,7 +66,6 @@ class ProposalsList extends React.Component
                     />);
 
                 proposalsComponents.push(<Divider key={"d"+ proposalData.id}/>)
-
             }
         }
 
