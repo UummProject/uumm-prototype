@@ -21,14 +21,13 @@ class ProposalChart extends React.Component {
         window.setTimeout(this.showGraph,3000)
     }
 
-    getData=(size= 0 ,color = "#e0d9cc" ,title="", children=[], id:-1)=>
+    getData=(size= 0 ,color = "#e0d9cc" ,title="", children=[])=>
     {
         return {
             title:title,
             color:color,
             size:size,
             children:children,
-            id:id
         }
     }
 
@@ -59,13 +58,13 @@ class ProposalChart extends React.Component {
     buildData=(positive, negative, total, user)=>
     {
         let rest = total-positive-negative
-        let positiveData = this.getData(positive);
-        let negativeData = this.getData(negative);
+        let positiveData = this.getData(positive, startColor, "Positive");
+        let negativeData = this.getData(negative, startColor, "Negative");
         let restData = this.getData(rest);
         if(user>0)
-            positiveData.children.push(this.getData(user))
+            positiveData.children.push(this.getData(user, startColor, "You"))
         else if(user<0)
-            negativeData.children.push(this.getData(-user))
+            negativeData.children.push(this.getData(-user, startColor, "You"))
 
         let data = {
             children:[positiveData, negativeData, restData]
@@ -77,9 +76,9 @@ class ProposalChart extends React.Component {
     onMouseOver=(data)=>
     {
         this.setState({
-            selectedId:data.id,
             color:data.color,
             stake:data.size,
+            title:data.title
         })
 
         clearTimeout(this.resetTimeout);
@@ -91,8 +90,6 @@ class ProposalChart extends React.Component {
     //Not triggering for unkown reason
     onMouseOut=(data)=>
     {
-        
-
      
     }
 
@@ -104,18 +101,19 @@ class ProposalChart extends React.Component {
     render()
     {
         let data = this.buildEmptyData()
-        let userOwnership = Numeral(this.state.stake/this.props.totalSupply).format('0.0%')
-        let shares = this.state.stake+"/"+this.props.totalSupply
+
+        let percentage = Numeral(this.state.stake/this.props.total).format('0.0%')
+        let shares = this.state.stake+"/"+this.props.total
        
        if(this.state.showGraph)
-            data = this.buildData( this.props.totalSupply, this.props.contributorsData, this.props.userAddress)
+            data = this.buildData(this.props.positive, this.props.negative, this.props.total, this.props.user)
 
         return (
             <div style={{"position":"relative"}}> 
                
                 <div style={this.getCenterContentStyle()}>
-                      <h2 style={{"color":this.state.color,"margin":2}}> {userOwnership}</h2>
-                      <h4 style={{"color":"#aa3366","margin":2}}> {shares}</h4>                  
+                    <h2 style={{"color":this.state.color,"margin":2}}> {percentage}</h2>
+                    <h4 style={{"color":"#aa3366","margin":2}}> {shares}</h4>                  
                 </div> 
 
                 <Sunburst
