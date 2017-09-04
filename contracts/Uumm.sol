@@ -12,7 +12,7 @@ contract Uumm
 
         //Governance features
         uint256 requiredConcensus; //Represented in %*100. what % of the voting participants (not percentage of contributors) is required for a proposal to be approved
-        uint256 requiredParticipation; //Represented in %*100.  what % of participation is required to resolve a proposal
+        uint256 requiredParticipation; //Represented in %*100.  what % of participation is required to resolve a proposal.
         uint totalSupply;
 
         //Proposal stuff
@@ -148,7 +148,7 @@ contract Uumm
     function CreateProposal (bytes32 projectId, string title, string reference, uint256 valueAmount)
     {
         if(valueAmount==0)
-            throw;
+            revert();
 
         uint256 proposalId =  projects[projectId].proposals.length;
 
@@ -253,7 +253,7 @@ contract Uumm
         if(projects[projectId].contributors[contributorId].valueTokens == 0)
             revert();
 
-        if (projects[projectId].proposals[proposalId].creationTimestamp + projects[projectId].proposalExpiringTimeInSeconds > block.timestamp)
+        if (HasExpired(projectId, proposalId))
             revert();
         
         //Reset the vote if she has voted already. 
@@ -286,44 +286,42 @@ contract Uumm
     //CRITICAL
 
     //Anyone can resolve the proposal
-    //Proposal can be resolved in two scenarios:
+    //Proposal can be resolved in two scenarios (only if is pending):
     //1- Concensus is over 'requiredConcensus' among the all participants.
     //2- Expiration date has passed, and  'requiredParticipation' has been reached
     
     //TODO This function need to be expressed clearly. It is too convoluted right now.
+
     function ResolveProposal(bytes32 projectId, uint256 proposalId)
     {
         if (projects[projectId].proposals[proposalId].state != proposalState.pending)
             revert();
             
-        if(!IsProposalMinimumParticipationReached (projectId, proposalId))
+        if(!HasEnoughParticipation (projectId, proposalId))
             revert();
 
         //Enough contributors have voted
-        if((projects[projectId].proposals[proposalId].positiveVotes*precision / projects[projectId].totalSupply*precision) > projects[projectId].requiredConcensus/100*precision)
+        if(HasEnoughConcensus(projects[projectId].proposals[proposalId].positiveVotes, projects[projectId].totalSupply,projects[projectId].requiredConcensus))
         {
             ApproveOrDennyProposal(projectId, proposalId, true);
             return;
         }
 
-        if((projects[projectId].proposals[proposalId].negativeVotes*precision / projects[projectId].totalSupply*precision) > projects[projectId].requiredConcensus/100*precision)
+        if(HasEnoughConcensus(projects[projectId].proposals[proposalId].negativeVotes, projects[projectId].totalSupply,projects[projectId].requiredConcensus))
         {
             ApproveOrDennyProposal(projectId, proposalId, false);
             return;
         }  
 
         //Deadline has expired
-        if (projects[projectId].proposals[proposalId].creationTimestamp + projects[projectId].proposalExpiringTimeInSeconds < block.timestamp)
+        if (HasExpired(projectId, proposalId))
         {
-            if(IsProposalConcensusThresholdReached(projectId, proposalId))
-            {
-                if(projects[projectId].proposals[proposalId].positiveVotes > projects[projectId].proposals[proposalId].negativeVotes)
-                    ApproveOrDennyProposal(projectId, proposalId, true);
-                else
-                    ApproveOrDennyProposal(projectId, proposalId, false);
+            if(projects[projectId].proposals[proposalId].positiveVotes > projects[projectId].proposals[proposalId].negativeVotes)
+                ApproveOrDennyProposal(projectId, proposalId, true);
+            else
+                ApproveOrDennyProposal(projectId, proposalId, false);
 
-                return;
-            }
+            return;
         }
     }
 
@@ -341,30 +339,15 @@ contract Uumm
             projects[projectId].proposals[proposalId].state = proposalState.denied;
         }
     }
-    
-    //Have proposal reached concensus within current voters?
-    // positiveVotes/totalNumberOfVotes > requiredConcensus
-    // or negativeVotes/totalNumberOfVotes > requiredConcensus
-    function IsProposalConcensusThresholdReached(bytes32 projectId, uint256 proposalId) constant
+
+    function HasEnoughConcensus(uint256 votesAmount, uint256 totalSupply, uint256 requiredConcensus) constant
         returns (bool)
     {
-        if(projects[projectId].proposals[proposalId].positiveVotes > projects[projectId].proposals[proposalId].negativeVotes)
-        {
-             if(projects[projectId].proposals[proposalId].positiveVotes * precision / (projects[projectId].proposals[proposalId].positiveVotes * precision + projects[projectId].proposals[proposalId].negativeVotes * precision) > projects[projectId].requiredConcensus/100*precision)
-                return true;
-            else
-                return false;
-        }
-        else
-        {
-            if(projects[projectId].proposals[proposalId].negativeVotes*precision / (projects[projectId].proposals[proposalId].positiveVotes*precision + projects[projectId].proposals[proposalId].negativeVotes*precision) > projects[projectId].requiredConcensus/100*precision)
-                return true;
-            else
-                return false;
-        }
-    }
+       return  (votesAmount*precision)/(totalSupply*precision) > (requiredConcensus*precision/100);
+    } 
     
-    function IsProposalMinimumParticipationReached(bytes32 projectId, uint256 proposalId) constant
+    //Checks if a proposal has enough participation to be resolved before the exipring date
+    function HasEnoughParticipation(bytes32 projectId, uint256 proposalId) constant
         returns (bool)
     {
         if((projects[projectId].proposals[proposalId].positiveVotes * precision +
@@ -374,6 +357,12 @@ contract Uumm
             return true;
         else
             return false;
+    }
+
+    function HasExpired(bytes32 projectId, uint256 proposalId) constant
+        returns (bool)
+    {
+        return (projects[projectId].proposals[proposalId].creationTimestamp + projects[projectId].proposalExpiringTimeInSeconds) < block.timestamp;
     }
 
     function GetContributorVote(bytes32 projectId, uint256 proposalId, address contributor) constant
@@ -439,4 +428,6 @@ contract Uumm
     {
         return(projects[projectId].contributors[contributorId].proposalsRef.length);
     }
+
+
 }
