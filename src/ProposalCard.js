@@ -24,9 +24,9 @@ const bodyRowStyle =
     display: 'flex',
     flexDirection: 'row',
     //flexWrap: 'nowrap',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
    // alignItems: 'left',
-    //width:"100%"
+    width:"100%"
 }
 
 const bodyColumnStyle=
@@ -106,55 +106,68 @@ class ProposalCard extends React.Component {
 
     getUserState =(state, hasConcensus, isOwner, vote)=>
     {
-        switch (state)
-        {
-            case State.ProposalState.PENDING:
+        console.log("vote",)
+        
+            if(vote === 0 || (isOwner && vote == undefined))
+            {
+                return (<div>
+                    <p style={pStyle}> Vote </p>
+                    <RaisedButton style={{minWidth:50, width:50}} icon={<ApproveIcon/>} onTouchTap={this.onPositiveVote}/>
+                    <RaisedButton style={{minWidth:50, width:50}} icon={<DenniedIcon/>} onTouchTap={this.onNegativeVote}/>
+                </div>)
+            }
 
-                    if(vote === 0)
-                    {
-                        return (<div>
-                            <RaisedButton style={{minWidth:50, width:50}} icon={<ApproveIcon/>} onTouchTap={this.onPositiveVote}/>
-                            <RaisedButton style={{minWidth:50, width:50}} icon={<DenniedIcon/>} onTouchTap={this.onNegativeVote}/>
-                        </div>)
-                    }
+            else if(vote == undefined && isOwner)
+            {
+                 return (<div>
+                    <p style={pStyle}> Vote </p>
+                    <RaisedButton style={{minWidth:50, width:50}} icon={<ApproveIcon/>} onTouchTap={this.onPositiveVote}/>
+                    <RaisedButton style={{minWidth:50, width:50}} icon={<DenniedIcon/>} onTouchTap={this.onNegativeVote}/>
+                </div>)
+            }
 
-                    let voted = <div/>
-                    let resolve = <div/>
-                    if (vote > 0)
-                    {
-                        voted = (<div>
-                                    <ApproveIcon  size={25}/>
-                                    <p> {Math.abs(vote)}</p>
-                            </div>)
-                    }
-                    else if (vote < 0)
-                    {
-                        voted = (<div>
-                                    <DenniedIcon  size={25}/>
-                                    <p> {Math.abs(vote)}</p>
-                            </div>)
-                    }
+            let voted = <div/>
+            let resolve = <div/>
+            let note = <div/>
 
-
-                    if(hasConcensus)
-                    {
-                        resolve = (<RaisedButton label={"Resolve"} onTouchTap={this.onResolve}/>)
-                    }
-
-                    return (<div>
-                            {voted}
-                            {resolve}
-                        </div>)
+            if (vote > 0)
+            {
+                voted = (<div>
+                            <p style={pStyle}> Voted {Math.abs(vote)} </p>
+                            <ApproveIcon  size={25}/>
+                    </div>)
+            }
+            else if (vote < 0)
+            {
+                voted = <div>
+                            <p style={pStyle}> Voted {Math.abs(vote)} </p>
+                            <DenniedIcon  size={25}/>
+                    </div>
+            } 
                     
-                
-            case State.ProposalState.APPROVED: return (<ApproveIcon  size={25}/>)
-            case State.ProposalState.DENIED: return (<DenniedIcon size={25}/>)
-            case State.ProposalState.EXPIRED: return (<p> Expired </p>)
-            case State.ProposalState.IN_PROGRESS: return (<InProgressIcon size={30}/>)
-                              
-            default :
-                return (<div/>)
+        switch (state)
+        { 
+            case State.ProposalState.PENDING:
+                if(hasConcensus)
+                    resolve = (<RaisedButton label={"Resolve"} onTouchTap={this.onResolve}/>)
+                else
+                    resolve = <p style={pStyle}> Waiting others </p>
+                    
+                break
+
+            case State.ProposalState.IN_PROGRESS:
+                note = <div>
+                            <p style={pStyle}> unconfirmed </p>
+                            <InProgressIcon size={30}/>
+                         </div>
+                    break
         } 
+
+        return (<div style = {{width:100}}>
+                    {note}
+                    {voted}
+                    {resolve}
+                </div>)
     }
 
     getStateIcon =(state, hasConcensus, isOwner)=>
@@ -165,6 +178,20 @@ class ProposalCard extends React.Component {
             case State.ProposalState.DENIED: return (<div style = {iconStyle}> <DenniedIcon size={20}/> </div>)
             case State.ProposalState.EXPIRED: return (<div style = {iconStyle}> <p> Expired</p> </div>)
             case State.ProposalState.PENDING: return (<div style = {iconStyle}> <InProgressIcon size={20}/> </div>)
+                              
+            default :
+                return (<div/>)
+        } 
+    }
+
+    getStateString =(state, hasConcensus, isOwner)=>
+    {
+        switch (state)
+        {
+            case State.ProposalState.APPROVED: return (<p style={pStyle}> Approved </p>)
+            case State.ProposalState.DENIED: return (<p style={pStyle}> Denied </p>)
+            case State.ProposalState.EXPIRED: return (<p style={pStyle}> Expired </p>)
+            case State.ProposalState.PENDING: return (<p style={pStyle}> Open </p>)
                               
             default :
                 return (<div/>)
@@ -201,8 +228,7 @@ class ProposalCard extends React.Component {
 
         
         let stateIcon = this.getStateIcon(this.props.proposalData.state, hasConcensus, isOwner) 
-
-
+        let stateString = this.getStateString(this.props.proposalData.state, hasConcensus, isOwner) 
 
         let header = (<div style = {headerContainerStyle} onClick={this.onTitleClicked} >
                         
@@ -213,18 +239,15 @@ class ProposalCard extends React.Component {
         let body = <div/>
 
         if (this.state.extended)
-            body =(<div>
+            body =(<div style={{width: '100%'}}>
                         <div style={bodyRowStyle}>
                             <div style={bodyColumnStyle}>
                                 <p style={pStyle}> Proposal state: </p>
+                                {stateString}
                                 <div ><p style={pStyle}> <ApproveIcon/> {Numeral(positivePercentage).format('0.0%')}, {this.props.proposalData.positiveVotes} votes</p></div>
                                 <div ><p style={pStyle}> <DenniedIcon/> {Numeral(negativePercentage).format('0.0%')}, {this.props.proposalData.negativeVotes} votes</p></div>
                             </div>
-                        </div>
-
-                        <div style={bodyRowStyle}>
                             <div style={bodyColumnStyle}>
-                                <p style={pStyle}> Your vote: </p>
                                 <div style={stateCellStyle}> {userState} </div>
                             </div>
                         </div>
