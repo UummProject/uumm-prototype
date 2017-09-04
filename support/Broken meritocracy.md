@@ -21,6 +21,8 @@ It should tell what is of value to the system in order to make decisions. In thi
 
 If defined broadly or incorrectly the system is likely to have [unintended consequences](http://lesswrong.com/lw/y3/value_is_fragile/) or be gamed.
 
+I'm using _capacities_ as opose to _skills_ because it can also represent things like _ideology_, _IQ_, _experience_, _dedication_.
+
 ### 2. Merit is not a currency
 It is not a [medium of exchange](https://en.wikipedia.org/wiki/Currency).
 
@@ -33,7 +35,9 @@ In consequence, you end up with a system where the goal is to maximize profit an
 ### 3. Tokenized merit
 This is not a desired feature but a limitation. In order to operate in a system that can scale, we need merit in a quantifiable format.
 
-This should be some sort of none-exchangeable capacity-for-decision-making token, although it may have other formats. 
+This should be some sort of (no-exchangeable) _capacity-for-decision-making_ token, although it may have other formats, or be the combination of several metrics.
+
+This value will be used to decide if an entity can vote, and what's the weight of this vote.
 
 _In the case of Bitcoin, this is how many times a miner has been the first to find the block hash within a defined amount of blocks._
 
@@ -46,16 +50,16 @@ _In the first iteration of [Uumm](https://xavivives.github.io/Uumm/), this is a 
 Most (I really mean 'most') systems end up compromising its own interest (#1) in order to make the system usable (#3). And so many others have a direct or indirect way to exchange merit (#2) and therefore compromising its integrity.
 
 ### Tokenetization problem
-How do you abstract all the necessary capacities to make a specialized decision and put them into a single number?
+How do you abstract all the necessary capacities to make an specialized decision and represent them in a single number?
 
-I don't know.
-
-Instead what we can do is to use the past as an indicator of the future.
+Some capacities may be easy to tokenize (time spent working at X, age, IQ, ownership of Y...). But in general, the ones that really matter are too abstract. (knowledge, intentions, insight, fidelity, trust). For those cases what we can do is to use the past as an indicator of the future.
 We can quantify proven capacities, and use it as merit. AKA Reputation.
 
 # Reputation systems
 
 Within this context, merit defines a required capacity of an entity to make decisions, while reputation is a proven record of a capacity.
+
+In this sense, we
 
 This makes reputation systems extremely suitable for governance.
 
@@ -81,12 +85,15 @@ While there have been attempts to standardize reputation [in the past](https://t
 
 [Decentralized Cooperation needs Decentralized Reputation](https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust/blob/master/topics-and-advance-readings/DecentralizedCooperationNeedsDecentralizedReputation.md) by [Noah Thorp](https://twitter.com/noahthorp) (2015)
 
-### Subjective reputation?
+### Subjective reputation
 The previous assumes reputation systems to be objective. Meaning that at least the participants need to have consensus over the state of a reputation metric.
 To my knowledge blockchains are the more suitable technology for it.
 
-Can the same be accomplished with subjective reputation?
-Projects like [identifi](https://github.com/identifi/) and [Trust Graph](https://github.com/trustgraph/trustgraph) work on P2P basis.
+In general when we talk about reputation, we refer to subjective reputation. How do an entity _feels_ about something. Each entity may have a different opinon.
+
+Subjective reputation may be very useful for decision making processes, but makes things harder to implement. I currently don't have an opinion on how this could be done.
+
+ like [identifi](https://github.com/identifi/) and [Trust Graph](https://github.com/trustgraph/trustgraph) work on P2P basis.
 
 
 # Conclusion
