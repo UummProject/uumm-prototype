@@ -92,6 +92,7 @@ contract Uumm
         projects[projectId].creationTimestamp = block.timestamp;
         projects[projectId].requiredConcensus = 61;
         projects[projectId].requiredParticipation = 30;
+        projects[projectId].proposalExpiringTimeInSeconds = 0;
         projects[projectId].pendingProposalsLength = 0;
 
         //The first position of 'contributors' is empty so we accidentally don't default to it
@@ -294,14 +295,15 @@ contract Uumm
 
     function ResolveProposal(bytes32 projectId, uint256 proposalId)
     {
+
         if (projects[projectId].proposals[proposalId].state != proposalState.pending)
             revert();
             
-        if(!HasEnoughParticipation (projectId, proposalId))
+        if(!HasEnoughParticipation(projectId, proposalId))
             revert();
 
         //Enough contributors have voted
-        if(HasEnoughConcensus(projects[projectId].proposals[proposalId].positiveVotes, projects[projectId].totalSupply,projects[projectId].requiredConcensus))
+        if(HasEnoughConcensus(projects[projectId].proposals[proposalId].positiveVotes, projects[projectId].totalSupply, projects[projectId].requiredConcensus))
         {
             ApproveOrDennyProposal(projectId, proposalId, true);
             return;
@@ -343,7 +345,7 @@ contract Uumm
     function HasEnoughConcensus(uint256 votesAmount, uint256 totalSupply, uint256 requiredConcensus) constant
         returns (bool)
     {
-       return  (votesAmount*precision)/(totalSupply*precision) > (requiredConcensus*precision/100);
+       return  (votesAmount*precision)/(totalSupply*precision) > (requiredConcensus/100);
     } 
     
     //Checks if a proposal has enough participation to be resolved before the exipring date
@@ -353,7 +355,7 @@ contract Uumm
         if((projects[projectId].proposals[proposalId].positiveVotes * precision +
             projects[projectId].proposals[proposalId].negativeVotes * precision) /
             projects[projectId].totalSupply * precision >
-            (projects[projectId].requiredParticipation * precision /100 ))
+            (projects[projectId].requiredParticipation/100 ))
             return true;
         else
             return false;
