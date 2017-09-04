@@ -1,4 +1,4 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.4.13;
 
 contract Uumm
 {
@@ -394,21 +394,24 @@ contract Uumm
         msg.sender.transfer(projects[projectId].contributors[contributorId].weiBalance);
     }
 
-    function GetContributorId(bytes32 projectId, address contributorAddress) constant returns (uint256)
+    function GetContributorId(bytes32 projectId, address contributorAddress) constant
+        returns (uint256)
     {
         return projects[projectId].contributorsRef[contributorAddress];
     }
 
-    function GetContributorDataByAddress(bytes32 projectId, address contributorAddress)  constant returns (uint256, address, string, uint256, uint256)
+    function GetContributorDataByAddress(bytes32 projectId, address contributorAddress)  constant
+        returns (uint256, address, string, uint256, uint256)
     {   
         uint256 contributorId = projects[projectId].contributorsRef[contributorAddress];
         if(contributorId==0)
-            throw;
+            revert();
 
         return GetContributorData(projectId, contributorId);
     }
 
-    function GetContributorData(bytes32 projectId, uint256 contributorId)  constant returns (uint256, address, string, uint256, uint256)
+    function GetContributorData(bytes32 projectId, uint256 contributorId)  constant
+        returns (uint256, address, string, uint256, uint256)
     {
         return(
             projects[projectId].contributors[contributorId].id,
@@ -419,15 +422,15 @@ contract Uumm
             );
     }
 
-    function GetContributorsLength(bytes32 projectId)  constant returns (uint256)
+    function GetContributorsLength(bytes32 projectId)  constant
+        returns (uint256)
     {
         return(projects[projectId].contributors.length);
     }
 
-    function GetContributorProposalsLength(bytes32 projectId, uint256 contributorId) returns (uint256)
+    function GetContributorProposalsLength(bytes32 projectId, uint256 contributorId) constant 
+        returns (uint256)
     {
         return(projects[projectId].contributors[contributorId].proposalsRef.length);
     }
-
-
 }
