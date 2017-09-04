@@ -121,7 +121,7 @@ contract('Uumm', async function(accounts)
     let project1Id 
     it("...should create a new project", async function() {
         let transaction = await uummInstance.CreateProject(firstProject.name, {from: getAddress(addressBook.PROJECT_CREATOR)})
-        Validators.validateGasUsed ("CreateProject", transaction.receipt.gasUsed, 390000)
+        Validators.validateGasUsed ("CreateProject", transaction.receipt.gasUsed, 410000)
         let numberOfProjects = await uummInstance.GetProjectsLength.call(getAddress(addressBook.PROJECT_CREATOR) , {from: getAddress(addressBook.RANDOM_USER)})
         assert.equal(numberOfProjects.toNumber(), firstProject.projectsLength, "One single project should exist")
     }) 
@@ -144,7 +144,7 @@ contract('Uumm', async function(accounts)
         Proposals[0].author = getAddress(addressBook.PROJECT_CREATOR)
 
         let transaction = await uummInstance.CreateProposal(project1Id, Proposals[0].title, Proposals[0].reference, Proposals[0].valueAmount,  {from: getAddress(addressBook.PROJECT_CREATOR)})
-        Validators.validateGasUsed ("CreateProposal", transaction.receipt.gasUsed, 250000)
+        Validators.validateGasUsed ("CreateProposal", transaction.receipt.gasUsed, 310000)
 
         await Validators.validateProposalDetails(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[0])
         await Validators.validateProposalState(uummInstance, getAddress(addressBook.PROJECT_CREATOR), project1Id, Proposals[0], 0)
