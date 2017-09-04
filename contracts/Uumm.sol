@@ -362,7 +362,7 @@ contract Uumm
     function HasExpired(bytes32 projectId, uint256 proposalId) constant
         returns (bool)
     {
-        return (projects[projectId].proposals[proposalId].creationTimestamp + projects[projectId].proposalExpiringTimeInSeconds) < block.timestamp;
+        return (projects[projectId].proposals[proposalId].creationTimestamp + projects[projectId].proposalExpiringTimeInSeconds) > block.timestamp;
     }
 
     function GetContributorVote(bytes32 projectId, uint256 proposalId, address contributor) constant
