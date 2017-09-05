@@ -26,7 +26,7 @@ const bodyRowStyle =
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width:"100%"
+    width:'100%'
 }
 
 const bodyColumnStyle=
@@ -52,17 +52,31 @@ const headerContainerStyle =
     flexWrap: 'nowrap',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width:"100%"
+    width:'100%'
 }
 
 const pStyle = 
 {
-    margin:5
+    margin:5,
+}
+
+const labelStyle = 
+{
+    margin:5,
+    color:'#aaa',
+    fontStyle: 'normal'
+}
+
+const labelContentStyle = 
+{
+    margin:5,
+    color:'#333',
+    display: 'inline-block'
 }
 
 const iconStyle =
 {
-    color:"#aaa",
+    color:'#aaa',
 }
 
 
@@ -132,7 +146,7 @@ class ProposalCard extends React.Component {
         { 
             case State.ProposalState.PENDING:
                 if(hasConcensus)
-                    resolve = (<RaisedButton label={"Resolve"} onTouchTap={this.onResolve}/>)
+                    resolve = (<RaisedButton label={'Resolve'} onTouchTap={this.onResolve}/>)
                 else
                     resolve = <p style={pStyle}> Waiting others </p>
                     
@@ -161,13 +175,13 @@ class ProposalCard extends React.Component {
         if(state===State.ProposalState.PENDING)
         {
             if(!vote)
-                return  <div style = {{width:70}} ><p style={pStyle}> Vote </p> </div>
+                return  <div style = {{width:70}} ><div style={labelStyle}> Vote </div> </div>
             
             else if(hasConcensus)
-                return  <div style = {{width:70}} ><p style={pStyle}> Resolve </p> </div>
+                return  <div style = {{width:70}} ><div style={labelStyle}> Resolve </div> </div>
             
             else
-                return  <div style = {{width:70}} ><p style={pStyle}> Waiting </p> </div>
+                return  <div style = {{width:70}} ><div style={labelStyle}> Waiting </div> </div>
         }
     }
 
@@ -244,7 +258,7 @@ class ProposalCard extends React.Component {
             body =( <div style = {{width:'100%'}}>
                         <div style={bodyRowStyle}>
                             <div style={bodyColumnStyle}>
-                                <p style={pStyle}> Proposal state: {stateString}</p>
+                                <p style={labelStyle}> Proposal state: {stateString}</p>
                                 <div ><p style={pStyle}> <ApproveIcon/> {Numeral(positivePercentage).format('0.0%')}, {this.props.proposalData.positiveVotes} votes</p></div>
                                 <div ><p style={pStyle}> <DenniedIcon/> {Numeral(negativePercentage).format('0.0%')}, {this.props.proposalData.negativeVotes} votes</p></div>
                             </div>
@@ -258,10 +272,14 @@ class ProposalCard extends React.Component {
 
                         <div style={bodyRowStyle}>
                             <div style={bodyColumnStyle}>
-                                <p style={pStyle}> Tokens asked: {this.props.proposalData.valueAmount} </p>
-                                <p style={pStyle}> Description: [Sorry, we're working on that] </p>
+                                <p style={pStyle}>
+                                    <em style={labelStyle}> Tokens asked: </em>
+                                    {this.props.proposalData.valueAmount}
+                                </p> 
+
+                                <p style={labelStyle}> Description: [Sorry, we're working on that] </p>
                             </div>
-                        </div>
+                        </div>  
 
                     </div>)
 
