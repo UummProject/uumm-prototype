@@ -236,8 +236,12 @@ class ProposalCard extends React.Component {
         let userState = this.getUserState(this.props.proposalData.state, hasConcensus, isOwner, contributorVote) 
             
         let stateIcon = this.getStateIcon(this.props.proposalData.state, hasConcensus, isOwner) 
-        let stateString = this.getStateString(this.props.proposalData.state, hasConcensus, isOwner) 
-        let mainAction = this.getMainAction(this.props.proposalData.state, hasConcensus, isOwner, contributorVote) 
+        let stateString = this.getStateString(this.props.proposalData.state, hasConcensus, isOwner)
+
+        let mainAction = <div/>
+        if(!this.state.extended) 
+            mainAction = this.getMainAction(this.props.proposalData.state, hasConcensus, isOwner, contributorVote)
+
 
         let header = (
             <div style = {headerContainerStyle} onClick={this.onTitleClicked} >
