@@ -30,6 +30,15 @@ class ProposalsList extends React.Component
     {
         Uumm.resolveProposal(this.props.projectId, proposalData.id)
     }
+
+    onProposalTitleClicked = (proposalData)=>
+    {
+        let extendedProposalId = -1
+        if(proposalData.id !== this.state.extendedProposalId)
+            extendedProposalId = proposalData.id
+        
+        this.setState({extendedProposalId : extendedProposalId})
+    }
   
     render()
     {
@@ -63,6 +72,8 @@ class ProposalsList extends React.Component
                         onNegativeVote={this.onNegativeVote}
                         onResolve={this.onResolve}
                         userAddress={this.props.userAddress}
+                        onTitleClicked={this.onProposalTitleClicked}
+                        extended = {this.state.extendedProposalId===proposalData.id}
                     />);
 
                 proposalsComponents.push(<Divider key={"d"+ proposalData.id}/>)

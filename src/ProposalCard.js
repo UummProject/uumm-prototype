@@ -48,12 +48,13 @@ const headerContainerStyle =
     flexWrap: 'nowrap',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width:'100%'
+    width:'100%',
+    cursor:'pointer'
 }
 
 const pStyle = 
 {
-    margin:5,
+    //margin:5,
 }
 
 const labelStyle = 
@@ -100,7 +101,8 @@ class ProposalCard extends React.Component {
 
     onTitleClicked =() =>
     {
-       this.setState({extended:!this.state.extended})
+       this.setState({extended:!this.props.extended})
+       this.props.onTitleClicked(this.props.proposalData);
     }
 
     getUserState =(state, hasConcensus, isOwner, vote)=>
@@ -123,19 +125,10 @@ class ProposalCard extends React.Component {
         let note = <div/>
 
         if (vote > 0)
-        {
-            voted = (<div>
-                        <p style={pStyle}> Voted ({Math.abs(vote)}) </p>
-                        <ApproveIcon  size={25}/>
-                </div>)
-        }
+            voted = <p style={pStyle}> Voted {Math.abs(vote)} <ApproveIcon  size={20}/> </p>
+        
         else if (vote < 0)
-        {
-            voted = <div>
-                        <p style={pStyle}> Voted ({Math.abs(vote)}) </p>
-                        <DenniedIcon  size={25}/>
-                </div>
-        } 
+            voted = <p style={pStyle}> Voted {Math.abs(vote)} <DenniedIcon  size={20}/> </p>
                    
         switch (state)
         { 
@@ -148,10 +141,10 @@ class ProposalCard extends React.Component {
                 break
 
             case State.ProposalState.IN_PROGRESS:
-                note = <div>
-                            <p style={pStyle}> unconfirmed </p>
-                            <InProgressIcon size={30}/>
-                         </div>
+                note =  <p style={pStyle}> 
+                            unconfirmed 
+                            <InProgressIcon size={20}/>
+                        </p>
                     break
         } 
 
@@ -184,10 +177,10 @@ class ProposalCard extends React.Component {
     {
         switch (state)
         {
-            case State.ProposalState.APPROVED: return (<div style = {iconStyle}> <ApproveIcon size={20}/> </div>)
-            case State.ProposalState.DENIED: return (<div style = {iconStyle}> <DenniedIcon size={20}/> </div>)
+            case State.ProposalState.APPROVED: return (<div style = {iconStyle}> <ApproveIcon size={25}/> </div>)
+            case State.ProposalState.DENIED: return (<div style = {iconStyle}> <DenniedIcon size={25}/> </div>)
             case State.ProposalState.EXPIRED: return (<div style = {iconStyle}> <p> Expired</p> </div>)
-            case State.ProposalState.PENDING: return (<div style = {iconStyle}> <InProgressIcon size={20}/> </div>)
+            case State.ProposalState.PENDING: return (<div style = {iconStyle}> <InProgressIcon size={25}/> </div>)
                               
             default :
                 return (<div/>)
@@ -239,9 +232,8 @@ class ProposalCard extends React.Component {
         let stateString = this.getStateString(this.props.proposalData.state, hasConcensus, isOwner)
 
         let mainAction = <div/>
-        if(!this.state.extended) 
+        if(!this.props.extended) 
             mainAction = this.getMainAction(this.props.proposalData.state, hasConcensus, isOwner, contributorVote)
-
 
         let header = (
             <div style = {headerContainerStyle} onClick={this.onTitleClicked} >
@@ -253,7 +245,7 @@ class ProposalCard extends React.Component {
 
         let body = <div/>
 
-        if (this.state.extended)
+        if (this.props.extended)
             body =( <div style = {{width:'100%'}}>
                         <div style={bodyRowStyle}>
                             <div style={bodyColumnStyle}>
@@ -263,8 +255,8 @@ class ProposalCard extends React.Component {
                                     {stateString}
                                 </p>
 
-                                <div ><p style={pStyle}> <ApproveIcon/> {Numeral(positivePercentage).format('0.0%')}, {this.props.proposalData.positiveVotes} votes</p></div>
-                                <div ><p style={pStyle}> <DenniedIcon/> {Numeral(negativePercentage).format('0.0%')}, {this.props.proposalData.negativeVotes} votes</p></div>
+                                <p style={pStyle}> <ApproveIcon/> {Numeral(positivePercentage).format('0%')} <em style={labelStyle}> {this.props.proposalData.positiveVotes} votes</em></p>
+                                <p style={pStyle}> <DenniedIcon/> {Numeral(negativePercentage).format('0%')} <em style={labelStyle}> {this.props.proposalData.negativeVotes} votes</em></p>
                             </div>
 
                            <div style={shrinkColumnStyle}/>
@@ -291,6 +283,12 @@ class ProposalCard extends React.Component {
                         </div>  
 
                     </div>)
+
+
+        if(this.props.extended)
+            cardStyle.backgroundColor = 'rgba(0, 0, 0, 0.04)'
+        else
+            cardStyle.backgroundColor = 'rgba(0, 0, 0, 0.0)'
 
         return (
             <div style={cardStyle}>
