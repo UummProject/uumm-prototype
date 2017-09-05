@@ -6,7 +6,6 @@ import DenniedIcon from 'react-icons/lib/fa/close'
 import InProgressIcon from 'react-icons/lib/md/keyboard-control'
 import Numeral from 'numeral'
 
-
 const cardStyle =
 {
     display: 'flex',
@@ -22,7 +21,6 @@ const cardStyle =
 
 const bodyRowStyle =
 {
-    //padding:10,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -34,8 +32,6 @@ const bodyColumnStyle=
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'left',
-    flex:1,
-    flexGrow:2,
     padding:10
 }
 
@@ -62,7 +58,6 @@ const pStyle =
 
 const labelStyle = 
 {
-    margin:5,
     color:'#aaa',
     fontStyle: 'normal'
 }
@@ -203,11 +198,11 @@ class ProposalCard extends React.Component {
     {
         switch (state)
         {
-            case State.ProposalState.APPROVED: return (<p style={pStyle}> Approved </p>)
-            case State.ProposalState.DENIED: return (<p style={pStyle}> Denied </p>)
-            case State.ProposalState.EXPIRED: return (<p style={pStyle}> Expired </p>)
-            case State.ProposalState.PENDING: return (<p style={pStyle}> Open </p>)
-            case State.ProposalState.IN_PROGRESS: return (<p style={pStyle}> Waiting... </p>)
+            case State.ProposalState.APPROVED: return ('Approved')
+            case State.ProposalState.DENIED: return ('Denied')
+            case State.ProposalState.EXPIRED: return ('Expired')
+            case State.ProposalState.PENDING: return ('Open')
+            case State.ProposalState.IN_PROGRESS: return ('Waiting...')
                               
             default :
                 return (<div/>)
@@ -258,7 +253,12 @@ class ProposalCard extends React.Component {
             body =( <div style = {{width:'100%'}}>
                         <div style={bodyRowStyle}>
                             <div style={bodyColumnStyle}>
-                                <p style={labelStyle}> Proposal state: {stateString}</p>
+
+                                <p style={pStyle}>
+                                    <em style={labelStyle}> Proposal state: </em>
+                                    {stateString}
+                                </p>
+
                                 <div ><p style={pStyle}> <ApproveIcon/> {Numeral(positivePercentage).format('0.0%')}, {this.props.proposalData.positiveVotes} votes</p></div>
                                 <div ><p style={pStyle}> <DenniedIcon/> {Numeral(negativePercentage).format('0.0%')}, {this.props.proposalData.negativeVotes} votes</p></div>
                             </div>
@@ -272,12 +272,17 @@ class ProposalCard extends React.Component {
 
                         <div style={bodyRowStyle}>
                             <div style={bodyColumnStyle}>
+
                                 <p style={pStyle}>
                                     <em style={labelStyle}> Tokens asked: </em>
                                     {this.props.proposalData.valueAmount}
                                 </p> 
 
-                                <p style={labelStyle}> Description: [Sorry, we're working on that] </p>
+                                <p style={pStyle}>
+                                    <em style={labelStyle}> Description: </em>
+                                    [Sorry, we're working on that]
+                                </p>
+
                             </div>
                         </div>  
 
