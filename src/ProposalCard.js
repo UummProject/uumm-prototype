@@ -105,8 +105,9 @@ class ProposalCard extends React.Component {
        this.props.onTitleClicked(this.props.proposalData);
     }
 
-    getUserState =(state, hasConcensus, isOwner, vote)=>
+    getUserState =(state, hasConcensus, contributorTokens, vote)=>
     {       
+        let isOwner = contributorTokens>0
         if(!isOwner)
             return <div/>
         
@@ -123,6 +124,14 @@ class ProposalCard extends React.Component {
         let voted = <div/>
         let resolve = <div/>
         let note = <div/>
+
+        if( vote!= 0 && contributorTokens != vote  && state===State.ProposalState.PENDING)
+            return (<div>
+                <p style={pStyle}> Vote </p>
+                <RaisedButton style={{minWidth:50, width:50}} icon={<ApproveIcon/>} onTouchTap={this.onPositiveVote}/>
+                <RaisedButton style={{minWidth:50, width:50}} icon={<DenniedIcon/>} onTouchTap={this.onNegativeVote}/>
+                <p style={labelStyle}> You can vote again using the newly aquired tokens </p>
+            </div>)
 
         if (vote > 0)
             voted = <p style={pStyle}> Voted {Math.abs(vote)} <ApproveIcon  size={20}/> </p>
@@ -155,21 +164,28 @@ class ProposalCard extends React.Component {
                 </div>)
     }
 
-    getMainAction =(state, hasConcensus, isOwner, vote)=>
+    getMainAction =(state, hasConcensus, contributorTokens, vote)=>
     {       
-        if(!isOwner)
+        if(!contributorTokens)
             return <div/>
         
         if(state===State.ProposalState.PENDING)
         {
             if(!vote)
                 return  <div style = {{width:70}} ><div style={labelStyle}> Vote </div> </div>
-            
+
+             if(vote != 0 && vote != contributorTokens)
+                return  <div style = {{width:70}} ><div style={labelStyle}> Vote again</div> </div>
+
             else if(hasConcensus)
                 return  <div style = {{width:70}} ><div style={labelStyle}> Resolve </div> </div>
             
             else
-                return  <div style = {{width:70}} ><div style={labelStyle}> Waiting </div> </div>
+                return  <div style = {{width:70}} ><div style={labelStyle}>  </div> </div>
+        }
+        else if(state===State.ProposalState.IN_PROGRESS)
+        {
+            return  <div style = {{width:70}} ><div style={labelStyle}> Confirming </div> </div>
         }
     }
 
@@ -226,14 +242,14 @@ class ProposalCard extends React.Component {
         if(contributorData)
             isOwner = contributorData.valueTokens > 0
 
-        let userState = this.getUserState(this.props.proposalData.state, hasConcensus, isOwner, contributorVote) 
+        let userState = this.getUserState(this.props.proposalData.state, hasConcensus, contributorData.valueTokens, contributorVote) 
             
         let stateIcon = this.getStateIcon(this.props.proposalData.state, hasConcensus, isOwner) 
         let stateString = this.getStateString(this.props.proposalData.state, hasConcensus, isOwner)
 
         let mainAction = <div/>
         if(!this.props.extended) 
-            mainAction = this.getMainAction(this.props.proposalData.state, hasConcensus, isOwner, contributorVote)
+            mainAction = this.getMainAction(this.props.proposalData.state, hasConcensus, contributorData.valueTokens, contributorVote)
 
         let header = (
             <div style = {headerContainerStyle} onClick={this.onTitleClicked} >
