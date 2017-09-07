@@ -3,6 +3,8 @@
 # Meritocracy as a base
 All governance systems are a subset of [Meritocracy](https://en.wikipedia.org/wiki/Meritocracy) if you understand _merit_ as the feature that defines the right of an entity opinion to be considered (vote).
 
+By white-listing capacities (merit) instead of identites (usually people) we can have governance system, more open and adaptable while keep being truth to the system goals, and still being compatible with old governance systems.
+
 _For ease of use and simplification I concentrated all the examples in a single section down below. You may jump there if something doesn't make total sense._
 
 _And for the same reasons I narrowed down the relevant merit properties to the following._
@@ -52,46 +54,38 @@ Most (I really mean 'most') systems end up compromising its own interest (#1) in
 ### Tokenetization problem
 How do you abstract all the necessary capacities to make an specialized decision and represent them in a single number?
 
-Some capacities may be easy to tokenize (time spent working at X, age, IQ, ownership of Y...). But in general, the ones that really matter are too abstract. (knowledge, intentions, insight, fidelity, trust). For those cases what we can do is to use the past as an indicator of the future.
-We can quantify proven capacities, and use it as merit. AKA Reputation.
+Some capacities are easy to tokenize: time spent working at X, age, IQ, ownership of Y, citizenship...
 
-# Reputation systems
+Others are too abstract: knowledge, intentions, insight, fidelity, trust...
+I belive those are the ones that matter the most. In these cases we can use reputation systems.
+
+#### Reputation systems
+
+Since we can't directly tokenize them, we can use the past as an indicator of the future. We can quantify proven capacities, and use it as merit.
 
 Within this context, merit defines a required capacity of an entity to make decisions, while reputation is a proven record of a capacity.
 
-In this sense, we
-
-This makes reputation systems extremely suitable for governance.
-
-### Centralized
-There are thousands of reputation systems already in use (5 stars rating, credentials, comments, followers, likes...), the problem is that they usually live in mutable (therefore can be altered) permission-ed (therefore un-accessible) databases. And because they're owned by entities that monetize on them, they have no incentive to change. 
-
-### Decentralized
-The new paradigm is different, and there are already [so many reasons](https://medium.com/@2W/fixing-orwellian-reputation-systems-4d01d489dcb7) to move away from the centralized reputation.
-
-Communities/platforms/DAOs that live on decentralized networks do not benefit by keeping all this data, it's quite the opposite. They enhance each other when the data is accessible.
+This makes reputation systems very suitable for governance.
 
 
-## Towards merit as reputation
-So, how do we get there?
+### Concensus problem
 
-### Decentralized identity
-In order to create decentralized reputation we need decentralized identities. Luckily, with different aproaches, there are several endeveours on the works: [DID](https://w3c-ccg.github.io/did-spec/), [UPort](https://www.uport.me/), [Blockstack](https://blockstack.org/), [Keybase](https://keybase.io), [identifi](https://github.com/identifi/) (missing any?)
+Whatever metrics we use to define merit we all need to agree over the state of a these metrics (at least the participants)
 
-### Accessible reputation
-While each governance is free to use any reputation metric it wants, a standaritzation would make things much accessible. In the same fashion that the [ERC20](http://www.investopedia.com/news/what-erc20-and-what-does-it-mean-ethereum/) has enabled all sorts of new services and platforms. Having and standard for decentralized reputation will greatly benefit the community.
+#### Blockchains
+Blockcahins seems like an intuitve answer, and for things like proving an identity they're probably the best approach. Projects like UPort and Blockstack make that already possible.
 
-While there have been attempts to standardize reputation [in the past](https://tools.ietf.org/html/rfc7071), this document  is only attempt of decentralized reputation I'm aware of:
+For most of the metrics though, the data is unlikley to be available in the blockchain. Current blockchains are too expensive, and most of decentralized platforms tend to minimize what they write in it.
 
-[Decentralized Cooperation needs Decentralized Reputation](https://github.com/WebOfTrustInfo/rebooting-the-web-of-trust/blob/master/topics-and-advance-readings/DecentralizedCooperationNeedsDecentralizedReputation.md) by [Noah Thorp](https://twitter.com/noahthorp) (2015)
+Most important, most of platforms are still highly centralized.
 
-### Subjective reputation
-The previous assumes reputation systems to be objective. Meaning that at least the participants need to have consensus over the state of a reputation metric.
-To my knowledge blockchains are the more suitable technology for it.
+#### Trusted third parties
+We can always trust a third party to digitally sign a certificate.
+That way we can have a company to prove that someone was a formal employee or we could use and digital state id to prove that someone is above certain age.
 
+
+#### Subjective reputation
 In general when we talk about reputation, we refer to subjective reputation. How do an entity _feels_ about something. Each entity may have a different opinon.
-
-Subjective reputation may be very useful for decision making processes, but makes things harder to implement. I currently don't have an opinion on how this could be done.
 
  like [identifi](https://github.com/identifi/) and [Trust Graph](https://github.com/trustgraph/trustgraph) work on P2P basis.
 
