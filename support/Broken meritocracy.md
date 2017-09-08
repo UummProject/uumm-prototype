@@ -61,7 +61,7 @@ I belive those are the ones that matter the most. In these cases we can use repu
 
 #### Reputation systems
 
-Since we can't directly tokenize them, we can use the past as an indicator of the future. We can quantify proven capacities, and use it as merit.
+Since we can't directly tokenize them, we can use the past as an indicator of the future. We can quantify proven capacities, and use them as merit.
 
 Within this context, merit defines a required capacity of an entity to make decisions, while reputation is a proven record of a capacity.
 
@@ -70,7 +70,7 @@ This makes reputation systems very suitable for governance.
 
 ### Concensus problem
 
-Whatever metrics we use to define merit we all need to agree over the state of a these metrics (at least the participants)
+Whatever metrics we use to define merit we all need to agree over the state of a these metrics (at least the participants). 
 
 #### Blockchains
 Blockcahins seems like an intuitve answer, and for things like proving an identity they're probably the best approach. Projects like UPort and Blockstack make that already possible.
@@ -82,19 +82,24 @@ Most important, most of platforms are still highly centralized.
 #### Trusted third parties
 We can always trust a third party to digitally sign a certificate.
 That way we can have a company to prove that someone was a formal employee or we could use and digital state id to prove that someone is above certain age.
-
+Same for events. We can use an oracle.
 
 #### Subjective reputation
-In general when we talk about reputation, we refer to subjective reputation. How do an entity _feels_ about something. Each entity may have a different opinon.
+In general when we talk about reputation, we refer to subjective reputation. How do an entity _feels_ about something. The fact that is subjective doesn't mean it can't be used. The participants just need to agree what entity will be used to digitaly sign the reputation metric .
 
- like [identifi](https://github.com/identifi/) and [Trust Graph](https://github.com/trustgraph/trustgraph) work on P2P basis.
+
+###Smart contracts
+All the above is possible with smart contracts.
 
 
 # Conclusion
+Different systems need different capacities to make decisions.
 
-Is up to each system to decide how to compute merit. But is likely that it will use several reputation metrics to do so. The more data liquidity the system has, the more accurate the merit can be, and therefore the better the outcome of the governance.
+Is up to each system to decide what metrics to use to compute its own 'ideal' merit token.
 
-As far as I can imagine, a system that can access and compute the necessary reputation metrics in order to build its own 'ideal' merit token, is the closest we can be to a governance truth to its goals.
+Smart contracts are extremely well suited for it.
+
+With the new decentralized paradigm we can now build systems that define merit with an accuracy that we never had before. This should allow for a substantial increase in the quality of governances.
 
 ## Aditional notes
 To keep things simple I left some things out of the current document.
