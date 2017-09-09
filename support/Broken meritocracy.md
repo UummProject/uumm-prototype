@@ -1,4 +1,9 @@
 # Broken meritocracy
+Meritocracy is an old concept. It is the idea that decisions should be taken by those better qualified for it. While one will find hard to find reasons why it shouldn't be like this, in the real world this is rearly the case. 
+
+This document explores why this mertitocracies fail, and attempts to create a simple framework to easly identify the problems.
+
+Finaly it suggests how with the new decentralized technologies like blockchains and smart contracts could make significant improvements on the decision making processes.
 
 # Meritocracy as a base
 All governance systems are a subset of [Meritocracy](https://en.wikipedia.org/wiki/Meritocracy) if you understand _merit_ as the feature that defines the right of an entity opinion to be considered (vote).
@@ -73,19 +78,17 @@ This makes reputation systems very suitable for governance.
 Whatever metrics we use to define merit we all need to agree over the state of a these metrics (at least the participants). 
 
 #### Blockchains
-Blockcahins seems like an intuitve answer, and for things like proving an identity they're probably the best approach. Projects like UPort and Blockstack make that already possible.
+Blockcahins are a intuitve answer, and for things like proving an identity they're a very good approach. Projects like UPort and Blockstack make it already possible.
 
 For most of the metrics though, the data is unlikley to be available in the blockchain. Current blockchains are too expensive, and most of decentralized platforms tend to minimize what they write in it.
 
 Most important, most of platforms are still highly centralized.
 
 #### Trusted third parties
-We can always trust a third party to digitally sign a certificate.
-That way we can have a company to prove that someone was a formal employee or we could use and digital state id to prove that someone is above certain age.
-Same for events. We can use an oracle.
+An alternative approach is to use a trusted third party to provide the required metric. A digital signature will be required.
 
 #### Subjective reputation
-In general when we talk about reputation, we refer to subjective reputation. How do an entity _feels_ about something. The fact that is subjective doesn't mean it can't be used. The participants just need to agree what entity will be used to digitaly sign the reputation metric .
+In general when we talk about reputation, we refer to subjective reputation. How do an entity _feels_ about something. The fact that is subjective doesn't mean it can't be used. Like the above pararaf, participants just need to agree into what entity will be used to digitaly sign the reputation metric.
 
 
 ###Smart contracts
