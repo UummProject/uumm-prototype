@@ -1,14 +1,14 @@
 # Broken meritocracy
-Meritocracy is an old concept. It is the idea that decisions should be taken by those better qualified for it. While one will find hard to find reasons why it shouldn't be like this, in the real world this is rearly the case. 
+[Meritocracy](https://en.wikipedia.org/wiki/Meritocracy) is an old concept. It is the idea that decisions should be taken by those better qualified for it. While one will find hard to find reasons why it shouldn't be like this, in the real world this is rearly the case. 
 
-This document explores why this mertitocracies fail, and attempts to create a simple framework to easly identify the problems.
+This document explores why most governance systems fail, and it attempts to create a simple framework to easly identify the problems.
 
-Finaly it suggests how with the new decentralized technologies like blockchains and smart contracts could make significant improvements on the decision making processes.
-
-# Meritocracy as a base
-All governance systems are a subset of [Meritocracy](https://en.wikipedia.org/wiki/Meritocracy) if you understand _merit_ as the feature that defines the right of an entity opinion to be considered (vote).
+Finaly it suggests how with decentralized technologies like blockchains and smart contracts could significantly improve the results of the decision making processes.
 
 By white-listing capacities (merit) instead of identites (usually people) we can have governance system, more open and adaptable while keep being truth to the system goals, and still being compatible with old governance systems.
+
+# Meritocracy as a base
+All governance systems are a subset of Meritocracy if you understand _merit_ as the feature that defines the right of an entity opinion to be considered (vote).
 
 _For ease of use and simplification I concentrated all the examples in a single section down below. You may jump there if something doesn't make total sense._
 
@@ -52,17 +52,25 @@ _In the case of nation state elections, this your ID card._
 
 _In the first iteration of [Uumm](https://xavivives.github.io/Uumm/), this is a number of contributions done by an entity._
 
-## System failure
+# System failure
 
 Most (I really mean 'most') systems end up compromising its own interest (#1) in order to make the system usable (#3). And so many others have a direct or indirect way to exchange merit (#2) and therefore compromising its integrity.
 
-### Tokenetization problem
+## Tokenetization problem
+Tokenizing merit is very hard, and I belive to be one of the root causes for failure.
+
 How do you abstract all the necessary capacities to make an specialized decision and represent them in a single number?
 
-Some capacities are easy to tokenize: time spent working at X, age, IQ, ownership of Y, citizenship...
+Some capacities are easy to tokenize: time spent working at X, age, IQ, ownership of Y, citizenship but the ones that really matter are too abstract: knowledge, intentions, insight, fidelity, trust...
 
-Others are too abstract: knowledge, intentions, insight, fidelity, trust...
-I belive those are the ones that matter the most. In these cases we can use reputation systems.
+Most governances make use of a mix of certifactes, test, recomendations, reputation... to validate the capacites of an entity. Then, an special credential is given to the entity that allows for its opinion to be heard.
+
+This is mostly a manual process, making the system slow and prone to mistakes, and on top of that extra processes are required to peridically re-evalute merit.
+
+# Smart meritocracy
+
+Governance has been one of the main use-cases for smart contracts. The transparency of the blockchain and the automation and authentication capabilites makes them very suitbale. But to my knowledge no project have dealed with the main problem, merit.
+
 
 #### Reputation systems
 
