@@ -65,7 +65,7 @@ This is mostly a manual process, making the system slow and prone to mistakes, a
 
 Governance has been one of the main use-cases for smart contracts.
 
-The transparency of the blockchain and the programable and authentication capabilites of smart-contracts  makes them very suitabale.
+The transparency of the blockchain and the programable and authentication capabilites of smart-contracts  makes them very suitable.
 
 To my knowledge, though, no project have reconcidered how they approach merit.
 
@@ -89,7 +89,7 @@ Within this context, merit defines a required capacity of an entity to make deci
 
 This makes reputation systems very suitable for governance.
 
-## Concensus problem
+## Finding concensus
 
 Whatever metrics the system uses to define merit all the participants need to agree on the state of these metrics.
 
@@ -98,13 +98,21 @@ Blockcahins are a intuitve answer, and for things like proving an identity they'
 
 For most of the metrics though, the data is unlikley to be available in the blockchain. Current blockchains are too expensive, and most of decentralized platforms tend to minimize what they write in it.
 
-Most important, most of platforms are still highly centralized.
+Most important, most of platforms are still highly centralized, and so is its data.
 
-#### Trusted third parties
+### Trusted third parties
 An alternative approach is to use a trusted third party to provide the required metric. Just by digital signing the required data, we can have a full bridge to the analog world.
 
-#### Subjective reputation
+### Subjective reputation
 In general when we talk about reputation, we refer to subjective reputation. How do an entity _feels_ about something. The fact that is subjective doesn't mean it can't be used. Like the above, participants just need to agree into what entity will be used to digitaly sign the reputation metric.
+
+## Tokenetization solution
+There is no need to explain how good smart-contracts are for creating tokens.
+
+A smart contract could validate the necessary metrics, compute them, and generate a none-exchangable token that represents the merit of an entity.
+
+Now we can use this token to represent voting rights.
+
 
 # Conclusion
 Different systems need different capacities to make decisions.
@@ -122,7 +130,7 @@ I'll love to keep extending it. Feedback is welcome as always.
 ### Prediction markets
 There has been a lot of talk about the role that prediction markets could have on governance.
 
-When the results of the decisions can be easily measured and the pool of participants is high [futarchy](https://blog.ethereum.org/2014/08/21/introduction-futarchy/) seems a very interesting approach, but it makes it only doable on a very narrow scope.
+When the results of the decisions can be easily measured and the pool of participants is high [futarchy](https://blog.ethereum.org/2014/08/21/introduction-futarchy/) looks very good, but it makes it only doable on a very narrow scope.
 
 These systems are especially interesting because they add a strong incentive layer.
 
@@ -131,16 +139,24 @@ These systems are especially interesting because they add a strong incentive lay
 
 The way I see it, it makes merit exchangeable, therefore breaking property #2.
 
+### Wisdown of the crowds
+It seems that a significant part of decentralized governance projects share the idea that the [wisdom of the crowds](https://en.wikipedia.org/wiki/Wisdom_of_the_crowd) is a good approach for decision making
+
+This was clearly represented by the DAO but, the same approach have been used for other projects later on. On top of the problems derived by making the merit exchangble this [post] (https://forum.daohub.org/t/the-dao-are-we-taking-the-wisdom-of-the-crowd-too-far/1486/8) also explains how bad of an idea this is.
+
+While we could consider The Dao an experiment, I will argue that most of current projects (most of them with ICOs) are not interested in the long-term viablility of the project. Instead their single goal is to just benefit from the fundraising.
+They use the noble idea of inclusion, and give everyone the right of making decisions.
 
 ### Questions
 - Is there any wrong assumption on this document?
-- Are there better alternatives to reputation?
-- Could subjective reputation be used on decentralized governance? How?
+- Are there better alternative ways to access metrics?
+- Are there better ways to define merit?
+- Could subjective reputation be used on decentralized governance without the need of a trusted third party?
 - Will it make sense for the described meritocracy to strongly reward any participation (voting), whatever the decision is correct or not?
 
 
 # Examples
-This examples are to show how current governance system fits on the described meritocracy
+These examples are to show how current governance system fits on the described meritocracy
 _The numbers (1,2,3) make reference to the previously described merit properties_
 
 
