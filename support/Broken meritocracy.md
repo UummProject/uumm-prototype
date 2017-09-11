@@ -1,9 +1,9 @@
 # Broken meritocracy
-[Meritocracy](https://en.wikipedia.org/wiki/Meritocracy) is an old concept. It is the idea that decisions should be taken by those better qualified for it. While one will find hard to find reasons why it shouldn't be like this, in the real world this is rearly the case. 
+[Meritocracy](https://en.wikipedia.org/wiki/Meritocracy) is an old concept. It is the idea that decisions should be taken by those better qualified for it. While one will find hard to find reasons why it shouldn't be like this, in the real world this is rarely the case. 
 
-This document explores why most governance systems fail, and it attempts to create a simple framework to easly identify the problems.
+This document explores why most governance systems fail, and it attempts to create a simple framework to easily identify the problems.
 
-Finaly it suggests how with decentralized technologies like blockchains and smart contracts could significantly improve the results of the decision making processes.
+Finally, it suggests how decentralized technologies like blockchains and smart contracts could significantly improve the results of the decision making processes.
 
 # Meritocracy as a base
 All governance systems are a subset of Meritocracy if you understand _merit_ as the feature that defines the right of an entity opinion to be considered (vote).
@@ -52,12 +52,12 @@ _In the first iteration of [Uumm](https://xavivives.github.io/Uumm/), this is a 
 
 # System failure
 
-Most (I really mean 'most') systems end up compromising its own interest (#1) in order to make the system usable (#3). And so many others have a direct or indirect way to exchange merit (#2) and therefore compromising its integrity.
+Most (I really mean 'most') systems end up compromising its own interest (#1) in order to make the system usable (#3). And so many others have a direct or indirect way to exchange merit (#2) and therefore compromise integrity.
 
 ## Tokenetization problem
-Tokenizing merit is very hard, and I belive to be one of the root causes for failure.
+Tokenizing merit is very hard, and I belive it to be one of the root causes for failure.
 
-Most governances make use of a mix of certifactes, test, recomendations, reputation... to validate the capacites of an entity. Then, an special credential is given to the entity that allows for its opinion to be heard.
+Most governances make use of a mix of certificates, test, recomendations, reputation... to validate the capacites of an entity. Then, a special credential is given to the entity that allows for its opinion to be heard.
 
 This is mostly a manual process, making the system slow and prone to mistakes, and on top of that, extra processes are required to peridically re-evalute merit.
 
@@ -65,20 +65,20 @@ This is mostly a manual process, making the system slow and prone to mistakes, a
 
 Governance has been one of the main use-cases for smart contracts.
 
-The transparency of the blockchain and the programable and authentication capabilites of smart-contracts  makes them very suitable.
+The transparency of the blockchain and the programable and authentication capabilites of smart-contracts makes them very suitable.
 
-To my knowledge, though, no project have reconcidered how they approach merit.
+To my knowledge, though, no project has reconsidered how they approach merit.
 
 ## Whitelisting merit
 
-As previously described, in the analog/centralized world. The voting rights are defined in the identity credentials, not for its current merit. 
+As previously described in the analog/centralized world, the voting rights are defined in the identity credentials... not for its current merit. 
 
-By white-listing capacities (merit) instead of identites (usually people) we can have governance system, more open and adaptable while keep being truth to the system goals, and still being compatible with old governance systems.
+By white-listing capacities (merit) instead of identites (usually people) we can have a governance system, more open and adaptable while adhering to the system goals, and still being compatible with old governance systems.
 
 ## Accessible metrics
-How do you abstract all the necessary capacities to make an specialized decision and represent them in a single number? And in a decentralized/trustless enviroment.
+How do you abstract all the necessary capacities to make an specialized decision and represent them in a single number while in a decentralized/trustless enviroment?
 
-Some capacities are easy to tokenize: time spent working at X, age, IQ, ownership of Y, citizenship but the ones that really matter are too abstract: knowledge, intentions, insight, fidelity, trust... The later ones are relatively easy on the analog world but a little harder on a turstless enviroment.
+Some capacities are easy to tokenize: time spent working at X, age, IQ, ownership of Y, citizenship. The ones that really matter are too abstract: knowledge, intentions, insight, fidelity, trust... The latter are relatively easy on the analog world but a little harder on a turstless enviroment.
 
 
 ## Reputation systems
@@ -94,22 +94,22 @@ This makes reputation systems very suitable for governance.
 Whatever metrics the system uses to define merit all the participants need to agree on the state of these metrics.
 
 ### Blockchains
-Blockcahins are a intuitve answer, and for things like proving an identity they're a very good approach. Projects like UPort and Blockstack make it already possible.
+Blockchains are an intuitve answer for proving identity. Projects like UPort and Blockstack make it already possible.
 
-For most of the metrics though, the data is unlikley to be available in the blockchain. Current blockchains are too expensive, and most of decentralized platforms tend to minimize what they write in it.
+Currently, for most of the metrics the data is unlikley to be available in the blockchain. Current blockchains are too expensive, and most of decentralized platforms tend to minimize what they write in it.
 
 Most important, most of platforms are still highly centralized, and so is its data.
 
 ### Trusted third parties
-An alternative approach is to use a trusted third party to provide the required metric. Just by digital signing the required data, we can have a full bridge to the analog world.
+An alternative approach is to use a trusted third party to provide the required metric. Just by digitally signing the required data, we can have a full bridge to the analog world.
 
 ### Subjective reputation
-In general when we talk about reputation, we refer to subjective reputation. How do an entity _feels_ about something. The fact that is subjective doesn't mean it can't be used. Like the above, participants just need to agree into what entity will be used to digitaly sign the reputation metric.
+In general when we talk about reputation, we refer to subjective reputation. How does an entity _feel_ about something. The fact that it is subjective doesn't mean it can't be useful. Like the above, participants just need to agree what entity will be used to digitally sign the reputation metric.
 
 ## Tokenetization solution
 There is no need to explain how good smart-contracts are for creating tokens.
 
-A smart contract could validate the necessary metrics, compute them, and generate a none-exchangable token that represents the merit of an entity.
+A smart contract can validate the necessary metrics, compute them, and generate a none-exchangable token that represents the merit of an entity.
 
 Now we can use this token to represent voting rights.
 
@@ -117,11 +117,11 @@ Now we can use this token to represent voting rights.
 # Conclusion
 Different systems need different capacities to make decisions.
 
-Is up to each system to decide what metrics to use to compute its own 'ideal' merit token.
+It is up to each system to decide what metrics to use to compute its own 'ideal' merit token.
 
 Smart contracts are extremely well suited for it.
 
-With the new decentralized paradigm we can now build systems that define merit with an accuracy that we never had before. This should allow for a substantial increase in the quality of governances.
+With the new decentralized paradigm we can now build systems that define merit with an accuracy that we never had before. This should allow for a substantial increase in the quality of governance.
 
 ## Aditional notes
 To keep things simple I left some things out of the current document.
@@ -142,7 +142,7 @@ The way I see it, it makes merit exchangeable, therefore breaking property #2.
 ### Wisdown of the crowds
 It seems that a significant part of decentralized governance projects share the idea that the [wisdom of the crowds](https://en.wikipedia.org/wiki/Wisdom_of_the_crowd) is a good approach for decision making
 
-This was clearly represented by the DAO but, the same approach have been used for other projects later on. On top of the problems derived by making the merit exchangble this [post] (https://forum.daohub.org/t/the-dao-are-we-taking-the-wisdom-of-the-crowd-too-far/1486/8) also explains how bad of an idea this is.
+This was clearly represented by the DAO but, the same approach has been used for other projects later on. On top of the problems derived by making the merit exchangble this [post] (https://forum.daohub.org/t/the-dao-are-we-taking-the-wisdom-of-the-crowd-too-far/1486/8) also explains how bad of an idea this is.
 
 While we could consider The Dao an experiment, I will argue that most of current projects (most of them with ICOs) are not interested in the long-term viablility of the project. Instead their single goal is to just benefit from the fundraising.
 They use the noble idea of inclusion, and give everyone the right of making decisions.
