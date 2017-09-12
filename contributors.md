@@ -10,6 +10,8 @@ List of entities that had contributor in some way to the Uumm project.
 
 - [Naming brainstorming](https://twitter.com/xavivives/status/885213103583047680)
 - [Similar projects references](https://twitter.com/xavivives/status/885213103583047680)
+- [Broken Meritorcray feedback](https://mail.google.com/mail/u/0/#inbox/15e3ca4f88c156e8)
+- [Corrections on Broken Meritocracy](https://github.com/xavivives/Uumm/pull/2)
 
 ###Biggamax
 
@@ -20,5 +22,14 @@ List of entities that had contributor in some way to the Uumm project.
 - [Heads up with the public deploy being down](https://twitter.com/xavivives/status/893247116444930048)
 
 ###Lydia Law
-
 - Logo concept brainstorming
+
+###Brian Fitzgerald
+
+-[Suggestions on revenue sharing](https://twitter.com/xavivives/status/900622199341690880)
+
+-[Reported wrong functioning of UI](https://github.com/xavivives/Uumm/issues/1)
+
+###Xavier Vives
+
+-Suggestions on how to frame the Broken meritocracy article
