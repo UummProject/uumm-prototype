@@ -123,8 +123,8 @@ It is up to each system to decide what metrics to use to compute its own 'ideal'
 By whitelisting merit instead of identities we can:
 
 - Keep the goals of the system transparent and clear
-- Eliminate the process of evaluating the entities capacities
-- Make the system identity agnostic, making it open to anyone.
+- Eliminate the process of evaluating the entities capacities.
+- Make the system identity agnostic, making it open to anyone/anytihing
 
 Smart contracts are extremely well suited for it.
 
@@ -133,21 +133,6 @@ With the new decentralized paradigm we can now build systems that define merit w
 ## Aditional notes
 To keep things simple I left things out of the current document.
 Here there are some subjects I believe are worth to explore.
-
-### Governance for governements
-Nation states, and certain types of communities, are none-voluntary by nature. Its citizen never agreed on the fundamentals that should drive their nation (maybe their antecesors, or an small representation, but not the current citizens).
-
-A [constitution](https://en.wikipedia.org/wiki/Constitution) represents this fundaments. An inmutable document that roughly descrives the principles that drive an ever changing society.
-
-The result is that the principles are outdated or unclear, making it no duable to define merit.
-
-Instead, citizens could vote on what is valuable to them. The agragated results  could then be used to automatically compute the definition of merit itself.
-
-The voting wouldn't have to be time-framed. Instead a citizen could at any given time, change its own values, and the merit for governing the system would be updated. 
-
-The idea of the citizens voting on they are expert's on (which is about themself) is borrowed from [Ralph Merkle](https://en.wikipedia.org/wiki/Ralph_Merkle)'s draft _[DAOs, Democracy and Governance] (http://merkle.com/papers/DAOdemocracyDraft.pdf)_
-
-_Note: I'm from Catalonia, where we are forbiden to express our opinion about how do we want our sovereignty [because... 'Constitution'](http://www.reuters.com/article/us-spain-politics-catalonia/spain-blocks-catalan-independence-vote-threatens-charges-idUSKCN1BI1GQ?il=0)_
 
 ### Prediction markets
 There has been a lot of talk about the role that prediction markets could have on governance.
@@ -161,13 +146,27 @@ These systems are especially interesting because they add a strong incentive lay
 
 The way I see it, it makes merit exchangeable, therefore breaking property #2.
 
+
+### Governance for governments
+Nation states, and certain types of communities, are none-voluntary by nature. Its citizen never agreed on the fundamentals that should drive their nation (maybe their antecesors, or an small representation, but not the current citizens).
+
+A [constitution](https://en.wikipedia.org/wiki/Constitution) represents this pillars. An inmutable document that roughly descrives the principles that drive an ever changing society. 
+
+The principles are outdated or unclear, making it no duable to define merit.
+
+Instead, citizens could vote on what is valuable to them. The agragated results  could then be used to automatically compute the definition of merit itself.
+
+The voting wouldn't have to be time-framed. Instead a citizen could at any given time, change its own values, and the merit for governing the system would be updated. 
+
+The idea of the citizens voting on they are expert's on (which is about themself) is borrowed from [Ralph Merkle](https://en.wikipedia.org/wiki/Ralph_Merkle)'s draft _[DAOs, Democracy and Governance] (http://merkle.com/papers/DAOdemocracyDraft.pdf)_
+
+_Note: I'm from Catalonia, where we are forbiden to express our opinion about how do we want our sovereignty [because... 'Constitution'](http://www.reuters.com/article/us-spain-politics-catalonia/spain-blocks-catalan-independence-vote-threatens-charges-idUSKCN1BI1GQ?il=0)_
+
+
 ### Wisdown of the crowds
-It seems that a significant part of decentralized governance projects share the idea that the [wisdom of the crowds](https://en.wikipedia.org/wiki/Wisdom_of_the_crowd) is a good approach for decision making
+We never witness the outcomes of [The DAO] (https://en.wikipedia.org/wiki/The_DAO_(organization)) governance. Probably [it was not the best context](https://forum.daohub.org/t/the-dao-are-we-taking-the-wisdom-of-the-crowd-too-far/1486/8) to put the  [wisdom of the crowds](https://en.wikipedia.org/wiki/Wisdom_of_the_crowd) in practice.
 
-This was clearly represented by the DAO but, the same approach has been used for other projects later on. On top of the problems derived by making the merit exchangble this [post] (https://forum.daohub.org/t/the-dao-are-we-taking-the-wisdom-of-the-crowd-too-far/1486/8) also explains how bad of an idea this is.
-
-While we could consider The Dao an experiment, I will argue that most of current projects (most of them with ICOs) are not interested in the long-term viablility of the project. Instead their single goal is to just benefit from the fundraising.
-They use the noble idea of inclusion, and give everyone the right of making decisions.
+(https://forum.daohub.org/t/the-dao-are-we-taking-the-wisdom-of-the-crowd-too-far/1486/8)
 
 ### Questions
 - Is there any wrong assumption on this document?
