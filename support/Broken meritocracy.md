@@ -33,9 +33,7 @@ It is not a [medium of exchange](https://en.wikipedia.org/wiki/Currency).
 
 If you can trade the merit you end up with a system ruled by the entities that have more economic power and any required capacity intrinsic to the merit is gone.
 
-In consequence, you end up with a system where the goal is to maximize profit and the entities that rule it don't have the necessary capacities to do so (other than having economic power).
-
-`Fun game: How many ICOs and platforms use ERC20 tokens and other currencies for governance?`
+In consequence, the goal of the systems is reduced to maximize its profit and the entities that rule it don't have the necessary capacities to do so (other than having economic power).
 
 ### 3. Tokenized merit
 This is not a desired feature but a limitation. In order to operate in a system that can scale, we need merit in a quantifiable format.
@@ -59,7 +57,7 @@ Tokenizing merit is very hard, and I belive it to be one of the root causes for 
 
 Most governances make use of a mix of certificates, test, recomendations, reputation... to validate the capacites of an entity. Then, a special credential is given to the entity that allows for its opinion to be heard.
 
-This is mostly a manual process, making the system slow and prone to mistakes, and on top of that, extra processes are required to peridically re-evalute merit.
+This is mostly a manual process, making the system slow and prone to mistakes, and on top of that, extra processes are required to peridically re-evalute the entity capacities.
 
 # Smart meritocracy
 
@@ -71,7 +69,7 @@ To my knowledge, though, no project has reconsidered how they approach merit.
 
 ## Whitelisting merit
 
-As previously described in the analog/centralized world, the voting rights are defined in the identity credentials... not for its current merit. 
+As previously described in the analog/centralized world, the voting rights are defined in the identity credentials... not for its current merit. That forces the system to constatnly have to revaluate these credentials.
 
 By white-listing capacities (merit) instead of identites (usually people) we can have a governance system, more open and adaptable while adhering to the system goals, and still being compatible with old governance systems.
 
@@ -94,38 +92,62 @@ This makes reputation systems very suitable for governance.
 Whatever metrics the system uses to define merit all the participants need to agree on the state of these metrics.
 
 ### Blockchains
-Blockchains are an intuitve answer for proving identity. Projects like UPort and Blockstack make it already possible.
+Blockchains are an intuitve answer for proving identity. Projects like [UPort](https://www.uport.me/) and [Blockstack](https://blockstack.org/) make it already possible.
 
 Currently, for most of the metrics the data is unlikley to be available in the blockchain. Current blockchains are too expensive, and most of decentralized platforms tend to minimize what they write in it.
 
 Most important, most of platforms are still highly centralized, and so is its data.
 
 ### Trusted third parties
-An alternative approach is to use a trusted third party to provide the required metric. Just by digitally signing the required data, we can have a full bridge to the analog world.
+An alternative approach is to use a trusted third party to provide the required metric. Just by digitally signing the required data, we can have a full bridge to the none-decentralized world.
 
 ### Subjective reputation
-In general when we talk about reputation, we refer to subjective reputation. How does an entity _feel_ about something. The fact that it is subjective doesn't mean it can't be useful. Like the above, participants just need to agree what entity will be used to digitally sign the reputation metric.
+In general when we talk about reputation, we refer to _subjective_ reputation. How does an entity _feel_ about something. The fact that it is _subjective_ doesn't mean it can't be useful. Like the above, participants just need to agree what entity will be used to digitally sign the reputation metric.
 
 ## Tokenetization solution
 There is no need to explain how good smart-contracts are for creating tokens.
 
-A smart contract can validate the necessary metrics, compute them, and generate a none-exchangable token that represents the merit of an entity.
+A smart contract can validate the necessary metrics, compute them and generate a none-exchangable token that represents the merit of an entity.
+
+If a system can migrate or upgrade the token, we now can tweak the system goals in real time.
 
 Now we can use this token to represent voting rights.
 
 
 # Conclusion
 Different systems need different capacities to make decisions.
+Most governances are corrupted in some sense do to the lack of tools to evaluate merit properly.
 
-It is up to each system to decide what metrics to use to compute its own 'ideal' merit token.
+It is up to each system to decide what metrics to use to compute its own 'ideal' merit token, one that represents the system values and the required capacities to make decisions on it.
+
+By whitelisting merit instead of identities we can:
+
+- Keep the goals of the system transparent and clear
+- Eliminate the process of evaluating the entities capacities
+- Make the system identity agnostic, making it open to anyone.
 
 Smart contracts are extremely well suited for it.
 
 With the new decentralized paradigm we can now build systems that define merit with an accuracy that we never had before. This should allow for a substantial increase in the quality of governance.
 
 ## Aditional notes
-To keep things simple I left some things out of the current document.
-I'll love to keep extending it. Feedback is welcome as always.
+To keep things simple I left things out of the current document.
+Here there are some subjects I believe are worth to explore.
+
+### Governance for governements
+Nation states, and certain types of communities, are none-voluntary by nature. Its citizen never agreed on the fundamentals that should drive their nation (maybe their antecesors, or an small representation, but not the current citizens).
+
+A [constitution](https://en.wikipedia.org/wiki/Constitution) represents this fundaments. An inmutable document that roughly descrives the principles that drive an ever changing society.
+
+The result is that the principles are outdated or unclear, making it no duable to define merit.
+
+Instead, citizens could vote on what is valuable to them. The agragated results  could then be used to automatically compute the definition of merit itself.
+
+The voting wouldn't have to be time-framed. Instead a citizen could at any given time, change its own values, and the merit for governing the system would be updated. 
+
+The idea of the citizens voting on they are expert's on (which is about themself) is borrowed from [Ralph Merkle](https://en.wikipedia.org/wiki/Ralph_Merkle)'s draft _[DAOs, Democracy and Governance] (http://merkle.com/papers/DAOdemocracyDraft.pdf)_
+
+_Note: I'm from Catalonia, where we are forbiden to express our opinion about how do we want our sovereignty [because... 'Constitution'](http://www.reuters.com/article/us-spain-politics-catalonia/spain-blocks-catalan-independence-vote-threatens-charges-idUSKCN1BI1GQ?il=0)_
 
 ### Prediction markets
 There has been a lot of talk about the role that prediction markets could have on governance.
