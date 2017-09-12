@@ -58,7 +58,10 @@ I haven't directly tackled this problem yet. Would love to hear proposals on how
 - [An Introduction to Futarchy] (https://blog.ethereum.org/2014/08/21/introduction-futarchy/) by [Vitalik Buterin](https://twitter.com/VitalikButerin) (2014)
 
 
+### Wisdown of the crowds
+We never witness the outcomes of [The DAO] (https://en.wikipedia.org/wiki/The_DAO_(organization)) governance. Probably [it was not aimed to succeed](https://forum.daohub.org/t/the-dao-are-we-taking-the-wisdom-of-the-crowd-too-far/1486/8) anyway to put the  [wisdom of the crowds](https://en.wikipedia.org/wiki/Wisdom_of_the_crowd) in practice.
 
+(https://forum.daohub.org/t/the-dao-are-we-taking-the-wisdom-of-the-crowd-too-far/1486/8)
 
 ###Friction less
 ###Voluntary

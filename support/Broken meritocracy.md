@@ -69,9 +69,9 @@ To my knowledge, though, no project has reconsidered how they approach merit.
 
 ## Whitelisting merit
 
-As previously described in the analog/centralized world, the voting rights are defined in the identity credentials... not for its current merit. That forces the system to constatnly have to revaluate these credentials.
+As previously described in the analog/centralized world, the voting rights are defined in the identity credentials... not for its current merit. That forces the system to constantly have to revaluate these credentials.
 
-By white-listing capacities (merit) instead of identites (usually people) we can have a governance system, more open and adaptable while adhering to the system goals, and still being compatible with old governance systems.
+By [white-listing](https://en.wikipedia.org/wiki/Whitelist) capacities (merit) instead of identites (usually people) we can have a governance system, more open and adaptable while adhering to the system goals, and still being compatible with old governance systems.
 
 ## Accessible metrics
 How do you abstract all the necessary capacities to make an specialized decision and represent them in a single number while in a decentralized/trustless enviroment?
@@ -79,7 +79,7 @@ How do you abstract all the necessary capacities to make an specialized decision
 Some capacities are easy to tokenize: time spent working at X, age, IQ, ownership of Y, citizenship. The ones that really matter are too abstract: knowledge, intentions, insight, fidelity, trust... The latter are relatively easy on the analog world but a little harder on a turstless enviroment.
 
 
-## Reputation systems
+### Reputation systems
 
 Like in the analog world we can use the past as an indicator of the future. We can quantify proven capacities, and use them as merit.
 
@@ -125,19 +125,19 @@ By whitelisting merit instead of identities we can:
 - Keep the goals of the system transparent and clear
 - Eliminate the process of evaluating the entities capacities.
 - Make the system identity agnostic, making it open to anyone/anytihing
-
+- The system is backwards compatible (the list of whitelisted identities is a subset of the result of the whitelisted identities)
 Smart contracts are extremely well suited for it.
 
 With the new decentralized paradigm we can now build systems that define merit with an accuracy that we never had before. This should allow for a substantial increase in the quality of governance.
 
 ## Aditional notes
 To keep things simple I left things out of the current document.
-Here there are some subjects I believe are worth to explore.
+Here there are some subjects I naively believe are worth to explore.
 
 ### Prediction markets
 There has been a lot of talk about the role that prediction markets could have on governance.
 
-When the results of the decisions can be easily measured and the pool of participants is high [futarchy](https://blog.ethereum.org/2014/08/21/introduction-futarchy/) looks very good, but it makes it only doable on a very narrow scope.
+If the results of the decisions can be easily measured and the pool of participants is high, [futarchy](https://blog.ethereum.org/2014/08/21/introduction-futarchy/) seems a promising idea. Its an apprpoach limited to very specific governances.
 
 These systems are especially interesting because they add a strong incentive layer.
 
@@ -150,9 +150,10 @@ The way I see it, it makes merit exchangeable, therefore breaking property #2.
 ### Governance for governments
 Nation states, and certain types of communities, are none-voluntary by nature. Its citizen never agreed on the fundamentals that should drive their nation (maybe their antecesors, or an small representation, but not the current citizens).
 
-A [constitution](https://en.wikipedia.org/wiki/Constitution) represents this pillars. An inmutable document that roughly descrives the principles that drive an ever changing society. 
+A [constitution](https://en.wikipedia.org/wiki/Constitution) represents these pillars. An inmutable document that roughly descrives the principles that drive an ever changing society. 
 
-The principles are outdated or unclear, making it no duable to define merit.
+The principles are outdated or unclear, making the goverment gamable.
+In our case, because there are no clear goals, we can't define merit.
 
 Instead, citizens could vote on what is valuable to them. The agragated results  could then be used to automatically compute the definition of merit itself.
 
@@ -161,12 +162,7 @@ The voting wouldn't have to be time-framed. Instead a citizen could at any given
 The idea of the citizens voting on they are expert's on (which is about themself) is borrowed from [Ralph Merkle](https://en.wikipedia.org/wiki/Ralph_Merkle)'s draft _[DAOs, Democracy and Governance] (http://merkle.com/papers/DAOdemocracyDraft.pdf)_
 
 _Note: I'm from Catalonia, where we are forbiden to express our opinion about how do we want our sovereignty [because... 'Constitution'](http://www.reuters.com/article/us-spain-politics-catalonia/spain-blocks-catalan-independence-vote-threatens-charges-idUSKCN1BI1GQ?il=0)_
-
-
-### Wisdown of the crowds
-We never witness the outcomes of [The DAO] (https://en.wikipedia.org/wiki/The_DAO_(organization)) governance. Probably [it was not the best context](https://forum.daohub.org/t/the-dao-are-we-taking-the-wisdom-of-the-crowd-too-far/1486/8) to put the  [wisdom of the crowds](https://en.wikipedia.org/wiki/Wisdom_of_the_crowd) in practice.
-
-(https://forum.daohub.org/t/the-dao-are-we-taking-the-wisdom-of-the-crowd-too-far/1486/8)
+	
 
 ### Questions
 - Is there any wrong assumption on this document?
