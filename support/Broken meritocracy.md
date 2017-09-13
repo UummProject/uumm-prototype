@@ -167,7 +167,7 @@ The idea of the citizens voting on they are experts on (which is about themselve
 
 _Note: I'm from Catalonia, where we are forbidden to express our opinion about how do we want our sovereignty, and the reason is that [the Spanish constitution says so](http://www.reuters.com/article/us-spain-politics-catalonia/spain-blocks-catalan-independence-vote-threatens-charges-idUSKCN1BI1GQ?il=0)_
 
-###Building a decentralized meritocracy
+### Building a decentralized meritocracy
 This document is part of the [Uumm](https://xavivives.github.io/Uumm/) project.
 
 We're currently trying to set the foundations to design and build better governances.
