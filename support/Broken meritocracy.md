@@ -46,8 +46,6 @@ _In the case of Bitcoin, this is how many times a miner has been the first to fi
 
 _In the case of nation state elections, this your ID card._
 
-_In the first iteration of [Uumm](https://xavivives.github.io/Uumm/), this is a number of contributions done by an entity._
-
 # System failure
 
 Most (I really mean 'most') systems end up compromising its own interest (#1) in order to make the system usable (#3). And so many others have a direct or indirect way to exchange merit (#2) and therefore compromise its integrity.
@@ -155,14 +153,23 @@ Nation states, and certain types of communities, are none-voluntary by nature. I
 
 A [constitution](https://en.wikipedia.org/wiki/Constitution) represents these pillars. An inmutable document that roughly descrives the principles that drive an ever changing society. 
 
-The principles are outdated or unclear, making the goverment gamable.
-In our case, because there are no clear goals, we can't define merit.
+This principles are at the very least outdated or unclear, making the goverment gamable.
+
+I believe the presented model could be use to improve this situation.
+
+It may seem hard to apply because there are no clear values, therefore we can't define merit.
 
 Instead, citizens could vote on what is valuable to them. The agragated results  could then be used to automatically compute the definition of merit itself.
 
-The voting wouldn't have to be time-framed. Instead a citizen could at any given time, change its own values, and the merit for governing the system would be updated. 
+The voting wouldn't have to be time-framed. Instead a citizen could at any given time, change its own values, and the merit for governing the system would be updated in real time. 
 
 The idea of the citizens voting on they are expert's on (which is about themself) is borrowed from [Ralph Merkle](https://en.wikipedia.org/wiki/Ralph_Merkle)'s draft _[DAOs, Democracy and Governance] (http://merkle.com/papers/DAOdemocracyDraft.pdf)_
 
-_Note: I'm from Catalonia, where we are forbiden to express our opinion about how do we want our sovereignty [because constitution](http://www.reuters.com/article/us-spain-politics-catalonia/spain-blocks-catalan-independence-vote-threatens-charges-idUSKCN1BI1GQ?il=0)_
+_Note: I'm from Catalonia, where we are forbiden to express our opinion about how do we want our sovereignty, and the reason is because [the Spanish constitution says so](http://www.reuters.com/article/us-spain-politics-catalonia/spain-blocks-catalan-independence-vote-threatens-charges-idUSKCN1BI1GQ?il=0)_
 
+###Building a decentralized meritocracy
+This document is part of the [Uumm](https://xavivives.github.io/Uumm/) project.
+
+We're currently trying to set the foundations to design and build better governances.
+
+This document is an attempt to expose the philosophy behind it, so the community can iterate and point to any flaw. 
