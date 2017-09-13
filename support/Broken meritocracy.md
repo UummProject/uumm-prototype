@@ -1,9 +1,9 @@
 # Broken meritocracy
-[Meritocracy](https://en.wikipedia.org/wiki/Meritocracy) is an old concept. It is the idea that decisions should be taken by those better qualified for it. While one will find hard to argue against it, in the real world this is rarely the case. 
+[Meritocracy](https://en.wikipedia.org/wiki/Meritocracy) is an old concept. It is the idea that decisions should be taken by those better qualified for it. While one will find hard to argue against it, in the real world this it is rearly applied. 
 
-This document explores why most governance systems fail, and it attempts to create a simple framework to easily identify the problems.
+This document explores why most governance systems fail, and it attempts to create a simple model to easily frame some of the problems.
 
-Finally, it suggests how decentralized technologies like blockchains and smart contracts could significantly improve the results of the decision making processes.
+It also suggests how decentralized technologies like blockchains and smart contracts could solve some of the issues and significantly improve the results of the decision making processes.
 
 # Meritocracy as a base
 All governance systems are a subset of Meritocracy if you understand _merit_ as the feature that defines the right of an entity opinion to be considered (vote).
