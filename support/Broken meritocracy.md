@@ -1,14 +1,30 @@
-# Broken meritocracy
-[Meritocracy](https://en.wikipedia.org/wiki/Meritocracy) is an old concept. It is the idea that decisions should be taken by those better qualified for it. While one will find hard to argue against it, in the real world this it is rarely applied. 
+//signature link
+// power vs decsion
 
-This document explores why most governance systems fail, and it attempts to create a simple model to easily frame some of the problems.
+
+# Broken meritocracy
+
+
+
+This document explores why most governance systems fail, and it attempts to create a simple frame to spot some of the problems.
 
 It also suggests how decentralized technologies like blockchains and smart contracts could solve some of the issues and significantly improve the results of the decision making processes.
+
+## Redefining
+
+>  [Meritocracy](https://en.wikipedia.org/wiki/Meritocracy) is a political philosophy stating that power should be vested in individuals almost exclusively based on ability and talent..
+
+Within the context of this document, I won't be refering to political systems or goverments specifically but any any decision making process.
+
+Also, because `power` is not the same as `power of making decisions` I'll redefine meritocracy to the following:
+
+> ####Decisions should be taken by those better qualified for it.
+
 
 # Meritocracy as a base
 All governance systems are a subset of Meritocracy if you understand _merit_ as the feature that defines the right of an entity opinion to be considered (vote).
 
-_For ease of use and simplification I concentrated all the examples [in this document](https://github.com/xavivives/Uumm/blob/master/support/Merit%20Examples.md). You may want to check it out if something doesn't make total sense._
+_For ease of use and simplification I put some examples [in this document](https://github.com/xavivives/Uumm/blob/master/support/Merit%20Examples.md). You may want to check it out if something doesn't make total sense._
 
 _And for the same reasons I narrowed down the relevant merit properties to the following:_
 
