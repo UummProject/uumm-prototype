@@ -1,10 +1,4 @@
-//signature link
-// power vs decsion
-
-
-# Broken meritocracy
-
-
+# Broken meritocracy // Redefining meritocracy?
 
 This document explores why most governance systems fail, and it attempts to create a simple frame to spot some of the problems.
 
@@ -12,13 +6,13 @@ It also suggests how decentralized technologies like blockchains and smart contr
 
 ## Redefining
 
->  [Meritocracy](https://en.wikipedia.org/wiki/Meritocracy) is a political philosophy stating that power should be vested in individuals almost exclusively based on ability and talent..
+>  [Meritocracy](https://en.wikipedia.org/wiki/Meritocracy) is a political philosophy stating that power should be vested in individuals almost exclusively based on ability and talent.
 
-Within the context of this document, I won't be refering to political systems or goverments specifically but any any decision making process.
+Within the context of this document, I won't be refering to political systems or goverments specifically but to any decision making process.
 
 Also, because `power` is not the same as `power of making decisions` I'll redefine meritocracy to the following:
 
-> ####Decisions should be taken by those better qualified for it.
+> ####Meritocracy is the idea that decisions should be taken by the entities better qualified for it.
 
 
 # Meritocracy as a base
@@ -175,17 +169,21 @@ I believe the presented model could be used to improve this situation.
 
 It may seem hard to apply because there are no clear values, therefore we can't define merit.
 
-Instead, citizens could vote on what is valuable to them. The aggregated results could then be used to automatically compute the definition of merit itself.
+Instead each citizen could vote on its own principles and values. The aggregated results could then be used to automatically compute the definition of merit itself. 
 
 The voting wouldn't have to be time-framed. Instead, a citizen could at any given time, change its own values, and the merit for governing the system would be updated in real time. 
 
-The idea of the citizens voting on they are experts on (which is about themselves) is borrowed from [Ralph Merkle](https://en.wikipedia.org/wiki/Ralph_Merkle)'s draft _[DAOs, Democracy and Governance](http://merkle.com/papers/DAOdemocracyDraft.pdf)_
+The definition of merit could be considered some sort of consititution.
+
+The idea of the citizens voting on what they are experts on (which is about themselves) is borrowed from [Ralph Merkle](https://en.wikipedia.org/wiki/Ralph_Merkle)'s draft _[DAOs, Democracy and Governance](http://merkle.com/papers/DAOdemocracyDraft.pdf)_
 
 _Note: I'm from Catalonia, where we are forbidden to express our opinion about how do we want our sovereignty, and the reason is that [the Spanish constitution says so](http://www.reuters.com/article/us-spain-politics-catalonia/spain-blocks-catalan-independence-vote-threatens-charges-idUSKCN1BI1GQ?il=0)_
 
-### Building a decentralized meritocracy
+### Meritocracy into practice
 This document is part of the [Uumm](https://xavivives.github.io/Uumm/) project.
 
 We're currently trying to set the foundations to design and build better governances.
 
-This document is an attempt to expose the philosophy behind it, so the community can iterate and point to any flaw. 
+This document is an attempt to expose the philosophy behind it, so the community can iterate and point to any flaw.
+
+You're very welcome to join us on this exploration. No merit required.
