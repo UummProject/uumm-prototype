@@ -10,7 +10,7 @@ It also suggests how decentralized technologies like blockchains and smart contr
 
 Within the context of this document, I won't be refering to political systems or goverments specifically but to any decision making process.
 
-Also, because `power` is not the same as `power of making decisions` I'll redefine meritocracy to the following:
+Also, because `power` is not the same as `power for making decisions` I'll redefine meritocracy to the following:
 
 > ####Meritocracy is the idea that decisions should be taken by the entities better qualified for it.
 
@@ -81,15 +81,14 @@ As previously described in the analog/centralized world, the voting rights are d
 
 By [white-listing](https://en.wikipedia.org/wiki/Whitelist) capacities (merit) instead of entities (usually people), we can have a governance system that is identity agnostic.
 
-This would allow for anyone/anything to be a potential participant (kids, AI, other governances, anonymous entities).
+This would allow for anyone/anything to be a potential participant (kids, AI, other governances, anonymous entities). And because the system is automatized, the quantitiy of participants is not a problem.
 
-It makes the system more adaptable (just redefine the merit equation) while adhering to the system goals, and still being compatible with old governance systems (you can always make that a required capacity is to be someone).
+It makes the system more adaptable to the needs and circumstances (just redefine the merit equation), while adhering to the system goals, and still being compatible with old governance systems (you can always make that a required capacity is to be someone).
 
 ## Accessible metrics
 How do you abstract all the necessary capacities to make a specialized decision and represent them in a single number while in a decentralized/trustless environment?
 
-Some capacities are easy to tokenize: time spent working at X, age, IQ, ownership of Y, citizenship. The ones that really matter are too abstract: knowledge, intentions, insight, fidelity, trust... The latter is relatively easy in the analog world but a little harder on a trustless environment.
-
+Some capacities are easy to tokenize: time spent working at X, age, IQ, ownership of Y, citizenship. The ones that really matter are too abstract: knowledge, intentions, insight, fidelity, trust... Those are relatively easy in the analog world but a little harder on a trustless environment.
 
 ### Reputation systems
 
@@ -104,9 +103,9 @@ This makes reputation systems very suitable for governance.
 Whatever metrics the system uses to define merit all the participants need to agree on the state of these metrics.
 
 ### Blockchains
-Blockchains are an intuitive answer for proving identity. Projects like [UPort](https://www.uport.me/) and [Blockstack](https://blockstack.org/) make it already possible.
+Blockchains are an instintive answer. For proving identity, projects like [UPort](https://www.uport.me/) and [Blockstack](https://blockstack.org/) make it already possible.
 
-Currently, for most of the metrics, the data is unlikely to be available in the blockchain. Current blockchains are too expensive, and most of the decentralized platforms tend to minimize what they write in it.
+Currently though, for most of the metrics, the data is unlikely to be available in the blockchain. Current blockchains are too expensive, and most of the decentralized platforms tend to minimize what they write in it.
 
 Most importantly, most of the platforms are still highly centralized, and so is its data.
 
@@ -114,17 +113,18 @@ Most importantly, most of the platforms are still highly centralized, and so is 
 An alternative approach is to use a trusted third party to provide the required metric. Just by digitally signing the required data, we can have a full bridge to the none-decentralized world.
 
 ### Subjective reputation
-In general, when we talk about reputation, we refer to _subjective_ reputation. How does an entity _feel_ about something? The fact that it is _subjective_ doesn't mean it can't be useful. Like the above, participants just need to agree what entity will be used to digitally sign the reputation metric.
+In general, when we talk about reputation, we refer to _subjective_ reputation. How does an entity _feel_ about something? This means that not all the entities may feel the same way.
+
+But the fact that it is _subjective_ doesn't mean it can't be useful. Like the above, participants just need to agree what entity will be used to digitally sign the reputation metric.
 
 ## Tokenization solution
 There is no need to explain how good smart-contracts are for creating tokens.
 
 A smart contract can validate the necessary metrics, compute them and generate a none-exchangeable token that represents the merit of an entity.
 
-If a system can migrate or upgrade the token, we now can tweak the system goals in real time.
+If a system can migrate or upgrade the token, we can tweak the system goals in real time.
 
 Now we can use this token to represent voting rights.
-
 
 # Conclusion
 Different systems need different capacities to make decisions.
@@ -142,25 +142,27 @@ By whitelisting merit instead of identities we can:
 Smart contracts are extremely well suited for it.
 - Allow the system to easily adapt to new circumstances
 - Keeps the system transparent
+- Make the process maintanace free
+
 
 With the new decentralized paradigm, we can now build systems that define merit with an accuracy that we never had before. This should allow for a substantial increase in the quality of governance.
 
-## Aditional notes
+# Aditional notes
 Here there are some subjects I naively believe are worth mentioning and/or exploring.
 
-### Prediction markets
+## Prediction markets
 There has been a lot of talk about the role that prediction markets could have on governance.
 
 If the results of the decisions can be easily measured and the pool of participants is high, [futarchy](https://blog.ethereum.org/2014/08/21/introduction-futarchy/) seems a promising idea but it's an approach limited to very specific governances.
 
 These systems are especially interesting because they add a strong incentive layer, that I believe is worth exploring.
 
-### Proxy voting
+## Proxy voting
 [Proxy voting](https://en.wikipedia.org/wiki/Proxy_voting) or [Liquid democracy](https://en.wikipedia.org/wiki/Delegative_democracy) are commonly suggested improvements that the new paradigm makes easy to implement.
 
 The way I see it, it makes merit exchangeable, therefore breaking property #2.
 
-### Governance for governments
+## Governance for governments
 
 The previous model fits well on voluntary governances, where you participate because you agreed on the principles and goals of the system (an open-source project, a company...)
 
@@ -168,7 +170,7 @@ Nation states and certain types of communities are none-voluntary by nature. Its
 
 A [Constitution](https://en.wikipedia.org/wiki/Constitution) represents these pillars. An immutable document that roughly describes the principles that drive an ever changing society. 
 
-These principles are at the very least outdated or unclear, making the government gamble.
+These principles are at the very least outdated or unclear, making the government gamable.
 
 The presented model could be used to improve this situation.
 
@@ -181,16 +183,20 @@ The voting wouldn't have to be time-framed. Instead, a citizen could at any give
 
 The definition of merit could be considered some sort of consititution.
 
-### Some more notes
-The previous example is some sort of naive, it is more to exemplify the possibilities.
-
-I used nation states as example, because I believe is the most institive thing to think when talking about governance.
-
-Another would be a DAO that controls the water supply of a community. The users could vote on the things they care: price, flavour, added chemicals, health impact...
-
-The idea of the citizens voting on what they are experts on (which is about themselves) is borrowed from [Ralph Merkle](https://en.wikipedia.org/wiki/Ralph_Merkle)'s draft _[DAOs, Democracy and Governance](http://merkle.com/papers/DAOdemocracyDraft.pdf)_
+_The idea of the citizens voting on what they are experts on (which is about themselves) is borrowed from [Ralph Merkle](https://en.wikipedia.org/wiki/Ralph_Merkle)'s draft [DAOs, Democracy and Governance](http://merkle.com/papers/DAOdemocracyDraft.pdf)_
 
 _Note: I'm from Catalonia, where we are forbidden to express our opinion about how do we want our sovereignty, and the reason is that [the Spanish constitution says so](http://www.reuters.com/article/us-spain-politics-catalonia/spain-blocks-catalan-independence-vote-threatens-charges-idUSKCN1BI1GQ?il=0)_
+
+### Another example
+I used nation states as example, because I believe is the most institive thing to think when talking about governance. But I'm aware the previous example is some sort of naive, it is more to exemplify its possibilities.
+
+Another example could be a DAO that controls the water supply of a community. The users could vote on the things they care: price, flavour, added chemicals, health impact, enviromental impact...
+
+Depending on the results, the merit will morph adding or substracting requirements.
+
+In this case, maybe the necessary knowledge to take decessions will remain constant, but a metric representing the intentions or incentives could vary.
+
+A certification agency that cares about enviroment (kind of Greenpeace) could be used as trusted party to assign _green-tokens_, that define how much you care about the enviroment.
 
 ### Meritocracy into practice
 This document is part of the [Uumm](https://xavivives.github.io/Uumm/) project.
