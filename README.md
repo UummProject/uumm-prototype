@@ -3,7 +3,7 @@ _The Ultimate Unicorn Maker Machine_
 
 [Latest live version](https://xavivives.github.io/Uumm/)
 
-This document is old. The ideas behind it have been polished and are reflected on [this document](https://github.com/xavivives/Uumm/blob/master/support/Deconstructing%20governance.md). For the time being this readme still here to reflect the original intentions of the project.
+This document is old. The ideas behind it have been polished and are reflected on [this document](https://github.com/xavivives/Uumm/blob/master/support/Broken%20meritocracy.md). For the time being this readme still here to reflect the original intentions of the project.
 
 # What's this project about?
 It's a decentralized governance tool for collaborative projects based on the assumption that the percentage of user ownership of a project is equal to the percentage of user contribution to the project.
