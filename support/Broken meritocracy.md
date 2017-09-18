@@ -138,8 +138,10 @@ By whitelisting merit instead of identities we can:
 - Eliminate the process of evaluating the entities capacities.
 - Make the system identity agnostic, making it open to anyone/anything
 - The system is backward compatible (the list of whitelisted identities is a subset of the result of the whitelisted merit)
+
 Smart contracts are extremely well suited for it.
 - Allow the system to easily adapt to new circumstances
+- Keeps the system transparent
 
 With the new decentralized paradigm, we can now build systems that define merit with an accuracy that we never had before. This should allow for a substantial increase in the quality of governance.
 
@@ -159,21 +161,32 @@ These systems are especially interesting because they add a strong incentive lay
 The way I see it, it makes merit exchangeable, therefore breaking property #2.
 
 ### Governance for governments
-Nation states and certain types of communities are none-voluntary by nature. It's citizen never agreed on the fundamentals that should drive their nation (maybe their antecessors, or a small representation, but not the current citizens).
+
+The previous model fits well on voluntary governances, where you participate because you agreed on the principles and goals of the system (an open-source project, a company...)
+
+Nation states and certain types of communities are none-voluntary by nature. Its citizens never agreed on the fundamentals that should drive their nation (maybe a small representation of them, their antecessors, but not the current citizens).
 
 A [Constitution](https://en.wikipedia.org/wiki/Constitution) represents these pillars. An immutable document that roughly describes the principles that drive an ever changing society. 
 
 These principles are at the very least outdated or unclear, making the government gamble.
 
-I believe the presented model could be used to improve this situation.
+The presented model could be used to improve this situation.
 
 It may seem hard to apply because there are no clear values, therefore we can't define merit.
 
-Instead each citizen could vote on its own principles and values. The aggregated results could then be used to automatically compute the definition of merit itself. 
+Instead, we could crowdsource what merit means.
+Each citizen could vote on its own principles and values. The aggregated results could then be used to automatically compute the definition of merit itself. 
 
 The voting wouldn't have to be time-framed. Instead, a citizen could at any given time, change its own values, and the merit for governing the system would be updated in real time. 
 
 The definition of merit could be considered some sort of consititution.
+
+### Some more notes
+The previous example is some sort of naive, it is more to exemplify the possibilities.
+
+I used nation states as example, because I believe is the most institive thing to think when talking about governance.
+
+Another would be a DAO that controls the water supply of a community. The users could vote on the things they care: price, flavour, added chemicals, health impact...
 
 The idea of the citizens voting on what they are experts on (which is about themselves) is borrowed from [Ralph Merkle](https://en.wikipedia.org/wiki/Ralph_Merkle)'s draft _[DAOs, Democracy and Governance](http://merkle.com/papers/DAOdemocracyDraft.pdf)_
 
