@@ -226,5 +226,3 @@ You're very welcome to join us on this exploration. No merit required.
 _This document was published simultaniusly on my [personal blog](http://blog.xavivives.com/index) and Medium, and the full change log is available on [Github](https://github.com/xavivives/Uumm/blob/master/support/Broken%20meritocracy.md)._
 
 _It was possible thanks to the stress tests, constructive feedback, and support of the following people [Daniel Armengol](http://www.armengol-altayo.com/), [Greg Albritton](https://twitter.com/albrittongreg), [Xavier Vives](https://twitter.com/xacvisual), Assumpta Riba and Lydia Law._
-
-_[Change log](https://github.com/xavivives/Uumm/blob/master/support/Broken%20meritocracy.md)_
