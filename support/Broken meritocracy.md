@@ -177,32 +177,33 @@ The presented model could be used to improve this situation.
 It may seem hard to apply because there are no clear values, therefore we can't define merit.
 
 Instead, we could crowdsource what merit means.
-Each citizen could vote on its own principles and values. The aggregated results could then be used to automatically compute the definition of merit itself. 
+Each citizen could vote on its own principles and values regarding certain subjects. The aggregated results could then be used to automatically compute the definition of merit on each of the subjects. 
 
-The voting wouldn't have to be time-framed. Instead, a citizen could at any given time, change its own values, and the merit for governing the system would be updated in real time. 
+The voting wouldn't have to be time-framed. Instead, a citizen could at any given time, change its own values, and the merit for governing the system would be updated in real time.
 
-The definition of merit could be considered some sort of consititution.
+
+The definition of merit could be considered some sort of consititution. And the values that each citizen has voted could be used as reputation metrics for other systems.
 
 _The idea of the citizens voting on what they are experts on (which is about themselves) is borrowed from [Ralph Merkle](https://en.wikipedia.org/wiki/Ralph_Merkle)'s draft [DAOs, Democracy and Governance](http://merkle.com/papers/DAOdemocracyDraft.pdf)_
 
 _Note: I'm from Catalonia, where we are forbidden to express our opinion about how do we want our sovereignty, and the reason is that [the Spanish constitution says so](http://www.reuters.com/article/us-spain-politics-catalonia/spain-blocks-catalan-independence-vote-threatens-charges-idUSKCN1BI1GQ?il=0)_
 
 ### Another example
-I used nation states as example, because I believe is the most institive thing to think when talking about governance. But I'm aware the previous example is some sort of naive, it is more to exemplify its possibilities.
+I used nation states as example, because I believe is the most institive thing to think when talking about governance. The example is naive in few aspects, but mainly beause it underestimates the complexity of an state. 
 
-Another example could be a DAO that controls the water supply of a community. The users could vote on the things they care: price, flavour, added chemicals, health impact, enviromental impact...
+Another example could be a [DAO](https://en.wikipedia.org/wiki/Decentralized_autonomous_organization) that controls the water supply network of a community. The users could vote on the things they care: price, flavour, added chemicals, health impact, enviromental impact...
 
 Depending on the results, the merit will morph adding or substracting requirements.
 
 In this case, maybe the necessary knowledge to take decessions will remain constant, but a metric representing the intentions or incentives could vary.
 
-A certification agency that cares about enviroment (kind of Greenpeace) could be used as trusted party to assign _green-tokens_, that define how much you care about the enviroment.
+A certification agency that cares about enviroment (kind of Greenpeace) could be used as trusted party to assign _green-tokens_, that define how much an entitiy cares about the enviroment.
 
 ### Meritocracy into practice
 This document is part of the [Uumm](https://xavivives.github.io/Uumm/) project.
 
 We're currently trying to set the foundations to design and build better governances.
 
-This document is an attempt to expose the philosophy behind it, so the community can iterate and point to any flaw.
+This document is an attempt to expose the philosophy behind it, so the community can iterate and point to any flaw, before moving to next the stages.
 
 You're very welcome to join us on this exploration. No merit required.
