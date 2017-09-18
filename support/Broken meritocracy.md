@@ -15,7 +15,6 @@ Also, because `power` is not the same as `power for making decisions` I'll redef
 
 > Meritocracy is the idea that decisions should be taken by the entities better qualified for it.
 
-
 # Meritocracy as a base
 All governance systems are a subset of Meritocracy if you understand _merit_ as the feature that defines the right of an entity opinion to be considered (vote).
 
@@ -197,11 +196,28 @@ In this case, maybe the necessary knowledge to take decessions will remain const
 
 A certification agency (some sort of Greenpeace) could be used as a trusted party to hand _green-tokens_ to quantify how much an entity cares about the environment, for example.
 
+### Axiarchy
+I used the term meritocracy because is a word that is familiar to most, and it almost describes the basics of the described idea.
+
+But as stated, it is not the same as the described model.
+
+Meritocracy makes specific reference to 'power'
+> Merit, from Latin mereō, and -cracy, from Ancient Greek κράτος kratos "strength, power"
+
+To differentiate the two concepts and to have more accurate description, I suggest using the term **_Axiarchy_**
+
+> Axía "value, merit", from Greek [αξία](https://en.wiktionary.org/wiki/%CE%B1%CE%BE%CE%AF%CE%B1), and -archy,  from Ancient Greek [-αρχίᾱ](https://en.wiktionary.org/wiki/-archy) arkhíā "rule, government"
+
+Maybe a philologist could make a better suggestion.
+
+
 ### Work in progress
 This document is part of the [Uumm](https://xavivives.github.io/Uumm/) project.
 
 We're currently trying to set the foundations to design and build better governances.
 
-This document is an attempt to expose the philosophy behind it, so the community can iterate and point to any flaw, before moving to next stages.
+This document is an attempt to expose the ideology behind it, so the community can iterate and point to any flaw, before moving to next stages.
 
 You're very welcome to join us on this exploration. No merit required.
+
+_This document was made possible thanks to the stress tests, constructive feedback, and support of the following people [Daniel Armengol](http://www.armengol-altayo.com/), [Greg Albritton](https://twitter.com/albrittongreg), [Xavier Vives](https://twitter.com/xacvisual), Assumpta Riba and Lydia Law._
