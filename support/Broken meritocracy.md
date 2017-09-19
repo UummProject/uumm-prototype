@@ -79,7 +79,7 @@ As previously described in the analog/centralized world, the voting rights are d
 
 By [white-listing](https://en.wikipedia.org/wiki/Whitelist) capacities (merit) instead of entities (usual people), we can have a governance system that is identity agnostic.
 
-This would allow for anyone/anything to be a potential participant (kids, AI, other governances, anonymous entities). And because the system is automatized the number of participants can be huge without being a problem.
+This would allow for anyone/anything to be a potential participant (kids, AI, other governances, anonymous entities). And because the system is automatized, the number of participants can be huge without being a problem.
 
 It makes the system more adaptable to the needs and circumstances (just redefine the merit equation) while adhering to the system goals, and still being compatible with old governance systems (you can always make that a required capacity is to be someone).
 
@@ -146,7 +146,7 @@ With the new decentralized paradigm, we can now build systems that define merit 
 
 --
 
-# Aditional notes
+# Additional notes
 There are some subjects I naively believe are worth mentioning and/or exploring.
 
 ## Prediction markets
@@ -165,7 +165,7 @@ The way I see it, it makes merit exchangeable, therefore breaking property #2.
 
 The previous model fits well on voluntary governances, where you participate because you agreed on the principles and goals of the system (an open-source project, a company...)
 
-Nation states and certain types of communities are none-voluntary by nature. Its citizens never agreed on the foundations that drive their nation (maybe a small representation of them, their antecessors, but not the current citizens).
+Nation states and certain types of communities are none-voluntary by nature. Its citizens never agreed on the foundations that drive their nation (maybe a small representation of them, their ancestors, but not the current citizens).
 
 A [Constitution](https://en.wikipedia.org/wiki/Constitution) represents these pillars. An immutable document that roughly describes the principles that drive an ever-changing society. 
 
@@ -185,7 +185,7 @@ The definition of merit could be considered some sort of constitution. And the v
 
 _The idea of the citizens voting on what they are experts on (which is about themselves) is borrowed from [Ralph Merkle](https://en.wikipedia.org/wiki/Ralph_Merkle)'s draft [DAOs, Democracy and Governance](http://merkle.com/papers/DAOdemocracyDraft.pdf)_
 
-_Note: I'm from Catalonia, where we are forbidden to express our opinion about how do we want our sovereignty, and the reason is that [the Spanish constitution says so](http://www.reuters.com/article/us-spain-politics-catalonia/spain-blocks-catalan-independence-vote-threatens-charges-idUSKCN1BI1GQ?il=0)_
+_Note: I’m from Catalonia, where [according to the Spanish constitution](https://en.wikipedia.org/wiki/Catalan_independence_referendum,_2017), we are forbidden to express our opinion about our sovereignty._
 
 ### Another example
 I used nation-states as an example because I believe is the most intuitive thing to think when talking about governance. The example is naive in few aspects, but mainly because it underestimates the complexity of a state. 
@@ -223,6 +223,8 @@ This document is an attempt to expose the ideology behind it, so the community c
 You're very welcome to join us on this exploration. No merit required.
 
 --
-_This document was published simultaniusly on my [personal blog](http://blog.xavivives.com/index) and Medium, and the full change log is available on [Github](https://github.com/xavivives/Uumm/blob/master/support/Broken%20meritocracy.md)._
+_This document was published simultaneously on my [personal blog](http://blog.xavivives.com/index) and Medium, and the full change log is available on [Github](https://github.com/xavivives/Uumm/blob/master/support/Broken%20meritocracy.md)._
 
-_It was possible thanks to the stress tests, constructive feedback, and support of the following people [Daniel Armengol](http://www.armengol-altayo.com/), [Greg Albritton](https://twitter.com/albrittongreg), [Xavier Vives](https://twitter.com/xacvisual), Assumpta Riba and Lydia Law._
+_This document was possible thanks to the stress tests, constructive feedback, and support of the following people:_
+
+_[Daniel Armengol](http://www.armengol-altayo.com/), [Greg Albritton](http://gregalbritton.com/), [Xavier Vives](https://twitter.com/xacvisual), Assumpta Riba and [Lydia Law](https://www.linkedin.com/in/lydia-law-li-0b765b109/?ppe=1)._
