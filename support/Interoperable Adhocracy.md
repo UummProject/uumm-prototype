@@ -1,8 +1,7 @@
 # Interoperable Adhocracy
+In the previous document we suggested an improvment on how a single decision making process could be improved.
 
-Before we attempted to describe the ideal features that single governance should have.
-
-What if any governance system could interact with any other governance? How this ecosystem should look like. What would it enable.
+On this one we'll try to envision how a decentralized ecosystem may function as a whole.
 
 ### Why adhocracy?
 _Governance_ is a broad concept very loosely used. The new decentralized paradigmn has a set of properties that are much better captured by adhocracy.
@@ -21,18 +20,12 @@ The reason this is important is because it becomes another governance process at
 
 Decentralized projects are intrinsically open-source, therfore they also can adapt or transofrm by being forked.
 
-
 ## Identity agnostic
 
 If the goal is to make the best decision possible, it should not matter where the ideas com from. Anyone/anything should be a potential participant, whatever it's a kid, an AI, a prediction market or another governance entity.
 
 Is the merit's job to filter who can participate.
 
-### Zero knowledge proof reputation
-There is a little paradox here. We need decentralized identities in order to build decentralized reputation systems.
-We also want the governance tools to be identity agnostic. While I don't see this as showstopper, [Zero knoledge proof](https://en.wikipedia.org/wiki/Zero-knowledge_proof) reputation seems be a nice to have
-
-Crypto-currencies almost come with this property built-in. The main problem here is accounts can be exchanged. [a](Reference required)
 
 ## Nestable governance
 That means that a governance system should be able to act as a participant entity to another governance system.
@@ -49,13 +42,6 @@ This is common in most goverances already (departments of a company, states/coun
 
 
 ### Interoperability
-Few DAOs exist and so many others are being created. It seems a good time to start working on some sort of standard. An [ERC20](https://theethereum.wiki/w/index.php/ERC20_Token_Standard) for governance.
-
-I haven't directly tackled this problem yet. Would love to hear proposals on how this interface may look like.
-
-
-## Relevant reads
-- [An Introduction to Futarchy] (https://blog.ethereum.org/2014/08/21/introduction-futarchy/) by [Vitalik Buterin](https://twitter.com/VitalikButerin) (2014)
 
 
 ### Wisdown of the crowds
@@ -67,10 +53,3 @@ We never witness the outcomes of [The DAO] (https://en.wikipedia.org/wiki/The_DA
 ###Voluntary
 ###Simple
 ###Enforcable or turstable
-
-##What can we build
-In Bitcoin, to change the protocol (vote), the miner needs to secure the network (merit)
-
-In a small business the right to make decisions (vote) belongs to the owner (merit)
-
-In a nation state to vote on elections (vote) you need to be a citizen  (merit)
