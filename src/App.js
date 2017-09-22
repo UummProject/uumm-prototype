@@ -6,7 +6,7 @@ import ProjectsListPage from './ProjectsListPage.js'
 import ProjectPage from './ProjectPage.js'
 import State from './State.js'
 import NetworkState from './NetworkState.js'
-import QueryString from 'query-string';
+import QueryString from 'query-string'
 import Web3AutoSetup from './Web3AutoSetup.js'
 import Uumm from './UummContractInterface.js'
 import GreyTheme from './GreyTheme.js'
