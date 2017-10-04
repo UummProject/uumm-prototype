@@ -13,12 +13,12 @@ _Governance_ is a broad concept very loosely used. The new decentralized paradig
 
 If you go over adhocracy [characteristics](https://en.wikipedia.org/wiki/Adhocracy#Characteristics_of_adhocracy) you will realize that many of those are just the result of participation being voluntary, therefore the _non-permanence_ feature.
 
+While this may not be the case of some organizations. I belive we could assume it will be the case for most of them
+
 ### Darwinian selection
 Voluntary participation on a governance system serves as [natural selection](https://en.wikipedia.org/wiki/Universal_Darwinism) tool.
 
-The reason this is important is because it becomes another governance process at the most fundamental level. It tells if a project should exist or not.
-
-Decentralized projects are intrinsically open-source, therfore they also can adapt or transofrm by being forked.
+This is important because it becomes another governance process at the most fundamental level. It tells if a project should exist or not. 
 
 ## Identity agnostic
 
@@ -26,6 +26,8 @@ If the goal is to make the best decision possible, it should not matter where th
 
 Is the merit's job to filter who can participate.
 
+## Non-permanence
+The none-permanence feature makes organizations to be resilient when an associated entity drops the relationship.
 
 ## Nestable governance
 That means that a governance system should be able to act as a participant entity to another governance system.
