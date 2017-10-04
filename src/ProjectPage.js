@@ -42,8 +42,8 @@ class ProjectDetails extends React.Component {
     this.setState(
     {
           slideIndex: value,
-        });
-    };
+        })
+    }
 
     onMakeNewProposal=()=>
     {
