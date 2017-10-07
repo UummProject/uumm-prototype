@@ -2,9 +2,9 @@
 _The Ultimate Unicorn Maker Machine_
 
 This repo has been moved [here](https://github.com/Uummio/UummProto)
-[Latest live version](https://xavivives.github.io/Uumm/)
+[Latest live version](https://uummproject.github.io/uumm-prototype)
 
-This document is old. The ideas behind it have been polished and are reflected on [this document](https://github.com/xavivives/Uumm/blob/master/support/Broken%20meritocracy.md). For the time being this readme still here to reflect the original intentions of the project.
+This document is old. The ideas behind it have been polished and are reflected on [this document](https://github.com/UummProject/uumm-prototype/blob/master/support/Broken%20meritocracy.md). For the time being this readme still here to reflect the original intentions of the project.
 
 # What's this project about?
 It's a decentralized governance tool for collaborative projects based on the assumption that the percentage of user ownership of a project is equal to the percentage of user contribution to the project.
@@ -54,23 +54,23 @@ Once the MVP is done and tested we will re-think the direction of the project.
 - [x] Initial design and sketches
 - [x] Repo and readme setup 
 - [x] Basic contract functionallity 
-- [x] [Contract](https://github.com/xavivives/Uumm/blob/master/contracts/Uumm.sol)
+- [x] [Contract](https://github.com/UummProject/uumm-prototype/blob/master/contracts/Uumm.sol)
 - [x] User interface design
 - [x] Minimal user interface implementation 
-- [x] [Public Ropsten deployment](https://xavivives.github.io/Uumm/)
+- [x] [Public Ropsten deployment](https://uummproject.github.io/uumm-prototype)
 - [x] Code optimizations
 - [x] Beautification
-- [ ] Unit tests **(WIP)**
-- [ ] Testing and polishing **(WIP)**
-- [ ] Deploy to mainnet
-- [ ] Re-think. Re-design.
+- [x] Unit tests
+- [x] Testing and polishing
+- [ ] ~~Deploy to mainnet~~
+- [x] [Re-think. Re-design](https://uummproject.github.io/)
 
 # Tech stack
 The project runs on top of the Ethereum network.
 ~~Embark~~ [Truffle](http://truffleframework.com/) is used as a framework for Ethereum.
 Javascript with ReactJS and Material-UI for the user interface
 
-[This contract](https://github.com/xavivives/DCBG/blob/master/app/contracts/DCBG1.sol) (WIP) is the core of the project. Any review is highly appreciated.
+[This contract](https://github.com/UummProject/uumm-prototype/blob/master/contracts/Uumm.sol) is the core of the project. Any review is highly appreciated.
 
 This stack is what I'm currently familiar with, and I'm using ~~a previous project~~ [Truffle's Status box](http://truffleframework.com/boxes/) as a template to speed up development.
 
