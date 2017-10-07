@@ -1,6 +1,7 @@
 # Uumm
 _The Ultimate Unicorn Maker Machine_
 
+This repo has been moved [here](https://github.com/Uummio/UummProto)
 [Latest live version](https://xavivives.github.io/Uumm/)
 
 This document is old. The ideas behind it have been polished and are reflected on [this document](https://github.com/xavivives/Uumm/blob/master/support/Broken%20meritocracy.md). For the time being this readme still here to reflect the original intentions of the project.
