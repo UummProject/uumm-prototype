@@ -63,7 +63,7 @@ class NetworkState extends React.Component {
 
     getInfuraHint=()=>
     {
-        var exampleLink="https://xavivives.github.io/Uumm/#projectId=0x1568dca1bef08d48017f034930c853bd9487ba947eb58fd51db9979e6de638f9"
+        var exampleLink="https://uummproject.github.io/uumm-prototype/##projectId=0x1568dca1bef08d48017f034930c853bd9487ba947eb58fd51db9979e6de638f9"
         var infuraLink ="https://infura.io/"
         return (<Warning important>
             <p> You're connected to ethereum using <a href={infuraLink}> {"Infura gateway"}</a></p>
