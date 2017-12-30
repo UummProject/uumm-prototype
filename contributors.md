@@ -33,3 +33,10 @@ List of entities that had contributor in some way to the Uumm project.
 ###Xavier Vives
 
 -Suggestions on how to frame the Broken meritocracy article
+
+###Griff
+- Overall discussion about meritocracy and liquid democracy
+
+###Luke
+- Overall discussion about governance
+- Great feedback on reputation sytstems
