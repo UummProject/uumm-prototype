@@ -1,7 +1,11 @@
 pragma solidity ^0.4.13;
 
+import 'zeppelin-solidity/contracts/math/SafeMath.sol';
+
 contract Uumm
 {
+    using SafeMath for uint256;
+
     struct projectData
     {
         //Project identity
@@ -136,8 +140,8 @@ contract Uumm
     function AddValueTokens(bytes32 projectId, address contributor, uint256 valueAmount) private
     {
         uint256 contributorId = projects[projectId].contributorsRef[contributor];
-        projects[projectId].contributors[contributorId].valueTokens += valueAmount;
-        projects[projectId].totalSupply += valueAmount;
+        projects[projectId].contributors[contributorId].valueTokens = projects[projectId].contributors[contributorId].valueTokens.add(valueAmount);
+        projects[projectId].totalSupply = projects[projectId].totalSupply.add(valueAmount);
     }
 
     function GetTotalSupply(bytes32 projectId) constant public
@@ -165,7 +169,7 @@ contract Uumm
         projects[projectId].proposals.push(proposal);
         
         projects[projectId].pendingProposals.push(proposalId);
-        projects[projectId].pendingProposalsLength ++;
+        projects[projectId].pendingProposalsLength = projects[projectId].pendingProposalsLength.add(1);
 
         uint256 contributorId = projects[projectId].contributorsRef[msg.sender];
 
@@ -260,13 +264,13 @@ contract Uumm
         //Reset the vote if she has voted already. 
         if(projects[projectId].proposals[proposalId].votes[msg.sender] > 0)
         {
-            projects[projectId].proposals[proposalId].positiveVotes -= uint256(projects[projectId].proposals[proposalId].votes[msg.sender]);
+            projects[projectId].proposals[proposalId].positiveVotes = projects[projectId].proposals[proposalId].positiveVotes.sub(uint256(projects[projectId].proposals[proposalId].votes[msg.sender]));
             //This fails for an unknown reason on local testrpc
             projects[projectId].proposals[proposalId].votes[msg.sender] = 0;
         }
         else if(projects[projectId].proposals[proposalId].votes[msg.sender] < 0)
         {
-            projects[projectId].proposals[proposalId].negativeVotes -= uint256(-1 * projects[projectId].proposals[proposalId].votes[msg.sender]);
+            projects[projectId].proposals[proposalId].negativeVotes = projects[projectId].proposals[proposalId].negativeVotes.sub(uint256(-1 * projects[projectId].proposals[proposalId].votes[msg.sender]));
             //This fails for an unknown reason on local testrpc
             projects[projectId].proposals[proposalId].votes[msg.sender] = 0;
         }
@@ -274,12 +278,12 @@ contract Uumm
         //Vote
         if(vote)
         {
-            projects[projectId].proposals[proposalId].positiveVotes += projects[projectId].contributors[contributorId].valueTokens;
+            projects[projectId].proposals[proposalId].positiveVotes = projects[projectId].proposals[proposalId].positiveVotes.add(projects[projectId].contributors[contributorId].valueTokens);
             projects[projectId].proposals[proposalId].votes[msg.sender] = int256(projects[projectId].contributors[contributorId].valueTokens);
         }
         else   
         {
-            projects[projectId].proposals[proposalId].negativeVotes += projects[projectId].contributors[contributorId].valueTokens;
+            projects[projectId].proposals[proposalId].negativeVotes = projects[projectId].proposals[proposalId].negativeVotes.add(projects[projectId].contributors[contributorId].valueTokens);
             projects[projectId].proposals[proposalId].votes[msg.sender] = -1 * int256(projects[projectId].contributors[contributorId].valueTokens);
         }
     }
@@ -345,7 +349,7 @@ contract Uumm
     function HasEnoughConcensus(uint256 votesAmount, uint256 totalSupply, uint256 requiredConcensus) constant public
         returns (bool)
     {
-       return  (votesAmount*precision)/(totalSupply*precision) > (requiredConcensus/100);
+       return  SafeMath.mul(votesAmount,precision)/SafeMath.mul(totalSupply,precision) > requiredConcensus/100;
     } 
     
     //Checks if a proposal has enough participation to be resolved before the exipring date
@@ -364,7 +368,7 @@ contract Uumm
     function HasExpired(bytes32 projectId, uint256 proposalId) constant public
         returns (bool)
     {
-        return (projects[projectId].proposals[proposalId].creationTimestamp + projects[projectId].proposalExpiringTimeInSeconds) > block.timestamp;
+        return SafeMath.add(projects[projectId].proposals[proposalId].creationTimestamp, projects[projectId].proposalExpiringTimeInSeconds) > block.timestamp;
     }
 
     function GetContributorVote(bytes32 projectId, uint256 proposalId, address contributor) constant public
@@ -380,10 +384,10 @@ contract Uumm
         if (msg.value == 0)
             revert();
 
-        uint256 factor = msg.value / projects[projectId].totalSupply; //by default integer divisions use floor
+        uint256 factor = SafeMath.div(msg.value,projects[projectId].totalSupply); //by default integer divisions use floor
         for (uint256 i = 0; i < projects[projectId].contributors.length; i++)
         {
-            projects[projectId].contributors[i].weiBalance += (projects[projectId].contributors[i].valueTokens * factor);
+            projects[projectId].contributors[i].weiBalance = projects[projectId].contributors[i].weiBalance.add(SafeMath.mul(projects[projectId].contributors[i].valueTokens, factor));
         }
     }
 

@@ -66,7 +66,8 @@
     "react-tap-event-plugin": "^2.0.1",
     "react-vis": "^1.7.1",
     "react-youtube": "^7.4.0",
-    "scrypt": "^6.0.3"
+    "scrypt": "^6.0.3",
+    "zeppelin-solidity": "^1.7.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
