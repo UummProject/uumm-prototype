@@ -72,17 +72,17 @@ contract Uumm
     uint256 precision = 10000; //multiplier to deal with integer divisions
 
 
-    function Uumm()
+    function Uumm() public
     {
     } 
 
-    function GetProjectId (address projectCreator, uint256 nonce) constant
+    function GetProjectId (address projectCreator, uint256 nonce) pure public
         returns (bytes32)
     {
         return(sha3(projectCreator, nonce));
     }
 
-    function CreateProject(string name)
+    function CreateProject(string name) public
     {
         bytes32 projectId = GetProjectId(msg.sender, users[msg.sender].projectsRef.length);
 
@@ -106,19 +106,19 @@ contract Uumm
         AddValueTokens(projectId, msg.sender, 1); 
     }
 
-    function GetProjectsLength( address userAddress) constant
+    function GetProjectsLength( address userAddress) constant public
         returns (uint256)
     {
         return (users[userAddress].projectsRef.length);
     }
 
-    function GetProjectIdByIndex(address userAddress, uint256 index)constant
+    function GetProjectIdByIndex(address userAddress, uint256 index) constant public
         returns (bytes32)
     {
         return (users[userAddress].projectsRef[index]);
     }
 
-    function GetProjectDetails (bytes32 projectId) constant
+    function GetProjectDetails (bytes32 projectId) constant public
         returns (address, string, bytes32, uint, uint256, uint256, uint256 )
     {
         return(
@@ -140,13 +140,13 @@ contract Uumm
         projects[projectId].totalSupply += valueAmount;
     }
 
-    function GetTotalSupply(bytes32 projectId) constant
+    function GetTotalSupply(bytes32 projectId) constant public
         returns (uint256)
     {
         return projects[projectId].totalSupply;
     }
     
-    function CreateProposal (bytes32 projectId, string title, string reference, uint256 valueAmount)
+    function CreateProposal (bytes32 projectId, string title, string reference, uint256 valueAmount) public
     {
         if(valueAmount==0)
             revert();
@@ -192,17 +192,17 @@ contract Uumm
         users[msg.sender].projectsRef.push(projectId);
     }
     
-    function GetProposalsLength(bytes32 projectId) constant returns (uint256)
+    function GetProposalsLength(bytes32 projectId) constant public returns (uint256)
     {
         return projects[projectId].proposals.length;
     }
    
-    function GetPendingProposalsLength(bytes32 projectId) constant returns (uint256)
+    function GetPendingProposalsLength(bytes32 projectId) constant public returns (uint256)
     {
         return projects[projectId].pendingProposalsLength;
     }
     
-    function  GetProposalDetails(bytes32 projectId, uint256 proposalId) constant
+    function  GetProposalDetails(bytes32 projectId, uint256 proposalId) constant public
         returns (uint256, address, string, string, uint256, uint)
     {
         return(
@@ -217,7 +217,7 @@ contract Uumm
 
     //Proposal data is splited in two (GetProposalState and GetProposalDetails) because solidity doesn't allow to return more than 9 values
     //Proposal state is the data that changes over time plus id and creationTimestamp
-    function  GetProposalState(bytes32 projectId, uint256 proposalId) constant
+    function  GetProposalState(bytes32 projectId, uint256 proposalId) constant public
         returns (uint256, proposalState, uint256, uint256, uint, uint256)
     {
         //proposal's totalSupply is only set once it's approved or dennied
@@ -236,14 +236,14 @@ contract Uumm
             );
     }
     
-    function GetPendingProposalId(bytes32 projectId, uint256 pendingIndex) constant
+    function GetPendingProposalId(bytes32 projectId, uint256 pendingIndex) constant public
         returns (uint256)
     {
         return projects[projectId].pendingProposals[pendingIndex];
     }
     
     //CRITICAL
-    function VoteProposal(bytes32 projectId, uint256 proposalId, bool vote)
+    function VoteProposal(bytes32 projectId, uint256 proposalId, bool vote) public
     {
          uint256 contributorId  =   projects[projectId].contributorsRef[msg.sender];
 
@@ -293,7 +293,7 @@ contract Uumm
     
     //TODO This function need to be expressed clearly. It is too convoluted right now.
 
-    function ResolveProposal(bytes32 projectId, uint256 proposalId)
+    function ResolveProposal(bytes32 projectId, uint256 proposalId) public
     {
 
         if (projects[projectId].proposals[proposalId].state != proposalState.pending)
@@ -342,14 +342,14 @@ contract Uumm
         }
     }
 
-    function HasEnoughConcensus(uint256 votesAmount, uint256 totalSupply, uint256 requiredConcensus) constant
+    function HasEnoughConcensus(uint256 votesAmount, uint256 totalSupply, uint256 requiredConcensus) constant public
         returns (bool)
     {
        return  (votesAmount*precision)/(totalSupply*precision) > (requiredConcensus/100);
     } 
     
     //Checks if a proposal has enough participation to be resolved before the exipring date
-    function HasEnoughParticipation(bytes32 projectId, uint256 proposalId) constant
+    function HasEnoughParticipation(bytes32 projectId, uint256 proposalId) constant public
         returns (bool)
     {
         if((projects[projectId].proposals[proposalId].positiveVotes * precision +
@@ -361,20 +361,20 @@ contract Uumm
             return false;
     }
 
-    function HasExpired(bytes32 projectId, uint256 proposalId) constant
+    function HasExpired(bytes32 projectId, uint256 proposalId) constant public
         returns (bool)
     {
         return (projects[projectId].proposals[proposalId].creationTimestamp + projects[projectId].proposalExpiringTimeInSeconds) > block.timestamp;
     }
 
-    function GetContributorVote(bytes32 projectId, uint256 proposalId, address contributor) constant
+    function GetContributorVote(bytes32 projectId, uint256 proposalId, address contributor) constant public
     returns (int256)
     {
         return projects[projectId].proposals[proposalId].votes[contributor];
     }
 
     //CRITICAL
-    function FundProject(bytes32 projectId) payable
+    function FundProject(bytes32 projectId) public payable
     {
         //TODO Make sure that the function consumes less gas than the one available in a block
         if (msg.value == 0)
@@ -387,7 +387,7 @@ contract Uumm
         }
     }
 
-    function WithdrawFunds(bytes32 projectId) 
+    function WithdrawFunds(bytes32 projectId) public
     {
         uint256 contributorId = projects[projectId].contributorsRef[msg.sender];
         if(projects[projectId].contributors[contributorId].weiBalance == 0)
@@ -396,13 +396,13 @@ contract Uumm
         msg.sender.transfer(projects[projectId].contributors[contributorId].weiBalance);
     }
 
-    function GetContributorId(bytes32 projectId, address contributorAddress) constant
+    function GetContributorId(bytes32 projectId, address contributorAddress) constant public
         returns (uint256)
     {
         return projects[projectId].contributorsRef[contributorAddress];
     }
 
-    function GetContributorDataByAddress(bytes32 projectId, address contributorAddress)  constant
+    function GetContributorDataByAddress(bytes32 projectId, address contributorAddress)  constant public
         returns (uint256, address, string, uint256, uint256)
     {   
         uint256 contributorId = projects[projectId].contributorsRef[contributorAddress];
@@ -412,7 +412,7 @@ contract Uumm
         return GetContributorData(projectId, contributorId);
     }
 
-    function GetContributorData(bytes32 projectId, uint256 contributorId)  constant
+    function GetContributorData(bytes32 projectId, uint256 contributorId)  constant public
         returns (uint256, address, string, uint256, uint256)
     {
         return(
@@ -424,13 +424,13 @@ contract Uumm
             );
     }
 
-    function GetContributorsLength(bytes32 projectId)  constant
+    function GetContributorsLength(bytes32 projectId)  constant public
         returns (uint256)
     {
         return(projects[projectId].contributors.length);
     }
 
-    function GetContributorProposalsLength(bytes32 projectId, uint256 contributorId) constant 
+    function GetContributorProposalsLength(bytes32 projectId, uint256 contributorId) constant public
         returns (uint256)
     {
         return(projects[projectId].contributors[contributorId].proposalsRef.length);
