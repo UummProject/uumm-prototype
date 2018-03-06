@@ -79,7 +79,7 @@ contract Uumm
     function GetProjectId (address projectCreator, uint256 nonce) pure public
         returns (bytes32)
     {
-        return(sha3(projectCreator, nonce));
+        return(keccak256(projectCreator, nonce));
     }
 
     function CreateProject(string name) public
@@ -96,8 +96,8 @@ contract Uumm
         projects[projectId].pendingProposalsLength = 0;
 
         //The first position of 'contributors' is empty so we accidentally don't default to it
-        contributorData memory emptyContributor;
-        projects[projectId].contributors.push(emptyContributor);
+        contributorData memory _emptyContributor;
+        projects[projectId].contributors.push(_emptyContributor);
 
         //Creator will be the first contributor
         addContributor(projectId, msg.sender);
