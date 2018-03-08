@@ -66,7 +66,8 @@
     "react-tap-event-plugin": "^2.0.1",
     "react-vis": "^1.7.1",
     "react-youtube": "^7.4.0",
-    "scrypt": "^6.0.3"
+    "scrypt": "^6.0.3",
+    "zeppelin-solidity": "1.7.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
@@ -106,5 +107,21 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "homepage": "https://uummproject.github.io/uumm-prototype/"
+  "homepage": "https://uummproject.github.io/uumm-prototype/",
+  "description": "_The Ultimate Unicorn Maker Machine_",
+  "main": "DeconstructionGovernanceExamples.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UummProject/uumm-prototype.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UummProject/uumm-prototype/issues"
+  }
 }
